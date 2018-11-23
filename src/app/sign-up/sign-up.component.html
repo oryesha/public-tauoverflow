@@ -1,0 +1,38 @@
+<div class="SignUpPage">
+  <app-nav-bar [isSignUp]="true">
+    <input matInput placeholder="Email" class="NavBarField" required>
+    <input matInput placeholder="Password" class="NavBarField" required>
+  </app-nav-bar>
+  <mat-card class="SignUpCard">
+    <mat-card-header class="SignUpHeader">
+      <mat-card-title class="SignUpTitle">
+        Sign Up
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="Name">
+        <mat-form-field appearance="fill" class="ShortField Field">
+          <mat-label>First name</mat-label>
+          <input matInput placeholder="" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="ShortField Field">
+          <mat-label>Last name</mat-label>
+          <input matInput placeholder="" required>
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="fill" class="LongField Field">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="LongField Field">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="" required [type]="hide ? 'password' : 'text'">
+        <mat-icon class="HideIcon" matSuffix (click)="hide = !hide">
+          {{hide ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<router-outlet></router-outlet>
