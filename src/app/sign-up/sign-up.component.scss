@@ -1,0 +1,60 @@
+@import "~@angular/material/theming";
+//@import "~@angular/material/form-field";
+
+.SignUpPage {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.SignUpCard {
+  background: mat-color($mat-gray, 200);
+  margin: 24px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.SignUpHeader {
+  justify-content: center;
+}
+
+.SignUpTitle {
+  color: mat-color($mat-gray, 700);
+  font-size: 24px;
+}
+
+.Name {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ShortField {
+  width: 47%;
+}
+
+.Field /deep/ .mat-form-field-flex {
+  background-color: white;
+}
+
+.Field /deep/ .mat-form-field-underline:before {
+  background: mat-color($mat-gray, 500);
+  height: 2px;
+}
+
+.Field /deep/ .mat-form-field-ripple {
+  background: mat-color($mat-deep-orange, 200);
+}
+
+.LongField {
+  width: 100%;
+}
+
+.NavBarField {
+  background: white;
+  font-size: 12px;
+  margin-left: 12px;
+}
+
+.HideIcon {
+  cursor: pointer;
+}
