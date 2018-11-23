@@ -2,3 +2,8 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700");
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~@angular/material/theming";
+
+.Root {
+  background: mat-color($mat-deep-orange, 50);
+  margin: 0;
+}

@@ -1,5 +1,4 @@
 @import "~@angular/material/theming";
-//@import "~@angular/material/form-field";
 
 .SignUpPage {
   align-items: center;
@@ -8,7 +7,7 @@
 }
 
 .SignUpCard {
-  background: mat-color($mat-gray, 200);
+  background: mat-color($mat-gray, 300);
   margin: 24px;
   max-width: 500px;
   width: 100%;
@@ -34,6 +33,7 @@
 
 .Field /deep/ .mat-form-field-flex {
   background-color: white;
+  padding: .5em .5em 0 .5em;
 }
 
 .Field /deep/ .mat-form-field-underline:before {
@@ -57,4 +57,15 @@
 
 .HideIcon {
   cursor: pointer;
+}
+
+.ButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.CreateAccountButton {
+  background: mat-color($mat-deep-orange, A100);
+  color: white;
+  letter-spacing: 0.8px;
 }
