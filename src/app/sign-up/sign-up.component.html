@@ -1,5 +1,5 @@
 <div class="SignUpPage">
-  <app-nav-bar [isSignUp]="true">
+  <app-nav-bar [isSignUp]="true" routerLink="/home-page">
     <input matInput placeholder="Email" class="NavBarField" required>
     <input matInput placeholder="Password" class="NavBarField" required>
   </app-nav-bar>
@@ -39,4 +39,3 @@
   </mat-card>
 </div>
 
-<router-outlet></router-outlet>

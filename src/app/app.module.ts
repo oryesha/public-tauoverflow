@@ -8,6 +8,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatTabsModule} from '@angular/material';
+import {MatListModule} from '@angular/material';
+import {MatChipsModule} from '@angular/material';
+
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -15,13 +19,21 @@ import {NavBarComponent} from './nav-bar/nav-bar.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { HomeCardComponent } from './home-card/home-card.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { CoursePageComponent } from './course-page/course-page.component';
+import { AnswerEditorComponent } from './answer-editor/answer-editor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     SignUpComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    HomeCardComponent,
+    HomePageComponent,
+    CoursePageComponent,
+    AnswerEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +48,9 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
     MatAutocompleteModule,
     ReactiveFormsModule,
     FormsModule,
+    MatTabsModule,
+    MatListModule,
+    MatChipsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
