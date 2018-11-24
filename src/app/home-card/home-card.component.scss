@@ -1,0 +1,36 @@
+$icon-small-size: 50px;
+
+.homeCard{
+  max-width: 160px;
+  padding: 20px;
+  margin-top: 10px;
+  background-color: bisque;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card-profile-image{
+  height: 120px;
+  width: 120px;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+}
+.user-name {
+  font-weight: bold;
+  padding: 10px;
+}
+
+.star_rate {
+  color: yellow;
+  font-size: $icon-small-size;
+  width: $icon-small-size;
+  height: $icon-small-size;
+  padding-bottom: 5px;
+}
+.star {
+  font-size: $icon-small-size;
+}
+.user-activity{
+  padding: 5px;
+}

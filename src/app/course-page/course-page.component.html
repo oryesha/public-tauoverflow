@@ -1,0 +1,48 @@
+<app-nav-bar></app-nav-bar>
+<mat-card class="main-card">
+  <h1>Courses</h1>
+  <mat-tab-group dynamicHeight class="Group">
+    <mat-tab label="Relevant Courses">
+      <mat-list>
+        <div class="mat-sub-header">
+          <h3 mat-subheader>A</h3>
+        </div>
+        <mat-list-item class="list-item" *ngFor="let folder of folders">
+          <button  mat-flat-button="notification" routerLink="/answer-editor"><mat-icon mat-list-icon>local_library</mat-icon></button>
+          <h4 mat-line>{{folder.name}}</h4>
+          <p mat-line> {{folder.updated | date}} </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div class="mat-sub-header">
+          <h3 mat-subheader>B</h3>
+        </div>
+        <mat-list-item class="list-item" *ngFor="let note of notes">
+          <button  mat-flat-button="notification" routerLink="/answer-editor"><mat-icon mat-list-icon>local_library</mat-icon></button>
+          <h4 mat-line>{{note.name}}</h4>
+          <p mat-line> {{note.updated | date}} </p>
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <mat-tab label="All Courses">
+      <mat-list>
+        <div class="mat-sub-header">
+          <h3 mat-subheader>Mandatory</h3>
+        </div>
+        <mat-list-item class="list-item" *ngFor="let folder of folders">
+          <button  mat-flat-button="notification" routerLink="/answer-editor"><mat-icon mat-list-icon>local_library</mat-icon></button>
+          <h4 mat-line>{{folder.name}}</h4>
+          <p mat-line> {{folder.updated | date}} </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div class="mat-sub-header">
+          <h3 mat-subheader>Notes</h3>
+        </div>
+        <mat-list-item class="list-item" *ngFor="let note of notes">
+          <button  mat-flat-button="notification" routerLink="/answer-editor"><mat-icon mat-list-icon>local_library</mat-icon></button>
+          <h4 mat-line>{{note.name}}</h4>
+          <p mat-line> {{note.updated | date}} </p>
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

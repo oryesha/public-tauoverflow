@@ -1,0 +1,25 @@
+
+.main-card {
+  background-color: seashell;
+  margin: 20px;
+}
+.mat-tab label {
+  background-color: darkgray;
+}
+.mat-sub-header h3{
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+.list-item {
+  background-color: darkgray;
+}
+.Group /deep/ div.mat-list-item-content {
+  flex-direction: row-reverse;
+}
+.Group /deep/ .mat-tab-label {
+  background-color: darkgray;
+  font-size: 14px;
+  font-weight: bold;
+}
