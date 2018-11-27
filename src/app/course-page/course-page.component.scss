@@ -1,25 +1,105 @@
+@import "~@angular/material/theming";
 
-.main-card {
-  background-color: seashell;
+.course-card {
+  background: mat-color($mat-deep-orange, 100);
+  color: mat-color($mat-gray, 100);
   margin: 20px;
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.mat-tab label {
-  background-color: darkgray;
+
+.page {
+  color: mat-color($mat-gray, 500);
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.mat-sub-header h3{
+
+.CardsWrapper {
+  display: flex;
+}
+
+.Star {
+  color: mat-color($mat-teal, 400);
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.SmallStar {
+  color: mat-color($mat-teal, 400);
+  justify-content: center;
+  font-size: 1px;
+}
+
+.CourseTitle {
   margin: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  color: black;
+  justify-content: center;
 }
-.list-item {
-  background-color: darkgray;
+
+.CoursePageButton {
+  background: mat-color($mat-gray, 400);
+  color: mat-color($mat-gray, 600);
+  margin: 4px;
 }
-.Group /deep/ div.mat-list-item-content {
-  flex-direction: row-reverse;
+
+.Tabs {
 }
-.Group /deep/ .mat-tab-label {
-  background-color: darkgray;
+
+.Tabs /deep/ .mat-ink-bar {
+  background: mat-color($mat-deep-orange, 200);
+  //color: mat-color($mat-deep-orange, 300);
+}
+
+.Tabs /deep/ .mat-tab-label {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.Tabs /deep/ .mat-tab-label-active {
+  color: mat-color($mat-gray, 800);
+}
+
+.ListItem {
+  color: mat-color($mat-gray, 600);
+}
+
+.ListItem /deep/ .mat-list-text {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  background-color: mat-color($mat-gray, 300);
+  margin-bottom: 5px;
+  padding: 10px;
+  max-height: 40px;
+}
+
+.NameAndDate {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  max-width: 16%;
+  width: 100%;
+}
+
+.QuestionTitle {
+  margin: 0;
   font-size: 14px;
-  font-weight: bold;
+  background-color: mat-color($mat-gray, 300);
+  color: mat-color($mat-gray, 600);
+  padding: 10px;
+}
+
+.QuestionTitle /deep/ .mat-button-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.CoursePageButtonContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 }
