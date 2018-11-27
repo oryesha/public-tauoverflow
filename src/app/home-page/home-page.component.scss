@@ -1,0 +1,62 @@
+@import '~@angular/material/theming';
+
+.HomePage {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.NavBarContainer {
+  flex: 0 0 auto;
+}
+
+.AllContent {
+  display: flex;
+  flex: 1 1 auto;
+  height: 0;
+  width: 100%;
+}
+
+.ProfileDetails {
+  padding: 20px;
+}
+
+.Search {
+  width: 100%;
+}
+
+.MainContent {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  width: 0;
+}
+
+.MainFeatures {
+  display: flex;
+  padding: 10px;
+  width: 50%;
+  justify-content: space-between;
+}
+
+.Feature {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+}
+
+.FeatureDescription {
+  color: mat-color($mat-gray, 600);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  text-align: center;
+}
+
+.FeatureIcon {
+  background: mat-color($mat-gray, 600);
+  color: mat-color($mat-gray, 200);
+}

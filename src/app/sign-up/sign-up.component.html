@@ -1,5 +1,5 @@
 <div class="SignUpPage">
-  <app-nav-bar [isSignUp]="true" routerLink="/home-page">
+  <app-nav-bar [isSignUp]="true">
     <input matInput placeholder="Email" class="NavBarField" required>
     <input matInput placeholder="Password" class="NavBarField" required>
   </app-nav-bar>
@@ -31,9 +31,11 @@
           {{hide ? 'visibility_off' : 'visibility'}}
         </mat-icon>
       </mat-form-field>
-      <app-autocomplete></app-autocomplete>
+      <app-autocomplete [options]="programs" [placeholder]="'Choose your program'"></app-autocomplete>
       <div class="ButtonContainer">
-        <button mat-raised-button class="CreateAccountButton" color="primary">Create Account</button>
+        <button mat-raised-button class="CreateAccountButton" color="primary" routerLink='/home-page'>
+          Create Account
+        </button>
       </div>
     </mat-card-content>
   </mat-card>

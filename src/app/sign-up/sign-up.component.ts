@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpComponent implements OnInit {
 
+  programs: string[] = ['Computer Science', 'Electrical Engineering', 'Law', 'Computer Science and Electrical Engineering', 'Economics',
+    'Management', 'Physics', 'Chemistry'];
+
   constructor() { }
 
   ngOnInit() {

@@ -1,0 +1,28 @@
+@import "~@angular/material/theming";
+
+.QuestionCard {
+  background: mat-color($mat-deep-orange, 100);
+  max-width: 75%;
+  width: 100%;
+}
+
+.QuestionEditorHeader {
+  color: mat-color($mat-gray, 100);
+  display: flex;
+  justify-content: center;
+}
+
+.QuestionEditorHeaderText {
+  font-weight: 400;
+}
+
+.QuestionEditor {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.Title {
+  max-width: 25%;
+  width: 100%;
+}

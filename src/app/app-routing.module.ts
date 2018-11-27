@@ -4,6 +4,7 @@ import {HomePageComponent} from './home-page/home-page.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {CoursePageComponent} from './course-page/course-page.component';
 import {AnswerEditorComponent} from './answer-editor/answer-editor.component';
+import {QuestionEditorComponent} from './question-editor/question-editor.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
     path: 'answer-editor',
     component: AnswerEditorComponent,
     data: {pageTitle: 'Answer Editor'}
+  },
+  {
+    path: 'question-editor',
+    component: QuestionEditorComponent,
+    data: {pageTitle: 'QuestionEditor'}
   }
 ];
 

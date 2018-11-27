@@ -1,0 +1,14 @@
+<div class="SearchComponent">
+  <mat-form-field appearance="outline" class="SearchBox">
+    <input matInput placeholder="Search a question...">
+    <div matSuffix class="ActionButtonsContainer">
+      <button matTooltip="search" mat-icon-button class="SearchIcon"><mat-icon>search</mat-icon></button>
+      <button matTooltip="filter" mat-icon-button class="SearchIcon" (click)="openDialog()">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+    </div>
+  </mat-form-field>
+  <!--<app-autocomplete class="SelectCourse" [options]="courses" [homePageCssClass]="'AutocompleteHomePage'"-->
+                    <!--[placeholder]="'Search in course'">-->
+  <!--</app-autocomplete>-->
+</div>
