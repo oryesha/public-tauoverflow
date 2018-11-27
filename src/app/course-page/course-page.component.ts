@@ -10,24 +10,32 @@ class Section {
 })
 export class CoursePageComponent implements OnInit {
 
-  folders: Section[] = [
+  questions: Section[] = [
     {
-      name: 'Linear Algebra',
-      updated: '50026665',
+      title: 'Amortized time complexity',
+      student: 'Or Yesha',
+      updated: new Date(2018, 10, 27),
     },
     {
-      name: 'Physics',
-      updated: '500337879',
+      title: 'Red-Black tree',
+      student: 'Nati Yosephian',
+      updated: new Date(2018, 10, 5),
     }
   ];
-  notes: Section[] = [
+
+  reviews: Section[] = [
     {
-      name: 'Intro to NLP',
-      updated: '500337879',
-    },
+      title: 'Great Course!',
+      student: 'Or Yesha',
+      updated: new Date(2018, 9, 22),
+    }
+  ];
+
+  partners: Section[] = [
     {
-      name: 'Intro to Data Since',
-      updated: '500337879',
+      title: 'Looking for a partner for the final project',
+      student: 'Ori Licht',
+      updated: new Date(2018, 10, 5),
     }
   ];
 

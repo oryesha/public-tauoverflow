@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomePageComponent} from './home-page/home-page.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
-import {CoursePageComponent} from './course-page/course-page.component';
+import {CoursesComponent} from './courses/courses.component';
 import {AnswerEditorComponent} from './answer-editor/answer-editor.component';
 import {QuestionEditorComponent} from './question-editor/question-editor.component';
+import {CoursePageComponent} from './course-page/course-page.component';
 
 const routes: Routes = [
   {
@@ -16,8 +17,8 @@ const routes: Routes = [
     component: HomePageComponent,
     data: {pageTitle: 'Home Page'}
   },
-  { path: 'course-page',
-    component: CoursePageComponent,
+  { path: 'courses',
+    component: CoursesComponent,
      data: {pageTitle: 'Course Page'}
    },
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
     path: 'question-editor',
     component: QuestionEditorComponent,
     data: {pageTitle: 'QuestionEditor'}
+  },
+  {
+    path: 'course-page',
+    component: CoursePageComponent,
+    data: {pageTitle: 'Course Page'}
   }
 ];
 

@@ -23,6 +23,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AutocompleteComponent} from './autocomplete/autocomplete.component';
 import {ProfileDetailsComponent} from './profile-details/profile-details.component';
 import {HomePageComponent} from './home-page/home-page.component';
+import { CoursesComponent } from './courses/courses.component';
 import {CoursePageComponent} from './course-page/course-page.component';
 import {AnswerEditorComponent} from './answer-editor/answer-editor.component';
 import {SearchBarComponent} from './search-bar/search-bar.component';
@@ -43,7 +44,8 @@ import { FormFieldComponent } from './form-field/form-field.component';
     SearchBarComponent,
     FilterDialogComponent,
     QuestionEditorComponent,
-    FormFieldComponent
+    FormFieldComponent,
+    CoursesComponent,
   ],
   imports: [
     BrowserModule,
