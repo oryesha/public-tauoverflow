@@ -21,8 +21,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { HomeCardComponent } from './home-card/home-card.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { CoursePageComponent } from './course-page/course-page.component';
+import { CoursesComponent } from './courses/courses.component';
 import { AnswerEditorComponent } from './answer-editor/answer-editor.component';
+import { CoursePageComponent } from './course-page/course-page.component';
 
 @NgModule({
   declarations: [
@@ -32,8 +33,9 @@ import { AnswerEditorComponent } from './answer-editor/answer-editor.component';
     AutocompleteComponent,
     HomeCardComponent,
     HomePageComponent,
-    CoursePageComponent,
-    AnswerEditorComponent
+    CoursesComponent,
+    AnswerEditorComponent,
+    CoursePageComponent
   ],
   imports: [
     BrowserModule,

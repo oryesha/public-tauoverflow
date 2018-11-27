@@ -1,48 +1,53 @@
 <app-nav-bar></app-nav-bar>
-<mat-card class="main-card">
-  <h1>Courses</h1>
-  <mat-tab-group dynamicHeight class="Group">
-    <mat-tab label="Relevant Courses">
-      <mat-list>
-        <div class="mat-sub-header">
-          <h3 mat-subheader>A</h3>
-        </div>
-        <mat-list-item class="list-item" *ngFor="let folder of folders">
-          <button  mat-flat-button="notification" routerLink="/answer-editor"><mat-icon mat-list-icon>local_library</mat-icon></button>
-          <h4 mat-line>{{folder.name}}</h4>
-          <p mat-line> {{folder.updated | date}} </p>
+<div class="CardsWrapper">
+  <mat-card class="course-card">
+    <h3 class="CourseTitle">Data Structures</h3>
+    <div class="Stars">
+      <mat-icon class="Star" *ngFor="let i of [1,2,3]">star</mat-icon>
+      <mat-icon class="Star">star_half</mat-icon>
+      <mat-icon class="Star">star_border</mat-icon>
+    </div>
+    <div> Reviews: 99 </div>
+    <div class="CoursePageButtonContainer">
+      <button mat-raised-button class="CoursePageButton" color="primary">Ask a question</button>
+      <button mat-raised-button class="CoursePageButton" color="primary">Write a review</button>
+      <button mat-raised-button class="CoursePageButton" color="primary">Find a partner</button>
+      <button mat-raised-button class="CoursePageButton" color="primary">Change class hours</button>
+    </div>
+  </mat-card>
+  <div class="page">
+    <mat-tab-group class="Tabs">
+      <mat-tab label="Questions" >
+        <mat-list-item class="ListItem" *ngFor="let question of questions">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{question.title}}</button>
+          <span mat-line class="NameAndDate">
+            <span>{{question.student}}</span>
+            <span>{{question.updated | date}}</span>
+          </span>
+           </mat-list-item>
+      </mat-tab>
+      <mat-tab label="Reviews">
+        <mat-list-item class="ListItem" *ngFor="let review of reviews">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">
+            <span>{{review.title}}
+              <mat-icon [inline]="true" class="SmallStar" *ngFor="let i of [1,2,3]">star</mat-icon></span>
+          </button>
+          <span mat-line class="NameAndDate">
+            <span>{{review.student}}</span>
+            <span>{{review.updated | date}}</span>
+          </span>
         </mat-list-item>
-        <mat-divider></mat-divider>
-        <div class="mat-sub-header">
-          <h3 mat-subheader>B</h3>
-        </div>
-        <mat-list-item class="list-item" *ngFor="let note of notes">
-          <button  mat-flat-button="notification" routerLink="/answer-editor"><mat-icon mat-list-icon>local_library</mat-icon></button>
-          <h4 mat-line>{{note.name}}</h4>
-          <p mat-line> {{note.updated | date}} </p>
+      </mat-tab>
+      <mat-tab label="Partners">
+        <mat-list-item class="ListItem" *ngFor="let partner of partners">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{partner.title}}</button>
+          <span mat-line class="NameAndDate">
+            <span>{{partner.student}}</span>
+            <span>{{partner.updated | date}}</span>
+          </span>
         </mat-list-item>
-      </mat-list>
-    </mat-tab>
-    <mat-tab label="All Courses">
-      <mat-list>
-        <div class="mat-sub-header">
-          <h3 mat-subheader>Mandatory</h3>
-        </div>
-        <mat-list-item class="list-item" *ngFor="let folder of folders">
-          <button  mat-flat-button="notification" routerLink="/answer-editor"><mat-icon mat-list-icon>local_library</mat-icon></button>
-          <h4 mat-line>{{folder.name}}</h4>
-          <p mat-line> {{folder.updated | date}} </p>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <div class="mat-sub-header">
-          <h3 mat-subheader>Notes</h3>
-        </div>
-        <mat-list-item class="list-item" *ngFor="let note of notes">
-          <button  mat-flat-button="notification" routerLink="/answer-editor"><mat-icon mat-list-icon>local_library</mat-icon></button>
-          <h4 mat-line>{{note.name}}</h4>
-          <p mat-line> {{note.updated | date}} </p>
-        </mat-list-item>
-      </mat-list>
-    </mat-tab>
-  </mat-tab-group>
-</mat-card>
+      </mat-tab>
+      <mat-tab label="Change hours"></mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
