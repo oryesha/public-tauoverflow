@@ -1,0 +1,24 @@
+<app-nav-bar></app-nav-bar>
+<div class="QuestionEditor">
+  <mat-card class="QuestionCard">
+    <mat-card-header class="QuestionEditorHeader">
+      <h1 class="QuestionEditorHeaderText">Ask Your Question</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="Title">
+        <h2>Title:</h2>
+        <app-form-field [label]="'Write question subject'">
+        </app-form-field>
+      </div>
+      <div class="Question">
+        <h2>Question:</h2>
+        <mat-form-field appearance="outline">
+          <textarea matInput placeholder="Write question content"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="Question">
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

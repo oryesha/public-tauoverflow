@@ -1,0 +1,42 @@
+@import '~@angular/material/theming';
+
+.SearchComponent {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.SearchBox {
+  max-width: 50%;
+  width: 100%;
+}
+
+.SearchBox /deep/ .mat-form-field-outline-thick {
+  //background: mat-color($mat-deep-orange, 200);
+  color: mat-color($mat-deep-orange, 200);
+}
+
+.mat-form-field-appearance-outline /deep/ .mat-form-field-outline {
+  //background: mat-color($mat-gray, 500);
+  background: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.SearchBox /deep/ .mat-form-field-ripple {
+  background: mat-color($mat-deep-orange, 200);
+}
+
+.SearchIcon {
+  color: mat-color($mat-gray, 500);
+}
+
+.SelectCourse {
+  width: 25%;
+}
+
+.ActionButtonsContainer {
+  display: flex;
+}

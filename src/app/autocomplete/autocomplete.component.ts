@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -10,8 +10,9 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class AutocompleteComponent implements OnInit {
   myControl = new FormControl();
-  options: string[] = ['Computer Science', 'Electrical Engineering', 'Law', 'Computer Science and Electrical Engineering', 'Economics',
-    'Management', 'Physics', 'Chemistry'];
+  @Input() options: string[];
+  @Input() homePageCssClass: string;
+  @Input() placeholder: string;
   filteredOptions: Observable<string[]>;
 
   ngOnInit() {

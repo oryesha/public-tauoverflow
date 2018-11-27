@@ -1,0 +1,19 @@
+@import "~@angular/material/theming";
+
+.Field {
+  width: 100%;
+}
+
+.Field /deep/ .mat-form-field-flex {
+  background-color: white;
+  padding: .5em .5em 0 .5em;
+}
+
+.Field /deep/ .mat-form-field-underline:before {
+  background: mat-color($mat-gray, 500);
+  height: 2px;
+}
+
+.Field /deep/ .mat-form-field-ripple {
+  background: mat-color($mat-deep-orange, 200);
+}
