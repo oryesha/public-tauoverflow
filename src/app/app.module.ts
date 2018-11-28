@@ -67,7 +67,8 @@ import { FormFieldComponent } from './form-field/form-field.component';
     MatDialogModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [FilterDialogComponent]
 })
 export class AppModule {
 }

@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
+import {MatDialogConfig} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-search-bar',
@@ -15,17 +16,18 @@ export class SearchBarComponent implements OnInit {
   constructor(private dialog: MatDialog) { }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(FilterDialogComponent, {
-      width: '250px',
-    });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    // });
-    alert('HI!');
+    const dialogConfig = new MatDialogConfig()
+    dialogConfig.width = '250px';
+    dialogConfig.position = {
+                              'top': '500',
+                              'left': '500'
+                            };
+    dialogConfig.data = {id: 1, title: 'This is Dialog'}
+    this.dialog.open(FilterDialogComponent, dialogConfig);
   }
 
   ngOnInit() {
   }
 }
+
 
