@@ -30,6 +30,8 @@ import {SearchBarComponent} from './search-bar/search-bar.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
 import { FormFieldComponent } from './form-field/form-field.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ChipsComponent } from './chips/chips.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { FormFieldComponent } from './form-field/form-field.component';
     QuestionEditorComponent,
     FormFieldComponent,
     CoursesComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
