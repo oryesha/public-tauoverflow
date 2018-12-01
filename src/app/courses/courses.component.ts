@@ -10,24 +10,49 @@ class Section {
 })
 export class CoursesComponent implements OnInit {
 
-  folders: Section[] = [
+  courses: string[] = ['Data Structures 03682160', 'Linear Algebra 1A 03662160', 'Discrete Math 03682000', 'Classic Physics 03252160',
+    'Intro To Data Science 03685060'];
+  allACourses: Section[] = [
     {
-      name: 'Linear Algebra',
-      updated: '50026665',
+      name: 'Algorithms',
+      courseNum: '03682160',
     },
     {
-      name: 'Physics',
-      updated: '500337879',
+      name: 'Algebra B1',
+      courseNum: '03662132',
     }
   ];
-  notes: Section[] = [
+
+  allBCourses: Section[] = [
+    {
+      name: 'Big Data',
+      courseNum: '05725135',
+    },
+    {
+      name: 'Biogeography',
+      courseNum: '04553703',
+    }
+  ];
+
+  myMandatoryCourses: Section[] = [
+    {
+      name: 'Algorithms',
+      courseNum: '03682160',
+    },
+    {
+      name: 'Data Structures',
+      courseNum: '03682158',
+    }
+  ];
+
+  myChoiceCourses: Section[] = [
     {
       name: 'Intro to NLP',
-      updated: '500337879',
+      courseNum: '03683235',
     },
     {
       name: 'Intro to Data Science',
-      updated: '500337879',
+      courseNum: '03683319'
     }
   ];
 

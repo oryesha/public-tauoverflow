@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {MatDialogConfig} from '@angular/material/dialog';
@@ -25,6 +25,8 @@ export class SearchBarComponent implements OnInit {
     dialogConfig.data = {id: 1, title: 'This is Dialog'}
     this.dialog.open(FilterDialogComponent, dialogConfig);
   }
+
+  @Input() isSearchQuestion: boolean;
 
   ngOnInit() {
   }
