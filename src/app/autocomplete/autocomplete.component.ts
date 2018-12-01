@@ -13,6 +13,7 @@ export class AutocompleteComponent implements OnInit {
   @Input() options: string[];
   @Input() homePageCssClass: string;
   @Input() placeholder: string;
+  @Input() isCourseSearch: boolean;
   filteredOptions: Observable<string[]>;
 
   ngOnInit() {
