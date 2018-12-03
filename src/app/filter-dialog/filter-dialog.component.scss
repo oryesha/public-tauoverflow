@@ -1,0 +1,6 @@
+@import "~@angular/material/theming";
+
+.choose-button{
+  background: mat-color($mat-gray, 500);
+  color: mat-color($mat-gray, 800);
+}

@@ -13,7 +13,8 @@ import {MatListModule} from '@angular/material';
 import {MatChipsModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
-import { NgxEditorModule } from 'ngx-editor';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import {HttpClientModule} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -67,7 +68,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     MatChipsModule,
     MatSelectModule,
     MatDialogModule,
-    NgxEditorModule,
+    AngularEditorModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

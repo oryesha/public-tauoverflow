@@ -1,9 +1,15 @@
-<h1 mat-dialog-title>Hi</h1>
-<div>
+<div class="dialog">
+<h1 mat-dialog-title>{{description}}</h1>
+
   <mat-dialog-content>
-  <p>What's your favorite animal?</p>
+  <p>Choose Relevant Courses</p>
+    <mat-form-field>
+      <mat-select placeholder="Courses" [formControl]="courses" multiple>
+        <mat-option *ngFor="let course of coursesList">{{course}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button (click)="close()">Close</button>
+    <button mat-button class="choose-button" (click)="close()">Choose</button>
   </mat-dialog-actions>
 </div>
