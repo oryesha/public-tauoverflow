@@ -9,7 +9,7 @@ class Section {
   styleUrls: ['./course-page.component.scss']
 })
 export class CoursePageComponent implements OnInit {
-
+  course_name: string;
   questions: Section[] = [
     {
       title: 'Amortized time complexity',

@@ -15,18 +15,18 @@ export class SearchBarComponent implements OnInit {
 
   constructor(private dialog: MatDialog) { }
 
+  @Input() isSearchQuestion: boolean;
+
   openDialog(): void {
-    const dialogConfig = new MatDialogConfig()
+    const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '250px';
     dialogConfig.position = {
-                              'top': '500',
-                              'left': '500'
+                              left: '50vw',
+                              top: '50vh'
                             };
-    dialogConfig.data = {id: 1, title: 'This is Dialog'}
+    dialogConfig.data = {id: 1, title: 'Search Filter'};
     this.dialog.open(FilterDialogComponent, dialogConfig);
   }
-
-  @Input() isSearchQuestion: boolean;
 
   ngOnInit() {
   }
