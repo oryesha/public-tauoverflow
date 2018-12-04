@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-question-page',
@@ -7,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionPageComponent implements OnInit {
   chips: string[] = ['Data Structures'];
+  isShowAnswerEditor: boolean;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  show() {
+    this.isShowAnswerEditor = true;
   }
 
 }
