@@ -81,3 +81,26 @@ $icon-size: 32px;
   //font-size: 15px;
   text-transform: uppercase;
 }
+
+.AutocompleteFindPartnerContainer {
+  max-width: 25%;
+}
+
+.FindPartnerTitle {
+  color: mat-color($mat-gray, 700);
+  font-size: 24px;
+}
+
+.FindPartnerHeader {
+  justify-content: center;
+}
+
+
+.CourseNameSelector {
+  width: 100%;
+}
+
+.AutocompleteFindPartner /deep/ .mat-form-field-flex {
+  background: white !important;
+}
+

@@ -15,6 +15,9 @@ export class AutocompleteComponent implements OnInit {
   @Input() placeholder: string;
   @Input() isCourseSearch: boolean;
   filteredOptions: Observable<string[]>;
+  defaultOptions: string[] = ['Calculus 1b', 'Intro to CS', 'Linear Algebra', 'Discrete Mathematics', 'Complexity',
+    'Micro-Economics', 'Funding', 'Statistics'];
+
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges
@@ -26,7 +29,8 @@ export class AutocompleteComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
+    const optionsToFilter = this.options || this.defaultOptions;
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return optionsToFilter.filter(option => option.toLowerCase().includes(filterValue));
   }
 }

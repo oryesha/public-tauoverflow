@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 
 @Component({
   selector: 'app-question-editor',
@@ -22,6 +24,7 @@ export class QuestionEditorComponent implements OnInit {
       },
     ]
   };
+
   constructor() { }
 
   ngOnInit() {

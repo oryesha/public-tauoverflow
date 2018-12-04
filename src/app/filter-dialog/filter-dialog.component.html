@@ -1,15 +1,15 @@
-<div class="dialog">
-<h1 mat-dialog-title>{{description}}</h1>
-
-  <mat-dialog-content>
-  <p>Choose Relevant Courses</p>
-    <mat-form-field>
+<div class="Dialog">
+  <h1 mat-dialog-title class="DialogTitle">{{description}}</h1>
+  <mat-dialog-content class="DialogContent">
+  <!--<p>Select courses</p>-->
+    <mat-form-field class="DialogCourseSelector">
       <mat-select placeholder="Courses" [formControl]="courses" multiple>
-        <mat-option *ngFor="let course of coursesList">{{course}}</mat-option>
+        <mat-option *ngFor="let course of coursesList" class="OptionSelect">{{course}}</mat-option>
       </mat-select>
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button class="choose-button" (click)="close()">Choose</button>
+    <button mat-button class="choose-button" (click)="close()" *ngIf="isSearch">Choose</button>
+    <button mat-button class="choose-button" (click)="close()" routerLink="/question-editor" *ngIf="!isSearch">Choose</button>
   </mat-dialog-actions>
 </div>
