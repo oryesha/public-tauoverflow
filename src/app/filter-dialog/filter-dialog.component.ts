@@ -9,12 +9,15 @@ import {FormControl} from '@angular/forms';
 })
 export class FilterDialogComponent implements OnInit {
   courses = new FormControl();
-  coursesList: string[] = ['Algebra', 'History', 'Physics']
+  coursesList: string[] = ['Algebra', 'History', 'Physics', 'Data Structures', 'Software 1']
   description = 'Choose Relevant Courses';
+  isSearch: boolean;
+
   constructor(
               private dialogRef: MatDialogRef<FilterDialogComponent>,
               @Inject(MAT_DIALOG_DATA) data) {
     this.description = data.title;
+    this.isSearch = data.isSearch;
   }
   ngOnInit() {
   }

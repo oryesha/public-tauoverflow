@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 
 @Component({
   selector: 'app-home-page',
@@ -6,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
+
+  }
+
+  openCoursesDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '250px';
+    dialogConfig.position = {
+      // left: '50vw',
+      // top: '50vh'
+    };
+    dialogConfig.data = {id: 1, title: 'Search in Courses'};
+    this.dialog.open(FilterDialogComponent, dialogConfig);
   }
 
 }

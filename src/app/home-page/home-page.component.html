@@ -15,23 +15,30 @@
           <app-search-bar [isSearchQuestion]="true"></app-search-bar>
         </div>
       </div>
-      <div class="MainFeatures" routerLink="/question-editor">
+      <div class="MainFeatures">
         <div class="Feature">
-          <button mat-fab class="FeatureIcon"><mat-icon>live_help</mat-icon></button>
+          <!--<button mat-fab class="FeatureIcon" routerLink="/question-editor">-->
+          <button mat-fab class="FeatureIcon" (click)="openCoursesDialog()">
+            <mat-icon>live_help</mat-icon>
+          </button>
           <div class="FeatureDescription">
             <span>Ask a</span>
             <span>question</span>
           </div>
         </div>
         <div class="Feature">
-          <button mat-fab class="FeatureIcon"><mat-icon>people</mat-icon></button>
+          <button mat-fab class="FeatureIcon" routerLink="/find-a-partner-editor">
+            <mat-icon>people</mat-icon>
+          </button>
           <span class="FeatureDescription">
             <span>Find a</span>
             <span>partner</span>
           </span>
         </div>
         <div class="Feature">
-          <button mat-fab class="FeatureIcon"><mat-icon>rate_review</mat-icon></button>
+          <button mat-fab class="FeatureIcon" routerLink="/course-review-editor">
+            <mat-icon>rate_review</mat-icon>
+          </button>
           <div class="FeatureDescription">
             <span>Add a course</span>
             <span>review</span>

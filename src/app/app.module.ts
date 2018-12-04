@@ -32,6 +32,10 @@ import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
 import { FormFieldComponent } from './form-field/form-field.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { FindAPartnerEditorComponent } from './find-a-partner-editor/find-a-partner-editor.component';
+import { CourseReviewEditorComponent } from './course-review-editor/course-review-editor.component';
+import { SingleAnswerComponent } from './single-answer/single-answer.component';
+import { SingleAnswerEditorComponent } from './single-answer-editor/single-answer-editor.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,10 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     FormFieldComponent,
     CoursesComponent,
     SearchResultsComponent,
+    FindAPartnerEditorComponent,
+    CourseReviewEditorComponent,
+    SingleAnswerComponent,
+    SingleAnswerEditorComponent,
   ],
   imports: [
     BrowserModule,

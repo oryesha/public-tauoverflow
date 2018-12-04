@@ -1,31 +1,35 @@
 <app-nav-bar></app-nav-bar>
 <div class="QuestionEditor">
   <mat-card class="QuestionCard">
-    <mat-chip-list>
-      <mat-chip class="CourseTag">Data Structures</mat-chip>
-      <mat-chip class="CourseTag">Program 1</mat-chip>
-    </mat-chip-list>
-    <mat-card-header class="QuestionEditorHeader">
-      <h1 class="QuestionEditorHeaderText">Ask Your Question</h1>
-    </mat-card-header>
+    <div class="SelectedCourses">
+      <mat-chip-list class="ChipList">
+        <mat-chip class="CourseTag">
+          Data Structures
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <mat-chip class="CourseTag">
+          Software 1
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+      <button mat-icon-button class="PlusIconButton">
+        <mat-icon class="PlusIcon">add</mat-icon>
+      </button>
+    </div>
     <mat-card-content>
       <div class="Title">
-        <h2>Title:</h2>
+        <h2 class="TitleText">Title:</h2>
         <app-form-field [label]="'Write question subject'">
         </app-form-field>
       </div>
       <div class="Question">
-        <h2>Question:</h2>
-        <!--<mat-form-field class="QuestionContent" appearance="outline">-->
-          <!--<textarea matInput placeholder="Write question content"></textarea>-->
-        <!--</mat-form-field>-->
-
-      <div class="Question">
-      <angular-editor class="QuestionContent" [config]="editorConfig">
-        <textarea matInput placeholder="Write question content"></textarea>
-      </angular-editor>
+        <h2 class="TitleText">Question:</h2>
+        <angular-editor [config]="editorConfig" class="QuestionTextArea">
+        </angular-editor>
       </div>
-</div>
+      <div class="DoneButtonContainer">
+        <button mat-raised-button class="RaisedDoneButton">submit</button>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

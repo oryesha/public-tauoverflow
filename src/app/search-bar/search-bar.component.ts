@@ -21,10 +21,10 @@ export class SearchBarComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '250px';
     dialogConfig.position = {
-                              left: '50vw',
-                              top: '50vh'
+                              // left: '50vw',
+                              // top: '50vh'
                             };
-    dialogConfig.data = {id: 1, title: 'Search Filter'};
+    dialogConfig.data = {id: 1, title: 'Search in Courses', isSearch: true};
     this.dialog.open(FilterDialogComponent, dialogConfig);
   }
 

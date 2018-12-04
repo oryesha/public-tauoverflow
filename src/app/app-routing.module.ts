@@ -7,6 +7,8 @@ import {AnswerEditorComponent} from './answer-editor/answer-editor.component';
 import {QuestionEditorComponent} from './question-editor/question-editor.component';
 import {CoursePageComponent} from './course-page/course-page.component';
 import {SearchResultsComponent} from './search-results/search-results.component';
+import {FindAPartnerEditorComponent} from './find-a-partner-editor/find-a-partner-editor.component';
+import {CourseReviewEditorComponent} from './course-review-editor/course-review-editor.component';
 
 const routes: Routes = [
   {
@@ -36,6 +38,16 @@ const routes: Routes = [
     path: 'course-page',
     component: CoursePageComponent,
     data: {pageTitle: 'Course Page'}
+  },
+  {
+    path: 'find-a-partner-editor',
+    component: FindAPartnerEditorComponent,
+    data: {pageTitle: 'Find A Partner Editor'}
+  },
+  {
+    path: 'course-review-editor',
+    component: CourseReviewEditorComponent,
+    data: {pageTitle: 'Course Review Editor'}
   },
   {
     path: 'search-results',
