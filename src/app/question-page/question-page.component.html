@@ -1,0 +1,11 @@
+<div class="questionPage">
+  <app-nav-bar></app-nav-bar>
+  <div class="coursesChips">
+    <mat-chip-list>
+      <mat-chip *ngFor="let chip of chips">{{chip}}</mat-chip>
+    </mat-chip-list>
+  </div>
+  <app-question-card></app-question-card>
+  <app-answer-card></app-answer-card>
+  <!--<add-answer-card></add-answer-card>-->
+</div>
