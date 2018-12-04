@@ -1,8 +1,13 @@
 <div class="SearchComponent">
   <mat-form-field appearance="outline" class="SearchBox">
-    <input matInput placeholder="Search a question...">
+    <div *ngIf="isSearchQuestion">
+      <input matInput placeholder="Search a question...">
+    </div>
+    <div *ngIf="!isSearchQuestion">
+      <input matInput placeholder="Search a course...">
+    </div>
     <div matSuffix class="ActionButtonsContainer">
-      <button matTooltip="search" mat-icon-button class="SearchIcon"><mat-icon>search</mat-icon></button>
+      <button matTooltip="search" mat-icon-button class="SearchIcon" (click)="showResults=true"><mat-icon>search</mat-icon></button>
       <button matTooltip="filter" mat-icon-button class="SearchIcon" (click)="openDialog()">
         <mat-icon>filter_list</mat-icon>
       </button>
@@ -11,4 +16,7 @@
   <!--<app-autocomplete class="SelectCourse" [options]="courses" [homePageCssClass]="'AutocompleteHomePage'"-->
                     <!--[placeholder]="'Search in course'">-->
   <!--</app-autocomplete>-->
+  <div class="Results" *ngIf="showResults">
+    <app-search-results></app-search-results>
+  </div>
 </div>

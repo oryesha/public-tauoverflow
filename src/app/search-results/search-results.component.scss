@@ -1,0 +1,65 @@
+@import "~@angular/material/theming";
+
+
+.MainResult {
+  padding-bottom: 20px;
+}
+
+.ResultHeader {
+  text-align: left;
+  color: mat-color($mat-gray, 700);
+}
+
+.ListItem {
+  /*background-color: mat-color($mat-gray, 200);*/
+  padding: 10px;
+  display: flex;
+  max-width: 100%;
+  width: 100%;
+}
+
+.IconDetails {
+  width: 10%;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  color: mat-color($mat-teal, 200);
+}
+
+.IconText {
+  color: mat-color($mat-deep-orange, 300);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.IconExp {
+  color: mat-color($mat-gray, 600);
+  font-size: xx-small;
+}
+
+.NameAndDate {
+  display: flex;
+  flex-direction: column;
+  color: mat-color($mat-gray, 600);
+  font-size: 12px;
+  max-width: 10%;
+  width: 100%;
+}
+
+
+.ResTitleButton {
+  margin: 0;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  color: mat-color($mat-gray, 700);
+  padding: 10px;
+}
+
+.ResContent {
+  margin: 0;
+  font-size: 12px;
+  font-weight: lighter;
+  color: mat-color($mat-gray, 600);
+}

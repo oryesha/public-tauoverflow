@@ -1,25 +1,83 @@
+@import "~@angular/material/theming";
 
-.main-card {
-  background-color: seashell;
-  margin: 20px;
+.CourseSearch {
+  max-width: 25%;
+  padding: 10px;
 }
+
 .mat-tab label {
   background-color: darkgray;
 }
-.mat-sub-header h3{
-  margin: 10px;
+
+h3.mat-subheader{
   font-size: 20px;
-  font-weight: bold;
-  color: black;
+  color: mat-color($mat-gray, 500);
 }
-.list-item {
-  background-color: darkgray;
+
+.ListItem /deep/ .mat-list-text {
+  background-color: mat-color($mat-gray, 300);
+  color: mat-color($mat-gray, 600);
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  max-width: 25%;
+  width: 100%;
 }
+
 .Group /deep/ div.mat-list-item-content {
   flex-direction: row-reverse;
+  padding: 0;
 }
 .Group /deep/ .mat-tab-label {
   background-color: darkgray;
   font-size: 14px;
   font-weight: bold;
+}
+
+.CoursesViewTabs /deep/ .mat-ink-bar {
+  background: mat-color($mat-deep-orange, 200);
+}
+
+.CoursesViewTabs /deep/ .mat-tab-label {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.CoursesViewTabs /deep/ .mat-tab-label-active {
+  color: mat-color($mat-gray, 800);
+}
+
+.NameAndCourseNum /deep/ .mat-line{
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  max-width: 16%;
+  width: 100%;
+}
+
+.CourseName {
+  background-color: mat-color($mat-gray, 200);
+  color: mat-color($mat-gray, 700);
+  text-align: left;
+}
+
+.CourseName /deep/ .mat-button-wrapper {
+  padding-left: 10px;
+}
+
+.CourseNum /deep/ span{
+  padding-left: 10px;
+}
+
+.CourseIcon {
+  color: mat-color($mat-gray, 500);
+}
+
+.CourseIcon{
+  margin-left: auto;
+  color: mat-color($mat-deep-orange, 100);
+}
+
+.MainWrapper{
+  padding: 20px;
 }

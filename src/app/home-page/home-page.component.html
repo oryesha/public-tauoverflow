@@ -7,11 +7,13 @@
       <app-profile-details></app-profile-details>
     </div>
     <div class="MainContent">
-      <div class="ImgContainer">
-        <img src="../../assets/logotov.png" />
-      </div>
-      <div class="Search">
-        <app-search-bar></app-search-bar>
+      <div class="LogoAndSearch">
+        <div class="ImgContainer">
+          <img class="resize" src="../../assets/logo.png" />
+        </div>
+        <div class="Search">
+          <app-search-bar [isSearchQuestion]="true"></app-search-bar>
+        </div>
       </div>
       <div class="MainFeatures" routerLink="/question-editor">
         <div class="Feature">

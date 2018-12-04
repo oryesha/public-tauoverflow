@@ -6,8 +6,14 @@
   width: 100%;
 }
 
+.CourseTag {
+  color: mat-color($mat-gray, 700);
+  background-color: mat-color($mat-teal, 300);
+}
+
 .QuestionEditorHeader {
   color: mat-color($mat-gray, 100);
+  font-weight: bold;
   display: flex;
   justify-content: center;
 }

@@ -13,7 +13,8 @@ import {MatListModule} from '@angular/material';
 import {MatChipsModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import {HttpClientModule} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -31,7 +32,7 @@ import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
 import { FormFieldComponent } from './form-field/form-field.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { ChipsComponent } from './chips/chips.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ChipsComponent } from './chips/chips.component';
     FormFieldComponent,
     CoursesComponent,
     UserProfileComponent,
+    SearchResultsComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,8 @@ import { ChipsComponent } from './chips/chips.component';
     MatChipsModule,
     MatSelectModule,
     MatDialogModule,
+    AngularEditorModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

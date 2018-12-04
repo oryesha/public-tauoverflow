@@ -1,0 +1,32 @@
+<div class="MainResult">
+  <h2 mat-header-row class="ResultHeader">{{results.length}} Results</h2>
+  <mat-divider></mat-divider>
+  <mat-list>
+    <mat-list-item class="ListItem" *ngFor="let result of results">
+      <mat-divider></mat-divider>
+      <div class="IconDetails">
+        <mat-icon matListIcon class="IconDetails">check_circle</mat-icon>
+        <div class="IconText">
+          <div class="IconRes">{{result.answersNum}}</div>
+          <div class="IconExp">answers</div>
+        </div>
+      </div>
+      <div class="IconDetails">
+        <mat-icon matListIcon class="IconDetails">thumb_up</mat-icon>
+        <div class="IconText">
+          <div class="IconRes">{{result.votes}}</div>
+          <div class="IconExp">votes</div>
+        </div>
+      </div>
+      <div class="NameAndDate">
+        <div>{{result.from}}</div>
+        <div>{{result.created | date}}</div>
+      </div>
+      <button mat-button matLine class="ResTitleButton">{{result.subject}}</button>
+      <!--<h3 matLine class="ResTitle">  </h3>-->
+      <p matLine>
+        <span class="ResContent"> {{result.content}} </span>
+      </p>
+    </mat-list-item>
+  </mat-list>
+</div>
