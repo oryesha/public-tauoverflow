@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./answer-card.component.scss']
 })
 export class AnswerCardComponent implements OnInit {
-
+  date: Date = new Date(2018, 9, 14);
   constructor() { }
 
   ngOnInit() {
