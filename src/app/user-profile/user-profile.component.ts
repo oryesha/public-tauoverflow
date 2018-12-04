@@ -14,7 +14,7 @@ export class UserProfileComponent implements OnInit {
   userName = 'Geffen Menchik';
   userProgram = 'Computer Science & Electrical Engineering';
   userProfileImage = '../../assets/geffen.jpg';
-  skills: string[] = ['Software1', 'Computationals Models', 'Data Structures', '+', '+'];
+  skills: string[] = ['Software1', 'Computationals Models', 'Data Structures', '+'];
 
   myQuestions: Section[] = [
     {
