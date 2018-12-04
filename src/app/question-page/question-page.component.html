@@ -5,7 +5,7 @@
       <mat-chip *ngFor="let chip of chips">{{chip}}</mat-chip>
     </mat-chip-list>
   </div>
-  <app-question-card></app-question-card>
+  <app-question-card (click)="show()"></app-question-card>
   <app-answer-card></app-answer-card>
-  <app-single-answer-editor></app-single-answer-editor>
+  <app-single-answer-editor *ngIf="isShowAnswerEditor"></app-single-answer-editor>
 </div>
