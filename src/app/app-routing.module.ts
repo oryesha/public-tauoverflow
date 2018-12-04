@@ -8,6 +8,7 @@ import {QuestionEditorComponent} from './question-editor/question-editor.compone
 import {CoursePageComponent} from './course-page/course-page.component';
 import {SearchResultsComponent} from './search-results/search-results.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
+import {QuestionPageComponent} from './question-page/question-page.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,11 @@ const routes: Routes = [
     path: 'search-results',
     component: SearchResultsComponent,
     data: {pageTitle: 'Search Results'}
+  },
+  {
+    path: 'question-page',
+    component: QuestionPageComponent,
+    data: {pageTitle: 'Question Page'}
   }
 ];
 

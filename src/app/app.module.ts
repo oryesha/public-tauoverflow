@@ -33,6 +33,9 @@ import { QuestionEditorComponent } from './question-editor/question-editor.compo
 import { FormFieldComponent } from './form-field/form-field.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { QuestionPageComponent } from './question-page/question-page.component';
+import { QuestionCardComponent } from './question-card/question-card.component';
+import { AnswerCardComponent } from './answer-card/answer-card.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     CoursesComponent,
     UserProfileComponent,
     SearchResultsComponent,
+    QuestionPageComponent,
+    QuestionCardComponent,
+    AnswerCardComponent,
   ],
   imports: [
     BrowserModule,
