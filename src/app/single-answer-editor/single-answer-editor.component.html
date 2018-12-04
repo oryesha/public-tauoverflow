@@ -1,0 +1,19 @@
+<div class="QuestionEditor">
+  <mat-card class="QuestionCard">
+    <mat-card-content>
+      <div class="Title">
+        <h2 class="TitleText">Add new answer:</h2>
+        <app-form-field [label]="'Write question subject'">
+        </app-form-field>
+      </div>
+      <div class="Question">
+        <h2 class="TitleText">Question:</h2>
+        <angular-editor [config]="editorConfig" class="QuestionTextArea">
+        </angular-editor>
+      </div>
+      <div class="DoneButtonContainer">
+        <button mat-raised-button class="RaisedDoneButton">submit</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
