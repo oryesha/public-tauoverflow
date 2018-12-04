@@ -38,7 +38,6 @@ import { QuestionCardComponent } from './question-card/question-card.component';
 import { AnswerCardComponent } from './answer-card/answer-card.component';
 import { FindAPartnerEditorComponent } from './find-a-partner-editor/find-a-partner-editor.component';
 import { CourseReviewEditorComponent } from './course-review-editor/course-review-editor.component';
-import { SingleAnswerComponent } from './single-answer/single-answer.component';
 import { SingleAnswerEditorComponent } from './single-answer-editor/single-answer-editor.component';
 
 @NgModule({
@@ -63,7 +62,6 @@ import { SingleAnswerEditorComponent } from './single-answer-editor/single-answe
     AnswerCardComponent,
     FindAPartnerEditorComponent,
     CourseReviewEditorComponent,
-    SingleAnswerComponent,
     SingleAnswerEditorComponent,
   ],
   imports: [

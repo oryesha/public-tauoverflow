@@ -2,10 +2,18 @@
 
 $icon-size: 32px;
 
-.QuestionCard {
-  background: mat-color($mat-deep-orange, 100);
-  max-width: 75%;
+.AnswerEditorCard {
+  background: mat-color($mat-gray, 300);
+  margin: 0 60px;
   width: 100%;
+}
+
+.AnswerEditorCard /deep/ .angular-editor-wrapper {
+  max-height: 150px;
+}
+
+.AnswerEditorCard /deep/ .angular-editor-textarea {
+  max-height: 126px;
 }
 
 .CourseTag {
@@ -33,10 +41,10 @@ $icon-size: 32px;
   font-weight: 400;
 }
 
-.QuestionEditor {
+.AnswerEditor {
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .Title {
