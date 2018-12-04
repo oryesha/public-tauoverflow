@@ -1,6 +1,21 @@
 @import "~@angular/material/theming";
 
-.course-card {
+.userTitle {
+  margin: 10px;
+  justify-content: center;
+}
+
+.Program {
+  //color: mat-color($mat-gray, 500);
+  font-weight: 500;
+  text-align: center;
+}
+
+.CardsWrapper {
+  display: flex;
+}
+
+.userCard {
   background: mat-color($mat-deep-orange, 100);
   color: mat-color($mat-gray, 100);
   margin: 20px;
@@ -11,21 +26,13 @@
   align-items: center;
 }
 
-.Reviews {
-  font-weight: 500;
-  text-align: center;
-}
-
-.page {
-  color: mat-color($mat-gray, 500);
-  margin: 20px;
+.card-profile-image {
+  height: 120px;
+  width: 120px;
+  padding: 10px;
+  border-radius: 50%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-}
-
-.CardsWrapper {
-  display: flex;
 }
 
 .Star {
@@ -34,24 +41,38 @@
   margin-bottom: 5px;
 }
 
-.SmallStar {
-  color: mat-color($mat-teal, 400);
-  justify-content: center;
-  font-size: 1px;
+.About {
+  font-weight: 500;
+  font-size: 14px;
 }
 
-.CourseTitle {
-  margin: 10px;
-  justify-content: center;
+.Chip {
+  font-size: 12px;
+  background-color: mat-color($mat-gray, 300);
 }
 
-.CoursePageButton {
-  background: mat-color($mat-gray, 400);
-  color: mat-color($mat-gray, 600);
-  margin: 4px;
+
+.Skills {
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  text-align-all: left;
+  justify-content: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.Page {
+  color: mat-color($mat-gray, 500);
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .Tabs {
+  min-width: 550px;
 }
 
 .Tabs /deep/ .mat-ink-bar {
@@ -82,14 +103,6 @@
   max-height: 40px;
 }
 
-.NameAndDate {
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-  max-width: 16%;
-  width: 100%;
-}
-
 .QuestionTitle {
   margin: 0;
   font-size: 14px;
@@ -103,8 +116,10 @@
   flex-direction: column;
 }
 
-.CoursePageButtonContainer {
+.VotesAndAnswers {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  font-size: 12px;
+  max-width: 16%;
+  width: 100%;
 }

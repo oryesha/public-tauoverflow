@@ -7,6 +7,8 @@ import {AnswerEditorComponent} from './answer-editor/answer-editor.component';
 import {QuestionEditorComponent} from './question-editor/question-editor.component';
 import {CoursePageComponent} from './course-page/course-page.component';
 import {SearchResultsComponent} from './search-results/search-results.component';
+import {UserProfileComponent} from './user-profile/user-profile.component';
+import {QuestionPageComponent} from './question-page/question-page.component';
 import {FindAPartnerEditorComponent} from './find-a-partner-editor/find-a-partner-editor.component';
 import {CourseReviewEditorComponent} from './course-review-editor/course-review-editor.component';
 
@@ -40,19 +42,29 @@ const routes: Routes = [
     data: {pageTitle: 'Course Page'}
   },
   {
-    path: 'find-a-partner-editor',
-    component: FindAPartnerEditorComponent,
-    data: {pageTitle: 'Find A Partner Editor'}
-  },
-  {
-    path: 'course-review-editor',
-    component: CourseReviewEditorComponent,
-    data: {pageTitle: 'Course Review Editor'}
+  path: 'user-profile',
+  component: UserProfileComponent,
+  data: {pageTitle: 'User Profile'}
   },
   {
     path: 'search-results',
     component: SearchResultsComponent,
     data: {pageTitle: 'Search Results'}
+  },
+  {
+    path: 'find-a-partner-editor',
+    component: FindAPartnerEditorComponent,
+    data: {pageTitle: 'Find A Partner Editor'}
+  },
+{
+  path: 'course-review-editor',
+  component: CourseReviewEditorComponent,
+  data: {pageTitle: 'Course Review Editor'}
+},
+  {
+    path: 'question-page',
+    component: QuestionPageComponent,
+    data: {pageTitle: 'Question Page'}
   }
 ];
 

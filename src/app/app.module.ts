@@ -31,7 +31,11 @@ import {SearchBarComponent} from './search-bar/search-bar.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
 import { FormFieldComponent } from './form-field/form-field.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { QuestionPageComponent } from './question-page/question-page.component';
+import { QuestionCardComponent } from './question-card/question-card.component';
+import { AnswerCardComponent } from './answer-card/answer-card.component';
 import { FindAPartnerEditorComponent } from './find-a-partner-editor/find-a-partner-editor.component';
 import { CourseReviewEditorComponent } from './course-review-editor/course-review-editor.component';
 import { SingleAnswerComponent } from './single-answer/single-answer.component';
@@ -52,7 +56,11 @@ import { SingleAnswerEditorComponent } from './single-answer-editor/single-answe
     QuestionEditorComponent,
     FormFieldComponent,
     CoursesComponent,
+    UserProfileComponent,
     SearchResultsComponent,
+    QuestionPageComponent,
+    QuestionCardComponent,
+    AnswerCardComponent,
     FindAPartnerEditorComponent,
     CourseReviewEditorComponent,
     SingleAnswerComponent,
