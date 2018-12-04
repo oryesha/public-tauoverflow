@@ -7,6 +7,7 @@ import {AnswerEditorComponent} from './answer-editor/answer-editor.component';
 import {QuestionEditorComponent} from './question-editor/question-editor.component';
 import {CoursePageComponent} from './course-page/course-page.component';
 import {SearchResultsComponent} from './search-results/search-results.component';
+import {UserProfileComponent} from './user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,11 @@ const routes: Routes = [
     path: 'course-page',
     component: CoursePageComponent,
     data: {pageTitle: 'Course Page'}
+  },
+  {
+    path: 'user-profile',
+    component: UserProfileComponent,
+    data: {pageTitle: 'User Profile'}
   },
   {
     path: 'search-results',
