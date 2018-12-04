@@ -9,17 +9,17 @@
     </div>
     <div class="mat-body-2 Reviews"> Reviews: 99 </div>
     <div class="CoursePageButtonContainer">
-      <button mat-raised-button class="CoursePageButton" color="primary">Ask a question</button>
-      <button mat-raised-button class="CoursePageButton" color="primary">Write a review</button>
-      <button mat-raised-button class="CoursePageButton" color="primary">Find a partner</button>
-      <button mat-raised-button class="CoursePageButton" color="primary">Change class hours</button>
+      <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/question-editor">Ask a question</button>
+      <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/course-review-editor">Write a review</button>
+      <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/find-a-partner-editor">Find a partner</button>
+      <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/find-a-partner-editor">Change class hours</button>
     </div>
   </mat-card>
   <div class="page">
     <mat-tab-group class="Tabs">
       <mat-tab label="Questions" >
         <mat-list-item class="ListItem" *ngFor="let question of questions">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{question.title}}</button>
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle" routerLink="/question-page">{{question.title}}</button>
           <span mat-line class="NameAndDate">
             <span>{{question.student}}</span>
             <span>{{question.updated | date}}</span>

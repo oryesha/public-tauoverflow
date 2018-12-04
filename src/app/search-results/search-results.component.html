@@ -22,7 +22,7 @@
         <div>{{result.from}}</div>
         <div>{{result.created | date}}</div>
       </div>
-      <button mat-button matLine class="ResTitleButton">{{result.subject}}</button>
+      <button mat-button matLine class="ResTitleButton" routerLink="/question-page">{{result.subject}}</button>
       <!--<h3 matLine class="ResTitle">  </h3>-->
       <p matLine>
         <span class="ResContent"> {{result.content}} </span>

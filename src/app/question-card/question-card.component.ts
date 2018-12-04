@@ -7,9 +7,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class QuestionCardComponent implements OnInit {
   date: Date = new Date(2018, 9, 13);
-
+  answerScore = 27;
+  onClickMe() {
+    this.answerScore++;
+  }
   constructor() { }
-
   ngOnInit() {
   }
 

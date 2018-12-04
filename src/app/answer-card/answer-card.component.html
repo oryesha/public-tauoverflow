@@ -17,8 +17,8 @@
     </div>
     <div class="AnswerBottom">
       <div class="LikeButtonContainer">
-        <button mat-icon-button class="Button"><mat-icon class="ThumbIcon">thumb_up</mat-icon></button>
-        <span class="NumOfLikes">12</span>
+        <button mat-icon-button class="Button" (click)="onClickMe()"><mat-icon class="ThumbIcon">thumb_up</mat-icon></button>
+        <span class="NumOfLikes">{{answerScore}}</span>
       </div>
     </div>
   </mat-card-content>
