@@ -1,0 +1,21 @@
+{
+  "userDetails": [
+    {
+      "name": [
+        {
+          "first": "Geffen",
+          "last": "Menchik"
+        }
+      ],
+      "program": "Computer Science and Electrical Engineering",
+      "profilePicturePath": "../../geffen.jpg",
+      "rank": 100,
+      "description": "25 YO developer, from Ra'anana",
+      "skills": [
+        "Data Structures",
+        "Software 1",
+        "Computational Models"
+      ]
+    }
+  ]
+}
