@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -39,6 +39,7 @@ import { AnswerCardComponent } from './answer-card/answer-card.component';
 import { FindAPartnerEditorComponent } from './find-a-partner-editor/find-a-partner-editor.component';
 import { CourseReviewEditorComponent } from './course-review-editor/course-review-editor.component';
 import { SingleAnswerEditorComponent } from './single-answer-editor/single-answer-editor.component';
+import {AppService} from './app.service';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,7 @@ import { SingleAnswerEditorComponent } from './single-answer-editor/single-answe
     AngularEditorModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent],
   entryComponents: [FilterDialogComponent]
 })

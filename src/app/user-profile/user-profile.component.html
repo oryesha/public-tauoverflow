@@ -1,27 +1,28 @@
 <app-nav-bar></app-nav-bar>
 <div class="CardsWrapper">
-  <mat-card class="userCard">
-    <h3 class="userTitle">{{userName}}</h3>
-    <div class="mat-body-2 Program">{{userProgram}}</div>
-    <img src="{{userProfileImage}}" class="card-profile-image">
-    <div>
-      <mat-icon class="Star" *ngFor="let i of [1,2,3]">star</mat-icon>
-      <mat-icon class="Star">star_half</mat-icon>
-      <mat-icon class="Star">star_border</mat-icon>
-    </div>
-    <div class="mat-body About">
-      <div>{{userDescription}}</div>
-    </div>
-    <div class="mat-body Skills">
-      Skills:
-        <mat-chip-list>
-          <mat-chip class="Chip" routerLink="/course-page">Data Structures</mat-chip>
-          <mat-chip class="Chip">Software1</mat-chip>
-          <mat-chip class="Chip">Computational Models</mat-chip>
-          <mat-chip class="Chip">+</mat-chip>
-        </mat-chip-list>
-    </div>
-  </mat-card>
+  <app-profile-details></app-profile-details>
+  <!--<mat-card class="userCard">-->
+    <!--<h3 class="userTitle">{{userName}}</h3>-->
+    <!--<div class="mat-body-2 Program">{{userProgram}}</div>-->
+    <!--<img src="{{userProfileImage}}" class="card-profile-image">-->
+    <!--<div>-->
+      <!--<mat-icon class="Star" *ngFor="let i of [1,2,3]">star</mat-icon>-->
+      <!--<mat-icon class="Star">star_half</mat-icon>-->
+      <!--<mat-icon class="Star">star_border</mat-icon>-->
+    <!--</div>-->
+    <!--<div class="mat-body About">-->
+      <!--<div>{{userDescription}}</div>-->
+    <!--</div>-->
+    <!--<div class="mat-body Skills">-->
+      <!--Skills:-->
+        <!--<mat-chip-list>-->
+          <!--<mat-chip class="Chip" routerLink="/course-page">Data Structures</mat-chip>-->
+          <!--<mat-chip class="Chip">Software1</mat-chip>-->
+          <!--<mat-chip class="Chip">Computational Models</mat-chip>-->
+          <!--<mat-chip class="Chip">+</mat-chip>-->
+        <!--</mat-chip-list>-->
+    <!--</div>-->
+  <!--</mat-card>-->
   <div class="Page">
     <mat-tab-group class="Tabs">
       <mat-tab label="My Questions" >

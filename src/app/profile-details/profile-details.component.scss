@@ -22,7 +22,7 @@ $icon-small-size: 50px;
   display: flex;
 }
 
-.user-name {
+.UserName {
   font-weight: 500;
   margin-bottom: 0;
   padding: 10px;
@@ -53,4 +53,25 @@ $icon-small-size: 50px;
 .user-activity {
   font-weight: 400;
   padding: 10px;
+}
+
+.About {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.Chip {
+  font-size: 12px;
+  background-color: mat-color($mat-gray, 300);
+}
+
+.Skills {
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  text-align-all: left;
+  justify-content: left;
+  display: flex;
+  flex-direction: column;
 }

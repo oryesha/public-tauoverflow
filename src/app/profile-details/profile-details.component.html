@@ -1,14 +1,19 @@
 <mat-card class="HomeCard">
-    <h2 class="mat-h2 user-name">Hello {{userName}}!</h2>
-    <div class="mat-body-2 Program">{{userProgram}}</div>
-    <img src="{{userProfileImage}}" class="card-profile-image">
-    <div class="Stars">
-      <mat-icon class="Star" *ngFor="let i of [1,2,3]">star</mat-icon>
-      <mat-icon class="Star">star_half</mat-icon>
-      <mat-icon class="Star">star_border</mat-icon>
+  <h2 class="mat-h2 UserName" *ngIf="!isProfilePage">Hello {{name.first}}!</h2>
+  <h2 class="mat-h2 UserName" *ngIf="isProfilePage">{{name.first}} {{name.last}}</h2>
+  <div class="mat-body-2 Program">{{program}}</div>
+  <img src="{{profilePicturePath}}" class="card-profile-image">
+  <div>Here will be the ranking</div>
+  <ng-container *ngIf="isProfilePage">
+    <div class="mat-body About">
+      <div>{{description}}</div>
     </div>
-  <div class="mat-body user-activity">
-    <div><b>Asked:</b> {{userAsked}}</div>
-    <div><b>Answered:</b> {{userAnswered}}</div>
-  </div>
-  </mat-card>
+    <div class="mat-body Skills">
+      Skills:
+      <mat-chip-list>
+        <mat-chip class="Chip" *ngFor="let skill of skills">{{skill}}</mat-chip>
+      </mat-chip-list>
+      <button mat-icon-button class="Chip"><mat-icon>add</mat-icon></button>
+    </div>
+  </ng-container>
+</mat-card>

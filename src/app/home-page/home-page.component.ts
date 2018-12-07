@@ -8,7 +8,10 @@ import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {
+    // const x = this.appService.getAll();
+  }
+
 
   ngOnInit() {
 
