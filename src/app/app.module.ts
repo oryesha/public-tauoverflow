@@ -16,6 +16,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import {HttpClientModule} from '@angular/common/http';
 
+import { PostsService } from './posts.service';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
@@ -85,7 +86,7 @@ import { SingleAnswerEditorComponent } from './single-answer-editor/single-answe
     AngularEditorModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [PostsService],
   bootstrap: [AppComponent],
   entryComponents: [FilterDialogComponent]
 })
