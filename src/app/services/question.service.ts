@@ -32,7 +32,7 @@ export class QuestionService {
   editQuestion( question: Question ) {
     const editUrl = `${this.questionUrl}`;
     // returns the observable of http put request
-    return this.http.put(editUrl, Question);
+    return this.http.put(editUrl, question);
   }
 
   deleteQuestion(id: string): any {

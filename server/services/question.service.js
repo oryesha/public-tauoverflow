@@ -40,7 +40,7 @@ exports.updateQuestion = async function(question){
   let oldQuestion;
 
   try{
-     oldQuestion = await question.findById(id);
+     oldQuestion = await Question.findById(id);
   }catch(e){
     throw Error("Error occured while Finding the question")
   }
@@ -69,7 +69,7 @@ exports.updateQuestion = async function(question){
 exports.deleteQuestion = async function(id){
 
   try{
-    let deleted = await question.remove({_id: id});
+    let deleted = await Question.remove({_id: id});
     if(deleted.result.n === 0){
       throw Error("question Could not be deleted")
     }
