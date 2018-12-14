@@ -1,25 +1,25 @@
 <app-nav-bar></app-nav-bar>
-<div class="QuestionEditor">
-  <mat-card class="QuestionCard">
-    <mat-card-header class="FindPartnerHeader">
-      <mat-card-title class="FindPartnerTitle">
+<div class="PostEditor">
+  <mat-card class="PostCard">
+    <mat-card-header class="PostHeader">
+      <mat-card-title class="PostTitle">
         Add a Course Review
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="CourseNameSelector">
-        <h2 class="TitleText">Course Name:</h2>
-        <div class="AutocompleteFindPartnerContainer">
+        <h2 class="PostTitleText">Course Name:</h2>
+        <div class="AutocompletePostContainer">
           <app-autocomplete [placeholder]="'Select course...'" class="AutocompleteFindPartner"></app-autocomplete>
         </div>
       </div>
-      <div class="Title">
-        <h2 class="TitleText">Title:</h2>
+      <div class="PostTitle">
+        <h2 class="PostTitleText">Title:</h2>
         <app-form-field [label]="'Add review title'">
         </app-form-field>
       </div>
       <div class="Question">
-        <h2 class="TitleText">Rank:</h2>
+        <h2 class="PostTitleText">Rank:</h2>
         <div class="StarsContainer">
           <div class="StarContainer" *ngFor="let i of [1,2,3,4,5]">
             <mat-icon class="Star" *ngIf="numOfStars >= i" (click)="updateStars(i)">star</mat-icon>
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="Question">
-        <h2 class="TitleText">Review:</h2>
+        <h2 class="PostTitleText">Review:</h2>
         <angular-editor [config]="editorConfig" class="QuestionTextArea">
         </angular-editor>
       </div>

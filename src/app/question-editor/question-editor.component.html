@@ -1,35 +1,56 @@
 <app-nav-bar></app-nav-bar>
-<div class="QuestionEditor">
-  <mat-card class="QuestionCard">
-    <div class="SelectedCourses">
-      <mat-chip-list class="ChipList">
-        <mat-chip class="CourseTag">
-          Data Structures
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <mat-chip class="CourseTag">
-          Software 1
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
-      <button mat-icon-button class="PlusIconButton">
-        <mat-icon class="PlusIcon">add</mat-icon>
-      </button>
-    </div>
-    <mat-card-content>
-      <div class="Title">
-        <h2 class="TitleText">Title:</h2>
-        <app-form-field [label]="'Write question subject'">
-        </app-form-field>
-      </div>
-      <div class="Question">
-        <h2 class="TitleText">Question:</h2>
-        <angular-editor [config]="editorConfig" class="QuestionTextArea">
-        </angular-editor>
-      </div>
-      <div class="DoneButtonContainer">
-        <button mat-raised-button class="RaisedDoneButton" routerLink="/question-page">submit</button>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+<app-post-editor
+  [postTitle]="'Ask A Question'"
+  [titleLabel]="'Write question subject'"
+  [descriptionTitle]="'Question'"
+  [isAskQuestion]="true">
+  <div class="SelectedCourses">
+    <mat-chip-list class="ChipList">
+      <mat-chip class="CourseTag">
+        Data Structures
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <mat-chip class="CourseTag">
+        Software 1
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+    <button mat-icon-button class="PlusIconButton">
+      <mat-icon class="PlusIcon">add</mat-icon>
+    </button>
+  </div>
+</app-post-editor>
+<!--<div class="PostEditor">-->
+  <!--<mat-card class="PostCard">-->
+    <!--<div class="SelectedCourses">-->
+      <!--<mat-chip-list class="ChipList">-->
+        <!--<mat-chip class="CourseTag">-->
+          <!--Data Structures-->
+          <!--<mat-icon matChipRemove>cancel</mat-icon>-->
+        <!--</mat-chip>-->
+        <!--<mat-chip class="CourseTag">-->
+          <!--Software 1-->
+          <!--<mat-icon matChipRemove>cancel</mat-icon>-->
+        <!--</mat-chip>-->
+      <!--</mat-chip-list>-->
+      <!--<button mat-icon-button class="PlusIconButton">-->
+        <!--<mat-icon class="PlusIcon">add</mat-icon>-->
+      <!--</button>-->
+    <!--</div>-->
+    <!--<mat-card-content>-->
+      <!--<div class="PostTitle">-->
+        <!--<h2 class="PostTitleText">Title:</h2>-->
+        <!--<app-form-field [label]="'Write question subject'">-->
+        <!--</app-form-field>-->
+      <!--</div>-->
+      <!--<div class="Question">-->
+        <!--<h2 class="PostTitleText">Question:</h2>-->
+        <!--<angular-editor [config]="editorConfig" class="QuestionTextArea">-->
+        <!--</angular-editor>-->
+      <!--</div>-->
+      <!--<div class="DoneButtonContainer">-->
+        <!--<button mat-raised-button class="RaisedDoneButton" routerLink="/question-page">submit</button>-->
+      <!--</div>-->
+    <!--</mat-card-content>-->
+  <!--</mat-card>-->
+<!--</div>-->

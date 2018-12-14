@@ -7,21 +7,40 @@ import {AppService} from '../app.service';
   styleUrls: ['./profile-details.component.scss']
 })
 export class ProfileDetailsComponent implements OnInit {
-  name: { first: string, last: string };
-  program: string;
-  profilePicturePath: string;
-  rank: number;
-  // asked: number;
-  // answered: number;
-  @Input() description: string;
-  @Input() skills: string[];
-  isProfilePage = false;
+  @Input() isProfilePage = false;
+  @Input() classes: string;
+  isLoaded = false;
+  userDetails: {
+    name: { first: string, last: string };
+    program: string;
+    profilePicturePath: string;
+    rank: number;
+    // asked: number;
+    // answered: number;
+    description: string;
+    skills: string[];
+  };
 
   constructor(private appService: AppService) {
-    const x = appService.getAll();
-    // x.pipe()
+    appService.getAll().subscribe((response) => {
+      this.userDetails = response;
+      this.isLoaded = true;
+    });
+    // debugger;
   }
 
   ngOnInit() {
   }
 }
+
+
+// export class UserDetails {
+//   name: { first: string, last: string };
+//   program: string;
+//   profilePicturePath: string;
+//   rank: number;
+//   // asked: number;
+//   // answered: number;
+//   description: string;
+//   skills: string[];
+// }

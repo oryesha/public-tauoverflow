@@ -5,15 +5,13 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AppService {
-  url = 'http://localhost:3000';
+  url = 'http://localhost:3000/userDetails';
 
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Response> {
-    const x = this.http.get(this.url);
-    const y = x.pipe(map((response: any) => response.json()));
-    return y;
-    // return this.http.get(this.url).pipe(map((response: any) => response.json()));
+  getAll(): Observable<any> {
+    return this.http.get(this.url).pipe(map((response: any) => response[0]));
   }
 }
+

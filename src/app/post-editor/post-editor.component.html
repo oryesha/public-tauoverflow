@@ -1,0 +1,32 @@
+<div class="PostEditor">
+  <mat-card class="PostCard">
+    <mat-card-header class="PostHeader">
+      <mat-card-title class="PostCardTitle">
+        {{postTitle}}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <!--<ng-content ></ng-content>-->
+      <div class="CourseNameSelector" *ngIf="!isAskQuestion">
+        <h2 class="PostTitleText">Course Name:</h2>
+        <div class="AutocompletePostContainer">
+          <app-autocomplete [placeholder]="'Select course...'" class="AutocompletePost"></app-autocomplete>
+        </div>
+      </div>
+      <div class="PostTitle">
+        <h2 class="PostTitleText">Title:</h2>
+        <app-form-field [label]="titleLabel">
+        </app-form-field>
+      </div>
+      <ng-content class="Post" *ngIf="isCourseReview"></ng-content>
+      <div class="Post">
+        <h2 class="PostTitleText">{{descriptionTitle}}:</h2>
+        <angular-editor [config]="editorConfig" class="PostTextArea">
+        </angular-editor>
+      </div>
+      <div class="DoneButtonContainer">
+        <button mat-raised-button class="RaisedDoneButton">submit</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

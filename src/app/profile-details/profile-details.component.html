@@ -1,19 +1,24 @@
-<mat-card class="HomeCard">
-  <h2 class="mat-h2 UserName" *ngIf="!isProfilePage">Hello {{name.first}}!</h2>
-  <h2 class="mat-h2 UserName" *ngIf="isProfilePage">{{name.first}} {{name.last}}</h2>
-  <div class="mat-body-2 Program">{{program}}</div>
-  <img src="{{profilePicturePath}}" class="card-profile-image">
-  <div>Here will be the ranking</div>
-  <ng-container *ngIf="isProfilePage">
-    <div class="mat-body About">
-      <div>{{description}}</div>
-    </div>
-    <div class="mat-body Skills">
-      Skills:
-      <mat-chip-list>
-        <mat-chip class="Chip" *ngFor="let skill of skills">{{skill}}</mat-chip>
-      </mat-chip-list>
-      <button mat-icon-button class="Chip"><mat-icon>add</mat-icon></button>
-    </div>
+<mat-card class="HomeCard {{classes}}">
+  <ng-container *ngIf="!isLoaded">
+    Waiting for data...
+  </ng-container>
+  <ng-container *ngIf="isLoaded">
+    <h2 class="mat-h2 UserName" *ngIf="!isProfilePage">Hello {{userDetails.name.first}}!</h2>
+    <h2 class="mat-h2 UserName" *ngIf="isProfilePage">{{userDetails.name.first}} {{userDetails.name.last}}</h2>
+    <div class="mat-body-2 Program">{{userDetails.program}}</div>
+    <img src="{{userDetails.profilePicturePath}}" class="CardProfileImage">
+    <div>Here will be the ranking</div>
+    <ng-container *ngIf="isProfilePage">
+      <div class="mat-body About">
+        <div>{{userDetails.description}}</div>
+      </div>
+      <div class="mat-body Skills">
+        Skills:
+        <mat-chip-list>
+          <mat-chip class="Chip" *ngFor="let skill of userDetails.skills">{{skill}}</mat-chip>
+          <mat-chip class="Chip">+</mat-chip>
+        </mat-chip-list>
+      </div>
+    </ng-container>
   </ng-container>
 </mat-card>

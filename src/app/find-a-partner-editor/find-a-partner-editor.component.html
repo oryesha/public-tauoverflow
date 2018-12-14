@@ -1,31 +1,6 @@
 <app-nav-bar></app-nav-bar>
-<div class="QuestionEditor">
-  <mat-card class="QuestionCard">
-    <mat-card-header class="FindPartnerHeader">
-      <mat-card-title class="FindPartnerTitle">
-        Find A Partner
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="CourseNameSelector">
-        <h2 class="TitleText">Course Name:</h2>
-        <div class="AutocompleteFindPartnerContainer">
-          <app-autocomplete [placeholder]="'Select course...'" class="AutocompleteFindPartner"></app-autocomplete>
-        </div>
-      </div>
-      <div class="Title">
-        <h2 class="TitleText">Title:</h2>
-        <app-form-field [label]="'Add post title'">
-        </app-form-field>
-      </div>
-      <div class="Question">
-        <h2 class="TitleText">Post:</h2>
-        <angular-editor class="QuestionContent" [config]="editorConfig" class="QuestionTextArea">
-        </angular-editor>
-      </div>
-      <div class="DoneButtonContainer">
-        <button mat-raised-button class="RaisedDoneButton">submit</button>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+<app-post-editor
+  [postTitle]="'Find A Partner'"
+  [titleLabel]="'Add post title'"
+  [descriptionTitle]="'Post'">
+</app-post-editor>

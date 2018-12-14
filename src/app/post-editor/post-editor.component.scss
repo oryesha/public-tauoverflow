@@ -1,51 +1,27 @@
 @import "~@angular/material/theming";
 
 $icon-size: 32px;
+$text-box-width: 33%;
 
 .PostCard {
   background: mat-color($mat-deep-orange, 100);
-  max-width: 75%;
+  color: mat-color($mat-gray, 700);
+  max-width: 920px;
   width: 100%;
 }
 
-.CourseTag {
-  color: mat-color($mat-gray, 700);
-  background-color: mat-color($mat-gray, 300);
+.PostTextArea /deep/ .angular-editor-toolbar {
+  background: mat-color($mat-gray, 200);
 }
 
-.QuestionEditorHeader {
-  color: mat-color($mat-gray, 100);
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-}
-
-//.QuestionTextArea {
-//  background: white;
-//}
-
-.PostTextArea /deep/ .angular-editor-wrapper,
-.PostTextArea /deep/ .angular-editor-toolbar  {
+.PostTextArea /deep/ .angular-editor-wrapper {
   background: white;
-}
-
-.QuestionEditorHeaderText {
-  font-weight: 400;
 }
 
 .PostEditor {
   display: flex;
   justify-content: center;
   padding: 20px;
-}
-
-.PostTitle {
-  max-width: 25%;
-  width: 100%;
-}
-
-.PostTitleText {
-  color: mat-color($mat-gray, 700);
 }
 
 .SelectedCourses {
@@ -83,24 +59,41 @@ $icon-size: 32px;
 }
 
 .AutocompletePostContainer {
-  max-width: 25%;
+  max-width: $text-box-width;
+}
+
+.PostCardTitle {
+  font-size: 24px;
+}
+
+.PostTitleText {
+  font-weight: 500;
 }
 
 .PostTitle {
-  color: mat-color($mat-gray, 700);
-  font-size: 24px;
+  max-width: $text-box-width;
 }
 
 .PostHeader {
   justify-content: center;
 }
 
+.StarsContainer {
+  display: flex;
+}
+
+.StarContainer {
+  cursor: pointer;
+}
+
+.Star {
+  color: mat-color($mat-teal, 400);
+}
 
 .CourseNameSelector {
   width: 100%;
 }
 
-.AutocompleteFindPartner /deep/ .mat-form-field-flex {
+.AutocompletePost /deep/ .mat-form-field-flex {
   background: white !important;
 }
-
