@@ -1,6 +1,6 @@
 @import "~@angular/material/theming";
 
-.QuestionCard {
+.PostCard {
   background: mat-color($mat-deep-orange, 100);
   color: mat-color($mat-gray, 600);
   margin: 10px;
@@ -16,7 +16,7 @@
   margin-bottom: 0;
 }
 
-.Title {
+.PostTitle {
   align-items: center;
   display: flex;
   font-weight: 600;

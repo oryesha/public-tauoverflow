@@ -40,6 +40,7 @@ import { FindAPartnerEditorComponent } from './find-a-partner-editor/find-a-part
 import { CourseReviewEditorComponent } from './course-review-editor/course-review-editor.component';
 import { SingleAnswerEditorComponent } from './single-answer-editor/single-answer-editor.component';
 import {AppService} from './app.service';
+import { PostEditorComponent } from './post-editor/post-editor.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import {AppService} from './app.service';
     FindAPartnerEditorComponent,
     CourseReviewEditorComponent,
     SingleAnswerEditorComponent,
+    PostEditorComponent,
   ],
   imports: [
     BrowserModule,
