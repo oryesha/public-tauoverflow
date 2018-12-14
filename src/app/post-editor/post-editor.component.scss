@@ -24,27 +24,6 @@ $text-box-width: 33%;
   padding: 20px;
 }
 
-.SelectedCourses {
-  align-items: center;
-  display: flex;
-}
-
-.ChipList {
-  margin-right: 8px;
-}
-
-.PlusIconButton {
-  background: mat-color($mat-gray, 300);
-  color: mat-color($mat-gray, 700);
-  height: $icon-size;
-  line-height: $icon-size;
-  width: $icon-size;
-}
-
-.PlusIcon {
-  font-size: 18px;
-}
-
 .DoneButtonContainer {
   display: flex;
   justify-content: flex-end;
@@ -54,7 +33,6 @@ $text-box-width: 33%;
 .RaisedDoneButton {
   background: mat-color($mat-gray, 500);
   color: mat-color($mat-gray, 800);
-  //font-size: 15px;
   text-transform: uppercase;
 }
 
@@ -76,18 +54,6 @@ $text-box-width: 33%;
 
 .PostHeader {
   justify-content: center;
-}
-
-.StarsContainer {
-  display: flex;
-}
-
-.StarContainer {
-  cursor: pointer;
-}
-
-.Star {
-  color: mat-color($mat-teal, 400);
 }
 
 .CourseNameSelector {

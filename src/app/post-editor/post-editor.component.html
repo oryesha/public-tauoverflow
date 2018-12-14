@@ -6,7 +6,9 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <!--<ng-content ></ng-content>-->
+      <div *ngIf="isAskQuestion">
+        <ng-container *ngTemplateOutlet="customContent"></ng-container>
+      </div>
       <div class="CourseNameSelector" *ngIf="!isAskQuestion">
         <h2 class="PostTitleText">Course Name:</h2>
         <div class="AutocompletePostContainer">
@@ -18,7 +20,10 @@
         <app-form-field [label]="titleLabel">
         </app-form-field>
       </div>
-      <ng-content class="Post" *ngIf="isCourseReview"></ng-content>
+      <div *ngIf="isCourseReview">
+        <h2 class="PostTitleText">Rank:</h2>
+        <ng-container *ngTemplateOutlet="customContent"></ng-container>
+      </div>
       <div class="Post">
         <h2 class="PostTitleText">{{descriptionTitle}}:</h2>
         <angular-editor [config]="editorConfig" class="PostTextArea">
@@ -30,3 +35,4 @@
     </mat-card-content>
   </mat-card>
 </div>
+<ng-template #customContent><ng-content class="Post"></ng-content></ng-template>
