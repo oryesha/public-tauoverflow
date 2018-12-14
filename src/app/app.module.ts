@@ -16,7 +16,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import {HttpClientModule} from '@angular/common/http';
 
-import { PostsService } from './posts.service';
+import { QuestionService } from './services/question.service';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
@@ -40,6 +40,7 @@ import { AnswerCardComponent } from './answer-card/answer-card.component';
 import { FindAPartnerEditorComponent } from './find-a-partner-editor/find-a-partner-editor.component';
 import { CourseReviewEditorComponent } from './course-review-editor/course-review-editor.component';
 import { SingleAnswerEditorComponent } from './single-answer-editor/single-answer-editor.component';
+import { Try1Component } from './try1/try1.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { SingleAnswerEditorComponent } from './single-answer-editor/single-answe
     FindAPartnerEditorComponent,
     CourseReviewEditorComponent,
     SingleAnswerEditorComponent,
+    Try1Component,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +88,7 @@ import { SingleAnswerEditorComponent } from './single-answer-editor/single-answe
     AngularEditorModule,
     HttpClientModule,
   ],
-  providers: [PostsService],
+  providers: [QuestionService],
   bootstrap: [AppComponent],
   entryComponents: [FilterDialogComponent]
 })
