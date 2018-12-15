@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {FormControl} from '@angular/forms';
+import {Component, OnInit, Inject, ViewChild} from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA, MatButton} from '@angular/material';
+import {MultiSelectAutocompleteComponent} from '../multi-select-autocomplete/multi-select-autocomplete.component';
 
 @Component({
   selector: 'app-filter-dialog',
@@ -8,21 +8,30 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./filter-dialog.component.scss']
 })
 export class FilterDialogComponent implements OnInit {
-  courses = new FormControl();
-  coursesList: string[] = ['Algebra', 'History', 'Physics', 'Data Structures', 'Software 1']
   description = 'Choose Relevant Courses';
   isSearch: boolean;
+  @ViewChild('chooseButton') chooseButton: MatButton;
+  @ViewChild('multiSelect') multiSelectAutocomplete: MultiSelectAutocompleteComponent;
+  selected: string[] = [];
+  disabled = true;
 
   constructor(
-              private dialogRef: MatDialogRef<FilterDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) data) {
+    private dialogRef: MatDialogRef<FilterDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) data) {
     this.description = data.title;
     this.isSearch = data.isSearch;
-  }
-  ngOnInit() {
-  }
-  close() {
-    this.dialogRef.close();
+    this.selected = data.selected;
   }
 
+  ngOnInit() {
+    this.disabled = this.selected.length === 0;
+  }
+
+  close() {
+    this.dialogRef.close(this.multiSelectAutocomplete.getSelectedOptions());
+  }
+
+  maybeDisableButton(event: number) {
+    this.chooseButton.disabled = event === 0;
+  }
 }

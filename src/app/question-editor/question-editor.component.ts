@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
-import {MatDialog, MatDialogConfig} from '@angular/material';
-import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
+import {Component, OnInit} from '@angular/core';
+import {AppRoutingDataService} from '../app-routing-data.service';
 
 @Component({
   selector: 'app-question-editor',
@@ -10,24 +8,20 @@ import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 })
 export class QuestionEditorComponent implements OnInit {
 
-    editorConfig: AngularEditorConfig = {
-    editable: true,
-    height: '15rem',
-    minHeight: '3rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    // uploadUrl: 'v1/images', // if needed
-    customClasses: [ // optional
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-    ]
-  };
+  isCourseChosen = true;
+  courses: string[] = [];
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private routingDataService: AppRoutingDataService) {
   }
 
+  ngOnInit() {
+    this.courses = this.routingDataService.getRoutingData().getData();
+  }
+
+  remove(course: string) {
+    const index = this.courses.indexOf(course);
+    if (index > 0) {
+      this.courses.splice(index, 1);
+    }
+  }
 }

@@ -5,13 +5,10 @@
   [descriptionTitle]="'Question'"
   [isAskQuestion]="true">
   <div class="SelectedCourses">
-    <mat-chip-list class="ChipList">
-      <mat-chip class="CourseTag">
-        Data Structures
-        <mat-icon matChipRemove>cancel</mat-icon>
-      </mat-chip>
-      <mat-chip class="CourseTag">
-        Software 1
+    <mat-chip-list class="ChipList" *ngIf="isCourseChosen">
+      <mat-chip [removable]="true" (removed)="remove(course)"
+                class="CourseTag" *ngFor="let course of courses">
+        {{course}}
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
     </mat-chip-list>
