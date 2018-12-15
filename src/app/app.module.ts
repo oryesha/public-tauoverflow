@@ -15,6 +15,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import {HttpClientModule} from '@angular/common/http';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -41,6 +42,8 @@ import { CourseReviewEditorComponent } from './course-review-editor/course-revie
 import { SingleAnswerEditorComponent } from './single-answer-editor/single-answer-editor.component';
 import {AppService} from './app.service';
 import { PostEditorComponent } from './post-editor/post-editor.component';
+import { MultiSelectAutocompleteComponent } from './multi-select-autocomplete/multi-select-autocomplete.component';
+import {AppRoutingDataService} from './app-routing-data.service';
 
 @NgModule({
   declarations: [
@@ -66,6 +69,7 @@ import { PostEditorComponent } from './post-editor/post-editor.component';
     CourseReviewEditorComponent,
     SingleAnswerEditorComponent,
     PostEditorComponent,
+    MultiSelectAutocompleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,8 +91,9 @@ import { PostEditorComponent } from './post-editor/post-editor.component';
     MatDialogModule,
     AngularEditorModule,
     HttpClientModule,
+    MatCheckboxModule,
   ],
-  providers: [AppService],
+  providers: [AppService, AppRoutingDataService],
   bootstrap: [AppComponent],
   entryComponents: [FilterDialogComponent]
 })

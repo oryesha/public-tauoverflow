@@ -7,6 +7,13 @@
   width: 100%;
 }
 
+.FilterChipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+}
+
 .SearchBox {
   padding: 10px;
   max-width: 100%;
@@ -28,6 +35,10 @@
 
 .SearchBox /deep/ .mat-form-field-ripple {
   background: mat-color($mat-deep-orange, 200);
+}
+
+.SearchBox /deep/ .mat-form-field-wrapper {
+  padding: 0;
 }
 
 .SearchIcon {

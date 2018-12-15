@@ -7,15 +7,23 @@
       <input matInput placeholder="Search a course...">
     </div>
     <div matSuffix class="ActionButtonsContainer">
-      <button matTooltip="search" mat-icon-button class="SearchIcon" (click)="showResults=true"><mat-icon>search</mat-icon></button>
-      <button matTooltip="filter" mat-icon-button class="SearchIcon" (click)="openDialog()">
+      <button matTooltip="'search'" mat-icon-button class="SearchIcon" (click)="showResults=true"><mat-icon>search</mat-icon></button>
+      <button matTooltip="'filter'" mat-icon-button class="SearchIcon" (click)="openDialog()">
         <mat-icon>filter_list</mat-icon>
       </button>
     </div>
   </mat-form-field>
-  <!--<app-autocomplete class="SelectCourse" [options]="courses" [homePageCssClass]="'AutocompleteHomePage'"-->
-                    <!--[placeholder]="'Search in course'">-->
-  <!--</app-autocomplete>-->
+  <div class="FilterChipsContainer" *ngIf="hasFilters">
+    <mat-chip-list>
+      <mat-chip
+        *ngFor="let filter of selectedFilters"
+        [removable]="true"
+        (removed)="remove(filter)">
+        {{filter}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
   <div class="Results" *ngIf="showResults">
     <app-search-results></app-search-results>
   </div>

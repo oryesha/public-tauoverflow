@@ -1,9 +1,5 @@
 @import "~@angular/material/theming";
 
-.Dialog {
-
-}
-
 .DialogContent .mat-form-field.mat-focused /deep/ .mat-form-field-ripple {
   background: mat-color($mat-deep-orange, 200);
 }
@@ -32,7 +28,12 @@
   color: mat-color($mat-gray, 700);
 }
 
-.choose-button{
+.ChooseButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ChooseButton {
   background: mat-color($mat-gray, 500);
   color: mat-color($mat-gray, 800);
   text-transform: uppercase;

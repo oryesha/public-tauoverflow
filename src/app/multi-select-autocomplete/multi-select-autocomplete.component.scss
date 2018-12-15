@@ -1,0 +1,24 @@
+@import "~@angular/material/theming";
+
+.AutocompleteField {
+  width: 100%;
+}
+
+.Option {
+  font-size: 14px;
+  height: 36px;
+}
+
+.AutocompleteField /deep/ .mat-form-field-flex {
+  background-color: transparent;
+  padding: .5em .5em 0 .5em;
+}
+
+.AutocompleteField /deep/ .mat-form-field-underline:before {
+  background: mat-color($mat-gray, 500);
+  height: 2px;
+}
+
+.AutocompleteField /deep/ .mat-form-field-ripple {
+  background: mat-color($mat-deep-orange, 200);
+}
