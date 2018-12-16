@@ -15,7 +15,11 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import {HttpClientModule} from '@angular/common/http';
-
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
+import { AuthService } from './services/auth.service';
 import { QuestionService } from './services/question.service';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -87,8 +91,11 @@ import { Try1Component } from './try1/try1.component';
     MatDialogModule,
     AngularEditorModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [QuestionService],
+  providers: [QuestionService, AuthService],
   bootstrap: [AppComponent],
   entryComponents: [FilterDialogComponent]
 })
