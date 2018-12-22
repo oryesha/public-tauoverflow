@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {AppService} from '../app.service';
 
 @Component({
   selector: 'app-profile-details',
@@ -6,12 +7,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile-details.component.scss']
 })
 export class ProfileDetailsComponent implements OnInit {
-  userName = 'Geffen';
-  userProgram = 'Computer Science & Electrical Engineering';
-  userProfileImage = '../../assets/geffen.jpg';
-  userAsked = '223';
-  userAnswered = '125';
-  constructor() { }
+  @Input() isProfilePage = false;
+  @Input() classes: string;
+  isLoaded = false;
+  userDetails: {
+    name: { first: string, last: string };
+    program: string;
+    profilePicturePath: string;
+    rank: number;
+    // asked: number;
+    // answered: number;
+    description: string;
+    skills: string[];
+  };
+
+  constructor(private appService: AppService) {
+    appService.getAll().subscribe((response) => {
+      this.userDetails = response;
+      this.isLoaded = true;
+    });
+    // debugger;
+  }
 
   ngOnInit() {
   }

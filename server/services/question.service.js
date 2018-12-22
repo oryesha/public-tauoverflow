@@ -2,7 +2,11 @@ let Question = require('../models/question.model');
 
 _this = this;
 
+class QuestionService {
+  async getQuestions() {
 
+  }
+}
 exports.getQuestions = async function(query, page, limit){
   let options = {
     page,

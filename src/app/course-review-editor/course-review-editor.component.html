@@ -1,43 +1,12 @@
 <app-nav-bar></app-nav-bar>
-<div class="QuestionEditor">
-  <mat-card class="QuestionCard">
-    <mat-card-header class="FindPartnerHeader">
-      <mat-card-title class="FindPartnerTitle">
-        Add a Course Review
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="CourseNameSelector">
-        <h2 class="TitleText">Course Name:</h2>
-        <div class="AutocompleteFindPartnerContainer">
-          <app-autocomplete [placeholder]="'Select course...'" class="AutocompleteFindPartner"></app-autocomplete>
-        </div>
-      </div>
-      <div class="Title">
-        <h2 class="TitleText">Title:</h2>
-        <app-form-field [label]="'Add review title'">
-        </app-form-field>
-      </div>
-      <div class="Question">
-        <h2 class="TitleText">Rank:</h2>
-        <div class="StarsContainer">
-          <div class="StarContainer" *ngFor="let i of [1,2,3,4,5]">
-            <mat-icon class="Star" *ngIf="numOfStars >= i" (click)="updateStars(i)">star</mat-icon>
-            <mat-icon class="Star" *ngIf="numOfStars < i" (click)="updateStars(i)">star_border</mat-icon>
-          </div>
-        </div>
-      </div>
-      <div class="Question">
-        <h2 class="TitleText">Review:</h2>
-        <angular-editor [config]="editorConfig" class="QuestionTextArea">
-        </angular-editor>
-      </div>
-      <!--<div class="AutocompleteFindPartner">-->
-        <!--<app-autocomplete [placeholder]="'Select course...'"></app-autocomplete>-->
-      <!--</div>-->
-      <div class="DoneButtonContainer">
-        <button mat-raised-button class="RaisedDoneButton">submit</button>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+<app-post-editor [postTitle]="'Add a Course Review'"
+                 [titleLabel]="'Add review title'"
+                 [descriptionTitle]="'Review'"
+                 [isCourseReview]="true">
+  <div class="StarsContainer">
+    <div class="StarContainer" *ngFor="let i of [1,2,3,4,5]">
+      <mat-icon class="Star" *ngIf="numOfStars >= i" (click)="updateStars(i)">star</mat-icon>
+      <mat-icon class="Star" *ngIf="numOfStars < i" (click)="updateStars(i)">star_border</mat-icon>
+    </div>
+  </div>
+</app-post-editor>

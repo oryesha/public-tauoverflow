@@ -10,6 +10,10 @@
   flex: 0 0 auto;
 }
 
+.ProfileDetails {
+  font-size: 16px;
+}
+
 .AllContent {
   display: flex;
   flex: 1 1 auto;
@@ -17,32 +21,41 @@
   width: 100%;
 }
 
-.ProfileDetails {
-  padding: 20px;
+.HomeProfileCard {
+  flex: 0 0 auto;
 }
 
-.Search {;
+.SearchBarContainer {
   max-width: 100%;
   width: 100%;
+}
+
+.SearchAndButtonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 542px;
+  width: 100%;
+}
+
+.LogoAndSearch {
+  display: flex;
+  flex-direction: column;
 }
 
 .MainContent {
-  align-items: center;
   display: flex;
   flex: 1 1 auto;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   padding: 20px;
-  max-width: 100%;
-  width: 100%;
+  width: 0;
 }
 
 .MainFeatures {
   display: flex;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   flex-direction: row;
   padding: 10px;
-  width: 50%;
   justify-content: space-between;
 }
 

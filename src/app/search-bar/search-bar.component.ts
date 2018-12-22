@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {MatDialogConfig} from '@angular/material/dialog';
@@ -10,22 +10,36 @@ import {MatDialogConfig} from '@angular/material/dialog';
 })
 export class SearchBarComponent implements OnInit {
 
-  // courses: string[] = ['Calculus 1b', 'Intro to CS', 'Linear Algebra', 'Discrete Mathematics', 'Complexity',
-  //   'Micro-Economics', 'Funding', 'Statistics'];
-
   constructor(private dialog: MatDialog) { }
 
   @Input() isSearchQuestion: boolean;
+  private selectedFilters: string[] = [];
+  private hasFilters: boolean;
 
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '250px';
-    dialogConfig.position = {
-                              // left: '50vw',
-                              // top: '50vh'
-                            };
-    dialogConfig.data = {id: 1, title: 'Search in Courses', isSearch: true};
-    this.dialog.open(FilterDialogComponent, dialogConfig);
+    dialogConfig.width = '500px';
+    dialogConfig.data = {
+      id: 1,
+      title: 'Filter search by course names',
+      isSearch: true,
+      selected: this.selectedFilters.slice()
+    };
+    this.dialog
+        .open(FilterDialogComponent, dialogConfig)
+        .afterClosed()
+        .subscribe( (result: string[]) => {
+          this.selectedFilters = result ? result : this.selectedFilters;
+          this.hasFilters = this.selectedFilters.length > 0;
+        });
+  }
+
+  remove(filter: string) {
+    const index = this.selectedFilters.indexOf(filter);
+    if (index >= 0) {
+      this.selectedFilters.splice(index, 1);
+      this.hasFilters = this.selectedFilters.length > 0;
+    }
   }
 
   ngOnInit() {

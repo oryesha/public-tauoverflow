@@ -15,6 +15,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import {HttpClientModule} from '@angular/common/http';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -44,6 +46,10 @@ import { AnswerCardComponent } from './answer-card/answer-card.component';
 import { FindAPartnerEditorComponent } from './find-a-partner-editor/find-a-partner-editor.component';
 import { CourseReviewEditorComponent } from './course-review-editor/course-review-editor.component';
 import { SingleAnswerEditorComponent } from './single-answer-editor/single-answer-editor.component';
+import {AppService} from './app.service';
+import { PostEditorComponent } from './post-editor/post-editor.component';
+import { MultiSelectAutocompleteComponent } from './multi-select-autocomplete/multi-select-autocomplete.component';
+import {AppRoutingDataService} from './app-routing-data.service';
 import { Try1Component } from './try1/try1.component';
 
 @NgModule({
@@ -69,6 +75,8 @@ import { Try1Component } from './try1/try1.component';
     FindAPartnerEditorComponent,
     CourseReviewEditorComponent,
     SingleAnswerEditorComponent,
+    PostEditorComponent,
+    MultiSelectAutocompleteComponent,
     Try1Component,
   ],
   imports: [
@@ -91,11 +99,12 @@ import { Try1Component } from './try1/try1.component';
     MatDialogModule,
     AngularEditorModule,
     HttpClientModule,
+    MatCheckboxModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [QuestionService, AuthService],
+  providers: [QuestionService, AuthService, AppService, AppRoutingDataService],
   bootstrap: [AppComponent],
   entryComponents: [FilterDialogComponent]
 })
