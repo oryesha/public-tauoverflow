@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -17,6 +17,12 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import {HttpClientModule} from '@angular/common/http';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
+import { AuthService } from './services/auth.service';
+import { QuestionService } from './services/question.service';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
@@ -44,6 +50,7 @@ import {AppService} from './app.service';
 import { PostEditorComponent } from './post-editor/post-editor.component';
 import { MultiSelectAutocompleteComponent } from './multi-select-autocomplete/multi-select-autocomplete.component';
 import {AppRoutingDataService} from './app-routing-data.service';
+import { Try1Component } from './try1/try1.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +77,7 @@ import {AppRoutingDataService} from './app-routing-data.service';
     SingleAnswerEditorComponent,
     PostEditorComponent,
     MultiSelectAutocompleteComponent,
+    Try1Component,
   ],
   imports: [
     BrowserModule,
@@ -92,8 +100,11 @@ import {AppRoutingDataService} from './app-routing-data.service';
     AngularEditorModule,
     HttpClientModule,
     MatCheckboxModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [AppService, AppRoutingDataService],
+  providers: [QuestionService, AuthService, AppService, AppRoutingDataService],
   bootstrap: [AppComponent],
   entryComponents: [FilterDialogComponent]
 })

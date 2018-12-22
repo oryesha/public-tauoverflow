@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+
+    <div class="questions" *ngIf="questionsList">
+      <table class="table">
+        <thead class="h">
+        <tr class="h">
+          <th class="h">Title</th>
+          <th class="h">Description</th>
+          <th class="h">Date</th>
+          <th class="h">Status</th>
+          <th class="h">Options</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class="question" (dblclick)="editQuestion(question)" *ngFor="let question of questionsList">
+
+          <td>{{question.title}}</td>
+          <td>{{question.description}}</td>
+          <td>{{question.date | date}}</td>
+          <td>{{question.status}}</td>
+
+          <td>
+            <button class="btn btn-success" (click)="doneQuestion(question)">
+              <i  class="fa fa-check"></i>
+              Done!
+            </button>
+            <button class="btn btn-primary" (click)="editQuestion(question)">
+              <i  class="fa fa-pencil"></i>
+              Edit
+            </button>
+            <button class="btn btn-danger" (click)="deleteQuestion(question)">
+              <i  class="fa fa-trash"></i>
+              Delete
+            </button>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <form>
+      <div class="form-row">
+
+        <div class="col-md-5">
+          <input type="text" name="title" id="title" [(ngModel)]="newQuestion.title" placeholder="Title" class="form-control">
+        </div>
+        <div class="col-md-5">
+          <input name="description" id="description" [(ngModel)]="newQuestion.description" placeholder="Description" class="form-control"
+                 id="description">
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary" (click)="create()">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-2">
+
+  </div>
+</div><div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+
+    <div class="questions" *ngIf="questionsList">
+      <table class="table">
+        <thead class="h">
+        <tr class="h">
+          <th class="h">Title</th>
+          <th class="h">Description</th>
+          <th class="h">Date</th>
+          <th class="h">Status</th>
+          <th class="h">Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="question" (dblclick)="editQuestion(question)" *ngFor="let question of questionsList">
+
+          <ng-container *ngIf="!editQuestions.includes(question); else editQ">
+            <td>{{question.title}}</td>
+            <td>{{question.description}}</td>
+            <td>{{question.date | date}}</td>
+            <td>{{question.status}}</td>
+          </ng-container>
+
+          <ng-template #editQ>
+            <td><input type="text" name="title" id="title" (keypress)="submitquestion($event, question)" [(ngModel)]="question.title" placeholder="Title" class="form-control"></td>
+            <td><input type="text" name="description" id="description" (keypress)="submitquestion($event, question)" [(ngModel)]="question.description" placeholder="Description"
+                       class="form-control"></td>
+            <td>{{question.date | date}}</td>
+            <td>
+              <input type="text" name="status" id="status" (keypress)="submitquestion($event, question)" [(ngModel)]="question.status" placeholder="Status" class="form-control">
+            </td>
+          </ng-template>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
