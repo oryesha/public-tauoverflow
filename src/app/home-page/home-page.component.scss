@@ -21,28 +21,41 @@
   width: 100%;
 }
 
-.Search {;
+.HomeProfileCard {
+  flex: 0 0 auto;
+}
+
+.SearchBarContainer {
   max-width: 100%;
   width: 100%;
 }
 
-.MainContent {
-  align-items: center;
+.SearchAndButtonContainer {
   display: flex;
-  flex: 1 1 auto;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
-  max-width: 100%;
+  max-width: 542px;
   width: 100%;
+}
+
+.LogoAndSearch {
+  display: flex;
+  flex-direction: column;
+}
+
+.MainContent {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  padding: 20px;
+  width: 0;
 }
 
 .MainFeatures {
   display: flex;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   flex-direction: row;
   padding: 10px;
-  width: 50%;
   justify-content: space-between;
 }
 

@@ -32,15 +32,3 @@ export class ProfileDetailsComponent implements OnInit {
   ngOnInit() {
   }
 }
-
-
-// export class UserDetails {
-//   name: { first: string, last: string };
-//   program: string;
-//   profilePicturePath: string;
-//   rank: number;
-//   // asked: number;
-//   // answered: number;
-//   description: string;
-//   skills: string[];
-// }

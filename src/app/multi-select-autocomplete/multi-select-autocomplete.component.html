@@ -1,0 +1,22 @@
+<mat-form-field class="AutocompleteField" appearance="fill">
+  <mat-chip-list #chipList>
+    <mat-chip
+      *ngFor="let selectedOption of selectedOptions"
+      [removable]="true"
+      (removed)="removeSelected(selectedOption)">
+      {{selectedOption}}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input type="text" placeholder="{{placeholder}}" matInput [formControl]="optionsControl" required #optionsInput
+           [matAutocomplete]="auto"
+           [matChipInputFor]="chipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeys"
+           [matChipInputAddOnBlur]="true">
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="displaySelected($event)">
+    <mat-option class="Option" *ngFor="let option of filteredOptions | async" [value]="option">
+      {{option}}
+    </mat-option>
+  </mat-autocomplete>
+  <mat-hint>Limit: {{5 - selectedOptions.length}}</mat-hint>
+</mat-form-field>
