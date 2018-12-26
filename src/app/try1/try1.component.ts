@@ -1,7 +1,7 @@
 import { Response } from '@angular/http';
 import { QuestionService } from '../services/question.service';
 import { Component, OnInit } from '@angular/core';
-import Question from '../models/question.model';
+import {Question} from '../models/question.model';
 
 @Component({
   selector: 'app-try1',
@@ -16,19 +16,19 @@ export class Try1Component implements OnInit {
   ) { }
 
   // Declaring the new question Object and initilizing it
-  public newQuestion: Question = new Question();
+  //public newQuestion: Question = new Question();
 
   // An Empty list for the visible question list
   questionsList: Question[];
   editQuestions: Question[] = [];
 
-  create() {
+ /* create() {
     this.questionService.createQuestion(this.newQuestion) // need to add related coures
       .subscribe((res) => {
         this.questionsList.push(res.data);
-        this.newQuestion = new Question();
+        //this.newQuestion = new Question();
       });
-  }
+  }*/
 
   editQuestion( question: Question) {
     console.log(question);
@@ -45,7 +45,7 @@ export class Try1Component implements OnInit {
   }
 
   doneQuestion(question: Question) {
-    question.status = 'Done';
+    //question.status = 'Done';
     this.questionService.editQuestion(question).subscribe(res => {
       console.log('Update Succesful');
     }, err => {

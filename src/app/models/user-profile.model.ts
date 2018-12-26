@@ -4,21 +4,23 @@ import {Question} from './question.model';
 import {Name} from './name.model';
 
 export class UserProfile {
-  private _id: string;
-  private name: Name;
-  private program: string;
-  private email: string;
-  private rank: number;
-  private image: string;
-  private asked: number;
-  private answered: number;
-  private description: string;
-  private skills: Course[];
-  private favorites: Post[];
-  private myQuestions: Question[];
-  private myCourses: Course[];
+  _id: string;
+  name: Name;
+  program: string;
+  email: string;
+  rank: number;
+  image: string;
+  asked: number;
+  answered: number;
+  description: string;
+  skills: Course[];
+  favorites: Post[];
+  myQuestions: Question[];
+  myCourses: Course[];
 
-  constructor(id: string, firstName: string, lastName: string, program: string, email: string, rank: number, image: string, asked: number, answered: number, description: string, skills: Course[], favorites: Post[], myQuestions: Question[], myCourses: Course[]) {
+  constructor(id: string, firstName: string, lastName: string, program: string, email: string, rank: number,
+              image: string, asked: number, answered: number, description: string, skills: Course[],
+              favorites: Post[], myQuestions: Question[], myCourses: Course[]) {
     this._id = id;
     this.name = new Name(firstName, lastName);
     this.program = program;

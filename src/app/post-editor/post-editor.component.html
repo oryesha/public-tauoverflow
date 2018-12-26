@@ -10,23 +10,23 @@
         <ng-container *ngTemplateOutlet="customContent"></ng-container>
       </div>
       <div class="CourseNameSelector" *ngIf="!isAskQuestion">
-        <h3 class="PostTitleText">Course Name:</h3>
+        <h5 class="PostTitleText">Course Name:</h5>
         <div class="AutocompletePostContainer">
           <app-autocomplete [placeholder]="'Select course...'" class="AutocompletePost"
                             [editorCss]="'AutocompleteInEditor'"></app-autocomplete>
         </div>
       </div>
       <div class="PostTitle">
-        <h3 class="PostTitleText">Title:</h3>
+        <h5 class="PostTitleText">Title:</h5>
         <app-form-field [label]="titleLabel">
         </app-form-field>
       </div>
-      <div *ngIf="isCourseReview">
-        <h3 class="PostTitleText">Rank:</h3>
+      <div *ngIf="isCourseReview" class="Review">
+        <h5 class="PostTitleText">Rank:</h5>
         <ng-container *ngTemplateOutlet="customContent"></ng-container>
       </div>
       <div class="Post">
-        <h3 class="PostTitleText">{{descriptionTitle}}:</h3>
+        <h5 class="PostTitleText">{{descriptionTitle}}:</h5>
         <angular-editor [config]="editorConfig" class="PostTextArea">
         </angular-editor>
       </div>

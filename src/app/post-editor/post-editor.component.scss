@@ -3,6 +3,10 @@
 $icon-size: 32px;
 $text-box-width: 33%;
 
+.Review {
+  margin-bottom: 8px;
+}
+
 .PostCard {
   background: mat-color($mat-deep-orange, 100);
   color: mat-color($mat-gray, 700);

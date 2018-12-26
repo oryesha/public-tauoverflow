@@ -1,4 +1,4 @@
-import Question from '../models/question.model';
+import {Question} from '../models/question.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {Response} from '@angular/http';
