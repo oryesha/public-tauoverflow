@@ -5,6 +5,10 @@
   padding: 10px;
 }
 
+.AutocompleteCourses /deep/ .mat-form-field-flex {
+  //background: white !important;
+  padding: 0 .5em !important;
+}
 .mat-tab label {
   background-color: darkgray;
 }
@@ -78,6 +82,15 @@ h3.mat-subheader{
   color: mat-color($mat-deep-orange, 100);
 }
 
-.MainWrapper{
-  padding: 20px;
+.SearchContainer {
+  position: absolute;
+  top: 5px;
+  right: 16px;
+  min-width: 300px;
+  z-index: 10;
+}
+
+.MainWrapper {
+  padding: 10px 0;
+  position: relative;
 }

@@ -1,37 +1,21 @@
 <app-nav-bar></app-nav-bar>
-<span class="MainWrapper">
-  <mat-tab-group dynamicHeight class="CoursesViewTabs">
+<div class="MainWrapper">
+  <mat-tab-group class="CoursesViewTabs">
     <mat-tab label="All Courses">
       <mat-list>
-        <div class="CourseSearch">
-          <app-autocomplete [options]="courses" [placeholder]="'Search a course...'"></app-autocomplete>
-        </div>
-        <div>
-          <h3 mat-subheader>A</h3>
-        </div>
-        <mat-list-item class="ListItem" *ngFor="let courseName of allACourses">
-          <button mat-flat-button mat-line class="mat-h4 CourseName" routerLink="/course-page">
-            {{courseName.name}}
-            <mat-icon class="CourseIcon">school</mat-icon>
-          </button>
-          <span mat-line class="CourseNum">
-            <span>{{courseName.courseNum}}</span>
+        <div *ngFor="let courseList of allCourses">
+          <h3 mat-subheader>{{courseList.prefix.toUpperCase()}}</h3>
+          <mat-list-item class="ListItem" *ngFor="let course of courseList.courses">
+            <button mat-flat-button mat-line class="mat-h4 CourseName" routerLink="/course-page">
+              {{course.name}}
+              <mat-icon class="CourseIcon">school</mat-icon>
+            </button>
+            <span mat-line class="CourseNum">
+            <span>{{course.id}}</span>
           </span>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <div>
-          <h3 mat-subheader>B</h3>
+          </mat-list-item>
+          <mat-divider></mat-divider>
         </div>
-        <mat-list-item class="ListItem" *ngFor="let courseName of allBCourses">
-          <!--<button  mat-flat-button="notification" routerLink="/answer-editor"><mat-icon mat-list-icon>local_library</mat-icon></button>
--->       <button mat-flat-button mat-line class="mat-h4 CourseName" routerLink="/course-page">
-          {{courseName.name}}
-          <mat-icon class="CourseIcon">school</mat-icon>
-          </button>
-          <span mat-line class="CourseNum">
-            <span>{{courseName.courseNum}}</span>
-          </span>
-        </mat-list-item>
       </mat-list>
     </mat-tab>
     <mat-tab label="My Courses">
@@ -66,4 +50,6 @@
       </mat-list>
     </mat-tab>
   </mat-tab-group>
-</span>
+  <div class="SearchContainer"><app-autocomplete [isRequired]="false" [isCourseSearch]="true" class="AutocompleteCourses" [options]="courses" [placeholder]="'Search a course...'"></app-autocomplete>
+  </div>
+</div>

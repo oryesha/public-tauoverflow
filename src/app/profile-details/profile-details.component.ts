@@ -22,7 +22,7 @@ export class ProfileDetailsComponent implements OnInit {
   };
 
   constructor(private appService: AppService) {
-    appService.getAll().subscribe((response) => {
+    appService.getResponse('userDetails').subscribe((response) => {
       this.userDetails = response;
       this.isLoaded = true;
     });
