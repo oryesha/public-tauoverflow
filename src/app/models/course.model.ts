@@ -12,7 +12,8 @@ export class Course {
   changeHours: Post[];
   rank: number;
 
-  constructor(name: string, courseId: string, questions: Question[], reviews: CourseReview[], partnerPosts: PartnerPost[], changeHours: Post[], rank: number) {
+  constructor(name: string, courseId: string, questions: Question[], reviews: CourseReview[],
+              partnerPosts: PartnerPost[], changeHours: Post[], rank: number) {
     this.name = name;
     this.courseId = courseId;
     this.questions = questions;
