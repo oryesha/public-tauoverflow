@@ -11,10 +11,13 @@ import {map, startWith} from 'rxjs/operators';
 export class AutocompleteComponent implements OnInit {
   myControl = new FormControl();
   @Input() options: string[];
-  @Input() homePageCssClass: string;
+  @Input() editorCss: string;
   @Input() placeholder: string;
   @Input() isCourseSearch: boolean;
+  @Input() isRequired = true;
   filteredOptions: Observable<string[]>;
+  appearance = 'fill';
+  outlineCss: string;
   defaultOptions: string[] = ['Calculus 1b', 'Intro to CS', 'Linear Algebra', 'Discrete Mathematics', 'Complexity',
     'Micro-Economics', 'Funding', 'Statistics'];
 
@@ -25,6 +28,10 @@ export class AutocompleteComponent implements OnInit {
         startWith(''),
         map(value => this._filter(value))
       );
+    if (this.isCourseSearch) {
+      this.appearance = 'outline';
+      this.outlineCss = 'AutocompleteOutline';
+    }
   }
 
   private _filter(value: string): string[] {
