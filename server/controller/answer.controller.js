@@ -3,8 +3,8 @@ let AnswerService = require('../services/answer.service')
 
 exports.getAllAnswers = async function(req,res){
   try{
-    let answerss = await AnswerService.getAllAnswers({});
-    return res.status(200).json({status: 200, data: answerss, message: "Succesfully Questions Recieved"});
+    let answers = await AnswerService.getAllAnswers({});
+    return res.status(200).json({status: 200, data: answers, message: "Succesfully answers Recieved"});
   }catch(e){
     return res.status(400).json({status: 400, message: "WOW " + e.message});
   }

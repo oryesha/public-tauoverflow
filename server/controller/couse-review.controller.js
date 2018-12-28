@@ -1,5 +1,14 @@
 let CourseReviewService = require('../services/course-review.service')
 
+exports.getAllCourseReview = async function(req,res){
+  try{
+    let courseReview = await CourseReviewService.getAllCourseReview({});
+    return res.status(200).json({status: 200, data: courseReview, message: "Succesfully CourseReview Recieved"});
+  }catch(e){
+    return res.status(400).json({status: 400, message: "WOW " + e.message});
+  }
+};
+
 exports.createCourseReview = async function(req,res){
 
   let courseReview = {

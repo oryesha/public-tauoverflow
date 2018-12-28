@@ -2,6 +2,15 @@ let Post = require('../models/change-hours-post.model');
 
 _this = this;
 
+exports.getAllChangeHours = async function(query) {
+  try {
+    let changeHours = await Post.paginate(query);
+    return changeHours;
+  } catch (e) {
+    throw Error('Error while Paginating questions')
+  }
+};
+
 exports.createChangeHoursPost = async function(post){
   let newPost = new Post({
     subject: post.subject,

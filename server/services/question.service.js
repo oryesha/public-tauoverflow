@@ -1,5 +1,5 @@
 let Question = require('../models/question.model');
-let Course = require('../models/course.model');
+
 _this = this;
 
 exports.getAllQuestions = async function(query) {

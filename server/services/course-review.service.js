@@ -1,6 +1,15 @@
 let CourseReview = require('../models/coures-review.model');
+
 _this = this;
 
+exports.getAllCourseReview = async function(query) {
+  try {
+    let courseReview = await CourseReview.paginate(query);
+    return courseReview;
+  } catch (e) {
+    throw Error('Error while Paginating questions')
+  }
+};
 
 exports.createCourseReview = async function(courseReview){
   let newCourseReview = new CourseReview({
