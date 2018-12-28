@@ -39,7 +39,7 @@ export class HomePageComponent implements OnInit {
 
   private _navigateToQuestionEditor(result: string[]) {
     const courseList = new HomePageComponent.CourseList(result);
-    this.routingDataService.setRoutingData(courseList);
+    this.routingDataService.setRoutingData('selectedCourses', courseList);
     this.router.navigate(['/question-editor']);
   }
 }
