@@ -1,9 +1,11 @@
+import {ChangeHoursPost} from "../../src/app/models/change-hours-post.model";
+
 let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
 let Question = require('./question.model');
 let CourseReview = require('./course-review.model');
 let PartnerPost = require('./partner-post.model');
-let Post = require('./post');
+let ChangeHoursPost = require('./chang-hourse-post.model');
 
 
 const CourseSchema = new mongoose.Schema({
@@ -12,7 +14,7 @@ const CourseSchema = new mongoose.Schema({
   questions: [Question],
   reviews: [CourseReview],
   partnerPosts: [PartnerPost],
-  changeHours: [Post],
+  changeHours: [ChangeHoursPost],
   rank: Number
 });
 

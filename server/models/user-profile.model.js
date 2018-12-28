@@ -1,7 +1,6 @@
 let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
 let Course = require('./course.model');
-let Post = require('./post.model');
 let Question = require('./question.model');
 
 const UserProfileSchema = new mongoose.Schema({
@@ -16,7 +15,7 @@ const UserProfileSchema = new mongoose.Schema({
   answered: Number,
   description: String,
   skills: [Course],
-  favorites: [Post],
+  favorites: [String],
   myQuestions: [Question],
   myCourses: [Course]
 });
