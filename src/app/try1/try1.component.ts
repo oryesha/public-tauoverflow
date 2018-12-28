@@ -16,19 +16,19 @@ export class Try1Component implements OnInit {
   ) { }
 
   // Declaring the new question Object and initilizing it
-  //public newQuestion: Question = new Question();
+  public newQuestion: Question;// = new Question();
 
   // An Empty list for the visible question list
   questionsList: Question[];
   editQuestions: Question[] = [];
 
- /* create() {
+  create() {
     this.questionService.createQuestion(this.newQuestion) // need to add related coures
       .subscribe((res) => {
         this.questionsList.push(res.data);
-        //this.newQuestion = new Question();
+        this.newQuestion = new Question();
       });
-  }*/
+  }
 
   editQuestion( question: Question) {
     console.log(question);
