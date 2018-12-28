@@ -1,5 +1,14 @@
 let PartnerPostService = require('../services/partner-post.service')
 
+exports.getAllPartnerPosts = async function(req,res){
+  try{
+    let posts = await PartnerPostService.getAllPartnerPosts();
+    return res.status(200).json({status: 200, data: posts, message: "Succesfully Partner Posts Recieved"});
+  }catch(e){
+    return res.status(400).json({status: 400, message: e.message});
+  }
+};
+
 exports.createPartnerPost = async function(req,res){
 
   let partnerPost = {

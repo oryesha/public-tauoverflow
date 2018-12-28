@@ -13,8 +13,8 @@ router.use('/courses', courses);
 router.use('/answers',answers);
 router.use('/change-hours', changeHours);
 router.use('/user', user);
-router.use('/partner-post', partnerPost);
-router.use('/course-review', courseReview);
+router.use('/partner-posts', partnerPost);
+router.use('/course-reviews', courseReview);
 module.exports = router;
 
 // // declare axios for making http requests
