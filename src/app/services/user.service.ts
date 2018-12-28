@@ -12,7 +12,8 @@ export class UserService {
     public db: AngularFirestore,
     public afAuth: AngularFireAuth,
     private httpRequests: HttpRequestsService
-  ) {}
+  ) {
+  }
 
   getCurrentUser() {
     return new Promise<any>((resolve, reject) => {
@@ -27,6 +28,7 @@ export class UserService {
   }
 
   subscribeNewUser(user: UserProfile) {
+    console.log('WOW');
     this.httpRequests.post('/api/user', user);
   }
 
