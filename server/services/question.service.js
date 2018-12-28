@@ -25,7 +25,7 @@ exports.createQuestion = async function(question){
 
     try{
       let savedQuestion = await newQuestion.save();
-      savedQuestion.populate('relatedCourses', 'owner').exec(
+      savedQuestion.populate('relatedCourses').populate('owner').exec(
         function(savedQuestion){
           savedQuestion.relatedCourses.forEach(function(course){
             course.questionsList.push(savedQuestion);
