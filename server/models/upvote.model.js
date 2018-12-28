@@ -7,6 +7,6 @@ const UpvoteSchema = new mongoose.Schema({
 });
 
 UpvoteSchema.plugin(mongoosePaginate);
-const Upvote = mongoose.model('uptove', UpvoteSchema);
+const Upvote = mongoose.model('Uptove', UpvoteSchema);
 
 module.exports = Upvote;

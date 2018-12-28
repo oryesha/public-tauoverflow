@@ -17,6 +17,6 @@ const QuestionSchema = new mongoose.Schema({
 });
 
 QuestionSchema.plugin(mongoosePaginate);
-const Question = mongoose.model('question', QuestionSchema);
+const Question = mongoose.model('Question', QuestionSchema);
 
 module.exports = Question;

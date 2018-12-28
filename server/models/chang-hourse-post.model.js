@@ -11,6 +11,6 @@ const ChangeHoursPostSchema = new mongoose.Schema({
 });
 
 ChangeHoursPostSchema.plugin(mongoosePaginate);
-const ChangeHoursPost  = mongoose.model('changeHoursPost', ChangeHoursPostSchema );
+const ChangeHoursPost  = mongoose.model('ChangeHoursPost', ChangeHoursPostSchema );
 
 module.exports = ChangeHoursPost;

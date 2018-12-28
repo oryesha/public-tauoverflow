@@ -11,6 +11,6 @@ const PartnerPostSchema = new mongoose.Schema({
 });
 
 PartnerPostSchema.plugin(mongoosePaginate);
-const PartnerPost  = mongoose.model('partnerPost', PartnerPostSchema );
+const PartnerPost  = mongoose.model('PartnerPost', PartnerPostSchema );
 
 module.exports = PartnerPost;
