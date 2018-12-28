@@ -1,5 +1,5 @@
 let Question = require('../models/question.model');
-
+let Course = require('../models/course.model');
 _this = this;
 
 exports.getAllQuestions = async function(query) {
@@ -25,12 +25,13 @@ exports.createQuestion = async function(question){
 
     try{
       let savedQuestion = await newQuestion.save();
-      savedQuestion.relatedCourses.forEach(function(course){
-          course.questionsList.push(savedQuestion);
-          course.save();
+      savedQuestion.populate('relatedCourses').exec(
+        function(savedQuestion){
+          savedQuestion.relatedCourses.forEach(function(course){
+            course.questionsList.push(savedQuestion);
+          })
       });
-
-        return savedQuestion;
+      return savedQuestion;
     }catch(e){
       throw Error("Error while Creating question")
     }
