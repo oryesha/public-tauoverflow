@@ -14,10 +14,12 @@ exports.createPartnerPost = async function(partnerPost){
 
   try{
     let savedPartnerPost = await newPartnerPost.save();
-    savedPartnerPost.populate('course','partnerPosts').exec(
+    savedPartnerPost.populate('course').populate('owner').exec(
       function(savedPartnerPost){
         savedPartnerPost.course.partnerPosts.push(savedPartnerPost);
         savedPartnerPost.course.save();
+        savedPartnerPost.owner.myPartnerPosts.push(savedPartnerPost);
+        savedPartnerPost.owner.save();
       });
     return savedPartnerPost;
   }catch(e){

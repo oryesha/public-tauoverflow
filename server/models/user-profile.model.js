@@ -15,7 +15,10 @@ const UserProfileSchema = new mongoose.Schema({
   skills: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
   favorites: [{ body:"string", by: mongoose.Schema.Types.ObjectId }],
   myQuestions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],
-  myCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}]
+  myCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
+  myPartnerPosts: [{type: mongoose.Schema.Types.ObjectId, ref: 'PartnerPost'}],
+  myCourseReviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'CourseReview'}],
+  myChangHoursPosts: [{type: mongoose.Schema.Types.ObjectId, ref: 'ChangeHoursPost'}]
 });
 
 UserProfileSchema.plugin(mongoosePaginate);

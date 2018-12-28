@@ -15,10 +15,12 @@ exports.createCourseReview = async function(courseReview){
 
   try{
     let savedCourseReview = await newCourseReview.save();
-    savedCourseReview.populate('course','reviews').exec(
+    savedCourseReview.populate('course').populate('owner').exec(
       function(savedCourseReview){
         savedCourseReview.course.reviews.push(savedCourseReview);
         savedCourseReview.course.save();
+        savedCourseReview.owner.myCourseReview.push(savedCourseReview);
+        savedCourseReview.owner.save();
       });
     return savedCourseReview;
   }catch(e){

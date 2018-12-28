@@ -1,4 +1,4 @@
-let Post = require('../models/chang-hourse-post.model');
+let Post = require('../models/change-hours-post.model');
 
 _this = this;
 
@@ -14,9 +14,11 @@ exports.createChangeHoursPost = async function(post){
 
   try{
     let savedPost = await newPost.save();
-    savedPost.populate('course').exec(function(err, post) {
+    savedPost.populate('course').populate('owner').exec(function(err, post) {
         post.course.changeHours.push(post);
         post.course.save();
+        post.owner.myChangHoursPosts.push(post);
+        post.owner.save();
       });
     return savedPost;
   }catch(e){
