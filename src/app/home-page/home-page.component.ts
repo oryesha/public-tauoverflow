@@ -26,6 +26,7 @@ export class HomePageComponent implements OnInit {
     private routingDataService: AppRoutingDataService) {}
 
   ngOnInit() {
+
   }
 
   openCoursesDialog() {

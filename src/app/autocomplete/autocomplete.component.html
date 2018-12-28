@@ -1,7 +1,7 @@
 <mat-form-field class="AutocompleteField {{homePageCssClass}}" appearance="fill">
-  <input type="text" placeholder="{{placeholder}}" aria-label="Number" matInput [formControl]="myControl"
-         [matAutocomplete]="auto" required>
-  <mat-autocomplete #auto="matAutocomplete">
+  <input type="text" placeholder="{{placeholder}}" matInput [formControl]="myControl"
+         [matAutocomplete]="auto" required (change)="handleDeletedOption($event.target.value)">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
     <mat-option class="Option" *ngFor="let option of filteredOptions | async" [value]="option">
       {{option}}
     </mat-option>

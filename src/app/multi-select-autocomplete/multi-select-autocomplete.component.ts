@@ -28,6 +28,7 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
   @Input() private placeholder: string;
   @Input() private isCourseSearch: boolean;
   @Input() private selectedOptions: string[] = [];
+  @Input() private isRequired = true;
   @Output() private inputChanged = new EventEmitter();
   private filteredOptions: Observable<string[]>;
   readonly separatorKeys: number[] = [ENTER, COMMA];

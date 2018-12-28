@@ -9,7 +9,7 @@ let QuestionSchema = new mongoose.Schema({
   status: String,
   courses: [String],
   owner: String
-}, {_});
+});
 
 QuestionSchema.plugin(mongoosePaginate);
 const Question = mongoose.model('question', QuestionSchema);
