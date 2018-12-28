@@ -3,6 +3,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {Router} from '@angular/router';
 import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
+import {UserProfile} from '../models/user-profile.model';
 
 @Component({
   selector: 'app-home-page',
@@ -26,6 +27,10 @@ export class HomePageComponent implements OnInit {
     private routingDataService: AppRoutingDataService) {}
 
   ngOnInit() {
+    const user: UserProfile = this.routingDataService.getRoutingData('user').getData();
+    if (!user) {
+      debugger;
+    }
   }
 
   openCoursesDialog() {
@@ -39,7 +44,7 @@ export class HomePageComponent implements OnInit {
 
   private _navigateToQuestionEditor(result: string[]) {
     const courseList = new HomePageComponent.CourseList(result);
-    this.routingDataService.setRoutingData(courseList);
+    this.routingDataService.setRoutingData('selectedCourses', courseList);
     this.router.navigate(['/question-editor']);
   }
 }

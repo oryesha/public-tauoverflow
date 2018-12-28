@@ -34,6 +34,25 @@ export class UserProfileComponent implements OnInit {
     }
   ];
 
+  findPartners: Section[] = [
+    {
+      title: 'Looking for partner for the final project'
+    }
+  ];
+  changeHours: Section[] = [
+    {
+      title: 'Electronics lab'
+    },
+    {
+      title: 'Physics1 lab'
+    }
+  ];
+  reviews: Section[] = [
+    {
+      title: 'Google workshop was great'
+    }
+  ];
+
   favorites: Section[] = [
     {
       title: 'Newton second law',

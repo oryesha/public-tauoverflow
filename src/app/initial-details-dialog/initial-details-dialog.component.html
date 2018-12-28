@@ -1,0 +1,24 @@
+<div class="DetailsDialog">
+  <h1 mat-dialog-title class="DetailsDialogTitle">{{description}}</h1>
+  <mat-dialog-content class="DetailsDialogContent">
+    <form>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="" [type]="'text'" formControlName="description"></textarea>
+        <mat-hint>[optional]</mat-hint>
+      </mat-form-field>
+      <app-multi-select-autocomplete [placeholder]="'Type course name'" [isRequired]="false"
+                                     #multiSelect>
+      </app-multi-select-autocomplete>
+      <app-autocomplete [options]="programs" formControlName="program" #autocomplete
+                        [placeholder]="'Choose your program'">
+      </app-autocomplete>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions class="ChooseButtonContainer">
+    <button mat-raised-button class="ChooseButton" (click)="close()" *ngIf="isSearch" #chooseButton
+            [disabled]="disabled">Choose</button>
+    <button mat-raised-button class="ChooseButton" (click)="close()" [disabled]="disabled"
+            *ngIf="!isSearch" #chooseButton>Choose</button>
+  </mat-dialog-actions>
+</div>

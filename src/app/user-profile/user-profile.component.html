@@ -25,13 +25,29 @@
   <!--</mat-card>-->
   <div class="Page">
     <mat-tab-group class="Tabs">
-      <mat-tab label="My Questions" >
+      <mat-tab label="My Posts">
+        <div mat-subheader class="Subheader" *ngIf="myQuestions.length != 0">Questions</div>
         <mat-list-item class="ListItem" *ngFor="let question of myQuestions">
           <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{question.title}}</button>
           <span mat-line class="VotesAndAnswers">
             <span>votes: {{question.votes}}</span>
             <span>answers: {{question.answers}}</span>
           </span>
+        </mat-list-item>
+        <mat-divider class="Divider"></mat-divider>
+        <div mat-subheader class="Subheader" *ngIf="findPartners.length != 0">Find a Partner</div>
+        <mat-list-item class="ListItem" *ngFor="let partner of findPartners">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{partner.title}}</button>
+        </mat-list-item>
+        <mat-divider class="Divider"></mat-divider>
+        <div mat-subheader class="Subheader" *ngIf="changeHours.length != 0">Change Hours</div>
+        <mat-list-item class="ListItem" *ngFor="let hour of changeHours">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{hour.title}}</button>
+        </mat-list-item>
+        <mat-divider class="Divider"></mat-divider>
+        <div mat-subheader class="Subheader" *ngIf="reviews.length != 0">Reviews</div>
+        <mat-list-item class="ListItem" *ngFor="let review of reviews">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{review.title}}</button>
         </mat-list-item>
       </mat-tab>
       <mat-tab label="Favorites">

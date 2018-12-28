@@ -70,7 +70,30 @@
   letter-spacing: 0.8px;
 }
 
-.googleSignUpBtn {
+.Separator {
+  background: mat-color($mat-gray, 400);
+  flex: 1 1 auto;
+  width: 0;
+  height: 1px;
+}
+
+.SeparatorContainer {
+  align-items: center;
+  color: mat-color($mat-gray, 400);
+  display: flex;
+  padding: 16px 0;
+}
+
+.OrText {
+  flex: 0 0 auto;
+  padding: 0 4px;
+}
+
+.GoogleLoginNormal {
+  cursor: pointer;
+}
+
+.GoogleLogin {
   display: flex;
   justify-content: center;
 }

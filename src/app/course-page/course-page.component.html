@@ -1,13 +1,14 @@
 <app-nav-bar></app-nav-bar>
 <div class="CardsWrapper">
   <mat-card class="course-card">
-    <h3 class="CourseTitle">{{course_name}}Data Structures</h3>
+    <h3 class="CourseTitle">{{course.name}}</h3>
+    <div class="CourseNumber">{{course.courseId}}</div>
     <div class="Stars">
-      <mat-icon class="Star" *ngFor="let i of [1,2,3]">star</mat-icon>
-      <mat-icon class="Star">star_half</mat-icon>
-      <mat-icon class="Star">star_border</mat-icon>
+      <mat-icon class="Star" *ngFor="let i of starsRange(course.rank)">star</mat-icon>
+      <mat-icon class="Star" *ngIf="halfStar(course.rank)">star_half</mat-icon>
+      <mat-icon class="Star" *ngFor="let i of emptyStarsRange(course.rank)">star_border</mat-icon>
     </div>
-    <div class="mat-body-2 Reviews"> Reviews: 99 </div>
+    <div class="mat-body-2 Reviews"> Reviews: {{course.reviews.length}} </div>
     <div class="CoursePageButtonContainer">
       <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/question-editor">Ask a question</button>
       <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/course-review-editor">Write a review</button>
@@ -18,36 +19,46 @@
   <div class="page">
     <mat-tab-group class="Tabs">
       <mat-tab label="Questions" >
-        <mat-list-item class="ListItem" *ngFor="let question of questions">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle" routerLink="/question-page">{{question.title}}</button>
+        <mat-list-item class="ListItem" *ngFor="let question of course.questions">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle" routerLink="/question-page">{{question.subject}}</button>
           <span mat-line class="NameAndDate">
-            <span>{{question.student}}</span>
-            <span>{{question.updated | date}}</span>
+            <span>{{question.owner.name.first}} {{question.owner.name.last}}</span>
+            <span>{{question.timeStamp | date}}</span>
           </span>
            </mat-list-item>
       </mat-tab>
       <mat-tab label="Reviews">
-        <mat-list-item class="ListItem" *ngFor="let review of reviews">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">
-            <span>{{review.title}}
-              <mat-icon [inline]="true" class="SmallStar" *ngFor="let i of [1,2,3]">star</mat-icon></span>
+        <mat-list-item class="ListItem" *ngFor="let review of course.reviews">
+          <button matLine mat-flat-button class="mat-h4 QuestionTitle">
+            <span>
+              {{review.subject}}
+              <mat-icon [inline]="true" class="SmallStar" *ngFor="let i of starsRange(review.rank)">star</mat-icon>
+            </span>
           </button>
-          <span mat-line class="NameAndDate">
-            <span>{{review.student}}</span>
-            <span>{{review.updated | date}}</span>
+          <span matLine class="NameAndDate">
+            <span>{{review.owner.name.first}} {{review.owner.name.last}}</span>
+            <span>{{review.timeStamp | date}}</span>
           </span>
         </mat-list-item>
       </mat-tab>
       <mat-tab label="Partners">
-        <mat-list-item class="ListItem" *ngFor="let partner of partners">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{partner.title}}</button>
+        <mat-list-item class="ListItem" *ngFor="let partner of course.partnerPosts">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{partner.subject}}</button>
           <span mat-line class="NameAndDate">
-            <span>{{partner.student}}</span>
-            <span>{{partner.updated | date}}</span>
+            <span>{{partner.owner.name.first}} {{partner.owner.name.last}}</span>
+            <span>{{partner.timeStamp | date}}</span>
           </span>
         </mat-list-item>
       </mat-tab>
-      <mat-tab label="Change hours"></mat-tab>
+      <mat-tab label="Change hours">
+        <mat-list-item class="ListItem" *ngFor="let hour of course.changeHours">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{hour.subject}}</button>
+          <span mat-line class="NameAndDate">
+            <span>{{hour.owner.name.first}} {{hour.owner.name.last}}</span>
+            <span>{{hour.timeStamp | date}}</span>
+          </span>
+        </mat-list-item>
+      </mat-tab>
     </mat-tab-group>
   </div>
 </div>

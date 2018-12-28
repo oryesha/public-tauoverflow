@@ -21,7 +21,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/auth/auth.service';
 import { QuestionService } from './services/question.service';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -51,6 +51,10 @@ import { PostEditorComponent } from './post-editor/post-editor.component';
 import { MultiSelectAutocompleteComponent } from './multi-select-autocomplete/multi-select-autocomplete.component';
 import {AppRoutingDataService} from './app-routing-data.service';
 import { Try1Component } from './try1/try1.component';
+import {UserService} from './services/user.service';
+import {AuthGuard} from './services/auth/auth.guard';
+import { InitialDetailsDialogComponent } from './initial-details-dialog/initial-details-dialog.component';
+import {HttpRequestsService} from './services/http-requests.service';
 
 @NgModule({
   declarations: [
@@ -78,6 +82,7 @@ import { Try1Component } from './try1/try1.component';
     PostEditorComponent,
     MultiSelectAutocompleteComponent,
     Try1Component,
+    InitialDetailsDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,7 +109,15 @@ import { Try1Component } from './try1/try1.component';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [QuestionService, AuthService, AppService, AppRoutingDataService],
+  providers: [
+    QuestionService,
+    AuthService,
+    AppService,
+    AppRoutingDataService,
+    UserService,
+    AuthGuard,
+    HttpRequestsService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [FilterDialogComponent]
 })
