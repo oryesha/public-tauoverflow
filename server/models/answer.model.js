@@ -9,7 +9,7 @@ const AnswerSchema = new mongoose.Schema({
   },
   timeStamp: Date,//TimeFormat,
   owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'},
-  questionId: String
+  questionId: {type: mongoose.Schema.Types.ObjectId, ref: 'Question'}
 });
 
 AnswerSchema.plugin(mongoosePaginate);

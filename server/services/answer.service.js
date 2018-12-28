@@ -11,17 +11,21 @@ exports.getAllAnswers = async function(query) {
   }
 };
 
-exports.creatAnswer = async function(answer){
+exports.createAnswer = async function(answer){
   let newAnswer = new Answer({
     content: answer.content,
     owner: answer.owner,
     timeStamp: answer.timeStamp,//TimeFormat,
     upvote: answer.upvote,
-    questionId: String
+    questionId: answer.questionId
   });
 
   try{
     let savedAnswer = await newAnswer.save();
+    savedAnswer.populate('questionId','answers').exec(
+      function(savedQuestion){
+        savedAnswer.questionId.answers.push(savedAnswer)
+      });
     return savedAnswer;
   }catch(e){
     throw Error("Error while Creating answer")
