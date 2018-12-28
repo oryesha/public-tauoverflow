@@ -2,14 +2,18 @@ let express = require('express');
 let router = express.Router();
 let questions = require('./api/question.route');
 let courses = require('./api/course.route');
-let change_hours = require('./api/change-hours.route');
-
+let changeHours = require('./api/change-hours.route');
+let user = require('./api/user.route');
+let partnerPost = require('./api/partner-post.route');
+let courseReview = require('./api/course-review.route');
 router.use('/questions', questions);
 
 router.use('/courses', courses);
 
-router.use('/change-hours', change_hours);
-
+router.use('/change-hours', changeHours);
+router.use('/user', user);
+router.use('/partner-post', partnerPost);
+router.use('/course-review', courseReview);
 module.exports = router;
 
 // // declare axios for making http requests
