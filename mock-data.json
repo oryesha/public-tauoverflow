@@ -1,6 +1,5 @@
 {
-  "userDetails": [
-    {
+  "userDetails": {
       "name": {
         "first": "Geffen",
         "last": "Menchik"
@@ -14,6 +13,39 @@
         "Software 1",
         "Computational Models"
       ]
+    },
+  "courses": [
+    {
+      "name": "Data Structures",
+      "courseId": "03682160"
+    },
+    {
+      "name": "Linear Algebra 1A",
+      "courseId": "03662160"
+    },
+    {
+      "name": "Discrete Math",
+      "courseId": "03682000"
+    },
+    {
+      "name": "Classic Physics",
+      "courseId": "03252160"
+    },
+    {
+      "name": "Intro To Data Science",
+      "courseId": "03685060"
+    },
+    {
+      "name": "Algorithms",
+      "courseId": "03682160"
+    },
+    {
+      "name": "Algebra B1",
+      "courseId": "03662132"
+    },
+    {
+      "name": "Intro to NLP",
+      "courseId": "03683235"
     }
   ]
 }

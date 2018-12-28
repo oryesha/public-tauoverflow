@@ -9,6 +9,10 @@
   padding: .5em .5em 0 .5em;
 }
 
+.Field /deep/ .mat-form-field-infix {
+  padding: 0 0 .5em;
+}
+
 .Field /deep/ .mat-form-field-underline:before {
   background: mat-color($mat-gray, 500);
   height: 2px;

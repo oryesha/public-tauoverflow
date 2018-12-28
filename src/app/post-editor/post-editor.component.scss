@@ -3,6 +3,10 @@
 $icon-size: 32px;
 $text-box-width: 33%;
 
+.Review {
+  margin-bottom: 8px;
+}
+
 .PostCard {
   background: mat-color($mat-deep-orange, 100);
   color: mat-color($mat-gray, 700);
@@ -46,6 +50,8 @@ $text-box-width: 33%;
 
 .PostTitleText {
   font-weight: 500;
+  margin-bottom: 4px;
+  margin-top: 0px;
 }
 
 .PostTitle {

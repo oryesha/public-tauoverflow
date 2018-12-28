@@ -15,8 +15,35 @@
   padding: .5em .5em 0 .5em;
 }
 
-.AutocompleteHomePage /deep/ .mat-form-field-flex {
-  padding: .25em .25em 0 .25em;
+.AutocompleteInEditor /deep/ .mat-form-field-flex {
+  padding: 0 .5em;
+}
+
+.AutocompleteInEditor /deep/ .mat-form-field-infix {
+  padding: 0 0 .5em;
+}
+
+.mat-form-field-appearance-outline /deep/ .mat-form-field-outline {
+  //background: mat-color($mat-gray, 500);
+  background: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.AutocompleteOutline /deep/ .mat-form-field-flex {
+  padding: 1px;
+}
+
+.AutocompleteOutline /deep/ .mat-form-field-infix {
+  padding: 8px;
+}
+
+.AutocompleteOutline /deep/ .mat-form-field-outline-thick {
+  color: mat-color($mat-deep-orange, 200);
+}
+
+.AutocompleteOutline /deep/ .mat-form-field-invalid {
 }
 
 .AutocompleteField /deep/ .mat-form-field-underline:before {
