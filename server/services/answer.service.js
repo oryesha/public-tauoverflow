@@ -23,8 +23,9 @@ exports.createAnswer = async function(answer){
   try{
     let savedAnswer = await newAnswer.save();
     savedAnswer.populate('questionId','answers').exec(
-      function(savedQuestion){
-        savedAnswer.questionId.answers.push(savedAnswer)
+      function(savedAnswer){
+        savedAnswer.questionId.answers.push(savedAnswer);
+        savedAnswer.questionId.save();
       });
     return savedAnswer;
   }catch(e){
@@ -40,7 +41,7 @@ exports.updateAnswer = async function(answer){
   try{
     oldAnswer = await Answer.findById(id);
   }catch(e){
-    throw Error("Error occured while Finding the question")
+    throw Error("Error occured while Finding the answer")
   }
 
   if(!oldAnswer){
