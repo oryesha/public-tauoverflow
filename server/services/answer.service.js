@@ -41,7 +41,7 @@ exports.updateAnswer = async function(answer){
   try{
     oldAnswer = await Answer.findById(id);
   }catch(e){
-    throw Error("Error occured while Finding the question")
+    throw Error("Error occured while Finding the answer")
   }
 
   if(!oldAnswer){
