@@ -1,19 +1,18 @@
 let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
-let UserProfile = require('./user-profile.model');
-let Course = require('./course.model');
-let Answer = require('./answer.model');
-let Upvote = require('./upvote.model');
 
 const QuestionSchema = new mongoose.Schema({
   subject: String,
   content: String,
-  owner: UserProfile,
+  owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'},
   timeStamp: Date,//TimeFormat,
   isLocked: Boolean,
-  relatedCourses: [Course],
-  answers: [Answer],
-  upvote: Upvote
+  relatedCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
+  answers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}],
+  upvote: {
+    count: Number,
+    upvoters: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'}]
+  }
 });
 
 QuestionSchema.plugin(mongoosePaginate);

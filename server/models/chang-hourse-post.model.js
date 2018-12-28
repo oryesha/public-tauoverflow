@@ -1,11 +1,10 @@
 let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
-let UserProfile = require('./user-profile.model');
 
 const ChangeHoursPostSchema = new mongoose.Schema({
   subject: String,
   content: String,
-  owner: UserProfile,
+  owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'},
   timeStamp: Date,//TimeFormat,
   isLocked: Boolean
 });

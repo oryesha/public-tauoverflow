@@ -5,7 +5,7 @@ let UserProfile = require('./user-profile.model');
 const PostSchema = new mongoose.Schema({
   subject: String,
   content: String,
-  owner: UserProfile,
+  owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'},
   timeStamp: Date,//TimeFormat,
   isLocked: Boolean
 });

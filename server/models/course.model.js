@@ -1,18 +1,14 @@
 let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
-let Question = require('./question.model');
-let CourseReview = require('./course-review.model');
-let PartnerPost = require('./partner-post.model');
-let ChangeHoursPost = require('./chang-hourse-post.model');
 
 
 const CourseSchema = new mongoose.Schema({
   name: String,
   courseId: String,
-  questions: [{type: mongoose.Schema.Typse.ObjectId, ref: 'question'}],
-  reviews: [CourseReview],
-  partnerPosts: [PartnerPost],
-  changeHours: [ChangeHoursPost],
+  questions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],
+  reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'CourseReview'}],
+  partnerPosts: [{type: mongoose.schema.Types.ObjectId, ref: 'PartnerPost'}],
+  changeHours: [{type: mongoose.schema.Types.ObjectId, ref: 'ChangeHoursPost'}],
   rank: Number
 });
 

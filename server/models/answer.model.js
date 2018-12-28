@@ -1,13 +1,14 @@
 let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
-let UserProfile = require('./user-profile.model');
-let Upvote = require('./upvote.model');
 
 const AnswerSchema = new mongoose.Schema({
   content: String,
-  upvote: Upvote,
+  upvote: {
+    count: Number,
+    upvoters: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'}]
+  },
   timeStamp: Date,//TimeFormat,
-  owner: UserProfile,
+  owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'},
   questionId: String
 });
 
