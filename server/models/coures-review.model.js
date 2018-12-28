@@ -1,16 +1,18 @@
 let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
-let Question = require('./question.model');
-let CourseReview = require('./course-review.model');
-let PartnerPost = require('./partner-post.model');
-let ChangeHoursPost = require('./chang-hourse-post.model');
 
+const CourseReviewSchema = new mongoose.Schema({
+  RelatedCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
+  Upvote: {
+    count: Number,
+    upvoters: [String]
+  },
+  Answers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}],
+  CourseName: String,
+  Rank: Number,
+});
 
-DB-ID: string (private)
-RelatedCourses: Course[]
-Upvote:
-  count: number
-Upvoters: Set (DB-IDs)
-Answers: Answer[]
-CourseName: string
-Rank: number
+CourseReviewSchema.plugin(mongoosePaginate);
+const CourseReview = mongoose.model('CourseReview', CourseReviewSchema );
+
+module.exports = CourseReview;

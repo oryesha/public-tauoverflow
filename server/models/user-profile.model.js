@@ -1,7 +1,5 @@
 let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
-let Course = require('./course.model');
-let Question = require('./question.model');
 
 const UserProfileSchema = new mongoose.Schema({
   id: String,
@@ -14,10 +12,10 @@ const UserProfileSchema = new mongoose.Schema({
   asked: Number,
   answered: Number,
   description: String,
-  skills: [Course],
-  favorites: [String],
-  myQuestions: [Question],
-  myCourses: [Course]
+  skills: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
+  favorites: [{ body:"string", by: mongoose.Schema.Types.ObjectId }],
+  myQuestions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],
+  myCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}]
 });
 
 UserProfileSchema.plugin(mongoosePaginate);
