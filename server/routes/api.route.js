@@ -1,10 +1,11 @@
 let express = require('express');
 let router = express.Router();
 let questions = require('./api/question.route');
+let courses = require('./api/course.route');
 
 router.use('/questions', questions);
 
-
+router.use('/courses', courses);
 
 module.exports = router;
 
