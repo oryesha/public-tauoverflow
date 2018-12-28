@@ -54,6 +54,7 @@ import { Try1Component } from './try1/try1.component';
 import {UserService} from './services/user.service';
 import {AuthGuard} from './services/auth/auth.guard';
 import { InitialDetailsDialogComponent } from './initial-details-dialog/initial-details-dialog.component';
+import {HttpRequestsService} from './services/http-requests.service';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { InitialDetailsDialogComponent } from './initial-details-dialog/initial-
     AppService,
     AppRoutingDataService,
     UserService,
-    AuthGuard
+    AuthGuard,
+    HttpRequestsService
   ],
   bootstrap: [AppComponent],
   entryComponents: [FilterDialogComponent]

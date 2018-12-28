@@ -2,27 +2,32 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import {UserProfile} from '../models/user-profile.model';
+import {HttpRequestsService} from './http-requests.service';
 
 @Injectable()
 export class UserService {
 
   constructor(
     public db: AngularFirestore,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    private httpRequests: HttpRequestsService
   ) {}
 
   getCurrentUser() {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          console.log("succeded");
           resolve(user);
         } else {
-          console.log("failed");
           reject('No user logged in');
         }
       });
     });
+  }
+
+  subscribeNewUser(user: UserProfile) {
+    this.httpRequests.post('/api/user', user);
   }
 
   // updateCurrentUser(value) {

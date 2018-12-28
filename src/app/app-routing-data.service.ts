@@ -6,16 +6,15 @@ export interface RoutingData<T> {
 
 @Injectable()
 export class AppRoutingDataService {
-  private routingData: RoutingData<any>;
+  private routingData: {[key: string]: RoutingData<any>} = {};
 
   constructor() {}
 
-  setRoutingData(data: RoutingData<any>) {
-    this.routingData = data;
+  setRoutingData(key: string, data: RoutingData<any>) {
+    this.routingData[key] = data;
   }
 
-  getRoutingData(): RoutingData<any> {
-    return this.routingData;
+  getRoutingData(key: string): RoutingData<any> {
+    return this.routingData[key];
   }
 }
-

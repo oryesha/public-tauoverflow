@@ -15,7 +15,7 @@ export class QuestionEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.courses = this.routingDataService.getRoutingData().getData();
+    this.courses = this.routingDataService.getRoutingData('selectedCourses').getData();
   }
 
   remove(course: string) {

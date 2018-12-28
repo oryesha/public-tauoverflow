@@ -3,6 +3,10 @@ import { AuthService } from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {AutocompleteComponent} from '../autocomplete/autocomplete.component';
+import {UserService} from '../services/user.service';
+import {UserProfile} from '../models/user-profile.model';
+import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
+import * as firebase from 'firebase';
 
 
 @Component({
@@ -10,8 +14,15 @@ import {AutocompleteComponent} from '../autocomplete/autocomplete.component';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
+
 export class SignUpComponent implements OnInit {
-  // @ViewChild('autocomplete') autocomplete: AutocompleteComponent;
+  static NewUser = class implements RoutingData<UserProfile> {
+    constructor(private user: UserProfile) {}
+
+    getData(): UserProfile {
+      return this.user;
+    }
+  };
 
   // programFormControl = new FormControl('', [Validators.required]);
   signUpForm = new FormGroup({
@@ -43,24 +54,26 @@ export class SignUpComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private userService: UserService,
+    private routingDataService: AppRoutingDataService,
     private formBuilder: FormBuilder
   ) { }
 
   tryGoogleLogin() {
-    this.authService.doGoogleLogin().then(response => {
-        // debugger;
-        this.router.navigate(['home-page']);
+    this.authService.doGoogleLogin().then(
+      response => {
+        this._enterApp(response);
       }, () => {}
     );
   }
 
   tryRegister(value) {
-    debugger;
     this.authService.doRegister(value)
-      .then(res => {
-        console.log(res);
+      .then(response => {
+        console.log(response);
         this.errorMessage = '';
         this.successMessage = 'Your account has been created';
+        this._enterApp(response, value);
       }, err => {
         console.log(err);
         this.errorMessage = err.message;
@@ -70,10 +83,40 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
   }
-  //
-  // setDummyInput(selected: string) {
-  //   this.autocompleteInput.nativeElement.value = selected;
-  //   this.programFormControl.setValue(selected);
-  // }
 
+  private _enterApp(response: firebase.auth.UserCredential, value?: any) {
+    const user = this._createUser(response, value);
+    this._subscribeUser(user);
+    this._navigateToHomePage(user);
+  }
+
+  private _subscribeUser(user: UserProfile) {
+    this.userService.subscribeNewUser(user);
+  }
+
+  private _navigateToHomePage(user: UserProfile) {
+    const newUser = new SignUpComponent.NewUser(user);
+    this.routingDataService.setRoutingData('user', newUser);
+    this.router.navigate(['home-page']);
+  }
+
+  private _createUser(response: firebase.auth.UserCredential, value?: any): UserProfile {
+    let firstName: string, lastName = '';
+    if (value) {
+      firstName = value.firstName;
+      lastName = value.lastName;
+    } else {
+      const displayName = response.user.displayName.split(' ');
+      firstName = displayName[0];
+      if (displayName.length > 1) {
+        lastName = displayName.slice(1).join(' ');
+      }
+    }
+    return new UserProfile(
+      response.user.uid,
+      firstName,
+      lastName,
+      response.user.email,
+      response.additionalUserInfo.isNewUser);
+  }
 }

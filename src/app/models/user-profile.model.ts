@@ -8,31 +8,23 @@ export class UserProfile {
   name: Name;
   program: string;
   email: string;
-  rank: number;
-  image: string;
-  asked: number;
-  answered: number;
-  description: string;
-  skills: Course[];
-  favorites: Post[];
-  myQuestions: Question[];
-  myCourses: Course[];
+  rank = 0;
+  image: string = ''; // TODO(nati): Decide how this should look.
+  asked = 0;
+  answered = 0;
+  description = '';
+  skills: Course[] = [];
+  favorites: Post[] = [];
+  myQuestions: Question[] = [];
+  myCourses: Course[] = [];
+  isNewUser = true;
 
-  constructor(id: string, firstName: string, lastName: string, program: string, email: string, rank: number,
-              image: string, asked: number, answered: number, description: string, skills: Course[],
-              favorites: Post[], myQuestions: Question[], myCourses: Course[]) {
+  constructor(id: string, firstName: string, lastName: string, email: string, isNewUser?: boolean) {
     this._id = id;
     this.name = new Name(firstName, lastName);
-    this.program = program;
     this.email = email;
-    this.rank = rank;
-    this.image = image;
-    this.asked = asked;
-    this.answered = answered;
-    this.description = description;
-    this.skills = skills;
-    this.favorites = favorites;
-    this.myQuestions = myQuestions;
-    this.myCourses = myCourses;
+    this.isNewUser = isNewUser;
   }
+
+
 }

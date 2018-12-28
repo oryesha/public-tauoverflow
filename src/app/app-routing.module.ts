@@ -42,7 +42,7 @@ const routes: Routes = [
     data: {pageTitle: 'QuestionEditor'}
   },
   {
-    path: 'course-page',
+    path: 'course',
     component: CoursePageComponent,
     data: {pageTitle: 'Course Page'}
   },
