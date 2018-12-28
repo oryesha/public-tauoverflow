@@ -1,4 +1,4 @@
-let QuestionService = require('../services/question.service')
+let QuestionService = require('../services/question.service');
 
 _this = this;
 

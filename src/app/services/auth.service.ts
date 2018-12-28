@@ -17,6 +17,7 @@ export class AuthService {
       this.afAuth.auth
         .signInWithPopup(provider)
         .then(res => {
+          // debugger;
           resolve(res);
         }, err => {
           console.log(err);
