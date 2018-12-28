@@ -2,20 +2,16 @@ let Question = require('../models/question.model');
 
 _this = this;
 
-class QuestionService {
-
-  constructor(){}
-
-  async getAllQuestions(query) {
+exports.getAllQuestions = async function(query) {
       try {
         let questions = await Question.paginate(query);
         return questions;
       } catch (e) {
         throw Error('Error while Paginating questions')
       }
-    };
+};
 
-  async createQuestion(question){
+exports.createQuestion = async function(question){
     let newQuestion = new Question({
       subject: question.subject,
       content: question.content,
@@ -33,9 +29,9 @@ class QuestionService {
     }catch(e){
       throw Error("Error while Creating question")
     }
-  }
+};
 
-  async updateQuestion(question){
+exports.updateQuestion = async function(question){
 
     let id = question.id;
     let oldQuestion;
@@ -67,9 +63,9 @@ class QuestionService {
     }catch(e){
       throw Error("And Error occured while updating the question");
     }
-  }
+};
 
-  async deleteQuestion(id){
+exports.deleteQuestion = async function(id){
     try{
       let deleted = await Question.remove({_id: id});
       if(deleted.result.n === 0){
@@ -79,8 +75,6 @@ class QuestionService {
     }catch(e){
       throw Error("Error Occured while Deleting the question")
     }
-  }
-}
+};
 
-module.exports = QuestionService;
 

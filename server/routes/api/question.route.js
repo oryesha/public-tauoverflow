@@ -4,11 +4,9 @@ let router = express.Router();
 
 let QuestionController = require('../../controller/question.controller');
 
-const questionController = new QuestionController();
-
-router.get('/', questionController.getAllQuestions);
-router.post('/', questionController.createQuestion);
-router.put('/', questionController.updateQuestion);
-router.delete('/:id',questionController.removeQuestion);
+router.get('/', QuestionController.getAllQuestions);
+router.post('/', QuestionController.createQuestion);
+router.put('/', QuestionController.updateQuestion);
+router.delete('/:id',QuestionController.removeQuestion);
 
 module.exports = router;

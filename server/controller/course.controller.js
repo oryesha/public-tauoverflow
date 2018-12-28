@@ -1,14 +1,11 @@
-let CourseService = require('../services/course.service')
+let CourseService = require('../services/course.service');
 
 _this = this;
 
-class CourseController {
 
-  constructor() {
-    this.courseService = new CourseService();
-  }
-
-  async getAllCourses(req, res) {
+  exports.async getAllCourses(req, res) {
+    console.log(this.ori);
+    console.log(this);
     try{
       let courses = await this.courseService.getAllCourses();
       return res.status(200).json({status: 200, data: courses, message: "Succesfully All Courses Recieved"});

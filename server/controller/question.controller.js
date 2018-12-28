@@ -1,20 +1,16 @@
 let QuestionService = require('../services/question.service')
 
-class QuestionController{
 
-  constructor(){
-    this.questionService = new QuestionService();
-  }
-
-  async getAllQuestions(req,res){
+exports.getAllQuestions = async function(req,res){
     try{
-      let questions = await this.questionService.getAllQuestions({});
+      let questions = await QuestionService.getAllQuestions({});
       return res.status(200).json({status: 200, data: questions, message: "Succesfully Questions Recieved"});
     }catch(e){
-      return res.status(400).json({status: 400, message: e.message});
+      return res.status(400).json({status: 400, message: "WOW " + e.message});
     }
-  }
-  async createQuestion(req,res){
+};
+
+exports.createQuestion = async function(req,res){
 
     let question = {
       subject: req.body.subject,
@@ -28,14 +24,14 @@ class QuestionController{
     };
 
     try{
-      let createdQuestion = await this.questionService.createQuestion(question);
+      let createdQuestion = await QuestionService.createQuestion(question);
       return res.status(201).json({status: 201, data: createdQuestion, message: "Succesfully Created Question"})
     }catch(e){
       return res.status(400).json({status: 400, message: "Question Creation was Unsuccesfull"})
     }
-  }
+};
 
-  async updateQuestion(req,res){
+exports.updateQuestion = async function(req,res){
 
     if(!req.body._id){
       return res.status(400).json({status: 400., message: "Id must be present"})
@@ -56,23 +52,21 @@ class QuestionController{
     };
 
     try{
-      let updatedQuestion = await this.questionService.updateQuestion(question);
+      let updatedQuestion = await QuestionService.updateQuestion(question);
       return res.status(200).json({status: 200, data: updatedQuestion, message: "Succesfully Updated Question"})
     }catch(e){
       return res.status(400).json({status: 400., message: e.message})
     }
-  }
+};
 
-  async removeQuestion(req, res){
+exports.removeQuestion = async function(req, res){
 
     let id = req.params.id;
     try{
-      let deleted = await this.questionService.deleteQuestion(id);
+      let deleted = await QuestionService.deleteQuestion(id);
       return res.status(204).json({status:204, message: "Succesfully Deleted Question"})
     }catch(e){
       return res.status(400).json({status: 400, message: e.message})
     }
-  }
-}
+};
 
-module.exports = QuestionController;
