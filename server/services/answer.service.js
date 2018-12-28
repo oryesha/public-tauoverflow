@@ -23,8 +23,9 @@ exports.createAnswer = async function(answer){
   try{
     let savedAnswer = await newAnswer.save();
     savedAnswer.populate('questionId','answers').exec(
-      function(savedQuestion){
-        savedAnswer.questionId.answers.push(savedAnswer)
+      function(savedAnswer){
+        savedAnswer.questionId.answers.push(savedAnswer);
+        savedAnswer.questionId.save();
       });
     return savedAnswer;
   }catch(e){
