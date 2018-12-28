@@ -7,21 +7,19 @@ exports.createChangeHoursPost = async function(post){
     subject: post.subject,
     content: post.content,
     owner: post.owner,
+    course: post.course,
     timeStamp: post.date,//TimeFormat,
     isLocked: post.isLocked
   });
 
   try{
     let savedPost = await newPost.save();
-    savedPost.relatedCourses.forEach(function(course){
-      course.findOneAndUpdate(
-        {courseId : course.courseId},
-        {}
-      )
-    });
-
-    return savedQuestion;
+    savedPost.populate('course').exec(function(err, post) {
+        post.course.changeHours.push(post);
+        post.course.save();
+      });
+    return savedPost;
   }catch(e){
-    throw Error("Error while Creating question")
+    throw Error("Error while Creating Change Hour Post")
   }
 };
