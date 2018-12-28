@@ -25,11 +25,14 @@ exports.createQuestion = async function(question){
 
     try{
       let savedQuestion = await newQuestion.save();
-      savedQuestion.populate('relatedCourses').exec(
+      savedQuestion.populate('relatedCourses', 'owner').exec(
         function(savedQuestion){
           savedQuestion.relatedCourses.forEach(function(course){
             course.questionsList.push(savedQuestion);
+            course.save();
           })
+          savedQuestion.owner.myQuestions.push(savedQuestion);
+          savedQuestion.owner.save();
       });
       return savedQuestion;
     }catch(e){

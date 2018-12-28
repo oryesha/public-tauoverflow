@@ -2,10 +2,13 @@ let express = require('express');
 let router = express.Router();
 let questions = require('./api/question.route');
 let courses = require('./api/course.route');
+let change_hours = require('./api/change-hours.route');
 
 router.use('/questions', questions);
 
 router.use('/courses', courses);
+
+router.use('/change-hours', change_hours);
 
 module.exports = router;
 
