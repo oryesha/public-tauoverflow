@@ -2,14 +2,13 @@ let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
 
 const CourseReviewSchema = new mongoose.Schema({
-  RelatedCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
-  Upvote: {
-    count: Number,
-    upvoters: [String]
-  },
-  Answers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}],
-  CourseName: String,
-  Rank: Number,
+  subject: String,
+  content: String,
+  owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'},
+  course: {type: mongoose.Schema.Types.ObjectId, ref: 'Course'},
+  timeStamp: Date,//TimeFormat,
+  isLocked: Boolean,
+  rank: Number,
 });
 
 CourseReviewSchema.plugin(mongoosePaginate);
