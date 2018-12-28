@@ -25,7 +25,12 @@ exports.createQuestion = async function(question){
 
     try{
       let savedQuestion = await newQuestion.save();
-      return savedQuestion;
+      savedQuestion.relatedCourses.forEach(function(course){
+          course.questionsList.push(savedQuestion);
+          course.save();
+      });
+
+        return savedQuestion;
     }catch(e){
       throw Error("Error while Creating question")
     }
