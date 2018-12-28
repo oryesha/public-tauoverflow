@@ -1,6 +1,14 @@
 let PartnerPost = require('../models/partner-post.model');
 _this = this;
 
+exports.getAllPartnerPosts = async function() {
+  try {
+    let posts = await PartnerPost.paginate();
+    return posts;
+  } catch (e) {
+    throw Error('Error while Paginating partner posts')
+  }
+};
 
 exports.createPartnerPost = async function(partnerPost){
   let newPartnerPost = new PartnerPost({

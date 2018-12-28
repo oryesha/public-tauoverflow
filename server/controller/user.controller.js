@@ -1,5 +1,14 @@
 let UserService = require('../services/user.service')
 
+exports.getAllUsers = async function(req,res){
+  try{
+    let users = await UserService.getAllUsers();
+    return res.status(200).json({status: 200, data: users, message: "Succesfully Users Recieved"});
+  }catch(e){
+    return res.status(400).json({status: 400, message: e.message});
+  }
+};
+
 exports.createNewUser = async function(req,res){
 
   let user = {
