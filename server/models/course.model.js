@@ -7,8 +7,8 @@ const CourseSchema = new mongoose.Schema({
   courseId: String,
   questions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],
   reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'CourseReview'}],
-  partnerPosts: [{type: mongoose.schema.Types.ObjectId, ref: 'PartnerPost'}],
-  changeHours: [{type: mongoose.schema.Types.ObjectId, ref: 'ChangeHoursPost'}],
+  partnerPosts: [{type: mongoose.Schema.Types.ObjectId, ref: 'PartnerPost'}],
+  changeHours: [{type: mongoose.Schema.Types.ObjectId, ref: 'ChangeHoursPost'}],
   rank: Number
 });
 
