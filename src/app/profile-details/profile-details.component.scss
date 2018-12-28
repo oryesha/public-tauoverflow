@@ -13,6 +13,7 @@ $icon-small-size: 50px;
   max-width: 190px;
   padding: 14px;
   width: 100%;
+  border-radius: 4px;
 }
 
 .CardProfileImage {
@@ -43,6 +44,7 @@ $icon-small-size: 50px;
 .Chip {
   font-size: 12px;
   background-color: mat-color($mat-gray, 300);
+  cursor: pointer;
 }
 
 .Skills {
