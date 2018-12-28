@@ -9,9 +9,18 @@
     "rank": 100,
     "description": "25 YO developer, from Ra'anana",
     "skills": [
-      "Data Structures",
-      "Software 1",
-      "Computational Models"
+      {
+        "name": "Data Structures",
+        "courseId": "03682158"
+      },
+      {
+        "name": "Intro To Data Science",
+        "courseId": "03685060"
+      },
+      {
+        "name": "Intro to NLP",
+        "courseId": "03683235"
+      }
     ]
   },
   "courses": [
