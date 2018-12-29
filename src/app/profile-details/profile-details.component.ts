@@ -1,5 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AppService} from '../app.service';
+import {Course} from '../models/course.model';
+import {CoursesComponent} from '../courses/courses.component';
+import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-profile-details',
@@ -18,11 +23,13 @@ export class ProfileDetailsComponent implements OnInit {
     // asked: number;
     // answered: number;
     description: string;
-    skills: string[];
+    skills: Course[];
   };
 
-  constructor(private appService: AppService) {
-    appService.getResponse('api/user').subscribe((response) => {
+  constructor(private appService: AppService,
+              private router: Router,
+              private routingDataService: AppRoutingDataService) {
+    appService.getResponse('userDetails').subscribe((response) => {
       this.userDetails = response;
       this.isLoaded = true;
     });
@@ -30,5 +37,11 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  navigateToCoursePage(course: Course) {
+    const courseData = new CoursesComponent.CourseNavigationData(course);
+    this.routingDataService.setRoutingData(course.courseId, courseData);
+    this.router.navigate(['/course-page'], { queryParams: { courseId: course.courseId } });
   }
 }

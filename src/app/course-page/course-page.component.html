@@ -3,7 +3,7 @@
   <mat-card class="course-card">
     <h3 class="CourseTitle">{{course.name}}</h3>
     <div class="CourseNumber">{{course.courseId}}</div>
-    <div class="Stars">
+    <div *ngIf="course.rank != undefined" class="Stars">
       <mat-icon class="Star" *ngFor="let i of starsRange(course.rank)">star</mat-icon>
       <mat-icon class="Star" *ngIf="halfStar(course.rank)">star_half</mat-icon>
       <mat-icon class="Star" *ngFor="let i of emptyStarsRange(course.rank)">star_border</mat-icon>
