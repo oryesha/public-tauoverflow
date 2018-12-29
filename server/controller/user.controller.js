@@ -11,15 +11,16 @@ exports.getAllUsers = async function(req,res){
 
 exports.createNewUser = async function(req,res){
   console.log("WOW2");
+  console.log(req);
   let user = {
-    id: req.body.id,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    id: req.body._id,
+    firstName: req.body.name.first,
+    lastName: req.body.name.last,
     program: req.body.program,
     email: req.body.email,
     image: req.body.image,
     description: req.body.description,
-    skills: req.body.skills,
+    skills: req.body.skills
   };
 
   try{
