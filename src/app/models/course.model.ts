@@ -2,24 +2,19 @@ import {CourseReview} from './course-review.model';
 import {Question} from './question.model';
 import {PartnerPost} from './partner-post.model';
 import {Post} from './post.model';
+import {UiCourse} from './ui-course.model';
 
 export class Course {
-  name: string;
-  courseId: string;
-  questions: Question[];
-  reviews: CourseReview[];
-  partnerPosts: PartnerPost[];
-  changeHours: Post[];
-  rank: number;
+  _id: string;
+  uiCourse: UiCourse;
+  questions: Question[] = [];
+  reviews: CourseReview[] = [];
+  partnerPosts: PartnerPost[] = [];
+  changeHours: Post[] = [];
+  rank = 0;
 
-  constructor(name: string, courseId: string, questions: Question[], reviews: CourseReview[],
-              partnerPosts: PartnerPost[], changeHours: Post[], rank: number) {
-    this.name = name;
-    this.courseId = courseId;
-    this.questions = questions;
-    this.reviews = reviews;
-    this.partnerPosts = partnerPosts;
-    this.changeHours = changeHours;
-    this.rank = rank;
+  constructor(uiCourse: UiCourse) {
+    this.uiCourse = uiCourse;
+    this._id = uiCourse.courseId;
   }
 }

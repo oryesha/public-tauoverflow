@@ -1,5 +1,16 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
+export class QueryParams {
+  paramName: string;
+  paramValue: string;
+
+  constructor(name: string, value: string) {
+    this.paramName = name;
+    this.paramValue = value;
+  }
+}
 
 @Injectable()
 export class HttpRequestsService {
@@ -12,5 +23,11 @@ export class HttpRequestsService {
     this.http.post(this._baseUrl + path, model);
   }
 
-  // TODO: Implement get.
+  get(path: string, params?: QueryParams[]): Observable<any> {
+    const queryParams = new HttpParams();
+    if (params) {
+      params.forEach(p => queryParams.append(p.paramName, p.paramValue));
+    }
+    return this.http.get(this._baseUrl + path, {params: queryParams});
+  }
 }

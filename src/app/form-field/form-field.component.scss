@@ -21,3 +21,7 @@
 .Field /deep/ .mat-form-field-ripple {
   background: mat-color($mat-deep-orange, 200);
 }
+
+.Field /deep/ .mat-form-field-outline-thick {
+  color: mat-color($mat-deep-orange, 200);
+}

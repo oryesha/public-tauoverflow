@@ -1,6 +1,7 @@
 import {Post} from './post.model';
 import {Course} from './course.model';
 import {Name} from './name.model';
+import {UiCourse} from './ui-course.model';
 
 export class UserProfile {
   _id: string;
@@ -12,7 +13,7 @@ export class UserProfile {
   asked = 0;
   answered = 0;
   description = '';
-  skills: Course[] = [];
+  skills: UiCourse[] = [];
   favorites: Post[] = [];
   myPosts: Post[] = [];
   myCourses: Course[] = [];
@@ -23,5 +24,9 @@ export class UserProfile {
     this.name = new Name(firstName, lastName);
     this.email = email;
     this.isNewUser = isNewUser;
+  }
+
+  setSkills(skillNames: string[]) {
+
   }
 }
