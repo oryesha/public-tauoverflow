@@ -1,23 +1,74 @@
 {
   "userDetails": {
-      "name": {
-        "first": "Geffen",
-        "last": "Menchik"
-      },
-      "program": "Computer Science and Electrical Engineering",
-      "profilePicturePath": "../../assets/geffen.jpg",
-      "rank": 100,
-      "description": "25 YO developer, from Ra'anana",
-      "skills": [
-        "Data Structures",
-        "Software 1",
-        "Computational Models"
-      ]
+    "name": {
+      "first": "Geffen",
+      "last": "Menchik"
     },
+    "program": "Computer Science and Electrical Engineering",
+    "profilePicturePath": "../../assets/geffen.jpg",
+    "rank": 100,
+    "description": "25 YO developer, from Ra'anana",
+    "skills": [
+      "Data Structures",
+      "Software 1",
+      "Computational Models"
+    ]
+  },
   "courses": [
     {
       "name": "Data Structures",
-      "courseId": "03682160"
+      "courseId": "03682158",
+      "rank": "2.5",
+      "questions": [
+        {
+          "subject": "Amortized time complexity",
+          "content": "blah blah",
+          "timeStamp": "2018-04-23T18:25:43.511Z",
+          "owner": {
+            "name": {
+              "first": "Nati",
+              "last": "Yosephian"
+            }
+          }
+        },
+        {
+          "subject": "Red-Black tree",
+          "content": "hey",
+          "timeStamp": "2018-08-05T13:02:06.511Z",
+          "owner": {
+            "name": {
+              "first": "Nati",
+              "last": "Yosephian"
+            }
+          }
+        }
+      ],
+      "reviews": [
+        {
+          "subject": "Great Course!",
+          "content": "hdfkjdfhjkd",
+          "timeStamp": "2018-11-21T10:25:43.511Z",
+          "rank": "2",
+          "owner": {
+            "name": {
+              "first": "Or",
+              "last": "Yesha"
+            }
+          }
+        },
+        {
+          "subject": "Perfect Course!",
+          "content": "hdfkjdfhjkd",
+          "timeStamp": "2018-11-25T10:25:43.511Z",
+          "rank": "4",
+          "owner": {
+            "name": {
+              "first": "Or",
+              "last": "Yesha"
+            }
+          }
+        }
+      ]
     },
     {
       "name": "Linear Algebra 1A",

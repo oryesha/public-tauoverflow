@@ -1,6 +1,5 @@
 import {Post} from './post.model';
 import {Course} from './course.model';
-import {Question} from './question.model';
 import {Name} from './name.model';
 
 export class UserProfile {
@@ -15,7 +14,7 @@ export class UserProfile {
   description = '';
   skills: Course[] = [];
   favorites: Post[] = [];
-  myQuestions: Question[] = [];
+  myPosts: Post[] = [];
   myCourses: Course[] = [];
   isNewUser = true;
 
@@ -25,6 +24,4 @@ export class UserProfile {
     this.email = email;
     this.isNewUser = isNewUser;
   }
-
-
 }

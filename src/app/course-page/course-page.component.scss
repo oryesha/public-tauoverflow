@@ -41,8 +41,18 @@
 }
 
 .CourseTitle {
-  margin: 10px;
+  margin: 5px;
   justify-content: center;
+  text-align: center;
+}
+
+.CourseNumber {
+  justify-content: center;
+  color: mat-color($mat-gray, 500);
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 .CoursePageButton {
@@ -95,7 +105,7 @@
   font-size: 14px;
   background-color: mat-color($mat-gray, 300);
   color: mat-color($mat-gray, 600);
-  padding: 10px;
+  padding: 0px 10px;
 }
 
 .QuestionTitle /deep/ .mat-button-wrapper {
