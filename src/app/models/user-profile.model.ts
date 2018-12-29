@@ -1,6 +1,7 @@
 import {Post} from './post.model';
 import {Course} from './course.model';
 import {Name} from './name.model';
+import {Question} from './question.model';
 
 export class UserProfile {
   _id: string;
