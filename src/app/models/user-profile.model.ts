@@ -6,7 +6,7 @@ import {UiCourse} from './ui-course.model';
 export class UserProfile {
   _id: string;
   name: Name;
-  program: string;
+  program = '';
   email: string;
   rank = 0;
   image: string = ''; // TODO(nati): Decide how this should look.

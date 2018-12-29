@@ -5,7 +5,7 @@
       <h3 class="CourseTitle">{{initialDataLoaded ? uiCourse.name : course.uiCourse.name}}</h3>
       <div class="CourseNumber">{{initialDataLoaded ? uiCourse.courseId : course.uiCourse.courseId}}</div>
       <ng-container *ngIf="!courseDataLoaded">
-        <div class="Stars">
+        <div *ngIf="course.rank != undefined" class="Stars">
           <mat-icon class="Star" *ngFor="let i of starsRange(course.rank)">star</mat-icon>
           <mat-icon class="Star" *ngIf="halfStar(course.rank)">star_half</mat-icon>
           <mat-icon class="Star" *ngFor="let i of emptyStarsRange(course.rank)">star_border</mat-icon>

@@ -52,7 +52,6 @@ import {AppService} from './app.service';
 import { PostEditorComponent } from './post-editor/post-editor.component';
 import { MultiSelectAutocompleteComponent } from './multi-select-autocomplete/multi-select-autocomplete.component';
 import {AppRoutingDataService} from './app-routing-data.service';
-import { Try1Component } from './try1/try1.component';
 import {UserService} from './services/user.service';
 import {AuthGuard} from './services/auth/auth.guard';
 import { InitialDetailsDialogComponent } from './initial-details-dialog/initial-details-dialog.component';
@@ -84,7 +83,6 @@ import {CourseService} from './services/course.service';
     SingleAnswerEditorComponent,
     PostEditorComponent,
     MultiSelectAutocompleteComponent,
-    Try1Component,
     InitialDetailsDialogComponent,
   ],
   imports: [
