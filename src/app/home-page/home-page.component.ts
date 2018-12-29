@@ -65,7 +65,7 @@ export class HomePageComponent implements OnInit {
     dialogConfig.data = {title: 'Please add additional information', user: this.user};
     this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
       result => {
-        debugger;
+        // debugger;
       }
     );
   }

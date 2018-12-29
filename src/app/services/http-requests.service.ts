@@ -15,12 +15,12 @@ export class QueryParams {
 @Injectable()
 export class HttpRequestsService {
 
-  private _baseUrl = 'http://localhost:3000'; // TODO(or,licht): Add the base URL.
+  private _baseUrl = 'http://localhost:3000/api'; // TODO(or,licht): Add the base URL.
 
   constructor(private http: HttpClient) { }
 
   post(path: string, model: any) {
-    this.http.post(this._baseUrl + path, model);
+    return this.http.post(this._baseUrl + path, model);
   }
 
   get(path: string, params?: QueryParams[]): Observable<any> {
