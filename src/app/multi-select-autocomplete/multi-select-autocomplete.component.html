@@ -1,4 +1,4 @@
-<mat-form-field class="AutocompleteField" appearance="fill">
+<mat-form-field class="AutocompleteField" appearance="fill" xmlns="http://www.w3.org/1999/html">
   <mat-chip-list #chipList>
     <mat-chip
       *ngFor="let selectedOption of selectedOptions"
@@ -22,5 +22,5 @@
       {{option}}
     </mat-option>
   </mat-autocomplete>
-  <mat-hint>Limit: {{5 - selectedOptions.length}}</mat-hint>
+  <mat-hint *ngIf="!isRequired">Limit: {{5 - selectedOptions.length}}<br>[optional]</mat-hint>
 </mat-form-field>

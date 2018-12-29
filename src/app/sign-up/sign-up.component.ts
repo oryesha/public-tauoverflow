@@ -86,7 +86,9 @@ export class SignUpComponent implements OnInit {
 
   private _enterApp(response: firebase.auth.UserCredential, value?: any) {
     const user = this._createUser(response, value);
-    this._subscribeUser(user);
+    if (user.isNewUser) {
+      this._subscribeUser(user);
+    }
     this._navigateToHomePage(user);
   }
 

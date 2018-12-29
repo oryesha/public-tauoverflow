@@ -1,63 +1,92 @@
 <app-nav-bar></app-nav-bar>
 <div class="CardsWrapper">
   <mat-card class="course-card">
-    <h3 class="CourseTitle">{{course.name}}</h3>
-    <div class="CourseNumber">{{course.courseId}}</div>
-    <div *ngIf="course.rank != undefined" class="Stars">
-      <mat-icon class="Star" *ngFor="let i of starsRange(course.rank)">star</mat-icon>
-      <mat-icon class="Star" *ngIf="halfStar(course.rank)">star_half</mat-icon>
-      <mat-icon class="Star" *ngFor="let i of emptyStarsRange(course.rank)">star_border</mat-icon>
-    </div>
-    <div class="mat-body-2 Reviews"> Reviews: {{course.reviews.length}} </div>
-    <div class="CoursePageButtonContainer">
-      <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/question-editor">Ask a question</button>
-      <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/course-review-editor">Write a review</button>
-      <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/find-a-partner-editor">Find a partner</button>
-      <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/find-a-partner-editor">Change class hours</button>
-    </div>
+    <ng-container *ngIf="initialDataLoaded">
+      <h3 class="CourseTitle">{{initialDataLoaded ? uiCourse.name : course.uiCourse.name}}</h3>
+      <div class="CourseNumber">{{initialDataLoaded ? uiCourse.courseId : course.uiCourse.courseId}}</div>
+      <ng-container *ngIf="!courseDataLoaded">
+        <div *ngIf="course.rank != undefined" class="Stars">
+          <mat-icon class="Star" *ngFor="let i of starsRange(course.rank)">star</mat-icon>
+          <mat-icon class="Star" *ngIf="halfStar(course.rank)">star_half</mat-icon>
+          <mat-icon class="Star" *ngFor="let i of emptyStarsRange(course.rank)">star_border</mat-icon>
+        </div>
+        <div class="mat-body-2 Reviews"> Reviews: {{course.reviews.length}} </div>
+        <div class="CoursePageButtonContainer">
+          <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/question-editor">Ask a question</button>
+          <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/course-review-editor">Write a review</button>
+          <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/find-a-partner-editor">Find a partner</button>
+          <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/find-a-partner-editor">Change class hours</button>
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="!initialDataLoaded">
+      <mat-spinner></mat-spinner>
+    </ng-container>
   </mat-card>
   <div class="page">
     <mat-tab-group class="Tabs">
-      <mat-tab label="Questions" >
-        <mat-list-item class="ListItem" *ngFor="let question of course.questions">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle" routerLink="/question-page">{{question.subject}}</button>
-          <span mat-line class="NameAndDate">
-            <span>{{question.owner.name.first}} {{question.owner.name.last}}</span>
-            <span>{{question.timeStamp | date}}</span>
-          </span>
-           </mat-list-item>
+      <mat-tab label="Questions">
+        <ng-container *ngIf="!courseDataLoaded">
+          <mat-spinner></mat-spinner>
+        </ng-container>
+        <ng-container *ngIf="courseDataLoaded">
+          <mat-list-item class="ListItem" *ngFor="let question of course.questions">
+            <button mat-flat-button mat-line class="mat-h4 QuestionTitle" routerLink="/question-page">
+              {{question.subject}}
+            </button>
+            <span mat-line class="NameAndDate">
+              <span>{{question.owner.name.first}} {{question.owner.name.last}}</span>
+              <span>{{question.timeStamp | date}}</span>
+            </span>
+          </mat-list-item>
+        </ng-container>
       </mat-tab>
       <mat-tab label="Reviews">
-        <mat-list-item class="ListItem" *ngFor="let review of course.reviews">
-          <button matLine mat-flat-button class="mat-h4 QuestionTitle">
+        <ng-container *ngIf="!courseDataLoaded">
+          <mat-spinner></mat-spinner>
+        </ng-container>
+        <ng-container *ngIf="courseDataLoaded">
+          <mat-list-item class="ListItem" *ngFor="let review of course.reviews">
+            <button matLine mat-flat-button class="mat-h4 QuestionTitle">
             <span>
               {{review.subject}}
               <mat-icon [inline]="true" class="SmallStar" *ngFor="let i of starsRange(review.rank)">star</mat-icon>
             </span>
-          </button>
-          <span matLine class="NameAndDate">
+            </button>
+            <span matLine class="NameAndDate">
             <span>{{review.owner.name.first}} {{review.owner.name.last}}</span>
             <span>{{review.timeStamp | date}}</span>
           </span>
-        </mat-list-item>
+          </mat-list-item>
+        </ng-container>
       </mat-tab>
       <mat-tab label="Partners">
-        <mat-list-item class="ListItem" *ngFor="let partner of course.partnerPosts">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{partner.subject}}</button>
-          <span mat-line class="NameAndDate">
+        <ng-container *ngIf="!courseDataLoaded">
+          <mat-spinner></mat-spinner>
+        </ng-container>
+        <ng-container *ngIf="courseDataLoaded">
+          <mat-list-item class="ListItem" *ngFor="let partner of course.partnerPosts">
+            <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{partner.subject}}</button>
+            <span mat-line class="NameAndDate">
             <span>{{partner.owner.name.first}} {{partner.owner.name.last}}</span>
             <span>{{partner.timeStamp | date}}</span>
           </span>
-        </mat-list-item>
+          </mat-list-item>
+        </ng-container>
       </mat-tab>
       <mat-tab label="Change hours">
-        <mat-list-item class="ListItem" *ngFor="let hour of course.changeHours">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{hour.subject}}</button>
-          <span mat-line class="NameAndDate">
+        <ng-container *ngIf="!courseDataLoaded">
+          <mat-spinner></mat-spinner>
+        </ng-container>
+        <ng-container *ngIf="courseDataLoaded">
+          <mat-list-item class="ListItem" *ngFor="let hour of course.changeHours">
+            <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{hour.subject}}</button>
+            <span mat-line class="NameAndDate">
             <span>{{hour.owner.name.first}} {{hour.owner.name.last}}</span>
             <span>{{hour.timeStamp | date}}</span>
           </span>
-        </mat-list-item>
+          </mat-list-item>
+        </ng-container>
       </mat-tab>
     </mat-tab-group>
   </div>

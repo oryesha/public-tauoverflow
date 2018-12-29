@@ -16,6 +16,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import {HttpClientModule} from '@angular/common/http';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -54,6 +56,7 @@ import {UserService} from './services/user.service';
 import {AuthGuard} from './services/auth/auth.guard';
 import { InitialDetailsDialogComponent } from './initial-details-dialog/initial-details-dialog.component';
 import {HttpRequestsService} from './services/http-requests.service';
+import {CourseService} from './services/course.service';
 
 @NgModule({
   declarations: [
@@ -103,6 +106,8 @@ import {HttpRequestsService} from './services/http-requests.service';
     AngularEditorModule,
     HttpClientModule,
     MatCheckboxModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
@@ -114,10 +119,14 @@ import {HttpRequestsService} from './services/http-requests.service';
     AppRoutingDataService,
     UserService,
     AuthGuard,
-    HttpRequestsService
+    HttpRequestsService,
+    CourseService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [FilterDialogComponent]
+  entryComponents: [
+    FilterDialogComponent,
+    InitialDetailsDialogComponent
+  ]
 })
 export class AppModule {
 }

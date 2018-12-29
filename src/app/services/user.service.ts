@@ -29,7 +29,7 @@ export class UserService {
 
   subscribeNewUser(user: UserProfile) {
     console.log('WOW');
-    this.httpRequests.post('/api/user', user);
+    this.httpRequests.post('/user', user);
   }
 
   // updateCurrentUser(value) {

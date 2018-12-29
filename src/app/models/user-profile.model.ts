@@ -1,7 +1,7 @@
 import {Post} from './post.model';
 import {Course} from './course.model';
 import {Name} from './name.model';
-import {Question} from './question.model';
+import {UiCourse} from './ui-course.model';
 
 export class UserProfile {
   _id: string;
@@ -13,9 +13,9 @@ export class UserProfile {
   asked = 0;
   answered = 0;
   description = '';
-  skills: Course[] = [];
+  skills: UiCourse[] = [];
   favorites: Post[] = [];
-  myQuestions: Question[] = [];
+  myPosts: Post[] = [];
   myCourses: Course[] = [];
   isNewUser = true;
 
