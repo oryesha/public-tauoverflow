@@ -1,10 +1,10 @@
-let user = require('../models/user-profile.model');
+let User = require('../models/user-profile.model');
 
 _this = this;
 
 exports.getAllUsers = async function() {
   try {
-    let users = await user.paginate();
+    let users = await User.paginate();
     return users;
   } catch (e) {
     throw Error('Error while Paginating questions')
@@ -12,6 +12,7 @@ exports.getAllUsers = async function() {
 };
 
 exports.createNewUser = async function(user){
+  console.log(user);
   let newUser = new User({
     id: user.id,
     firstName: user.firstName,
