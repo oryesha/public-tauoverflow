@@ -15,7 +15,7 @@ export class QueryParams {
 @Injectable()
 export class HttpRequestsService {
 
-  private _baseUrl = ''; // TODO(or,licht): Add the base URL.
+  private _baseUrl = 'http://localhost:3000'; // TODO(or,licht): Add the base URL.
 
   constructor(private http: HttpClient) { }
 

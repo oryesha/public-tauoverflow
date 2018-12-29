@@ -91,6 +91,7 @@
 
 .ListItem {
   color: mat-color($mat-gray, 600);
+  //margin-left: 20px;
 }
 
 .ListItem /deep/ .mat-list-text {
@@ -122,4 +123,19 @@
   font-size: 12px;
   max-width: 16%;
   width: 100%;
+}
+
+.Subheader {
+  font-size: 13px;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+.ListItem /deep/ .mat-list-text {
+  margin-left: 14px;
+  border-radius: 6px;
+}
+
+.Divider {
+  margin-top: 10px;
 }

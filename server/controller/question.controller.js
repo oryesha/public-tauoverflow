@@ -1,77 +1,72 @@
 let QuestionService = require('../services/question.service');
 
-_this = this;
 
-
-exports.getQuestions = async function(req, res, next){
-
-  let page = req.query.page ? req.query.page : 1;
-  let limit = req.query.limit ? req.query.limit : 10;
-
-  console.log(page, limit);
-
-  try{
-    let questions = await QuestionService.getQuestions({}, page, limit);
-    return res.status(200).json({status: 200, data: questions, message: "Succesfully Questions Recieved"});
-  }catch(e){
-    return res.status(400).json({status: 400, message: e.message});
-  }
+exports.getAllQuestions = async function(req,res){
+    try{
+      let questions = await QuestionService.getAllQuestions({});
+      return res.status(200).json({status: 200, data: questions, message: "Succesfully Questions Recieved"});
+    }catch(e){
+      return res.status(400).json({status: 400, message: "WOW " + e.message});
+    }
 };
 
-exports.createQuestion = async function(req, res, next){
-  let question = {
-    title: req.body.title,
-    description: req.body.description,
-    status: req.body.status,
-    courses: req.body.courses,
-    owner: req.body.owner
-  };
+exports.createQuestion = async function(req,res){
 
-  try{
-    let createdQuestion = await QuestionService.createQuestion(question);
-    return res.status(201).json({status: 201, data: createdQuestion, message: "Succesfully Created Question"})
-  }catch(e){
-    return res.status(400).json({status: 400, message: "Question Creation was Unsuccesfull"})
-  }
+    let question = {
+      subject: req.body.subject,
+      content: req.body.content,
+      owner: req.body.owner,
+      timeStamp: req.body.timeStamp,//TimeFormat,
+      isLocked: req.body.isLocked,
+      relatedCourses: req.body.relatedCourses,
+      answers: req.body.answers,
+      upvote: req.body.upvote
+    };
+
+    try{
+      let createdQuestion = await QuestionService.createQuestion(question);
+      return res.status(201).json({status: 201, data: createdQuestion, message: "Succesfully Created Question"})
+    }catch(e){
+      return res.status(400).json({status: 400, message: "Question Creation was Unsuccesfull"})
+    }
 };
 
-exports.updateQuestion = async function(req, res, next){
+exports.updateQuestion = async function(req,res){
 
-  if(!req.body._id){
-    return res.status(400).json({status: 400., message: "Id must be present"})
-  }
+    if(!req.body._id){
+      return res.status(400).json({status: 400., message: "Id must be present"})
+    }
 
-  let id = req.body._id;
+    let id = req.body._id;
 
-  console.log(req.body);
+    let question = {
+      id,
+      subject: req.body.subject ? req.body.subject : null,
+      content: req.body.content ? req.body.content : null,
+      owner: req.body.owner ? req.body.owner : null,
+      timeStamp: req.body.timeStamp ? req.body.timeStamp : null,
+      isLocked: req.body.isLocked ? req.body.isLocked : null,
+      relatedCourses: req.body.relatedCourses ? req.body.relatedCourses : null,
+      answers: req.body.answers ? req.body.answers : null,
+      upvote: req.body.upvote ? req.body.upvote : null
+    };
 
-  let question = {
-    id,
-    title: req.body.title ? req.body.title : null,
-    description: req.body.description ? req.body.description : null,
-    status: req.body.status ? req.body.status : null,
-    courses: req.body.courses ? req.body.courses : null,
-    owner: req.body.owner ? req.body.owner : null
-
-  };
-
-  try{
-    let updatedQuestion = await QuestionService.updateQuestion(question);
-    return res.status(200).json({status: 200, data: updatedQuestion, message: "Succesfully Updated Question"})
-  }catch(e){
-    return res.status(400).json({status: 400., message: e.message})
-  }
+    try{
+      let updatedQuestion = await QuestionService.updateQuestion(question);
+      return res.status(200).json({status: 200, data: updatedQuestion, message: "Succesfully Updated Question"})
+    }catch(e){
+      return res.status(400).json({status: 400., message: e.message})
+    }
 };
 
-exports.removeQuestion = async function(req, res, next){
+exports.removeQuestion = async function(req, res){
 
-  let id = req.params.id;
-
-  try{
-    let deleted = await QuestionService.deleteQuestion(id);
-    return res.status(204).json({status:204, message: "Succesfully Deleted Question"})
-  }catch(e){
-    return res.status(400).json({status: 400, message: e.message})
-  }
-
+    let id = req.params.id;
+    try{
+      let deleted = await QuestionService.deleteQuestion(id);
+      return res.status(204).json({status:204, message: "Succesfully Deleted Question"})
+    }catch(e){
+      return res.status(400).json({status: 400, message: e.message})
+    }
 };
+
