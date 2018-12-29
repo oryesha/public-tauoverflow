@@ -5,7 +5,7 @@
 }
 
 .DetailsDialogContent {
-  color: mat-color($mat-gray, 500);
+  //color: mat-color($mat-gray, 500);
 }
 
 .DialogCourseSelector.mat-focused /deep/ .mat-select-arrow {
@@ -48,6 +48,7 @@
 }
 
 .SmallDialogHeader {
+  color: mat-color($mat-gray, 500);
   font-size: 14px;
   margin: 16px 0 0;
 }

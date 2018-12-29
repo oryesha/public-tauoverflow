@@ -8,6 +8,7 @@ import {InitialDetailsDialogComponent} from '../initial-details-dialog/initial-d
 import {UiCourse} from '../models/ui-course.model';
 import {Observable} from 'rxjs';
 import {CourseService} from '../services/course.service';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-home-page',
@@ -25,12 +26,14 @@ export class HomePageComponent implements OnInit {
 
   relatedCourses: string[] = [];
   user: UserProfile;
-  uiCourses: Observable<UiCourse[]>;
+  uiCoursesObservable: Observable<UiCourse[]>;
+  uiCoursesMap: {[name: string]: string};
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private courseService: CourseService,
+    private userService: UserService,
     private routingDataService: AppRoutingDataService) {}
 
   ngOnInit() {
@@ -41,7 +44,9 @@ export class HomePageComponent implements OnInit {
         this._openDetailsDialog();
       }
     }
-    this.uiCourses = this.courseService.getUiCourses();
+    this.courseService.getUiCourses().subscribe((courses: any) => {
+      courses.data.docs.forEach(course => this.uiCoursesMap[course.name] = course.courseId);
+    });
   }
 
   openCoursesDialog() {
@@ -65,8 +70,17 @@ export class HomePageComponent implements OnInit {
     dialogConfig.data = {title: 'Please add additional information', user: this.user};
     this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
       result => {
-        // debugger;
+        this.user.program = result.program;
+        this.user.description = result.description;
+        this._addUserSkills(result.skills);
+        this.userService.updateUserDetails(this.user);
       }
     );
+  }
+
+  private _addUserSkills(skills: string[]) {
+    skills.forEach(skillName => {
+      this.user.skills.push(new UiCourse(skillName, this.uiCoursesMap[skillName]));
+    });
   }
 }

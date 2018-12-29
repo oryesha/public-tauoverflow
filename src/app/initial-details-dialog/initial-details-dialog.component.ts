@@ -31,7 +31,9 @@ export class InitialDetailsDialogComponent implements OnInit {
   checkFormAndSubmit() {
     const program = this.programAutocomplete.getSelection();
     if (!program) {
-      this.snackBar.open('Please select a valid program');
+      this.snackBar.open('Please select a valid program', '', {
+        duration: 2000 // Prompt the toast 2 seconds.
+      });
     } else {
       this.dialogRef.close({
         program: program,

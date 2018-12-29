@@ -24,5 +24,4 @@ export class FormFieldComponent implements OnInit {
     }
     return this.textarea.nativeElement.value;
   }
-
 }
