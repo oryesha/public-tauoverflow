@@ -25,8 +25,4 @@ export class UserProfile {
     this.email = email;
     this.isNewUser = isNewUser;
   }
-
-  setSkills(skillNames: string[]) {
-
-  }
 }
