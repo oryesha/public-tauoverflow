@@ -1,11 +1,5 @@
 <mat-form-field class="Field" appearance="{{appearance}}">
   <mat-label>{{label}}</mat-label>
-  <ng-container *ngIf="isTextarea">
-    <textarea matInput placeholder="" [type]="'text'" formControlName="description" #textarea></textarea>
-  </ng-container>
-  <ng-container *ngIf="!isTextarea">
-    <input matInput placeholder="" required *ngIf="isRequired">
-    <input matInput placeholder="" *ngIf="!isRequired">
-  </ng-container>
-  <mat-hint *ngIf="!isRequired">[optional]</mat-hint>
+  <textarea matInput *ngIf="isTextarea" placeholder="" [required]="isRequired" [value]="''" #textarea></textarea>
+  <input matInput placeholder="" [required]="isRequired" *ngIf="!isTextarea">
 </mat-form-field>

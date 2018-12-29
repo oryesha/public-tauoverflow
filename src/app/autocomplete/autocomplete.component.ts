@@ -33,8 +33,9 @@ export class AutocompleteComponent implements OnInit {
   defaultOptions: string[] = ['Calculus 1b', 'Intro to CS', 'Linear Algebra', 'Discrete Mathematics', 'Complexity',
     'Micro-Economics', 'Funding', 'Statistics'];
 
-  private _valid(value: string): boolean {
-    return (this.options || this.defaultOptions).indexOf(value) > -1;
+  private _isSelectionValid(): boolean {
+    return (this.options || this.defaultOptions)
+        .indexOf(this.inputEl.nativeElement.value) > -1;
   }
 
   ngOnInit() {
@@ -57,7 +58,10 @@ export class AutocompleteComponent implements OnInit {
   }
 
   getSelection(): string {
-    const selection = this.inputEl.nativeElement.value;
-    return this._valid(selection) ? selection : null;
+    let selection: string = null;
+    if (this.inputEl && this._isSelectionValid()) {
+      selection = this.inputEl.nativeElement.value;
+    }
+    return selection;
   }
 }

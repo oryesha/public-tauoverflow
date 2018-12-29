@@ -1,6 +1,6 @@
 <mat-form-field class="AutocompleteField {{editorCss}} {{outlineCss}}" appearance="{{appearance}}">
   <input type="text" placeholder="{{placeholder}}" aria-label="Number" matInput [formControl]="myControl"
-         [matAutocomplete]="auto" [required]="isRequired">
+         [matAutocomplete]="auto" [required]="isRequired" #input>
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option class="Option" *ngFor="let option of filteredOptions | async" [value]="option">
       {{option}}

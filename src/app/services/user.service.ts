@@ -12,7 +12,7 @@ export class UserService {
   constructor(
     public db: AngularFirestore,
     public afAuth: AngularFireAuth,
-    private httpRequests: HttpRequestsService
+    private httpRequest: HttpRequestsService
   ) {}
 
   getCurrentUser() {
@@ -29,7 +29,12 @@ export class UserService {
 
   subscribeNewUser(user: UserProfile): Observable<any> {
     console.log('subscribe new user');
-    return this.httpRequests.post('/user', user);
+    return this.httpRequest.post('/user', user);
+  }
+
+  updateUserDetails(user: UserProfile): Observable<any> {
+    console.log('update user');
+    return this.httpRequest.put('/user', user);
   }
 
   // updateCurrentUser(value) {

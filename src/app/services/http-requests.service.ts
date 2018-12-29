@@ -30,4 +30,8 @@ export class HttpRequestsService {
     }
     return this.http.get(this._baseUrl + path, {params: queryParams});
   }
+
+  put(path: string, model: any) {
+    return this.http.put(this._baseUrl + path, model);
+  }
 }
