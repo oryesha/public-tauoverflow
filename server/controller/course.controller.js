@@ -12,6 +12,10 @@ exports.getAllCourses = async function(req, res) {
   }
 };
 
+exports.createCourse = async function(req, res) {
+  console.log(req);
+}
+
 exports.getCourse = async function(req, res) {
   const courseNum = req.params.courseId;
 
