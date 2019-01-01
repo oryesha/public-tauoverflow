@@ -22,4 +22,8 @@ export class CourseService {
     const params = new QueryParams('courseId', courseId);
     return this.httpRequest.get('/courses', [params]);
   }
+
+  addCourse(uiCourse: UiCourse): Observable<any> {
+    return this.httpRequest.post('/courses', uiCourse);
+  }
 }

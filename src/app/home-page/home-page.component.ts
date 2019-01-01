@@ -83,4 +83,11 @@ export class HomePageComponent implements OnInit {
       this.user.skills.push(new UiCourse(skillName, this.uiCoursesMap[skillName]));
     });
   }
+
+  _sendPost() {
+    this.courseService.addCourse(new UiCourse('name', '0011')).subscribe(res => {
+      console.log(res);
+      debugger;
+    });
+  }
 }
