@@ -14,6 +14,21 @@ exports.getAllCourses = async function() {
   }
 };
 
+
+exports.createCourse = async function(course){
+    let newCourse = new Course({
+      name: course.name,
+      content: course.courseId
+    });
+
+    try{
+      let savedCourse = await newCourse.save();
+      return savedQuestion;
+    }catch(e){
+      throw Error("Error while Creating question")
+    }
+};
+
 exports.getCourse = async function(courseNum) {
   try {
     const course = await Course.find({courseId: courseNum});

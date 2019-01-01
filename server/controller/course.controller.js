@@ -13,7 +13,19 @@ exports.getAllCourses = async function(req, res) {
 };
 
 exports.createCourse = async function(req, res) {
-  console.log(req);
+
+    let course = {
+      name: req.body.name,
+      courseId: req.body.courseId
+    };
+
+    try{
+      let createdCourse = await CourseService.createCourse(course);
+      return res.status(201).json({status: 201, data: createdCourse, message: "Succesfully Created Course"})
+    }catch(e){
+      return res.status(400).json({status: 400, message: "Course Creation was Unsuccesfull"})
+    }
+};
 }
 
 exports.getCourse = async function(req, res) {
