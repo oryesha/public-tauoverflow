@@ -2,6 +2,10 @@
 
 $icon-size: 32px;
 
+.Question {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 .AnswerEditorCard {
   background: mat-color($mat-gray, 300);
   margin: 0 60px;
@@ -28,9 +32,9 @@ $icon-size: 32px;
   justify-content: center;
 }
 
-//.QuestionTextArea {
-//  background: white;
-//}
+.QuestionTextArea /deep/ .angular-editor-wrapper {
+  background-color: white;
+}
 
 .PostTextArea /deep/ .angular-editor-wrapper,
 .PostTextArea /deep/ .angular-editor-toolbar  {
@@ -54,6 +58,7 @@ $icon-size: 32px;
 
 .PostTitleText {
   color: mat-color($mat-gray, 700);
+  //margin-left: 10px;
 }
 
 .SelectedCourses {
@@ -88,4 +93,6 @@ $icon-size: 32px;
   color: mat-color($mat-gray, 800);
   //font-size: 15px;
   text-transform: uppercase;
+  line-height: 27px;//
+  font-size: 12px;//
 }

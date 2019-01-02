@@ -51,6 +51,7 @@ import { PostEditorComponent } from './post-editor/post-editor.component';
 import { MultiSelectAutocompleteComponent } from './multi-select-autocomplete/multi-select-autocomplete.component';
 import {AppRoutingDataService} from './app-routing-data.service';
 import { Try1Component } from './try1/try1.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { Try1Component } from './try1/try1.component';
     AngularEditorModule,
     HttpClientModule,
     MatCheckboxModule,
+    MatTooltipModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
