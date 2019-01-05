@@ -14,6 +14,7 @@ export class CourseService {
     this.coursesRequest = this.httpRequest.get('/courses');
     this.coursesRequest.subscribe((response: any) => {
       const courses = response.data;
+      this._coursesMap = {};
       courses.forEach((course: any) => {
         this._coursesMap[course.courseName] = course.courseId;
       });

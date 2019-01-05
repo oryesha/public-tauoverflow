@@ -27,14 +27,18 @@ export class HttpRequestsService {
     return this.http.post(this._baseUrl + path, model);
   }
 
-  get(path: string, reqQuery?: QueryParams[], params?: any): Observable<any> {
+  get(path: string, reqQuery?: QueryParams[], params?: string[]): Observable<any> {
     const queryParams = {};
+    let fullPath = path;
     if (reqQuery) {
       reqQuery.forEach(param => {
         queryParams[param.paramName] = param.paramValue;
       });
     }
-    return this.http.get(this._baseUrl + path, {params: queryParams});
+    if (params) {
+      fullPath += '/' + params.join('/');
+    }
+    return this.http.get(this._baseUrl + fullPath, {params: queryParams});
   }
 
   put(path: string, model: any) {

@@ -34,4 +34,8 @@ export class QuestionEditorComponent implements OnInit {
     //   this.courses.splice(index, 1);
     // }
   }
+
+  postQuestion(event: string) {
+    console.log(event);
+  }
 }

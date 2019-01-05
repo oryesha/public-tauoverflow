@@ -20,10 +20,11 @@ export class UserService {
     return this._currentUser._id;
   }
 
-  getCurrentUser() {
+  getFirebaseUser() {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().onAuthStateChanged((user: firebase.User) => {
         if (user) {
+          // this.httpRequest
           resolve(user);
         } else {
           reject('No user logged in');
@@ -55,8 +56,8 @@ export class UserService {
   //   });
   // }
   getUser(): Promise<Observable<any>> {
-    return this.getCurrentUser().then((res: firebase.User) => {
-      return this.httpRequest.get('/user', [new QueryParams('id', res.uid)]);
+    return this.getFirebaseUser().then((res: firebase.User) => {
+      return this.httpRequest.get('/user', [], [res.uid]);
     });
   }
 
