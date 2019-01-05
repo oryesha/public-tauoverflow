@@ -25,7 +25,6 @@ exports.createCourse = async function(req, res) {
     }catch(e){
       return res.status(400).json({status: 400, message: "Course Creation was Unsuccesfull"})
     }
-};
 }
 
 exports.getCourse = async function(req, res) {
