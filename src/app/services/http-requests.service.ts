@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {UiCourse} from '../models/ui-course.model';
 import {query} from '@angular/animations';
 
@@ -34,7 +35,10 @@ export class HttpRequestsService {
         queryParams[param.paramName] = param.paramValue;
       });
     }
-    return this.http.get(this._baseUrl + path, {params: queryParams});
+    return this.http.get(this._baseUrl + path, {params: queryParams}).pipe(
+      map(res  => {
+      return res['data'];
+  }));
   }
 
   put(path: string, model: any) {
