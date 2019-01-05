@@ -1,4 +1,5 @@
 let UserService = require('../services/user.service')
+let ServiceHelper = require('../services/serviceHelper')
 
 exports.getAllUsers = async function(req,res){
   try{
@@ -15,6 +16,38 @@ exports.getUser = async function(req,res) {
     return res.status(200).json({status: 200, data: users, message: "Succesfully User Recieved by id"});
   }catch(e){
     return res.status(400).json({status: 400, message: e.message});
+  }
+};
+
+
+exports.updateUser = async function(req,res){
+
+  if(!req.body._id){
+    return res.status(400).json({status: 400., message: "Id must be present"})
+  }
+
+  let id = req.body._id;
+
+  let user = {
+    _id: id,
+    firstName: req.body.firstName ? req.body.firstName : null,
+    lastName: req.body.lastName ? req.body.lastName : null,
+    program: req.body.program ? req.body.program : null,
+    email: req.body.email ? req.body.email : null,
+    rank: req.body.rank ? req.body.rank : null,
+    image: req.body.image ? req.body.image : null,
+    asked: req.body.asked ? req.body.asked : null,
+    answered: req.body.answered ? req.body.answered : null,
+    description: req.body.description ? req.body.description : null,
+    skills: ServiceHelper.getIdsFromList(req.body.skills),
+    //add all after debug
+  };
+
+  try{
+    let updatedUser = await UserService.updateUser(user);
+    return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User: " + id})
+  }catch(e){
+    return res.status(400).json({status: 400., message: e.message})
   }
 };
 
