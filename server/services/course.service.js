@@ -1,14 +1,25 @@
 let Course = require('../models/course.model');
 
+
+
 _this = this
 
 exports.getAllCourses = async function() {
   console.log('starting service get all courses');
   try {
+
+    let coursesToSend = [{
+      courseName: String,
+      courseId: String
+    }];
+
     const courses = await Course.paginate();
-    console.log('peginate success get all courses');
-    console.log('courses'+courses);
-    return courses;
+
+    courses.docs.forEach(function(course) {
+      coursesToSend.push({courseName: course.name,
+      courseId:course.courseId});
+    });
+    return coursesToSend;
   } catch (e) {
     throw Error('Error while Paginating all courses')
   }

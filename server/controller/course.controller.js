@@ -3,7 +3,6 @@ let CourseService = require('../services/course.service');
 exports.getAllCourses = async function(req, res) {
   try{
     console.log('before controller get all courses ');
-    console.log(CourseService);
     let courses = await CourseService.getAllCourses();
     console.log('after controller get all courses');
     return res.status(200).json({status: 200, data: courses, message: "Succesfully All Courses Recieved"});
