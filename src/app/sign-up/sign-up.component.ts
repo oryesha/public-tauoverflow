@@ -94,7 +94,7 @@ export class SignUpComponent implements OnInit {
 
   private _subscribeUser(user: UserProfile) {
     this.userService.subscribeNewUser(user).subscribe(() => {
-      debugger;
+      //debugger;
     });
   }
 
