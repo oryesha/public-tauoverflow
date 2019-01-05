@@ -98,6 +98,7 @@ export class SignUpComponent implements OnInit {
   }
 
   private _navigateToHomePage(user: UserProfile) {
+    this.userService.setCurrentUser(user);
     const newUser = new SignUpComponent.NewUser(user);
     this.routingDataService.setRoutingData('user', newUser);
     this.router.navigate(['home-page']);
