@@ -1,5 +1,5 @@
-<mat-form-field appearance="fill" class="Field">
+<mat-form-field class="Field" appearance="{{appearance}}">
   <mat-label>{{label}}</mat-label>
-  <input matInput placeholder="" required *ngIf="isRequired">
-  <input matInput placeholder="" required *ngIf="!isRequired">
+  <textarea matInput *ngIf="isTextarea" placeholder="" [required]="isRequired" [value]="''" #textarea></textarea>
+  <input matInput placeholder="" [required]="isRequired" *ngIf="!isTextarea">
 </mat-form-field>

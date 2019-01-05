@@ -1,0 +1,20 @@
+<div class="DetailsDialog">
+  <h1 mat-dialog-title class="DetailsDialogTitle">{{title}}</h1>
+  <mat-dialog-content class="DetailsDialogContent">
+    <h5 class="SmallDialogHeader FirstHeader">Choose your program:</h5>
+    <app-autocomplete [options]="programs" #programAutocomplete [isRequired]="true"
+                      [placeholder]="'Choose your program'">
+    </app-autocomplete>
+    <h5 class="SmallDialogHeader">Add a short description about yourself:</h5>
+    <app-form-field [isTextarea]="true" [label]="''" [appearance]="'outline'"
+                    #descriptionField>
+    </app-form-field>
+    <h5 class="SmallDialogHeader">Add your skills:</h5>
+    <app-multi-select-autocomplete [placeholder]="'Type course name'" [isRequired]="false" #skillsMultiselect>
+    </app-multi-select-autocomplete>
+  </mat-dialog-content>
+  <mat-dialog-actions class="DetailsDialogDoneButtonContainer">
+    <button mat-raised-button class="DetailsDialogDoneButton" (click)="checkFormAndSubmit()" [disabled]="disabled"
+            #doneButton>Done</button>
+  </mat-dialog-actions>
+</div>

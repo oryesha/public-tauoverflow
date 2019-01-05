@@ -10,36 +10,45 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="googleSignUpBtn">
-        <button type="button" class="btn btn-danger btn-block" (click)="tryGoogleLogin()">Register with Google</button>
+      <div class="GoogleLogin">
+        <img src="../../assets/google-normal.png" (click)="tryGoogleLogin()" class="GoogleLoginNormal">
       </div>
-      <div class="Name">
-        <mat-form-field appearance="fill" class="ShortField Field">
-          <mat-label>First name</mat-label>
-          <input matInput placeholder="" required>
+      <div class="SeparatorContainer">
+        <div class="Separator" content="''"></div>
+        <span class="OrText">OR</span>
+        <div class="Separator" content="''"></div>
+      </div>
+      <form [formGroup]="signUpForm" (ngSubmit)="tryRegister(signUpForm.value)">
+        <div class="Name">
+          <mat-form-field appearance="fill" class="ShortField Field">
+            <mat-label>First name</mat-label>
+            <input matInput placeholder="" required formControlName="firstName">
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="ShortField Field">
+            <mat-label>Last name</mat-label>
+            <input matInput placeholder="" required formControlName="lastName">
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="fill" class="LongField Field">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="" required [type]="'email'" formControlName="email">
         </mat-form-field>
-        <mat-form-field appearance="fill" class="ShortField Field">
-          <mat-label>Last name</mat-label>
-          <input matInput placeholder="" required>
+        <mat-form-field appearance="fill" class="LongField Field">
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="" required [type]="'password'" formControlName="password">
+          <mat-icon class="HideIcon" matSuffix (click)="hidePassword = !hidePassword">
+            {{hidePassword ? 'visibility_off' : 'visibility'}}
+          </mat-icon>
         </mat-form-field>
-      </div>
-      <mat-form-field appearance="fill" class="LongField Field">
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="" required>
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="LongField Field">
-        <mat-label>Password</mat-label>
-        <input matInput placeholder="" required [type]="hide ? 'password' : 'text'">
-        <mat-icon class="HideIcon" matSuffix (click)="hide = !hide">
-          {{hide ? 'visibility_off' : 'visibility'}}
-        </mat-icon>
-      </mat-form-field>
-      <app-autocomplete [options]="programs" [placeholder]="'Choose your program'"></app-autocomplete>
-      <div class="ButtonContainer">
-        <button mat-raised-button class="CreateAccountButton" color="primary" routerLink='/home-page'>
-          Create Account
-        </button>
-      </div>
+        <div class="ButtonContainer">
+          <button mat-raised-button class="CreateAccountButton"
+                  color="primary"
+                  type="submit"
+                  [disabled]="!signUpForm.valid">
+            Create Account
+          </button>
+        </div>
+      </form>
     </mat-card-content>
   </mat-card>
 </div>

@@ -8,7 +8,7 @@ import {MultiSelectAutocompleteComponent} from '../multi-select-autocomplete/mul
   styleUrls: ['./filter-dialog.component.scss']
 })
 export class FilterDialogComponent implements OnInit {
-  description = 'Choose Relevant Courses';
+  title = 'Choose Relevant Courses';
   isSearch: boolean;
   @ViewChild('chooseButton') chooseButton: MatButton;
   @ViewChild('multiSelect') multiSelectAutocomplete: MultiSelectAutocompleteComponent;
@@ -18,7 +18,7 @@ export class FilterDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<FilterDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
-    this.description = data.title;
+    this.title = data.title;
     this.isSearch = data.isSearch;
     this.selected = data.selected;
   }

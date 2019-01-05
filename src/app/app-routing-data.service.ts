@@ -18,4 +18,3 @@ export class AppRoutingDataService {
     return this.routingData[key];
   }
 }
-

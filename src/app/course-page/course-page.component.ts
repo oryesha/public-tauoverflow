@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Course} from '../models/course.model';
 import {AppRoutingDataService} from '../app-routing-data.service';
 import {ActivatedRoute} from '@angular/router';
+import {UiCourse} from '../models/ui-course.model';
 
-class Section {
-}
 
 @Component({
   selector: 'app-course-page',
@@ -12,35 +11,10 @@ class Section {
   styleUrls: ['./course-page.component.scss']
 })
 export class CoursePageComponent implements OnInit {
-  course: Course;
-/*  questions: Section[] = [
-    {
-      title: 'Amortized time complexity',
-      student: 'Or Yesha',
-      updated: new Date(2018, 10, 27),
-    },
-    {
-      title: 'Red-Black tree',
-      student: 'Nati Yosephian',
-      updated: new Date(2018, 10, 5),
-    }
-  ];
-
-  reviews: Section[] = [
-    {
-      title: 'Great Course!',
-      student: 'Or Yesha',
-      updated: new Date(2018, 9, 22),
-    }
-  ];
-
-  partners: Section[] = [
-    {
-      title: 'Looking for a partner for the final project',
-      student: 'Ori Licht',
-      updated: new Date(2018, 10, 5),
-    }
-  ];*/
+  uiCourse: UiCourse; // Passed in client side navigation.
+  course: Course; // Fetched from server.
+  courseDataLoaded: boolean;
+  initialDataLoaded: boolean;
 
   constructor(private routingDataService: AppRoutingDataService,
               private route: ActivatedRoute) { }
@@ -50,8 +24,8 @@ export class CoursePageComponent implements OnInit {
     this.route.queryParams.subscribe(
       params => {
         courseId = params.courseId;
-        this.course = this.routingDataService.getRoutingData(courseId).getData();
-        console.log(this.course);
+        this.uiCourse = this.routingDataService.getRoutingData(courseId).getData();
+        console.log(this.uiCourse);
       }
     );
     // debugger;

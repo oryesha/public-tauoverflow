@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import {Routes, RouterModule, UrlSegment} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {HomePageComponent} from './home-page/home-page.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {CoursesComponent} from './courses/courses.component';
@@ -11,22 +11,25 @@ import {UserProfileComponent} from './user-profile/user-profile.component';
 import {QuestionPageComponent} from './question-page/question-page.component';
 import {FindAPartnerEditorComponent} from './find-a-partner-editor/find-a-partner-editor.component';
 import {CourseReviewEditorComponent} from './course-review-editor/course-review-editor.component';
-import {Try1Component} from './try1/try1.component';
+import {AuthGuard} from './services/auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: SignUpComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Sign Up'}
   },
-  { path: 'home-page',
+  {
+    path: 'home-page',
     component: HomePageComponent,
     data: {pageTitle: 'Home Page'}
   },
-  { path: 'courses',
+  {
+    path: 'courses',
     component: CoursesComponent,
-     data: {pageTitle: 'Course Page'}
-   },
+    data: {pageTitle: 'Course Page'}
+  },
   {
     path: 'answer-editor',
     component: AnswerEditorComponent,
@@ -38,14 +41,14 @@ const routes: Routes = [
     data: {pageTitle: 'QuestionEditor'}
   },
   {
-    path: 'course-page',
+    path: 'course',
     component: CoursePageComponent,
     data: {pageTitle: 'Course Page'}
   },
   {
-  path: 'user-profile',
-  component: UserProfileComponent,
-  data: {pageTitle: 'User Profile'}
+    path: 'user-profile',
+    component: UserProfileComponent,
+    data: {pageTitle: 'User Profile'}
   },
   {
     path: 'search-results',
@@ -57,20 +60,15 @@ const routes: Routes = [
     component: FindAPartnerEditorComponent,
     data: {pageTitle: 'Find A Partner Editor'}
   },
-{
-  path: 'course-review-editor',
-  component: CourseReviewEditorComponent,
-  data: {pageTitle: 'Course Review Editor'}
-},
+  {
+    path: 'course-review-editor',
+    component: CourseReviewEditorComponent,
+    data: {pageTitle: 'Course Review Editor'}
+  },
   {
     path: 'question-page',
     component: QuestionPageComponent,
     data: {pageTitle: 'Question Page'}
-  },
-  {
-    path: 'try1',
-    component: Try1Component,
-    data: {pageTitle: 'Try Page'}
   }
 ];
 
