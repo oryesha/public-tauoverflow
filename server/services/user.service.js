@@ -11,10 +11,20 @@ exports.getAllUsers = async function() {
   }
 };
 
+exports.getUser = async function(userId) {
+  try {
+    const user = await User.find({id: userId});
+    return user;
+  }
+  catch (e) {
+    throw Error('Error while fetching user: ' + userId)
+  }
+};
+
 exports.createNewUser = async function(user){
   console.log(user);
   let newUser = new User({
-    id: user.id,
+    _id: user.id,
     firstName: user.firstName,
     lastName: user.lastName,
     program: user.program,

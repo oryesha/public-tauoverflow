@@ -64,7 +64,7 @@ exports.removeQuestion = async function(req, res){
     let id = req.params.id;
     try{
       let deleted = await QuestionService.deleteQuestion(id);
-      return res.status(204).json({status:204, message: "Succesfully Deleted Question"})
+      return res.status(200).json({status:200, message: "Succesfully Deleted Question"})
     }catch(e){
       return res.status(400).json({status: 400, message: e.message})
     }

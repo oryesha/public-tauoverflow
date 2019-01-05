@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
 
 const UserProfileSchema = new mongoose.Schema({
-  id: String,
+  _id: String,
   firstName: String,
   lastName: String,
   program: String,
