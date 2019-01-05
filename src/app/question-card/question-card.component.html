@@ -3,8 +3,8 @@
     <mat-card-title class="TitleAndIcons">
       <span class="mat-h2 PostTitle">Amortized time complexity</span>
       <span class="EditAndLockButtonsContainer">
-        <button mat-icon-button class="Button"><mat-icon class="Icon">edit</mat-icon></button>
-        <button mat-icon-button class="Button"><mat-icon class="Icon">lock_open</mat-icon></button>
+        <button mat-icon-button matTooltip="Edit question" class="Button"><mat-icon class="Icon">edit</mat-icon></button>
+        <button mat-icon-button matTooltip="Lock this post" class="Button"><mat-icon class="Icon">lock_open</mat-icon></button>
       </span>
     </mat-card-title>
     <div class="NameAndDate">
@@ -21,7 +21,7 @@
         <button mat-icon-button class="Button" (click)="onClickMe()"><mat-icon class="ThumbIcon">thumb_up</mat-icon></button>
         <span class="NumOfLikes">{{answerScore}}</span>
       </div>
-      <button mat-raised-button class="AnswerButton">+ ANSWER</button>
+      <button mat-raised-button class="AnswerButton">ANSWER</button>
     </div>
   </mat-card-content>
   <!--<mat-card-footer class="QuestionBottom">-->
