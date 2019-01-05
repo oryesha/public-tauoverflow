@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 
 @Injectable()
 export class UserService {
+  private _currentUser: UserProfile;
 
   constructor(
     public db: AngularFirestore,
@@ -15,9 +16,13 @@ export class UserService {
     private httpRequest: HttpRequestsService
   ) {}
 
+  getCurrentUserId(): string {
+    return this._currentUser._id;
+  }
+
   getCurrentUser() {
     return new Promise<any>((resolve, reject) => {
-      firebase.auth().onAuthStateChanged(user => {
+      firebase.auth().onAuthStateChanged((user: firebase.User) => {
         if (user) {
           resolve(user);
         } else {
@@ -29,6 +34,7 @@ export class UserService {
 
   subscribeNewUser(user: UserProfile): Observable<any> {
     console.log('subscribe new user');
+    this._currentUser = user;
     return this.httpRequest.post('/user', user);
   }
 
@@ -52,5 +58,9 @@ export class UserService {
     return this.getCurrentUser().then((res: firebase.User) => {
       return this.httpRequest.get('/user', [new QueryParams('id', res.uid)]);
     });
+  }
+
+  setCurrentUser(user: UserProfile) {
+    this._currentUser = user;
   }
 }

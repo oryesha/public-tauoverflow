@@ -3,71 +3,32 @@ import {HttpRequestsService, QueryParams} from './http-requests.service';
 import {UiCourse} from '../models/ui-course.model';
 import {Observable, of} from 'rxjs';
 import {Course} from '../models/course.model';
+import {UiCoursesMap} from '../models/ui-courses-map.model';
 
 @Injectable()
 export class CourseService {
-  coursesRequest: Observable<Course[]>;
-  cachedCourses: Course[];
-
-  // temp1: UiCourse[] = [];
-  temp2 = [
-    {
-      name: 'Data Structures',
-      courseId: '036821581'
-    },
-    {
-      name: 'Intro To Data Science',
-      courseId: '036850601'
-    },
-    {
-      name: 'Intro to NLP',
-      courseId: '036832351'
-    },
-    {
-      name: 'Linear Algebra 1A',
-      courseId: '036621601'
-    },
-    {
-      name: 'Discrete Math',
-      courseId: '036820001'
-    },
-    {
-      name: 'Classic Physics',
-      courseId: '032521601'
-    },
-    {
-      name: 'Intro To Data Science',
-      courseId: '036850601'
-    },
-    {
-      name: 'Algorithms',
-      courseId: '036821601'
-    }
-  ];
+  coursesRequest: Observable<UiCourse[]>;
+  private _coursesMap: UiCoursesMap;
 
   constructor(private httpRequest: HttpRequestsService) {
     this.coursesRequest = this.httpRequest.get('/courses');
-    this.coursesRequest.subscribe((courses: Course[]) => {
-      this.cachedCourses = [];
-      courses.forEach(course => {
-        this.cachedCourses.push(course);
+    this.coursesRequest.subscribe((response: any) => {
+      const courses = response.data;
+      courses.forEach((course: any) => {
+        this._coursesMap[course.courseName] = course.courseId;
       });
     });
-    // this.temp2.forEach(course => {
-    //   this.addCourse(new UiCourse(course.name, course.courseId)).subscribe(() => {});
-    // });
   }
 
-  // _cache(courses: Course[]) {
-  //   this.cachedCourses = [];
-  //   courses.forEach(course => {
-  //     this.cachedCourses.push(course.uiCourse);
-  //   });
-  // }
+  getCoursesMap(): UiCoursesMap {
+    return this._coursesMap;
+  }
 
+  /**
+   * This will return the cached course map if initialized, as an observable for them.
+   */
   getUiCourses(): Observable<any> {
-    // return /*Observable.*/of(this.cachedCourses);
-    return this.cachedCourses ? /*Observable.*/of(this.cachedCourses) : this.coursesRequest;
+    return this._coursesMap ? /*Observable.*/of(this._coursesMap) : this.coursesRequest;
   }
 
   getCourse(courseId: string): Observable<Course> {
