@@ -3,7 +3,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import {UserProfile} from '../models/user-profile.model';
-import {HttpRequestsService} from './http-requests.service';
+import {HttpRequestsService, QueryParams} from './http-requests.service';
 import {Observable} from 'rxjs';
 
 @Injectable()
@@ -48,4 +48,9 @@ export class UserService {
   //     }, err => reject(err));
   //   });
   // }
+  getUser(): Promise<Observable<any>> {
+    return this.getCurrentUser().then((res: firebase.User) => {
+      return this.httpRequest.get('/user', [new QueryParams('id', res.uid)]);
+    });
+  }
 }

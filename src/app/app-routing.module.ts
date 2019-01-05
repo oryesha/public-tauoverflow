@@ -41,7 +41,7 @@ const routes: Routes = [
     data: {pageTitle: 'QuestionEditor'}
   },
   {
-    path: 'course',
+    path: 'course-page',
     component: CoursePageComponent,
     data: {pageTitle: 'Course Page'}
   },

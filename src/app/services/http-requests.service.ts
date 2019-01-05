@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {UiCourse} from '../models/ui-course.model';
+import {query} from '@angular/animations';
 
 export class QueryParams {
   paramName: string;
-  paramValue: string;
+  paramValue: string|string[];
 
-  constructor(name: string, value: string) {
+  constructor(name: string, value: string|string[]) {
     this.paramName = name;
     this.paramValue = value;
   }
@@ -17,16 +19,20 @@ export class HttpRequestsService {
 
   private _baseUrl = 'http://localhost:3000/api'; // TODO(or,licht): Add the base URL.
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    // this.http.post(this._baseUrl + '/courses', new UiCourse('blah', '0011'));
+  }
 
   post(path: string, model: any) {
     return this.http.post(this._baseUrl + path, model);
   }
 
-  get(path: string, params?: QueryParams[]): Observable<any> {
-    const queryParams = new HttpParams();
-    if (params) {
-      params.forEach(p => queryParams.append(p.paramName, p.paramValue));
+  get(path: string, reqQuery?: QueryParams[], params?: any): Observable<any> {
+    const queryParams = {};
+    if (reqQuery) {
+      reqQuery.forEach(param => {
+        queryParams[param.paramName] = param.paramValue;
+      });
     }
     return this.http.get(this._baseUrl + path, {params: queryParams});
   }
