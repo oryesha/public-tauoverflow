@@ -3,6 +3,7 @@ import {Course} from '../models/course.model';
 import {AppRoutingDataService} from '../app-routing-data.service';
 import {ActivatedRoute} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
+import {CourseService} from '../services/course.service';
 
 
 @Component({
@@ -17,7 +18,9 @@ export class CoursePageComponent implements OnInit {
   initialDataLoaded: boolean;
 
   constructor(private routingDataService: AppRoutingDataService,
-              private route: ActivatedRoute) { }
+              private courseService: CourseService,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     let courseId;
@@ -25,10 +28,11 @@ export class CoursePageComponent implements OnInit {
       params => {
         courseId = params.courseId;
         this.uiCourse = this.routingDataService.getRoutingData(courseId).getData();
-        console.log(this.uiCourse);
+        this.courseService.getCourse(courseId).subscribe(res => {
+          this.course = res;
+        });
       }
     );
-    // debugger;
   }
 
   starsRange(rank: number) {

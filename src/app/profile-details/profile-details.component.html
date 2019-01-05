@@ -1,13 +1,15 @@
 <mat-card class="HomeCard {{classes}}">
   <ng-container *ngIf="!isLoaded">
-    Waiting for data...
+    <mat-spinner [diameter]="10"></mat-spinner>
   </ng-container>
   <ng-container *ngIf="isLoaded">
     <h2 class="mat-h2 UserName" *ngIf="!isProfilePage">Hello {{userDetails.name.first}}!</h2>
     <h2 class="mat-h2 UserName" *ngIf="isProfilePage">{{userDetails.name.first}} {{userDetails.name.last}}</h2>
-    <div class="mat-body-2 Program">{{userDetails.program}}</div>
-    <img src="{{userDetails.profilePicturePath}}" class="CardProfileImage">
-    <div>Here will be the ranking</div>
+    <div class="mat-body-2 Program" *ngIf="userDetails.program">{{userDetails.program}}</div>
+    <img src="{{userDetails.image ? userDetails.image : '../../assets/geffen.jpg'}}" class="CardProfileImage">
+    <div class="UserRank">
+      <mat-icon>child_care</mat-icon>{{userDetails.rank}}
+    </div>
     <ng-container *ngIf="isProfilePage">
       <div class="mat-body About">
         <div>{{userDetails.description}}</div>

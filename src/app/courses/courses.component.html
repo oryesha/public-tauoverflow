@@ -2,18 +2,20 @@
 <div class="MainWrapper">
   <mat-tab-group class="CoursesViewTabs">
     <mat-tab label="All Courses">
-      <mat-list>
-        <mat-list-item class="ListItem" *ngFor="let course of allCourses">
-          <button mat-flat-button mat-line class="mat-h4 CourseName" (click)="navigateToCoursePage(course)">
-            {{course.name}}
-            <mat-icon class="CourseIcon">school</mat-icon>
-          </button>
-          <span mat-line class="CourseNum">
+      <ng-container *ngIf="isLoaded">
+        <mat-list>
+          <mat-list-item class="ListItem" *ngFor="let course of allCourses">
+            <button mat-flat-button mat-line class="mat-h4 CourseName" (click)="navigateToCoursePage(course)">
+              {{course.name}}
+              <mat-icon class="CourseIcon">school</mat-icon>
+            </button>
+            <span mat-line class="CourseNum">
             {{course.id}}
           </span>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </mat-list>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </ng-container>
     </mat-tab>
     <mat-tab label="My Courses">
       <mat-list>
