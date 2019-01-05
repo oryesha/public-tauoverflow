@@ -5,7 +5,7 @@ import {Post} from './post.model';
 import {UiCourse} from './ui-course.model';
 
 export class Course {
-  _id: string;
+  id: string;
   uiCourse: UiCourse;
   questions: Question[] = [];
   reviews: CourseReview[] = [];
@@ -15,6 +15,6 @@ export class Course {
 
   constructor(uiCourse: UiCourse) {
     this.uiCourse = uiCourse;
-    this._id = uiCourse.courseId;
+    this.id = uiCourse.courseId;
   }
 }

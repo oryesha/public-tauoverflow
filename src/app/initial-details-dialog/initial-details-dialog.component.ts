@@ -16,6 +16,8 @@ export class InitialDetailsDialogComponent implements OnInit {
   @ViewChild('descriptionField') descriptionField: FormFieldComponent;
   title: string;
   user: UserProfile;
+  programs: string[] = ['Computer Science', 'Electrical Engineering', 'Law', 'Computer Science and Electrical Engineering', 'Economics',
+    'Management', 'Physics', 'Chemistry'];
 
   constructor(
     private dialogRef: MatDialogRef<InitialDetailsDialogComponent>,
