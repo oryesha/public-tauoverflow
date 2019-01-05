@@ -6,6 +6,8 @@ import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
 import {Router} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
 import {UserService} from '../services/user.service';
+import {UserProfile} from '../models/user-profile.model';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -17,30 +19,33 @@ export class ProfileDetailsComponent implements OnInit {
   @Input() isProfilePage = false;
   @Input() classes: string;
   isLoaded = false;
-  userDetails: {
-    name: { first: string, last: string };
-    program: string;
-    profilePicturePath: string;
-    rank: number;
-    // asked: number;
-    // answered: number;
-    description: string;
-    skills: Course[];
-  };
+  userDetails: UserProfile;
 
   constructor(private appService: AppService,
               private router: Router,
               private userService: UserService,
               private routingDataService: AppRoutingDataService) {
-    // this.userService.
-    appService.getResponse('userDetails').subscribe((response) => {
-      this.userDetails = response;
-      this.isLoaded = true;
-    });
+    // this.userService
+    // appService.getResponse('userDetails').subscribe((response) => {
+    //   this.userDetails = response;
+    //   this.isLoaded = true;
+    // });
     // debugger;
   }
 
   ngOnInit() {
+    const routingData = this.routingDataService.getRoutingData('user');
+    if (routingData) {
+      this.userDetails = routingData.getData();
+      this.isLoaded = true;
+    } else {
+      this.userService.getUser()
+        .then((res: Observable<any>) => res.subscribe(user => {
+          // debugger;
+          this.userDetails = user.data[0];
+          this.isLoaded = true;
+        }));
+    }
   }
 
   navigateToCoursePage(course: UiCourse) {

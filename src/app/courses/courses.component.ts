@@ -4,6 +4,7 @@ import {Course} from '../models/course.model';
 import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
 import {Router} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
+import {CourseService} from '../services/course.service';
 
 class Section {
 }
@@ -55,9 +56,14 @@ export class CoursesComponent implements OnInit {
 
   constructor(private appService: AppService,
               private router: Router,
+              private courseService: CourseService,
               private routingDataService: AppRoutingDataService) {
-    appService.getResponse('courses').subscribe((response) => {
-      this._buildAllCourses(response as UiCourse[]);
+    this.courseService.getUiCourses().subscribe(res => {
+      const temp: UiCourse[] = [];
+      res.data.docs.forEach(course => {
+        temp.push(new UiCourse(course.name, course.courseId));
+      });
+      this._buildAllCourses(temp);
       this.isLoaded = true;
     });
   }

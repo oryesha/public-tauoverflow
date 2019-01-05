@@ -34,9 +34,7 @@ export class HomePageComponent implements OnInit {
     private router: Router,
     private courseService: CourseService,
     private userService: UserService,
-    private routingDataService: AppRoutingDataService) {}
-
-  ngOnInit() {
+    private routingDataService: AppRoutingDataService) {
     const routingData = this.routingDataService.getRoutingData('user');
     if (routingData) {
       this.user = routingData.getData();
@@ -44,6 +42,9 @@ export class HomePageComponent implements OnInit {
         this._openDetailsDialog();
       }
     }
+  }
+
+  ngOnInit() {
     this.courseService.getUiCourses().subscribe((courses: any) => {
       courses.data.docs.forEach(course => this.uiCoursesMap[course.name] = course.courseId);
     });
@@ -85,9 +86,9 @@ export class HomePageComponent implements OnInit {
   }
 
   _sendPost() {
-    this.courseService.addCourse(new UiCourse('name', '0011')).subscribe(res => {
-      console.log(res);
-      debugger;
-    });
+    // this.courseService.addCourse(new UiCourse('name', '0011')).subscribe(res => {
+    //   console.log(res);
+    //   debugger;
+    // });
   }
 }
