@@ -23,7 +23,9 @@
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
     "@kolkov/angular-editor": "^0.13.1",
+    "@tinymce/tinymce-angular": "^2.3.3",
     "angular-froala-wysiwyg": "^2.9.1",
+    "angular2-tinymce": "^3.3.0",
     "angularfire2": "^5.1.1",
     "axios": "^0.18.0",
     "bluebird": "^3.5.3",
@@ -40,6 +42,7 @@
     "nodemon": "^1.18.8",
     "react-rte-material": "^0.12.5",
     "rxjs": "^6.3.3",
+    "tinymce": "^4.9.2",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
