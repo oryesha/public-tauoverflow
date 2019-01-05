@@ -14,6 +14,8 @@ export class PostEditorComponent implements OnInit {
   @Input() titleLabel: string;
   @Input() descriptionTitle: string;
 
+  htmlContent = '';
+  newQuestion = '';
   editorConfig: AngularEditorConfig = {
     editable: true,
     height: '15rem',
@@ -32,5 +34,8 @@ export class PostEditorComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  submitPost() {
+    console.log('WOW');
+    this.newQuestion = this.htmlContent;
+  }
 }
