@@ -57,6 +57,7 @@ import {AuthGuard} from './services/auth/auth.guard';
 import { InitialDetailsDialogComponent } from './initial-details-dialog/initial-details-dialog.component';
 import {HttpRequestsService} from './services/http-requests.service';
 import {CourseService} from './services/course.service';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import {CourseService} from './services/course.service';
     MatCheckboxModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
