@@ -1,4 +1,4 @@
-let CourseService = require('../services/course.service')
+let CourseService = require('../services/course.service');
 
 exports.getAllCourses = async function(req, res) {
   try{
@@ -26,7 +26,7 @@ exports.createCourse = async function(req, res) {
       return res.status(400).json({status: 400, message: "Course Creation was Unsuccesfull"})
     }
 };
-}
+
 
 exports.getCourse = async function(req, res) {
   const courseNum = req.params.courseId;
