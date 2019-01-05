@@ -9,11 +9,20 @@ exports.getAllUsers = async function(req,res){
   }
 };
 
+exports.getUser = async function(req,res) {
+  try{
+    let users = await UserService.getUser(req.params.id);
+    return res.status(200).json({status: 200, data: users, message: "Succesfully User Recieved by id"});
+  }catch(e){
+    return res.status(400).json({status: 400, message: e.message});
+  }
+};
+
 exports.createNewUser = async function(req,res){
   console.log("WOW2");
   console.log(req);
   let user = {
-    id: req.body._id,
+    _id: req.body._id,
     firstName: req.body.name.first,
     lastName: req.body.name.last,
     program: req.body.program,
