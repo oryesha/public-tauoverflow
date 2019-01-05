@@ -1,5 +1,6 @@
 <app-nav-bar></app-nav-bar>
 <app-post-editor
+  (postSubmitted)="postQuestion($event)"
   [postTitle]="'Ask a Question'"
   [titleLabel]="'Write question subject'"
   [descriptionTitle]="'Question'"

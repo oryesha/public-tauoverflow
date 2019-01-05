@@ -9,6 +9,7 @@ import {UiCourse} from '../models/ui-course.model';
 import {Observable} from 'rxjs';
 import {CourseService} from '../services/course.service';
 import {UserService} from '../services/user.service';
+import {UiCoursesMap} from '../models/ui-courses-map.model';
 
 @Component({
   selector: 'app-home-page',
@@ -16,10 +17,10 @@ import {UserService} from '../services/user.service';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-  static CourseList = class implements RoutingData<string[]> {
-    constructor(private selectedCourses: string[]) {}
+  static CourseList = class implements RoutingData<UiCourse[]> {
+    constructor(private selectedCourses: UiCourse[]) {}
 
-    getData(): string[] {
+    getData(): UiCourse[] {
       return this.selectedCourses.slice();
     }
   };
@@ -27,7 +28,7 @@ export class HomePageComponent implements OnInit {
   relatedCourses: string[] = [];
   user: UserProfile;
   uiCoursesObservable: Observable<UiCourse[]>;
-  uiCoursesMap: {[name: string]: string};
+  uiCoursesMap: UiCoursesMap;
 
   constructor(
     private dialog: MatDialog,
@@ -45,9 +46,9 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.courseService.getUiCourses().subscribe((courses: any) => {
-      courses.data.docs.forEach(course => this.uiCoursesMap[course.name] = course.courseId);
-    });
+    // this.courseService.getUiCourses().subscribe((courses: any) => {
+    //   this.uiCoursesMap = courses;
+    // });
   }
 
   openCoursesDialog() {
@@ -60,7 +61,12 @@ export class HomePageComponent implements OnInit {
   }
 
   private _navigateToQuestionEditor(result: string[]) {
-    const courseList = new HomePageComponent.CourseList(result);
+    const uiCourses: UiCourse[] = [];
+    this.uiCoursesMap = this.courseService.getCoursesMap();
+    result.forEach(courseName => {
+      uiCourses.push(new UiCourse(courseName, this.uiCoursesMap[courseName]));
+    });
+    const courseList = new HomePageComponent.CourseList(uiCourses);
     this.routingDataService.setRoutingData('selectedCourses', courseList);
     this.router.navigate(['/question-editor']);
   }
