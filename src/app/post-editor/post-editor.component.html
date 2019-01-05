@@ -27,13 +27,16 @@
       </div>
       <div class="Post">
         <h5 class="PostTitleText">{{descriptionTitle}}:</h5>
-        <angular-editor [config]="editorConfig" class="PostTextArea">
+        <angular-editor [config]="editorConfig" class="PostTextArea" [(ngModel)]="htmlContent">
         </angular-editor>
+
       </div>
       <div class="DoneButtonContainer">
-        <button mat-raised-button class="RaisedDoneButton">submit</button>
+        <button mat-raised-button class="RaisedDoneButton" (click)="submitPost()">submit</button>
       </div>
     </mat-card-content>
   </mat-card>
 </div>
 <ng-template #customContent><ng-content class="Post"></ng-content></ng-template>
+<div [innerHTML] = newQuestion>
+</div>
