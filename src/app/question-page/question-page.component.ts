@@ -1,4 +1,8 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AppRoutingDataService} from '../app-routing-data.service';
+import {ActivatedRoute} from '@angular/router';
+import {QuestionService} from '../services/question.service';
+import {Question} from '../models/question.model';
 
 @Component({
   selector: 'app-question-page',
@@ -6,10 +10,28 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
   styleUrls: ['./question-page.component.scss']
 })
 export class QuestionPageComponent implements OnInit {
-  chips: string[] = ['Data Structures'];
   isShowAnswerEditor: boolean;
+  isLoaded = false;
+  question: Question;
 
-  constructor() { }
+  constructor(private routingDataService: AppRoutingDataService,
+              private questionService: QuestionService,
+              private route: ActivatedRoute) {
+    const routingData = routingDataService.getRoutingData('question');
+    if (routingData) {
+      this.question = routingData.getData();
+      this.isLoaded = true;
+    } else {
+      route.queryParams.subscribe(
+        (params) => {
+          const id = params.id;
+          questionService.getQuestion(id).subscribe((res: any) => {
+            this.question = res.data;
+            this.isLoaded = true;
+          });
+        });
+    }
+  }
 
   ngOnInit() {
   }

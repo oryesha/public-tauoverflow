@@ -5,9 +5,10 @@ import {UserService} from '../services/user.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
 import {CourseService} from '../services/course.service';
 import {PostContent} from '../post-editor/post-editor.component';
-import {Question} from '../models/question.model';
+import {Question, QuestionNavigationData} from '../models/question.model';
 import {UserProfile} from '../models/user-profile.model';
 import {QuestionService} from '../services/question.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-question-editor',
@@ -24,6 +25,7 @@ export class QuestionEditorComponent implements OnInit {
   constructor(private userService: UserService,
               private courseService: CourseService,
               private questionService: QuestionService,
+              private router: Router,
               private routingDataService: AppRoutingDataService) {}
 
 
@@ -46,6 +48,8 @@ export class QuestionEditorComponent implements OnInit {
     const question = new Question(subject, content, this.user, this.courses);
     this.questionService.createQuestion(question).subscribe((response: any) => {
       question.id = response.data.id;
+      this.routingDataService.setRoutingData('question', new QuestionNavigationData(question));
+      this.router.navigate(['question-page'], {queryParams: {id: question.id}});
     });
   }
 }

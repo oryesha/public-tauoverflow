@@ -60,9 +60,9 @@ export class CoursesComponent implements OnInit {
               private routingDataService: AppRoutingDataService) {
     this.courseService.getUiCourses().subscribe(res => {
       const temp: UiCourse[] = [];
-      res.data.docs.forEach(course => {
-        temp.push(new UiCourse(course.name, course.courseId));
-      });
+      // res.data.docs.forEach(course => {
+      //   temp.push(new UiCourse(course.name, course.courseId));
+      // });
       this._buildAllCourses(temp);
       this.isLoaded = true;
     });

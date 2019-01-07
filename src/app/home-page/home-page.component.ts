@@ -64,7 +64,7 @@ export class HomePageComponent implements OnInit {
     const uiCourses: UiCourse[] = [];
     this.uiCoursesMap = this.courseService.getCoursesMap();
     result.forEach(courseName => {
-      uiCourses.push(new UiCourse(courseName, this.uiCoursesMap[courseName]));
+      uiCourses.push(this.uiCoursesMap[courseName]);
     });
     const courseList = new HomePageComponent.CourseList(uiCourses);
     this.routingDataService.setRoutingData('selectedCourses', courseList);
@@ -87,7 +87,7 @@ export class HomePageComponent implements OnInit {
 
   private _addUserSkills(skills: string[]) {
     skills.forEach(skillName => {
-      this.user.skills.push(new UiCourse(skillName, this.uiCoursesMap[skillName]));
+      this.user.skills.push(this.uiCoursesMap[skillName]);
     });
   }
 

@@ -1,11 +1,11 @@
 <app-nav-bar></app-nav-bar>
-<div class="questionPage">
+<div class="questionPage" *ngIf="isLoaded">
   <div class="coursesChips">
     <mat-chip-list>
-      <mat-chip *ngFor="let chip of chips">{{chip}}</mat-chip>
+      <mat-chip *ngFor="let course of ">{{chip}}</mat-chip>
     </mat-chip-list>
   </div>
   <app-question-card (click)="show()"></app-question-card>
-  <app-answer-card></app-answer-card>
+  <!--<app-answer-card></app-answer-card>-->
   <app-single-answer-editor *ngIf="isShowAnswerEditor"></app-single-answer-editor>
 </div>

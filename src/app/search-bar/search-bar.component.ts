@@ -53,7 +53,7 @@ export class SearchBarComponent implements OnInit {
     const courseMap = this.courseService.getCoursesMap();
     const filtersId: string[] = [];
     filters.forEach((filter: string) => {
-      filtersId.push(courseMap[filter]);
+      filtersId.push(courseMap[filter].courseNumber);
     });
     console.log('WOW!');
     this.queryService.getQueryResult(query, filtersId).subscribe(questions => {
