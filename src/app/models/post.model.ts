@@ -5,14 +5,18 @@ export class Post {
   subject: string;
   content: string;
   owner: UserProfile;
-  timeStamp: Date;
-  isLocked: boolean;
+  timestamp = new Date(Date.now());
+  isLocked = false;
 
-  constructor(subject: string, content: string, owner: UserProfile) {
+  constructor(subject: string, content: string, owner: UserProfile,
+              id?: string, timestamp?: Date, isLocked?: boolean) {
     this.subject = subject;
     this.content = content;
     this.owner = owner;
-    this.timeStamp = new Date(Date.now());
-    this.isLocked = false;
+    if (id) {
+      this.id = id;
+      this.timestamp = timestamp;
+      this.isLocked = isLocked;
+    }
   }
 }
