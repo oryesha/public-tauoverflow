@@ -80,7 +80,7 @@ export class HomePageComponent implements OnInit {
         this.user.program = result.program;
         this.user.description = result.description;
         this._addUserSkills(result.skills);
-        this.userService.updateUserDetails(this.user);
+        this.userService.updateUserDetails(this.user).subscribe(() => {});
       }
     );
   }

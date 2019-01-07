@@ -42,7 +42,7 @@ exports.createCourse = async function(course){
 
 exports.getCourse = async function(courseNum) {
   try {
-    const course = await Course.find({courseNumber: courseNum});
+    const course = await Course.findOne({courseNumber: courseNum});
     return course;
   }
   catch (e) {
