@@ -36,8 +36,8 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
   private selectableOptions: string[];
   private optionsControl = new FormControl({value: '', disabled: this.selectedOptions.length >= 5});
   // TEMP!
-  defaultOptions: string[] = ['Calculus 1b', 'Intro to CS', 'Linear Algebra', 'Discrete Mathematics', 'Complexity',
-    'Micro-Economics', 'Funding', 'Statistics'];
+  // defaultOptions: string[] = ['Calculus 1b', 'Intro to CS', 'Linear Algebra', 'Discrete Mathematics', 'Complexity',
+  //   'Micro-Economics', 'Funding', 'Statistics'];
   // TEMP!
 
   @ViewChild('optionsInput') optionsInput: ElementRef<HTMLInputElement>;
@@ -46,7 +46,9 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
   constructor() {}
 
   ngOnInit() {
-    this.selectableOptions = this.options || this.defaultOptions;
+    // this.selectableOptions = this.options || this.defaultOptions;
+    debugger;
+    this.selectableOptions = this.options;
     // Initialize allOptions map.
     this.selectableOptions.map(opt => this.allOptions[opt] = false);
     // If on init options were already selected (e.g., when clicking the filter button after

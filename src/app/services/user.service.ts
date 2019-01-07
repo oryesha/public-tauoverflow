@@ -64,7 +64,7 @@ export class UserService {
     return new Promise<any>(resolve => {
       this.getFirebaseUser().then((res: firebase.User) => {
         this.httpRequest.get('/user', [], [res.uid]).subscribe(user => {
-          debugger;
+          // debugger;
           this._currentUser = user;
           resolve(user);
         });
