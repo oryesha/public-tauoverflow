@@ -52,7 +52,7 @@ exports.updateUser = async function(user){
   let oldUser;
 
   try{
-    oldUser = await User.find({firebaseToken: token});
+    oldUser = await User.findOne({firebaseToken: token});
   }catch(e){
     throw Error("Error occured while Finding the user")
   }
