@@ -31,8 +31,8 @@ export class QuestionEditorComponent implements OnInit {
 
   ngOnInit() {
     this.courses = this.routingDataService.getRoutingData('selectedCourses').getData();
-    this.userService.getUser().then((user) => {
-      this.user = UserProfile.deserialize(user);
+    this.userService.getUser().then((user: UserProfile) => {
+      this.user = user;
     });
     this.coursesMap = this.courseService.getCoursesMap();
   }
