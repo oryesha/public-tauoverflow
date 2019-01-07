@@ -7,7 +7,6 @@ _this = this
 exports.getAllCourses = async function() {
   console.log('starting service get all courses');
   try {
-
     let coursesToSend = [{
       courseName: String,
       courseId: String
@@ -27,16 +26,22 @@ exports.getAllCourses = async function() {
 
 
 exports.createCourse = async function(course){
+  console.log(course);
     let newCourse = new Course({
       name: course.name,
-      content: course.courseId
+      courseId: course.courseId,
+      questions: [],
+      reviews: [],
+      partnerPosts: [],
+      changeHours: [],
+      rank: 0
     });
 
     try{
       let savedCourse = await newCourse.save();
-      return savedQuestion;
+      return savedCourse;
     }catch(e){
-      throw Error("Error while Creating question")
+      throw Error("Error while Creating course")
     }
 };
 

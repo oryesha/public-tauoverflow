@@ -22,7 +22,8 @@ exports.createQuestion = async function(req,res){
       answers: req.body.answers,
       upvote: req.body.upvote
     };
-
+    console.log(question);
+    console.log("Before service!");
     try{
       let createdQuestion = await QuestionService.createQuestion(question);
       return res.status(201).json({status: 201, data: createdQuestion, message: "Succesfully Created Question"})
