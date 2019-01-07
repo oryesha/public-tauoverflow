@@ -1,5 +1,7 @@
 let Question = require('../models/question.model');
 let UserProfile = require('../models/user-profile.model');
+let Course = require('../models/course.model');
+let ServiceHelper = require('../services/serviceHelper');
 
 _this = this;
 
@@ -43,20 +45,27 @@ exports.createQuestion = async function(question){
       owner: question.owner.id,
       timeStamp: question.timeStamp,//TimeFormat,
       isLocked: false,
-      relatedCourses: question.relatedCourses,
+      relatedCourses: ServiceHelper.getIdsFromList(question.relatedCourses),
       answers: [],
-      upvote: question.upvote
+      upvote: {count: question.upvote.count, upvoters: ServiceHelper.getIdsFromList(question.upvote.upvoters)}
     });
 
-    try{
-      let savedQuestion = await newQuestion.save();
-      UserProfile.findOneAndUpdate({'_id' : newQuestion.owner}, (err, result) => {
-        result.myQuestions.push(savedQuestion._id);
-      });
-      return savedQuestion;
-    }catch(e){
-      throw Error("Error while Creating question")
-    }
+
+  try{
+    let savedQuestion = await newQuestion.save();
+    const asker = await UserProfile.findById(newQuestion.owner);
+    asker.myQuestions.push(savedQuestion._id);
+    asker.save();
+
+    savedQuestion.relatedCourses.forEach(async (courseId) => {
+      const course = await Course.findById(courseId);
+      course.questions.push(savedQuestion._id);
+      course.save();
+    });
+    return savedQuestion;
+  }catch(e){
+    throw Error("Error while Creating question")
+  }
 };
 
 exports.updateQuestion = async function(question){

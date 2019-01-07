@@ -1,5 +1,4 @@
 let QuestionService = require('../services/question.service');
-let ServiceHelper = require('../services/serviceHelper')
 
 exports.getAllQuestions = async function(req,res){
     try{
@@ -30,7 +29,6 @@ exports.createQuestion = async function(req,res){
       timeStamp: req.body.timeStamp,//TimeFormat,
       isLocked: req.body.isLocked,
       relatedCourses: req.body.relatedCourses,
-      answers: req.body.answers,
       upvote: req.body.upvote
     };
     console.log(question);
