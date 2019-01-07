@@ -14,7 +14,7 @@ exports.getQuestion = async function(req, res) {
   const id = req.params.id;
 
   try{
-    const question = await this.QuestionService.getQuestion(id);
+    const question = await QuestionService.getQuestion(id);
     return res.status(200).json({status: 200, data: question, message: "Succesfully question: "+id+" Recieved"});
   }catch(e){
     return res.status(400).json({status: 400, message: e.message});
