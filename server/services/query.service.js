@@ -17,7 +17,7 @@ exports.getQuestionsFromQuery(query){
     if(!course){
       return false;
     }
-    questions.push(course.relatedQuestions.find( { $text: { $search: query.queryString } },
+    questions.push(course.questions.find( { $text: { $search: query.queryString } },
    { score: { $meta: "textScore" } } ).sort( { score: { $meta: "textScore" } } )
    );
   }
