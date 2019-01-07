@@ -5,7 +5,6 @@ import {Post} from './post.model';
 import {UiCourse} from './ui-course.model';
 
 export class Course {
-  id: string;
   uiCourse: UiCourse;
   questions: Question[] = [];
   reviews: CourseReview[] = [];

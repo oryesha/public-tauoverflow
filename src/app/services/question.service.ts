@@ -45,4 +45,7 @@ export class QuestionService {
   // }
 
 
+  getQuestion(id: string): Observable<any> {
+    return this.httpRequest.get('/questions', [], [id]);
+  }
 }
