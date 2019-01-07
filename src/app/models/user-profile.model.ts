@@ -4,6 +4,7 @@ import {Name} from './name.model';
 import {UiCourse} from './ui-course.model';
 
 export class UserProfile {
+  id: string;
   firebaseToken: string;
   name: Name;
   program = '';
