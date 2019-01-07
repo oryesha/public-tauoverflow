@@ -1,13 +1,12 @@
 import {Post} from './post.model';
 import {UserProfile} from './user-profile.model';
-import DateTimeFormat = Intl.DateTimeFormat;
+import {UiCourse} from './ui-course.model';
 
 export class CourseRelatedPost extends Post {
-  courseName: string;
+  uiCourse: UiCourse;
 
-  constructor(subject: string, content: string, owner: UserProfile, timeStamp: DateTimeFormat,
-              isLocked: boolean, courseName: string) {
-    super(subject, content, owner, timeStamp, isLocked);
-    this.courseName = courseName;
+  constructor(subject: string, content: string, owner: UserProfile, uiCourse: UiCourse) {
+    super(subject, content, owner);
+    this.uiCourse = uiCourse;
   }
 }

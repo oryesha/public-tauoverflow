@@ -1,9 +1,6 @@
 export class Upvote {
-  count: number;
-  upvoters: Set<string>;
+  count = 0;
+  upvoters: Set<string> = new Set<string>();
 
-  constructor(count: number, upvoters: Set<string>) {
-    this.count = count;
-    this.upvoters = upvoters;
-  }
+  constructor() {}
 }

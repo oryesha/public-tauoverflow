@@ -9,7 +9,7 @@
     <mat-chip-list class="ChipList" *ngIf="isCourseChosen">
       <mat-chip [removable]="true" (removed)="remove(course)"
                 class="CourseTag" *ngFor="let course of courses">
-        {{course}}
+        {{course.name}}
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
     </mat-chip-list>

@@ -1,9 +1,9 @@
 export class UiCourse {
   name: string;
-  courseId: string;
+  courseNumber: string;
 
-  constructor(name: string, courseId: string) {
+  constructor(name: string, courseNumber: string) {
     this.name = name;
-    this.courseId = courseId;
+    this.courseNumber = courseNumber;
   }
 }
