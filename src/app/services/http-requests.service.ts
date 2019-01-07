@@ -18,7 +18,7 @@ export class QueryParams {
 @Injectable()
 export class HttpRequestsService {
 
-  private _baseUrl = 'http://localhost:3000/api'; // TODO(or,licht): Add the base URL.
+  private _baseUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) {
     // this.http.post(this._baseUrl + '/courses', new UiCourse('blah', '0011'));
@@ -28,14 +28,19 @@ export class HttpRequestsService {
     return this.http.post(this._baseUrl + path, model);
   }
 
-  get(path: string, reqQuery?: QueryParams[], params?: any): Observable<any> {
+  get(path: string, reqQuery?: QueryParams[], params?: string[]): Observable<any> {
     const queryParams = {};
+    let pathAndParams = path;
     if (reqQuery) {
       reqQuery.forEach(param => {
         queryParams[param.paramName] = param.paramValue;
       });
     }
-    return this.http.get(this._baseUrl + path, {params: queryParams}).pipe(
+    if (params) {
+      const p = params.join('/');
+      pathAndParams += '/' + p;
+    }
+    return this.http.get(this._baseUrl + pathAndParams, {params: queryParams}).pipe(
       map(res  => {
       return res['data'];
   }));

@@ -40,11 +40,11 @@ export class ProfileDetailsComponent implements OnInit {
       this.isLoaded = true;
     } else {
       this.userService.getUser()
-        .then((res: Observable<any>) => res.subscribe(user => {
-          // debugger;
+        .then((user) => {
+          debugger;
           this.userDetails = user;
           this.isLoaded = true;
-        }));
+        });
     }
   }
 

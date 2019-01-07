@@ -60,9 +60,15 @@ export class UserService {
   //     }, err => reject(err));
   //   });
   // }
-  getUser(): Promise<Observable<any>> {
-    return this.getFirebaseUser().then((res: firebase.User) => {
-      return this.httpRequest.get('/user', [], [res.uid]);
+  getUser(): Promise<any> {
+    return new Promise<any>(resolve => {
+      this.getFirebaseUser().then((res: firebase.User) => {
+        this.httpRequest.get('/user', [], [res.uid]).subscribe(user => {
+          debugger;
+          this._currentUser = user;
+          resolve(user);
+        });
+      });
     });
   }
 
