@@ -41,7 +41,7 @@ export class ProfileDetailsComponent implements OnInit {
     } else {
       this.userService.getUser()
         .then((user) => {
-          this.userDetails = user;
+          this.userDetails = UserProfile.deserialize(user);
           this.isLoaded = true;
         });
     }
