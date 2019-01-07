@@ -12,6 +12,17 @@ exports.getAllQuestions = async function(query) {
       }
 };
 
+exports.getQuestion = async function(id) {
+  try {
+    const question = await Question.findById(id);
+    return question;
+  }
+  catch (e) {
+    throw Error('Error while fetching question: ' + id)
+  }
+};
+
+
 exports.createQuestion = async function(question){
 
   // subject: String,

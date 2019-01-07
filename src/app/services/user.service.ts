@@ -69,7 +69,7 @@ export class UserService {
         this.httpRequest.get('/user', [], [res.uid]).subscribe(user => {
           // debugger;
           this._currentUser = user;
-          resolve(user);
+          resolve(this._currentUser);
         });
       });
     });
