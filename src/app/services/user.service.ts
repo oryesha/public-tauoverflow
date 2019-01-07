@@ -61,10 +61,14 @@ export class UserService {
   //   });
   // }
   getUser(): Promise<any> {
+    debugger;
+    if (this._currentUser) {
+      return Promise.resolve(this._currentUser);
+    }
     return new Promise<any>(resolve => {
       this.getFirebaseUser().then((res: firebase.User) => {
         this.httpRequest.get('/user', [], [res.uid]).subscribe(user => {
-          debugger;
+          // debugger;
           this._currentUser = user;
           resolve(user);
         });
