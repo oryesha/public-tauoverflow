@@ -33,8 +33,7 @@ export class CourseService {
   }
 
   getCourse(courseId: string): Observable<Course> {
-    // const params = new QueryParams('courseId', courseId);
-    return this.httpRequest.get('/courses/' + courseId, [], {});
+    return this.httpRequest.get('/courses', [], [courseId]);
   }
 
   addCourse(uiCourse: UiCourse): Observable<any> {

@@ -4,12 +4,12 @@ import {Name} from './name.model';
 import {UiCourse} from './ui-course.model';
 
 export class UserProfile {
-  _id: string;
+  id: string;
   name: Name;
   program = '';
   email: string;
   rank = 0;
-  image: string = '../../assets/geffen.jpg'; // TODO(nati): Decide how this should look.
+  image = ''; // TODO(nati): Decide how this should look.
   asked = 0;
   answered = 0;
   description = '';
@@ -20,7 +20,7 @@ export class UserProfile {
   isNewUser = true;
 
   constructor(id: string, firstName: string, lastName: string, email: string, isNewUser?: boolean) {
-    this._id = id;
+    this.id = id;
     this.name = new Name(firstName, lastName);
     this.email = email;
     this.isNewUser = isNewUser;

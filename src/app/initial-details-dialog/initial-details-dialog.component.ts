@@ -39,7 +39,7 @@ export class InitialDetailsDialogComponent implements OnInit {
     } else {
       this.dialogRef.close({
         program: program,
-        description: this.descriptionField.getTextareaContent(),
+        description: this.descriptionField.getContent(),
         skills: this.skillsMultiselect.getSelectedOptions()
       });
     }

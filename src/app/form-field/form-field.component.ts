@@ -7,6 +7,7 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 })
 export class FormFieldComponent implements OnInit {
   @ViewChild('textarea') textarea: ElementRef;
+  @ViewChild('input') input: ElementRef;
 
   constructor() { }
 
@@ -18,10 +19,10 @@ export class FormFieldComponent implements OnInit {
   ngOnInit() {
   }
 
-  getTextareaContent(): string {
-    if (!this.isTextarea) {
-      return '';
+  getContent(): string {
+    if (this.isTextarea) {
+      return this.textarea.nativeElement.value;
     }
-    return this.textarea.nativeElement.value;
+    return this.input.nativeElement.value;
   }
 }

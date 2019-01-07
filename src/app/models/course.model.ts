@@ -3,7 +3,6 @@ import {Question} from './question.model';
 import {PartnerPost} from './partner-post.model';
 import {Post} from './post.model';
 import {UiCourse} from './ui-course.model';
-import {Deserializable} from './deserializable';
 
 export class Course {
   id: string;
@@ -16,6 +15,5 @@ export class Course {
 
   constructor(uiCourse: UiCourse) {
     this.uiCourse = uiCourse;
-    this.id = uiCourse.courseId;
   }
 }
