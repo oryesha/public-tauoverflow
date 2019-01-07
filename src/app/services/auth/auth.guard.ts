@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      return this.userService.getCurrentUser().then(() => {
+      return this.userService.getFirebaseUser().then(() => {
         this.router.navigate(['/home-page']);
         resolve(null);
       }, () => resolve(true));

@@ -47,9 +47,9 @@ export class AuthService {
 
   doLogout() {
     return new Promise((resolve, reject) => {
-      this.userService.getCurrentUser().then(() => {
+      this.userService.getFirebaseUser().then(() => {
         this.afAuth.auth.signOut().then(() => resolve(null));
-      }, () => reject(null));
+      }, () => this.afAuth.auth.signOut());
     });
   }
 }
