@@ -13,7 +13,7 @@ exports.getAllUsers = async function() {
 
 exports.getUser = async function(userToken) {
   try {
-    const user = await User.find({firebaseToken: userToken});
+    const user = await User.findOne({firebaseToken: userToken});
     return user;
   }
   catch (e) {
