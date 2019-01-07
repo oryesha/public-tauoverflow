@@ -47,7 +47,6 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
 
   ngOnInit() {
     // this.selectableOptions = this.options || this.defaultOptions;
-    debugger;
     this.selectableOptions = this.options;
     // Initialize allOptions map.
     this.selectableOptions.map(opt => this.allOptions[opt] = false);

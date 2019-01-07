@@ -61,7 +61,6 @@ export class UserService {
   //   });
   // }
   getUser(): Promise<any> {
-    debugger;
     if (this._currentUser) {
       return Promise.resolve(this._currentUser);
     }
