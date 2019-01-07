@@ -17,7 +17,7 @@ export class UserService {
   ) {}
 
   getCurrentUserId(): string {
-    return this._currentUser._id;
+    return this._currentUser.firebaseToken;
   }
 
   getFirebaseUser() {
