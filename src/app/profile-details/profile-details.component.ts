@@ -41,7 +41,6 @@ export class ProfileDetailsComponent implements OnInit {
     } else {
       this.userService.getUser()
         .then((user) => {
-          debugger;
           this.userDetails = user;
           this.isLoaded = true;
         });
