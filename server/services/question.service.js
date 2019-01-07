@@ -26,27 +26,15 @@ exports.createQuestion = async function(question){
   //     upvoters: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'}]
   // }
 
-    const promise = new Promise((resolve, reject) => {
-      UserProfile.findOne({ 'email' : question.owner }, (err, result) => {
-        resolve(result);
-      });
-    });
-    const owner = await promise;
-
-
-
     let newQuestion = new Question({
       subject: question.subject,
       content: question.content,
-      owner: owner._id,
-      timeStamp: new Date(),//TimeFormat,
+      owner: question.owner,
+      timeStamp: question.timeStamp,//TimeFormat,
       isLocked: false,
       relatedCourses: question.relatedCourses,
       answers: [],
-      upvote: {
-        count: 0,
-        upvoters: []
-      }
+      upvote: question.upvote
     });
 
     try{

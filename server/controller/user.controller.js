@@ -45,7 +45,7 @@ exports.updateUser = async function(req,res){
 
   try{
     let updatedUser = await UserService.updateUser(user);
-    return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User: " + id})
+    return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User: " + token})
   }catch(e){
     return res.status(400).json({status: 400., message: e.message})
   }

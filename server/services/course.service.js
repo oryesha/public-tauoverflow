@@ -9,6 +9,7 @@ exports.getAllCourses = async function() {
   try {
 
     let coursesToSend = [{
+      id: String,
       courseName: String,
       courseNumber: String
     }];
@@ -16,7 +17,7 @@ exports.getAllCourses = async function() {
     const courses = await Course.paginate();
 
     courses.docs.forEach(function(course) {
-      coursesToSend.push({courseName: course.name,
+      coursesToSend.push({id: course.id, courseName: course.name,
       courseNumber:course.courseNumber});
     });
     return coursesToSend;
@@ -42,7 +43,7 @@ exports.createCourse = async function(course){
 
 exports.getCourse = async function(courseNum) {
   try {
-    const course = await Course.find({courseNumber: courseNum});
+    const course = await Course.findOne({courseNumber: courseNum});
     return course;
   }
   catch (e) {
