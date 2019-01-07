@@ -8,17 +8,13 @@ exports.getAllCourses = async function() {
   console.log('starting service get all courses');
   try {
 
-    let coursesToSend = [{
-      id: String,
-      courseName: String,
-      courseNumber: String
-    }];
+    let coursesToSend = [];
 
     const courses = await Course.paginate();
 
-    courses.docs.forEach(function(course) {
+    courses.docs.forEach((course) => {
       coursesToSend.push({id: course.id, courseName: course.name,
-      courseNumber:course.courseNumber});
+      courseNumber: course.courseNumber});
     });
     return coursesToSend;
   } catch (e) {
