@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AngularEditorConfig} from '@kolkov/angular-editor';
 
 @Component({
@@ -13,6 +13,7 @@ export class PostEditorComponent implements OnInit {
   @Input() isCourseReview: boolean;
   @Input() titleLabel: string;
   @Input() descriptionTitle: string;
+  @Output() postSubmitted = new EventEmitter();
 
   htmlContent = '';
   newQuestion = '';
@@ -34,8 +35,9 @@ export class PostEditorComponent implements OnInit {
 
   ngOnInit() {
   }
+
   submitPost() {
-    console.log('WOW');
-    this.newQuestion = this.htmlContent;
+    this.postSubmitted.emit(this.htmlContent);
+    // this.newQuestion = this.htmlContent;
   }
 }

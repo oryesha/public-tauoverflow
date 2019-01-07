@@ -59,7 +59,6 @@ import {HttpRequestsService} from './services/http-requests.service';
 import {CourseService} from './services/course.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -114,7 +113,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-
   ],
   providers: [
     QuestionService,
