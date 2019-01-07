@@ -1,4 +1,4 @@
 export interface UiCoursesMap {
-  // Maps course name to course-id.
+  // Maps course name to course-number.
   [name: string]: string;
 }

@@ -12,13 +12,13 @@
       <div class="CourseNameSelector" *ngIf="!isAskQuestion">
         <h5 class="PostTitleText">Course Name:</h5>
         <div class="AutocompletePostContainer">
-          <app-autocomplete [placeholder]="'Select course...'" class="AutocompletePost"
+          <app-autocomplete [placeholder]="'Select course...'" class="AutocompletePost" #programAutocomplete
                             [editorCss]="'AutocompleteInEditor'"></app-autocomplete>
         </div>
       </div>
       <div class="PostTitle">
         <h5 class="PostTitleText">Title:</h5>
-        <app-form-field [label]="titleLabel">
+        <app-form-field [label]="titleLabel" #titleField>
         </app-form-field>
       </div>
       <div *ngIf="isCourseReview" class="Review">
@@ -27,9 +27,8 @@
       </div>
       <div class="Post">
         <h5 class="PostTitleText">{{descriptionTitle}}:</h5>
-        <angular-editor [config]="editorConfig" class="PostTextArea" [(ngModel)]="htmlContent">
+        <angular-editor [config]="editorConfig" class="PostTextArea" [(ngModel)]="postContent">
         </angular-editor>
-
       </div>
       <div class="DoneButtonContainer">
         <button mat-raised-button class="RaisedDoneButton" (click)="submitPost()">submit</button>
@@ -38,5 +37,3 @@
   </mat-card>
 </div>
 <ng-template #customContent><ng-content class="Post"></ng-content></ng-template>
-<div [innerHTML] = newQuestion>
-</div>

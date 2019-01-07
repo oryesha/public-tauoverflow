@@ -10,7 +10,7 @@ export class UserProfile {
   program = '';
   email: string;
   rank = 0;
-  image: string = '../../assets/geffen.jpg'; // TODO(nati): Decide how this should look.
+  image = ''; // TODO(nati): Decide how this should look.
   asked = 0;
   answered = 0;
   description = '';
