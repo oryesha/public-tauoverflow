@@ -22,6 +22,6 @@ const UserProfileSchema = new mongoose.Schema({
 });
 
 UserProfileSchema.plugin(mongoosePaginate);
-const UserProfile = mongoose.model('userProfile', UserProfileSchema);
+const UserProfile = mongoose.model('UserProfile', UserProfileSchema);
 
 module.exports = UserProfile;
