@@ -50,7 +50,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   navigateToCoursePage(course: UiCourse) {
     const courseData = new CoursesComponent.CourseNavigationData(course);
-    this.routingDataService.setRoutingData(course.courseId, courseData);
-    this.router.navigate(['/course-page'], { queryParams: { courseId: course.courseId } });
+    this.routingDataService.setRoutingData(course.courseNumber, courseData);
+    this.router.navigate(['/course-page'], { queryParams: { courseId: course.courseNumber } });
   }
 }

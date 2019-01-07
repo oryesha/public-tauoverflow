@@ -86,8 +86,8 @@ export class CoursesComponent implements OnInit {
 
   navigateToCoursePage(uiCourse: UiCourse) {
     const courseData = new CoursesComponent.CourseNavigationData(uiCourse);
-    this.routingDataService.setRoutingData(uiCourse.courseId, courseData);
-    this.router.navigate(['/course-page'], { queryParams: { courseId: uiCourse.courseId } });
+    this.routingDataService.setRoutingData(uiCourse.courseNumber, courseData);
+    this.router.navigate(['/course-page'], { queryParams: { courseId: uiCourse.courseNumber } });
   }
 
   ngOnInit() {
