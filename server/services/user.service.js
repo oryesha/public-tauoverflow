@@ -11,20 +11,20 @@ exports.getAllUsers = async function() {
   }
 };
 
-exports.getUser = async function(userId) {
+exports.getUser = async function(userToken) {
   try {
-    const user = await User.find({id: userId});
+    const user = await User.find({firebaseToken: userToken});
     return user;
   }
   catch (e) {
-    throw Error('Error while fetching user: ' + userId)
+    throw Error('Error while fetching user: ' + userToken)
   }
 };
 
 exports.createNewUser = async function(user){
   console.log(user);
   let newUser = new User({
-    _id: user.id,
+    firebaseToken: user.firebaseToken,
     firstName: user.firstName,
     lastName: user.lastName,
     program: user.program,
@@ -48,11 +48,11 @@ exports.createNewUser = async function(user){
 
 exports.updateUser = async function(user){
 
-  let id = user._id;
+  let token = user.firebaseToken;
   let oldUser;
 
   try{
-    oldUser = await User.findById(id);
+    oldUser = await User.find({firebaseToken: token});
   }catch(e){
     throw Error("Error occured while Finding the user")
   }
@@ -61,7 +61,7 @@ exports.updateUser = async function(user){
     return false;
   }
 
-  oldUser._id = user._id;
+  oldUser.firebaseToken = user.firebaseToken;
   oldUser.firstName = user.firstName;
   oldUser.lastName = user.lastName;
   oldUser.program = user.program;

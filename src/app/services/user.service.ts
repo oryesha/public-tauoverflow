@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import {UserProfile} from '../models/user-profile.model';
 import {HttpRequestsService, QueryParams} from './http-requests.service';
 import {Observable} from 'rxjs';
+import {HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class UserService {
@@ -17,7 +18,7 @@ export class UserService {
   ) {}
 
   getCurrentUserId(): string {
-    return this._currentUser._id;
+    return this._currentUser.firebaseToken;
   }
 
   getFirebaseUser() {
@@ -36,7 +37,11 @@ export class UserService {
   subscribeNewUser(user: UserProfile): Observable<any> {
     console.log('subscribe new user');
     this._currentUser = user;
-    return this.httpRequest.post('/user', user);
+    const res = this.httpRequest.post('/user', user);
+    res.subscribe((response: any) => {
+      user.id = response.data.id;
+    });
+    return res;
   }
 
   updateUserDetails(user: UserProfile): Observable<any> {

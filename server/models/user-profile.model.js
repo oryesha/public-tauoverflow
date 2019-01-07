@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
 
 const UserProfileSchema = new mongoose.Schema({
-  _id: String,
+  firebaseToken: String,
   firstName: String,
   lastName: String,
   program: String,

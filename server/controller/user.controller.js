@@ -22,14 +22,14 @@ exports.getUser = async function(req,res) {
 
 exports.updateUser = async function(req,res){
 
-  if(!req.body._id){
+  if(!req.body.firebaseToken){
     return res.status(400).json({status: 400., message: "Id must be present"})
   }
 
-  let id = req.body._id;
+  let token = req.body.firebaseToken;
 
   let user = {
-    _id: id,
+    firebaseToken: token,
     firstName: req.body.firstName ? req.body.firstName : null,
     lastName: req.body.lastName ? req.body.lastName : null,
     program: req.body.program ? req.body.program : null,
@@ -52,10 +52,8 @@ exports.updateUser = async function(req,res){
 };
 
 exports.createNewUser = async function(req,res){
-  console.log("WOW2");
-  console.log(req);
   let user = {
-    _id: req.body._id,
+    firebaseToken: req.body.firebaseToken,
     firstName: req.body.name.first,
     lastName: req.body.name.last,
     program: req.body.program,
@@ -67,7 +65,7 @@ exports.createNewUser = async function(req,res){
 
   try{
     let createdUser = await UserService.createNewUser(user);
-    return res.status(200).json({status: 200, data: createdUser, message: "Succesfully Created New User"})
+    return res.status(201).json({status: 201, data: createdUser, message: "Succesfully Created New User"})
   }catch(e){
     return res.status(400).json({status: 400, message: "User Creation was Unsuccesfull"})
   }

@@ -7,16 +7,17 @@ _this = this
 exports.getAllCourses = async function() {
   console.log('starting service get all courses');
   try {
+
     let coursesToSend = [{
       courseName: String,
-      courseId: String
+      courseNumber: String
     }];
 
     const courses = await Course.paginate();
 
     courses.docs.forEach(function(course) {
       coursesToSend.push({courseName: course.name,
-      courseId:course.courseId});
+      courseNumber:course.courseNumber});
     });
     return coursesToSend;
   } catch (e) {
@@ -26,15 +27,9 @@ exports.getAllCourses = async function() {
 
 
 exports.createCourse = async function(course){
-  console.log(course);
     let newCourse = new Course({
       name: course.name,
-      courseId: course.courseId,
-      questions: [],
-      reviews: [],
-      partnerPosts: [],
-      changeHours: [],
-      rank: 0
+      courseNumber: course.courseNumber
     });
 
     try{
@@ -47,7 +42,7 @@ exports.createCourse = async function(course){
 
 exports.getCourse = async function(courseNum) {
   try {
-    const course = await Course.find({courseId: courseNum});
+    const course = await Course.find({courseNumber: courseNum});
     return course;
   }
   catch (e) {

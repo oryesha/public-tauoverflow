@@ -4,7 +4,7 @@ let mongoosePaginate = require('mongoose-paginate');
 
 const CourseSchema = new mongoose.Schema({
   name: String,
-  courseId: String,
+  courseNumber: String,
   questions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],
   reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'CourseReview'}],
   partnerPosts: [{type: mongoose.Schema.Types.ObjectId, ref: 'PartnerPost'}],
