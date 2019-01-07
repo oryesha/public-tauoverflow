@@ -44,6 +44,8 @@ export class QuestionEditorComponent implements OnInit {
     const subject = event.subject;
     const content = event.content;
     const question = new Question(subject, content, this.user, this.courses);
-    this.questionService.createQuestion(question).subscribe(() => {});
+    this.questionService.createQuestion(question).subscribe((response: any) => {
+      question.id = response.data.id;
+    });
   }
 }
