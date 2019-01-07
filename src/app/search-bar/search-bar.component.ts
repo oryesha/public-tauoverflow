@@ -2,6 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {MatDialogConfig} from '@angular/material/dialog';
+import {CourseService} from '../services/course.service';
+import {QueryService} from '../services/query.service';
+import {Question} from '../models/question.model';
 
 @Component({
   selector: 'app-search-bar',
@@ -10,9 +13,13 @@ import {MatDialogConfig} from '@angular/material/dialog';
 })
 export class SearchBarComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  questions: Question[];
+  constructor(private dialog: MatDialog,
+              private courseService: CourseService,
+              private queryService: QueryService) { }
 
   @Input() isSearchQuestion: boolean;
+  private searcContent: string;
   private selectedFilters: string[] = [];
   private hasFilters: boolean;
 
@@ -40,6 +47,20 @@ export class SearchBarComponent implements OnInit {
       this.selectedFilters.splice(index, 1);
       this.hasFilters = this.selectedFilters.length > 0;
     }
+  }
+
+  getQuestionsFromQuery(query: string, filters: string[]) {
+    const courseMap = this.courseService.getCoursesMap();
+    const filtersId: string[] = [];
+    filters.forEach((filter: string) => {
+      filtersId.push(courseMap[filter]);
+    });
+    console.log('WOW!');
+    this.queryService.getQueryResult(query, filtersId).subscribe(questions => {
+      // assign the questions list property to the proper http response
+      this.questions = questions;
+      console.log(questions);
+    });
   }
 
   ngOnInit() {
