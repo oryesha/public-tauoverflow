@@ -1,4 +1,5 @@
 let Question = require('../models/question.model');
+let UserProfile = require('../models/user-profile.model');
 
 _this = this;
 
@@ -12,27 +13,46 @@ exports.getAllQuestions = async function(query) {
 };
 
 exports.createQuestion = async function(question){
+
+  // subject: String,
+  //   content: String,
+  //   owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'},
+  // timeStamp: Date,//TimeFormat,
+  //   isLocked: Boolean,
+  //   relatedCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
+  //   answers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}],
+  //   upvote: {
+  //   count: Number,
+  //     upvoters: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'}]
+  // }
+
+    const promise = new Promise((resolve, reject) => {
+      UserProfile.findOne({ 'email' : question.owner }, (err, result) => {
+        resolve(result);
+      });
+    });
+    const owner = await promise;
+
+
+
     let newQuestion = new Question({
       subject: question.subject,
       content: question.content,
-      owner: question.owner,
-      timeStamp: question.timeStamp,//TimeFormat,
-      isLocked: question.isLocked,
+      owner: owner._id,
+      timeStamp: new Date(),//TimeFormat,
+      isLocked: false,
       relatedCourses: question.relatedCourses,
-      answers: question.answers,
-      upvote: question.upvote
+      answers: [],
+      upvote: {
+        count: 0,
+        upvoters: []
+      }
     });
 
     try{
       let savedQuestion = await newQuestion.save();
-      savedQuestion.populate('relatedCourses').populate('owner').exec(
-        function(savedQuestion){
-          savedQuestion.relatedCourses.forEach(function(course){
-            course.questionsList.push(savedQuestion);
-            course.save();
-          });
-          savedQuestion.owner.myQuestions.push(savedQuestion);
-          savedQuestion.owner.save();
+      UserProfile.findOneAndUpdate({'_id' : newQuestion.owner}, (err, result) => {
+        result.myQuestions.push(savedQuestion._id);
       });
       return savedQuestion;
     }catch(e){

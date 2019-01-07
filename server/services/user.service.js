@@ -44,3 +44,45 @@ exports.createNewUser = async function(user){
     throw Error("Error while Creating New User")
   }
 };
+
+
+exports.updateUser = async function(user){
+
+  let id = user._id;
+  let oldUser;
+
+  try{
+    oldUser = await User.findById(id);
+  }catch(e){
+    throw Error("Error occured while Finding the user")
+  }
+
+  if(!oldUser){
+    return false;
+  }
+
+  oldUser._id = user._id;
+  oldUser.firstName = user.firstName;
+  oldUser.lastName = user.lastName;
+  oldUser.program = user.program;
+  oldUser.rank = user.rank;
+  oldUser.email = user.email;
+  oldUser.asked = user.asked;
+  oldUser.answered = user.answered;
+  oldUser.image = user.image;
+  oldUser.description = user.description;
+  (user.skills).forEach(function (skillId) {
+    if (oldUser.skills.indexOf(skillId) === -1) {
+      oldUser.skills.push(skillId);
+    }
+  });
+
+  console.log(oldUser);
+
+  try{
+    let savedUser = await oldUser.save();
+    return savedUser;
+  }catch(e){
+    throw Error("Error occured while updating the user");
+  }
+};

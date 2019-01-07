@@ -1,13 +1,13 @@
 <div class="SearchComponent">
   <mat-form-field appearance="outline" class="SearchBox">
     <div *ngIf="isSearchQuestion">
-      <input matInput placeholder="Search a question...">
+      <input matInput placeholder="Search a question..." [(ngModel)]="searcContent">
     </div>
     <div *ngIf="!isSearchQuestion">
       <input matInput placeholder="Search a course...">
     </div>
     <div matSuffix class="ActionButtonsContainer">
-      <button matTooltip="'search'" mat-icon-button class="SearchIcon" (click)="showResults=true"><mat-icon>search</mat-icon></button>
+      <button matTooltip="'search'" mat-icon-button class="SearchIcon" (click)="getQuestionsFromQuery(searcContent,selectedFilters)"><mat-icon>search</mat-icon></button>
       <button matTooltip="'filter'" mat-icon-button class="SearchIcon" (click)="openDialog()">
         <mat-icon>filter_list</mat-icon>
       </button>
