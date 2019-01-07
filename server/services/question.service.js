@@ -14,7 +14,7 @@ exports.getAllQuestions = async function(query) {
 
 exports.getQuestion = async function(id) {
   try {
-    const question = await Question.findById(id);
+    const question = await Question.findById(id).populate('owner relatedCourses answers upvote.upvoters', UserProfile).exec();
     return question;
   }
   catch (e) {
@@ -40,7 +40,7 @@ exports.createQuestion = async function(question){
     let newQuestion = new Question({
       subject: question.subject,
       content: question.content,
-      owner: question.owner,
+      owner: question.owner.id,
       timeStamp: question.timeStamp,//TimeFormat,
       isLocked: false,
       relatedCourses: question.relatedCourses,
