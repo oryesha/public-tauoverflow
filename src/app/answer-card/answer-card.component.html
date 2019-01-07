@@ -3,22 +3,18 @@
     <mat-card-title>
     </mat-card-title>
     <div class="NameAndDate">
-      <div>Ori Licht</div>
-      <div>{{date | date}}</div>
+      <div>{{answer.owner.name.first}} {{answer.owner.name.last}}</div>
+      <div>{{answer.timeStamp | date}}</div>
     </div>
   </mat-card-header>
   <mat-card-content class="AnswerContent">
-    <div class="Content">
-      Amortised time explained in simple terms:
-      <br/><br/>
-      If you do an operation say a million times, you don't really care about the worst-case or the best-case of that operation - what you care about is how much time is taken in total when you repeat the operation a million times.
-      <br/><br/>
-      So it doesn't matter if the operation is very slow once in a while, as long as "once in a while" is rare enough for the slowness to be diluted away. Essentially amortised time means "average time taken per operation, if you do many operations". Amortised time doesn't have to be constant; you can have linear and logarithmic amortised time or whatever else.
-    </div>
+    <div class="Content" [innerHtml]="answer.content"></div>
     <div class="AnswerBottom">
       <div class="LikeButtonContainer">
-        <button mat-icon-button class="Button" (click)="onClickMe()"><mat-icon class="ThumbIcon">thumb_up</mat-icon></button>
-        <span class="NumOfLikes">{{answerScore}}</span>
+        <button mat-icon-button class="Button" (click)="upvote()">
+          <mat-icon class="ThumbIcon">thumb_up</mat-icon>
+        </button>
+        <span class="NumOfLikes">{{answer.upvote.count}}</span>
       </div>
     </div>
   </mat-card-content>

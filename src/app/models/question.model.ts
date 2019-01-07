@@ -10,7 +10,15 @@ export class Question extends Post {
   answers: Answer[] = [];
   upvote: Upvote;
 
-  constructor(subject: string, content: string, owner: UserProfile, relatedCourses: UiCourse[]) {
+  static deserialize(question): Question {
+    const owner = UserProfile.deserialize(question.owner);
+    const timestamp = new Date(question.timestamp);
+    return new Question(question.subject, question.content,
+      owner, [], question._id, timestamp, question.isLocked);
+  }
+
+  constructor(subject: string, content: string, owner: UserProfile, relatedCourses: UiCourse[],
+              id?: string, timestamp?: Date, isLocked?: boolean) {
     super(subject, content, owner);
     this.relatedCourses = relatedCourses;
     this.upvote = new Upvote();

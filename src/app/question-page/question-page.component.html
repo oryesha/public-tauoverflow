@@ -1,11 +1,14 @@
 <app-nav-bar></app-nav-bar>
+<div class="SpinnerContainer" *ngIf="!isLoaded">
+  <mat-spinner [diameter]="40"></mat-spinner>
+</div>
 <div class="questionPage" *ngIf="isLoaded">
   <div class="coursesChips">
     <mat-chip-list>
-      <mat-chip *ngFor="let course of ">{{chip}}</mat-chip>
+      <mat-chip *ngFor="let course of question.relatedCourses">{{course}}</mat-chip>
     </mat-chip-list>
   </div>
-  <app-question-card (click)="show()"></app-question-card>
-  <!--<app-answer-card></app-answer-card>-->
+  <app-question-card [question]="question" (showAnswerEditor)="showAnswerEditor()"></app-question-card>
+  <app-answer-card *ngFor="let answer of question.answers" [answer]="answer"></app-answer-card>
   <app-single-answer-editor *ngIf="isShowAnswerEditor"></app-single-answer-editor>
 </div>

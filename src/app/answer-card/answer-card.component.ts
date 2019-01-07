@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Answer} from '../models/answer.model';
 
 @Component({
   selector: 'app-answer-card',
@@ -6,12 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./answer-card.component.scss']
 })
 export class AnswerCardComponent implements OnInit {
-  date: Date = new Date(2018, 9, 14);
-  answerScore = 12;
+  @Input() answer: Answer;
+
   constructor() { }
-  onClickMe() {
-    this.answerScore++;
+
+  upvote() {
+    this.answer.upvote.count++;
+    // TODO: implement.
   }
+
   ngOnInit() {
   }
 

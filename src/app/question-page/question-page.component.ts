@@ -25,8 +25,8 @@ export class QuestionPageComponent implements OnInit {
       route.queryParams.subscribe(
         (params) => {
           const id = params.id;
-          questionService.getQuestion(id).subscribe((res: any) => {
-            this.question = res.data;
+          questionService.getQuestion(id).subscribe((question: any) => {
+            this.question = Question.deserialize(question);
             this.isLoaded = true;
           });
         });
@@ -36,8 +36,7 @@ export class QuestionPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  show() {
+  showAnswerEditor() {
     this.isShowAnswerEditor = true;
   }
-
 }
