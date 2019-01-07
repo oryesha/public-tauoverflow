@@ -1,4 +1,5 @@
 let UserService = require('../services/user.service')
+let ServiceHelper = require('../services/serviceHelper')
 
 exports.getAllUsers = async function(req,res){
   try{
@@ -18,11 +19,41 @@ exports.getUser = async function(req,res) {
   }
 };
 
-exports.createNewUser = async function(req,res){
-  console.log("WOW2");
-  console.log(req);
+
+exports.updateUser = async function(req,res){
+
+  if(!req.body.firebaseToken){
+    return res.status(400).json({status: 400., message: "Id must be present"})
+  }
+
+  let token = req.body.firebaseToken;
+
   let user = {
-    _id: req.body._id,
+    firebaseToken: token,
+    firstName: req.body.firstName ? req.body.firstName : null,
+    lastName: req.body.lastName ? req.body.lastName : null,
+    program: req.body.program ? req.body.program : null,
+    email: req.body.email ? req.body.email : null,
+    rank: req.body.rank ? req.body.rank : null,
+    image: req.body.image ? req.body.image : null,
+    asked: req.body.asked ? req.body.asked : null,
+    answered: req.body.answered ? req.body.answered : null,
+    description: req.body.description ? req.body.description : null,
+    skills: ServiceHelper.getIdsFromList(req.body.skills),
+    //add all after debug
+  };
+
+  try{
+    let updatedUser = await UserService.updateUser(user);
+    return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User: " + id})
+  }catch(e){
+    return res.status(400).json({status: 400., message: e.message})
+  }
+};
+
+exports.createNewUser = async function(req,res){
+  let user = {
+    firebaseToken: req.body.firebaseToken,
     firstName: req.body.name.first,
     lastName: req.body.name.last,
     program: req.body.program,
@@ -34,7 +65,7 @@ exports.createNewUser = async function(req,res){
 
   try{
     let createdUser = await UserService.createNewUser(user);
-    return res.status(200).json({status: 200, data: createdUser, message: "Succesfully Created New User"})
+    return res.status(201).json({status: 201, data: createdUser, message: "Succesfully Created New User"})
   }catch(e){
     return res.status(400).json({status: 400, message: "User Creation was Unsuccesfull"})
   }

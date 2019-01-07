@@ -10,14 +10,14 @@ exports.getAllCourses = async function() {
 
     let coursesToSend = [{
       courseName: String,
-      courseId: String
+      courseNumber: String
     }];
 
     const courses = await Course.paginate();
 
     courses.docs.forEach(function(course) {
       coursesToSend.push({courseName: course.name,
-      courseId:course.courseId});
+      courseNumber:course.courseNumber});
     });
     return coursesToSend;
   } catch (e) {
@@ -29,20 +29,20 @@ exports.getAllCourses = async function() {
 exports.createCourse = async function(course){
     let newCourse = new Course({
       name: course.name,
-      content: course.courseId
+      courseNumber: course.courseNumber
     });
 
     try{
       let savedCourse = await newCourse.save();
-      return savedQuestion;
+      return savedCourse;
     }catch(e){
-      throw Error("Error while Creating question")
+      throw Error("Error while Creating course")
     }
 };
 
 exports.getCourse = async function(courseNum) {
   try {
-    const course = await Course.find({courseId: courseNum});
+    const course = await Course.find({courseNumber: courseNum});
     return course;
   }
   catch (e) {

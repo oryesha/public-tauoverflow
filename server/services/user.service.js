@@ -11,20 +11,20 @@ exports.getAllUsers = async function() {
   }
 };
 
-exports.getUser = async function(userId) {
+exports.getUser = async function(userToken) {
   try {
-    const user = await User.find({id: userId});
+    const user = await User.find({firebaseToken: userToken});
     return user;
   }
   catch (e) {
-    throw Error('Error while fetching user: ' + userId)
+    throw Error('Error while fetching user: ' + userToken)
   }
 };
 
 exports.createNewUser = async function(user){
   console.log(user);
   let newUser = new User({
-    _id: user.id,
+    firebaseToken: user.firebaseToken,
     firstName: user.firstName,
     lastName: user.lastName,
     program: user.program,
@@ -42,5 +42,47 @@ exports.createNewUser = async function(user){
     return savedUser;
   }catch(e){
     throw Error("Error while Creating New User")
+  }
+};
+
+
+exports.updateUser = async function(user){
+
+  let token = user.firebaseToken;
+  let oldUser;
+
+  try{
+    oldUser = await User.find({firebaseToken: token});
+  }catch(e){
+    throw Error("Error occured while Finding the user")
+  }
+
+  if(!oldUser){
+    return false;
+  }
+
+  oldUser.firebaseToken = user.firebaseToken;
+  oldUser.firstName = user.firstName;
+  oldUser.lastName = user.lastName;
+  oldUser.program = user.program;
+  oldUser.rank = user.rank;
+  oldUser.email = user.email;
+  oldUser.asked = user.asked;
+  oldUser.answered = user.answered;
+  oldUser.image = user.image;
+  oldUser.description = user.description;
+  (user.skills).forEach(function (skillId) {
+    if (oldUser.skills.indexOf(skillId) === -1) {
+      oldUser.skills.push(skillId);
+    }
+  });
+
+  console.log(oldUser);
+
+  try{
+    let savedUser = await oldUser.save();
+    return savedUser;
+  }catch(e){
+    throw Error("Error occured while updating the user");
   }
 };

@@ -93,8 +93,7 @@ export class SignUpComponent implements OnInit {
   }
 
   private _subscribeUser(user: UserProfile) {
-    this.userService.subscribeNewUser(user).subscribe(() => {
-    });
+    this.userService.subscribeNewUser(user);
   }
 
   private _navigateToHomePage(user: UserProfile) {

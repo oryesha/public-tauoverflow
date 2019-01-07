@@ -5,6 +5,7 @@ import {UiCourse} from './ui-course.model';
 
 export class UserProfile {
   id: string;
+  firebaseToken: string;
   name: Name;
   program = '';
   email: string;
@@ -19,8 +20,8 @@ export class UserProfile {
   myCourses: Course[] = [];
   isNewUser = true;
 
-  constructor(id: string, firstName: string, lastName: string, email: string, isNewUser?: boolean) {
-    this.id = id;
+  constructor(token: string, firstName: string, lastName: string, email: string, isNewUser?: boolean) {
+    this.firebaseToken = token;
     this.name = new Name(firstName, lastName);
     this.email = email;
     this.isNewUser = isNewUser;

@@ -6,6 +6,6 @@ let CourseController = require('../../controller/course.controller');
 
 router.post('/', CourseController.createCourse);
 router.get('/', CourseController.getAllCourses);
-router.get('/:courseId',CourseController.getCourse);
+router.get('/:courseNumber',CourseController.getCourse);
 
 module.exports = router;

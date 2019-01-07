@@ -7,6 +7,7 @@ let changeHours = require('./api/change-hours.route');
 let user = require('./api/user.route');
 let partnerPost = require('./api/partner-post.route');
 let courseReview = require('./api/course-review.route');
+let query = require('./api/query.route');
 router.use('/questions', questions);
 
 router.use('/courses', courses);
@@ -15,6 +16,7 @@ router.use('/change-hours', changeHours);
 router.use('/user', user);
 router.use('/partner-posts', partnerPost);
 router.use('/course-reviews', courseReview);
+router.use('/query-results',query);
 module.exports = router;
 
 // // declare axios for making http requests
