@@ -40,8 +40,8 @@ export class ProfileDetailsComponent implements OnInit {
       this.isLoaded = true;
     } else {
       this.userService.getUser()
-        .then((user) => {
-          this.userDetails = UserProfile.deserialize(user);
+        .then((user: UserProfile) => {
+          this.userDetails = user;
           this.isLoaded = true;
         });
     }
