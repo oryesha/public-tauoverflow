@@ -30,8 +30,8 @@ exports.updateUser = async function(req,res){
 
   let user = {
     firebaseToken: token,
-    firstName: req.body.firstName ? req.body.firstName : null,
-    lastName: req.body.lastName ? req.body.lastName : null,
+    firstName: req.body.name.first ? req.body.name.first : null,
+    lastName: req.body.name.last ? req.body.name.last : null,
     program: req.body.program ? req.body.program : null,
     email: req.body.email ? req.body.email : null,
     rank: req.body.rank ? req.body.rank : null,

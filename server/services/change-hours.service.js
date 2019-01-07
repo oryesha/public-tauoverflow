@@ -23,7 +23,7 @@ exports.createChangeHoursPost = async function(post){
 
   try{
     let savedPost = await newPost.save();
-    savedPost.populate('course').populate('owner').exec(function(err, post) {
+    savedPost.populate('course owner').exec(function(err, post) {
         post.course.changeHours.push(post);
         post.course.save();
         post.owner.myChangHoursPosts.push(post);
