@@ -3,11 +3,11 @@
     <mat-card-content>
       <div class="Question">
         <span class="mat-h2 PostTitleText">Answer:</span>
-        <angular-editor [config]="editorConfig" class="QuestionTextArea">
+        <angular-editor [config]="editorConfig" class="QuestionTextArea" [(ngModel)]="content">
         </angular-editor>
       </div>
       <div class="DoneButtonContainer">
-        <button mat-raised-button class="RaisedDoneButton">submit</button>
+        <button mat-raised-button class="RaisedDoneButton" (click)="submitAnswer()">submit</button>
       </div>
     </mat-card-content>
   </mat-card>
