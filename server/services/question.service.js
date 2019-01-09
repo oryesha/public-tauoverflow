@@ -16,7 +16,10 @@ exports.getAllQuestions = async function(query) {
 
 exports.getQuestion = async function(id) {
   try {
-    const question = await Question.findById(id).populate('owner relatedCourses answers upvote.upvoters', UserProfile).exec();
+    const question = await Question.findById(id).populate('owner relatedCourses answers upvote.upvoters').populate({
+      path: 'answers',
+      populate: { path: 'owner' }
+    }).exec();
     return question;
   }
   catch (e) {

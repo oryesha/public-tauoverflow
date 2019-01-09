@@ -24,6 +24,7 @@ export class QuestionPageComponent implements OnInit {
               private userService: UserService,
               private route: ActivatedRoute,
               private answerService: AnswerService) {
+    debugger;
     const routingData = routingDataService.getRoutingData('question');
     if (routingData) {
       this.question = routingData.getData();

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Course} from '../models/course.model';
-import {AppRoutingDataService} from '../app-routing-data.service';
-import {ActivatedRoute} from '@angular/router';
-import {UiCourse} from '../models/ui-course.model';
+import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UiCourse, UiCourseNavigationData} from '../models/ui-course.model';
 import {CourseService} from '../services/course.service';
+import {Question, QuestionNavigationData} from '../models/question.model';
 
 
 @Component({
@@ -16,9 +17,9 @@ export class CoursePageComponent implements OnInit {
   course: Course; // Fetched from server.
   courseDataLoaded: boolean;
   initialDataLoaded: boolean;
-
   constructor(private routingDataService: AppRoutingDataService,
               private courseService: CourseService,
+              private router: Router,
               private route: ActivatedRoute) {
   }
 
@@ -27,9 +28,16 @@ export class CoursePageComponent implements OnInit {
     this.route.queryParams.subscribe(
       params => {
         courseId = params.courseId;
-        this.uiCourse = this.routingDataService.getRoutingData(courseId).getData();
-        this.courseService.getCourse(courseId).subscribe(res => {
-          this.course = res;
+        const routingData = this.routingDataService.getRoutingData(courseId);
+        if (routingData) {
+          this.uiCourse = routingData.getData();
+          this.initialDataLoaded = true;
+        }
+        this.courseService.getCourse(courseId).subscribe((course: any) => {
+          this.course = Course.deserialize(course);
+          this.uiCourse = this.course.uiCourse;
+          this.initialDataLoaded = true;
+          this.courseDataLoaded = true;
         });
       }
     );
@@ -53,6 +61,28 @@ export class CoursePageComponent implements OnInit {
       list.push(i);
     }
     return list;
+  }
+  goToQuestion(question: Question) {
+    this.routingDataService.setRoutingData('question', new QuestionNavigationData(question));
+    this.router.navigate(['question-page'], {queryParams: {id: question.id}});
+  }
+
+  goToEditor(goTo: string) {
+    this.routingDataService.setRoutingData('selectedCourses', new UiCourseNavigationData(this.uiCourse));
+    switch (goTo) {
+      case 'question': {
+        this.router.navigate(['/question-editor']);
+        break;
+      }
+      case 'review': {
+        this.router.navigate(['/course-review-editor']);
+        break;
+      }
+      case 'post': {
+        this.router.navigate(['/find-a-partner-editor']);
+        break;
+      }
+    }
   }
 
 }

@@ -1,7 +1,9 @@
 <app-nav-bar></app-nav-bar>
-<app-post-editor [postTitle]="'Add a Course Review'"
+<app-post-editor (postSubmitted)="postReview($event)"
+                 [postTitle]="(isCourseChosen? (course.name) : 'Add a Course') + ' Review'"
                  [titleLabel]="'Add review title'"
                  [descriptionTitle]="'Review'"
+                 [isCourseChosen]="isCourseChosen"
                  [isCourseReview]="true">
   <div class="StarsContainer">
     <div class="StarContainer" *ngFor="let i of [1,2,3,4,5]">

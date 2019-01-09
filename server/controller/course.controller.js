@@ -28,7 +28,7 @@ exports.getCourse = async function(req, res) {
   const courseNum = req.params.courseNumber;
 
   try{
-    const course = await this.courseService.getCourse(courseNum);
+    const course = await CourseService.getCourse(courseNum);
     return res.status(200).json({status: 200, data: course, message: "Succesfully course: "+courseNum+" Recieved"});
   }catch(e){
     return res.status(400).json({status: 400, message: e.message});
