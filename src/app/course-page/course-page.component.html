@@ -3,8 +3,8 @@
   <mat-card class="course-card">
     <ng-container *ngIf="initialDataLoaded">
       <h3 class="CourseTitle">{{initialDataLoaded ? uiCourse.name : course.uiCourse.name}}</h3>
-      <div class="CourseNumber">{{initialDataLoaded ? uiCourse.courseId : course.uiCourse.courseId}}</div>
-      <ng-container *ngIf="!courseDataLoaded">
+      <div class="CourseNumber">{{initialDataLoaded ? uiCourse.courseNumber : course.uiCourse.courseNumber}}</div>
+      <ng-container *ngIf="courseDataLoaded">
         <div *ngIf="course.rank != undefined" class="Stars">
           <mat-icon class="Star" *ngFor="let i of starsRange(course.rank)">star</mat-icon>
           <mat-icon class="Star" *ngIf="halfStar(course.rank)">star_half</mat-icon>
@@ -12,10 +12,10 @@
         </div>
         <div class="mat-body-2 Reviews"> Reviews: {{course.reviews.length}} </div>
         <div class="CoursePageButtonContainer">
-          <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/question-editor">Ask a question</button>
-          <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/course-review-editor">Write a review</button>
-          <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/find-a-partner-editor">Find a partner</button>
-          <button mat-raised-button class="CoursePageButton" color="primary" routerLink="/find-a-partner-editor">Change class hours</button>
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('question')">Ask a question</button>
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('review')">Write a review</button>
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('post')">Find a partner</button>
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('post')">Change class hours</button>
         </div>
       </ng-container>
     </ng-container>
@@ -31,7 +31,7 @@
         </ng-container>
         <ng-container *ngIf="courseDataLoaded">
           <mat-list-item class="ListItem" *ngFor="let question of course.questions">
-            <button mat-flat-button mat-line class="mat-h4 QuestionTitle" routerLink="/question-page">
+            <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="goToQuestion(question)">
               {{question.subject}}
             </button>
             <span mat-line class="NameAndDate">

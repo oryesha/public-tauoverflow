@@ -1,3 +1,6 @@
+import {RoutingData} from '../app-routing-data.service';
+import {Question} from './question.model';
+
 export class UiCourse {
   id: string;
   name: string;
@@ -12,5 +15,13 @@ export class UiCourse {
   static deserialize(course: any): UiCourse {
     return new UiCourse(course._id, course.name, course.courseNumber);
   }
+}
 
+export class UiCourseNavigationData implements RoutingData<UiCourse[]> {
+  constructor(private uiCourse: UiCourse) {
+  }
+
+  getData(): UiCourse[] {
+    return [this.uiCourse];
+  }
 }

@@ -9,7 +9,7 @@
       <div *ngIf="isAskQuestion">
         <ng-container *ngTemplateOutlet="customContent"></ng-container>
       </div>
-      <div class="CourseNameSelector" *ngIf="!isAskQuestion">
+      <div class="CourseNameSelector" *ngIf="!isAskQuestion && !isCourseChosen">
         <h5 class="PostTitleText">Course Name:</h5>
         <div class="AutocompletePostContainer">
           <app-autocomplete [placeholder]="'Select course...'" class="AutocompletePost" #programAutocomplete

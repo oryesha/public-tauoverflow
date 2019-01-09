@@ -29,6 +29,7 @@ export class PostEditorComponent implements OnInit {
   @Input() postTitle: string;
   @Input() isAskQuestion: boolean;
   @Input() isCourseReview: boolean;
+  @Input() isCourseChosen: boolean;
   @Input() titleLabel: string;
   @Input() descriptionTitle: string;
   @Output() postSubmitted = new EventEmitter<PostContent>();
@@ -57,10 +58,10 @@ export class PostEditorComponent implements OnInit {
   submitPost() {
     const subject = this.titleFormField.getContent();
     let course = '';
-    if (!this.isAskQuestion) {
+    if (!this.isAskQuestion && !this.isCourseChosen) {
       course = this.programAutocomplete.getSelection();
     }
-    if (subject === '' || (course === '' && !this.isAskQuestion) || this.postContent === '') {
+    if (subject === '' || (course === '' && !this.isAskQuestion && !this.isCourseChosen) || this.postContent === '') {
       this.snackBar.open('Empty fields aren\'t allowed', '', {
         duration: 2000 // Prompt the toast 2 seconds.
       });

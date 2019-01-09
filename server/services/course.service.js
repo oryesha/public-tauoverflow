@@ -26,7 +26,8 @@ exports.getAllCourses = async function() {
 exports.createCourse = async function(course){
     let newCourse = new Course({
       name: course.name,
-      courseNumber: course.courseNumber
+      courseNumber: course.courseNumber,
+      rank: 0,
     });
 
     try{
@@ -39,7 +40,17 @@ exports.createCourse = async function(course){
 
 exports.getCourse = async function(courseNum) {
   try {
-    const course = await Course.findOne({courseNumber: courseNum});
+    const course = await Course.findOne({courseNumber: courseNum})
+      .populate({
+        path: 'reviews partnerPosts changeHours',
+        populate: { path: 'owner course' }
+      }).populate({
+        path: 'questions',
+        populate: { path: 'owner relatedCourses answers upvote.upvoters' }
+      }).populate({
+        path: 'answers',
+        populate: { path: 'owner' }
+      }).exec();
     return course;
   }
   catch (e) {

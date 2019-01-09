@@ -15,7 +15,7 @@ exports.createPartnerPost = async function(req,res){
     subject: req.body.subject,
     content: req.body.content,
     owner: req.body.owner,
-    course: req.body.course,
+    course: req.body.uiCourse,
     timeStamp: req.body.timeStamp,//TimeFormat,
     isLocked: req.body.isLocked
   };
