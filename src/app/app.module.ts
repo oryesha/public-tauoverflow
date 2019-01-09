@@ -58,6 +58,7 @@ import { InitialDetailsDialogComponent } from './initial-details-dialog/initial-
 import {HttpRequestsService} from './services/http-requests.service';
 import {CourseService} from './services/course.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {AnswerService} from './services/answer.service';
 
 
 @NgModule({
@@ -118,6 +119,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   ],
   providers: [
     QuestionService,
+    AnswerService,
     AuthService,
     AppService,
     AppRoutingDataService,

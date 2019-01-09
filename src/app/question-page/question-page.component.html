@@ -5,10 +5,10 @@
 <div class="questionPage" *ngIf="isLoaded">
   <div class="coursesChips">
     <mat-chip-list>
-      <mat-chip *ngFor="let course of question.relatedCourses">{{course}}</mat-chip>
+      <mat-chip *ngFor="let course of question.relatedCourses">{{course.name}}</mat-chip>
     </mat-chip-list>
   </div>
   <app-question-card [question]="question" (showAnswerEditor)="showAnswerEditor()"></app-question-card>
   <app-answer-card *ngFor="let answer of question.answers" [answer]="answer"></app-answer-card>
-  <app-single-answer-editor *ngIf="isShowAnswerEditor"></app-single-answer-editor>
+  <app-single-answer-editor (answerSubmitted)="postAnswer($event)" *ngIf="isShowAnswerEditor"></app-single-answer-editor>
 </div>

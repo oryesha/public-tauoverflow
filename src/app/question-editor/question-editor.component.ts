@@ -49,7 +49,8 @@ export class QuestionEditorComponent implements OnInit {
     const content = event.content;
     const question = new Question(subject, content, this.user, this.courses);
     this.questionService.createQuestion(question).subscribe((response: any) => {
-      question.id = response.data.id;
+      question.id = response.data._id;
+      this.user.asked += 1;
       this.routingDataService.setRoutingData('question', new QuestionNavigationData(question));
       this.router.navigate(['question-page'], {queryParams: {id: question.id}});
     });

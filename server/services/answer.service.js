@@ -1,8 +1,11 @@
 let Answer = require('../models/answer.model');
+let Question = require('../models/question.model');
+let UserProfile = require('../models/user-profile.model');
+let ServiceHelper = require('../services/serviceHelper');
 
 _this = this;
 
-exports.getAllAnswers = async function(query) {
+exports.getAllAnswers = async function (query) {
   try {
     let answer = await Answer.paginate(query);
     return answer;
@@ -11,41 +14,42 @@ exports.getAllAnswers = async function(query) {
   }
 };
 
-exports.createAnswer = async function(answer){
+exports.createAnswer = async function (answer) {
   let newAnswer = new Answer({
     content: answer.content,
-    owner: answer.owner,
+    owner: answer.owner.id,
     timeStamp: answer.timeStamp,//TimeFormat,
-    upvote: answer.upvote,
+    upvote: {count: answer.upvote.count, upvoters: ServiceHelper.getIdsFromList(answer.upvote.upvoters)},
     questionId: answer.questionId
   });
 
-  try{
+  try {
     let savedAnswer = await newAnswer.save();
-
-    savedAnswer.populate('questionId','answers').exec(
-      function(savedAnswer){
-        savedAnswer.questionId.answers.push(savedAnswer);
-        savedAnswer.questionId.save();
-      });
+    const user = await UserProfile.findById(newAnswer.owner);
+    user.answered += 1;
+    user.save();
+    const question = await Question.findById(newAnswer.questionId);
+    question.answers.push(savedAnswer._id);
+    question.save();
     return savedAnswer;
-  }catch(e){
+  } catch (e) {
     throw Error("Error while Creating answer")
   }
+
 };
 
-exports.updateAnswer = async function(answer){
+exports.updateAnswer = async function (answer) {
 
   let id = answer.id;
   let oldAnswer;
 
-  try{
+  try {
     oldAnswer = await Answer.findById(id);
-  }catch(e){
+  } catch (e) {
     throw Error("Error occured while Finding the answer")
   }
 
-  if(!oldAnswer){
+  if (!oldAnswer) {
     return false;
   }
 
@@ -55,22 +59,22 @@ exports.updateAnswer = async function(answer){
   oldAnswer.upvote = answer.upvote;
   oldAnswer.questionId = answer.questionId;
 
-  try{
+  try {
     let savedAnswer = await oldAnswer.save();
     return savedAnswer;
-  }catch(e){
+  } catch (e) {
     throw Error("And Error occured while updating the answer");
   }
 };
 
-exports.deleteAnswer = async function(id){
-  try{
+exports.deleteAnswer = async function (id) {
+  try {
     let deleted = await Answer.remove({_id: id});
-    if(deleted.result.n === 0){
+    if (deleted.result.n === 0) {
       throw Error("answer Could not be deleted")
     }
     return deleted
-  }catch(e){
+  } catch (e) {
     throw Error("Error Occured while Deleting the answer")
   }
 };
