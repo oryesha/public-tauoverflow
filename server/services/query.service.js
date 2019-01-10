@@ -1,25 +1,50 @@
-Question = require('../models/question.model');
-Course = require('../models/course.model');
+let Question = require('../models/question.model');
+let Course = require('../models/course.model');
 
 _this = this;
 
-exports.getQuestionsFromQuery(query){
+getCourseId = async function (ids) {
+  let coursesId = [];
+  ids.forEach(async (courseId) => {
+      if(courseId === ""){}
+      else {
+        let course = await Course.findOne({courseNumber: courseId});
+        coursesId.push(course._id);
+      }
+    }
+  );
+  return coursesId;
+};
 
-  Question.createIndex( { subject: "text", content: "text" } )
-  let questions = []
-  query.queryFilters.forEach((err,courseId) => {
-    try {
-      let course = await Course.findOne({'courseId' : courseId}) ;
-    } 
-    catch(e) {
-      throw Error("Error occured while Finding the course");
-    }
-    if(!course){
-      return false;
-    }
-    questions.push(course.questions.find( { $text: { $search: query.queryString } },
-   { score: { $meta: "textScore" } } ).sort( { score: { $meta: "textScore" } } )
-   );
+
+
+exports.getQuestionsFromQuery = async function(query) {
+ if(!query.content){
+   return [];
+ }
+  let questions = [];
+  let coursesId = [];
+  if(query.filters) {
+    coursesId = await getCourseId(query.filters).then();
   }
-  return questions
-}
+
+  const term = query.content;
+  let tmpQuestions = await Question.find(
+    {$text: { $search: query.content }})
+        .catch(e => console.log(e));
+      if(query.filters){
+        coursesId.forEach(async (id) => {
+          tmpQuestions.forEach(async (question) => {
+            if (question.relatedCourses.indexOf(id) > -1) {
+              questions.push(question)
+            }
+          });
+        });
+      }
+      else{
+        questions = tmpQuestions;
+      }
+  return questions;
+};
+
+//where('likes').in(['vaporizing', 'talking']).
