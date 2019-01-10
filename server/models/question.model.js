@@ -14,7 +14,7 @@ const QuestionSchema = new mongoose.Schema({
       upvoters: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'}]
     }
 });
-
+QuestionSchema.index({'$**': 'text'});
 QuestionSchema.plugin(mongoosePaginate);
 const Question = mongoose.model('Question', QuestionSchema);
 

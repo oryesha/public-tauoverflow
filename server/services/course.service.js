@@ -2,7 +2,7 @@ let Course = require('../models/course.model');
 
 
 
-_this = this
+_this = this;
 
 exports.getAllCourses = async function() {
   console.log('starting service get all courses');

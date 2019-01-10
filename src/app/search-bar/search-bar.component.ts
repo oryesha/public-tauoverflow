@@ -12,7 +12,7 @@ import {Question} from '../models/question.model';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-
+  showResults: boolean = false;
   questions: Question[];
   constructor(private dialog: MatDialog,
               private courseService: CourseService,
@@ -48,10 +48,10 @@ export class SearchBarComponent implements OnInit {
       this.hasFilters = this.selectedFilters.length > 0;
     }
   }
-
   getQuestionsFromQuery(query: string, filters: string[]) {
     const courseMap = this.courseService.getCoursesMap();
     const filtersId: string[] = [];
+    filtersId.push('');
     filters.forEach((filter: string) => {
       filtersId.push(courseMap[filter].courseNumber);
     });
@@ -59,6 +59,7 @@ export class SearchBarComponent implements OnInit {
     this.queryService.getQueryResult(query, filtersId).subscribe(questions => {
       // assign the questions list property to the proper http response
       this.questions = questions;
+      this.showResults = true;
       console.log(questions);
     });
   }
