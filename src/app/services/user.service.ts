@@ -39,7 +39,7 @@ export class UserService {
     this._currentUser = user;
     const res = this.httpRequest.post('/user', user);
     res.subscribe((response: any) => {
-      user.id = response.data.id;
+      user.id = response.data._id;
     });
     return res;
   }
