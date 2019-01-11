@@ -1,5 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-
+import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
+import {Router} from '@angular/router';
+import {CourseService} from '../services/course.service';
+import {UserService} from '../services/user.service';
+import {Question} from '../models/question.model';
+import {UiCourse} from '../models/ui-course.model';
 class Section {
 }
 
@@ -9,6 +14,16 @@ class Section {
   styleUrls: ['./search-results.component.scss']
 })
 export class SearchResultsComponent implements OnInit {
+
+  static SelectedQuestion = class implements RoutingData<Question> {
+    constructor(private selectedQuestion: Question) {}
+
+    getData(): Question {
+      return this.selectedQuestion;
+    }
+  };
+
+
   @Input() results: Section[];
   // results: Section[] = [
 //     {
@@ -29,9 +44,23 @@ export class SearchResultsComponent implements OnInit {
 // }
 //   ];
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private courseService: CourseService,
+    private userService: UserService,
+    private routingDataService: AppRoutingDataService
+  ) { }
 
   ngOnInit() {
   }
 
+  private navigateToQuestionPage(questionSelected: any) {
+    const tmpQuestion = new Question(questionSelected.subject,
+      questionSelected.content, questionSelected.owner, questionSelected.relatedCourses,
+      questionSelected.answers, questionSelected.id, questionSelected.timestamp,
+      questionSelected.isLocked);
+    const question = new SearchResultsComponent.SelectedQuestion(tmpQuestion);
+    this.routingDataService.setRoutingData('question', question);
+    this.router.navigate(['/question-page']);
+  }
 }

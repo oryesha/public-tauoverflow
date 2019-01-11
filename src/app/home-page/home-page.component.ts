@@ -18,7 +18,8 @@ import {UiCoursesMap} from '../models/ui-courses-map.model';
 })
 export class HomePageComponent implements OnInit {
   static CourseList = class implements RoutingData<UiCourse[]> {
-    constructor(private selectedCourses: UiCourse[]) {}
+    constructor(private selectedCourses: UiCourse[]) {
+    }
 
     getData(): UiCourse[] {
       return this.selectedCourses.slice();
@@ -81,7 +82,8 @@ export class HomePageComponent implements OnInit {
         this.user.description = result.description;
         this._addUserSkills(result.skills);
         this.user.isNewUser = false;
-        this.userService.updateUserDetails(this.user).subscribe(() => {});
+        this.userService.updateUserDetails(this.user).subscribe(() => {
+        });
       }
     );
   }

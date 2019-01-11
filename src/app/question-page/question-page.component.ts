@@ -24,10 +24,11 @@ export class QuestionPageComponent implements OnInit {
               private userService: UserService,
               private route: ActivatedRoute,
               private answerService: AnswerService) {
-    debugger;
     const routingData = routingDataService.getRoutingData('question');
     if (routingData) {
       this.question = routingData.getData();
+      console.log('in question page');
+      console.log(this.question);
       this.isLoaded = true;
     } else {
       route.queryParams.subscribe(

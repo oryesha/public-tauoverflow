@@ -1,3 +1,5 @@
+let UserProfile = require('../models/user-profile.model');
+let Answer = require('../models/answer.model');
 let Question = require('../models/question.model');
 let Course = require('../models/course.model');
 
@@ -30,7 +32,7 @@ exports.getQuestionsFromQuery = async function(query) {
 
   const term = query.content;
   let tmpQuestions = await Question.find(
-    {$text: { $search: query.content }})
+    {$text: { $search: term }})
         .catch(e => console.log(e));
       if(query.filters){
         coursesId.forEach(async (id) => {
@@ -44,7 +46,7 @@ exports.getQuestionsFromQuery = async function(query) {
       else{
         questions = tmpQuestions;
       }
-  return questions;
+      return questions;
 };
 
 //where('likes').in(['vaporizing', 'talking']).
