@@ -56,6 +56,7 @@ exports.createQuestion = async function(question){
 
   try{
     let savedQuestion = await newQuestion.save();
+
     const asker = await UserProfile.findById(newQuestion.owner);
     asker.asked += 1;
     asker.myQuestions.push(savedQuestion._id);

@@ -2,7 +2,7 @@
   <h2 mat-header-row class="ResultHeader">{{results.length}} Results</h2>
   <mat-divider></mat-divider>
   <mat-list>
-    <mat-list-item class="ListItem" *ngFor="let result of results">
+      <mat-list-item class="ListItem" *ngFor="let result of results">
       <mat-divider></mat-divider>
       <div class="IconDetails">
         <mat-icon matListIcon class="IconDetails">check_circle</mat-icon>
@@ -22,7 +22,7 @@
         <div>{{result.from}}</div>
         <div>{{result.created | date}}</div>
       </div>
-      <button mat-button matLine class="ResTitleButton" routerLink="/question-page">{{result.subject}}</button>
+      <button mat-button matLine class="ResTitleButton" (click)="navigateToQuestionPage(result)">{{result.subject}}</button>
       <!--<h3 matLine class="ResTitle">  </h3>-->
       <p matLine>
         <span class="ResContent"> {{result.content}} </span>
