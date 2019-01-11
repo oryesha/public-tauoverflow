@@ -32,10 +32,7 @@ exports.getQuestionsFromQuery = async function(query) {
 
   const term = query.content;
   let tmpQuestions = await Question.find(
-    {$text: { $search: term }}).populate('owner relatedCourses answers upvote.upvoters').populate({
-    path: 'answers',
-    populate: { path: 'owner' }
-  }).exec()
+    {$text: { $search: term }})
         .catch(e => console.log(e));
       if(query.filters){
         coursesId.forEach(async (id) => {
