@@ -12,7 +12,7 @@ import {Question} from '../models/question.model';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-  showResults = false;
+  showResults: boolean = false;
   constructor(private dialog: MatDialog,
               private courseService: CourseService,
               private queryService: QueryService) { }
@@ -54,7 +54,6 @@ export class SearchBarComponent implements OnInit {
     await this.courseService.waitForCourses();
     const courseMap = this.courseService.getCoursesMap();
     const filtersId: string[] = [];
-    filtersId.push('');
     this.selectedFilters.forEach((filter: string) => {
       filtersId.push(courseMap[filter].courseNumber);
     });

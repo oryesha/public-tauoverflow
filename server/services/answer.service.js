@@ -28,13 +28,9 @@ exports.createAnswer = async function (answer) {
     const user = await UserProfile.findById(newAnswer.owner);
     user.answered += 1;
     user.save();
-    const question = await Question.findById(newAnswer.questionId).populate('owner').exec();
-
+    const question = await Question.findById(newAnswer.questionId);
     question.answers.push(savedAnswer._id);
     question.save();
-
-    // here we want to notify the question.owner he has a new answer
-
     return savedAnswer;
   } catch (e) {
     throw Error("Error while Creating answer")
