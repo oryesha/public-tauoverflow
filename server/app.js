@@ -2,7 +2,7 @@ require('dotenv').config();
 
 let express = require('express');
 let path = require('path');
-
+require('dotenv').config();
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');

@@ -4,6 +4,9 @@ import {Injectable} from '@angular/core';
 import {HttpRequestsService} from './http-requests.service';
 import {HttpClient} from '@angular/common/http';
 import {HttpHeaders} from '@angular/common/http';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireMessaging } from '@angular/fire/messaging';
 
 export class Notification {
   title: string;
@@ -30,8 +33,11 @@ export class AnswerService {
 
   constructor(
     private httpRequest: HttpRequestsService,
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private angularFireDB: AngularFireDatabase,
+    private angularFireAuth: AngularFireAuth,
+    private angularFireMessaging: AngularFireMessaging) {
+  }
 
   createAnswer(answer: Answer): Observable<any> {
     return this.httpRequest.post('/answers', answer);
@@ -41,12 +47,20 @@ export class AnswerService {
     return this.httpRequest.get('/answers', [], [id]);
   }
 
-  notifyAnswer(firebaseToken: string): Observable<any> {
+  notifyAnswer(firebaseToken: string) {
     const url = 'https://fcm.googleapis.com/fcm/send';
-    const headers = new HttpHeaders().set('Authorization', 'AAAAc9A8WeQ:APA91bEs459-ePMYaPJjllo7HtqDguA2Og' +
-      '-vTkrSZM8BvDTxYfBmZ3iBhs6G5MXLQfisQQzOckxyHQZv8-MQ_D5QURI9C_xo4-NMsAQkLQBn5P7FiWD2-BAQsznVrfZ-A20ewuvBIAHk');
-    const notification = new Notification('You Have An Answer !', 'take a look', 'https://dummypage.com');
-    const data = new NotificationWrapper(notification, firebaseToken);
-    return this.http.post(url, data, { headers: headers});
+    this.angularFireDB.object('/fcmTokens/').valueChanges()
+      .subscribe((list) => {
+        const questionOwnerToken = list[firebaseToken];
+        console.log('in answers');
+        console.log(questionOwnerToken);
+        const headers = new HttpHeaders().set('Authorization', 'key=AAAAc9A8WeQ:APA91bEs459-ePMYaPJjllo7HtqDguA2Og' +
+          '-vTkrSZM8BvDTxYfBmZ3iBhs6G5MXLQfisQQzOckxyHQZv8-MQ_D5QURI9C_xo4-NMsAQkLQBn5P7FiWD2-BAQsznVrfZ-A20ewuvBIAHk');
+        const notification = new Notification('You Have An Answer !', 'take a look', 'https://dummypage.com');
+        const data = new NotificationWrapper(notification, questionOwnerToken);
+        this.http.post(url, data, {headers: headers}).subscribe((res: any) => {
+          console.log(res);
+        });
+      });
   }
 }

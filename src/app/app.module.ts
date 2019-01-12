@@ -21,7 +21,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import {AngularFireMessagingModule} from 'angularfire2/messaging';
 import { environment } from '../environments/environment';
 import { AuthService } from './services/auth/auth.service';
 import { QuestionService } from './services/question.service';
@@ -62,6 +64,9 @@ import {AnswerService} from './services/answer.service';
 import {ReviewService} from './services/review.service';
 import {PartnerPostService} from './services/partner-post.service';
 import { SpinnerComponent } from './spinner/spinner.component';
+import {MessagingService} from './services/messaging.service';
+
+// import { initializeFirebase } from './push-notification';
 
 @NgModule({
   declarations: [
@@ -118,6 +123,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    AngularFireMessagingModule,
+    AngularFireDatabaseModule,
 
   ],
   providers: [
@@ -131,7 +138,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     UserService,
     AuthGuard,
     HttpRequestsService,
-    CourseService
+    CourseService,
+    MessagingService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
