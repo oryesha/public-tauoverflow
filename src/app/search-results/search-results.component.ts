@@ -13,7 +13,7 @@ import {UiCourse} from '../models/ui-course.model';
 })
 export class SearchResultsComponent implements OnInit {
 
-  @Input() results: Question[];
+  @Input() results: any[];
 
   constructor(
     private router: Router,
@@ -25,9 +25,10 @@ export class SearchResultsComponent implements OnInit {
   ngOnInit() {
   }
 
-  navigateToQuestionPage(questionSelected: Question) {
+  navigateToQuestionPage(questionSelected: any) {
+    const question = Question.deserialize(questionSelected);
     this.routingDataService.setRoutingData(
-      'question', new QuestionNavigationData(questionSelected));
-    this.router.navigate(['question-page'], {queryParams: {id: questionSelected.id}});
+      'question', new QuestionNavigationData(question));
+    this.router.navigate(['question-page'], {queryParams: {id: question.id}});
   }
 }
