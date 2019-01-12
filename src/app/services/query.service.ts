@@ -9,6 +9,7 @@ import {Question} from '../models/question.model';
 export class QueryService {
   constructor(private httpRequest: HttpRequestsService) {
   }
+
   getQueryResult(content: string, filters: string[]): Observable<Question[]> {
     // return /*Observable.*/of(this.cachedCourses);
     const queryString = new QueryParams('content', content);

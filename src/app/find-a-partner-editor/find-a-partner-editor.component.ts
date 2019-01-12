@@ -11,6 +11,7 @@ import {MatSnackBar} from '@angular/material';
 import {AppRoutingDataService} from '../app-routing-data.service';
 import {PostContent} from '../post-editor/post-editor.component';
 import {PartnerPost} from '../models/partner-post.model';
+import {PostType} from '../models/post.model';
 
 @Component({
   selector: 'app-find-a-partner-editor',
@@ -66,7 +67,9 @@ export class FindAPartnerEditorComponent implements OnInit {
       this.snackBar.open(this.course.name + ' Partner Post Added!', '', {
         duration: 2000 // Prompt the toast 2 seconds.
       });
-      this.router.navigate(['course-page'], {queryParams: {courseId: this.course.courseNumber}});
+      this.router.navigate(
+        ['course-page'],
+        {queryParams: {courseId: this.course.courseNumber, tab: PostType.PARTNER}});
     });
   }
 

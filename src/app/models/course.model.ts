@@ -20,15 +20,17 @@ export class Course {
   static deserialize(dbCourse: any): Course {
     const uiCourse = new UiCourse(dbCourse._id, dbCourse.name, dbCourse.courseNumber);
     const course = new Course(uiCourse);
-    course.rank = dbCourse.rank;
     dbCourse.questions.forEach((dbQuestion) => {
       const question = Question.deserialize(dbQuestion);
       course.questions.push(question);
     });
+    let rankCounter = 0;
     dbCourse.reviews.forEach((dbReview) => {
       const review = CourseReview.deserialize(dbReview);
       course.reviews.push(review);
+      rankCounter += review.rank;
     });
+    course.rank = rankCounter === 0 ? 0 : rankCounter / course.reviews.length;
     dbCourse.partnerPosts.forEach((dbPartnerPost) => {
       const partnerPost: PartnerPost = PartnerPost.deserialize(dbPartnerPost);
       course.partnerPosts.push(partnerPost);
