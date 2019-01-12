@@ -10,6 +10,7 @@ import {CourseService} from '../services/course.service';
 import {UserService} from '../services/user.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
 import {Question} from '../models/question.model';
+import {MessagingService} from '../services/messaging.service';
 
 @Component({
   selector: 'app-home-page',
@@ -18,9 +19,7 @@ import {Question} from '../models/question.model';
 })
 export class HomePageComponent implements OnInit {
   static CourseList = class implements RoutingData<UiCourse[]> {
-    constructor(private selectedCourses: UiCourse[]) {
-    }
-
+    constructor(private selectedCourses: UiCourse[]) {}
     getData(): UiCourse[] {
       return this.selectedCourses.slice();
     }
@@ -30,16 +29,23 @@ export class HomePageComponent implements OnInit {
   user: UserProfile;
   uiCoursesMap: UiCoursesMap;
   queryResults: Question[];
-
+  message;
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private courseService: CourseService,
     private userService: UserService,
+    private messagingService: MessagingService,
     private routingDataService: AppRoutingDataService) {
     const routingData = this.routingDataService.getRoutingData('user');
     if (routingData) {
       this.user = routingData.getData();
+      console.log(this.user.firebaseToken);
+      const userId = this.user.firebaseToken;
+      this.messagingService.requestPermission(userId);
+      this.messagingService.receiveMessage();
+      this.message = this.messagingService.currentMessage;
+      console.log(this.message);
       if (this.user.isNewUser) {
         this._openDetailsDialog();
       }
@@ -50,6 +56,8 @@ export class HomePageComponent implements OnInit {
   }
 
   showResults(event: Question[]) {
+    // console.log(event);
+    // console.log('after searc');
     this.queryResults = event;
   }
 
@@ -97,4 +105,13 @@ export class HomePageComponent implements OnInit {
       this.user.skills.push(this.uiCoursesMap[skillName]);
     });
   }
+
+  // public showNotif(m : ){
+  //   if(m){
+  //     return '!';
+  //   }
+  //   else{
+  //     return '';
+  //   }
+  // }
 }

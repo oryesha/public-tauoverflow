@@ -5,6 +5,8 @@ import {map} from 'rxjs/operators';
 import {UiCourse} from '../models/ui-course.model';
 import {query} from '@angular/animations';
 
+
+
 export class QueryParams {
   paramName: string;
   paramValue: string|string[];
