@@ -10,7 +10,6 @@ import { BehaviorSubject } from 'rxjs';
 export class MessagingService {
 
   currentMessage = new BehaviorSubject(null);
-
   constructor(
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,

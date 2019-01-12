@@ -45,6 +45,7 @@ export class HomePageComponent implements OnInit {
       this.messagingService.requestPermission(userId);
       this.messagingService.receiveMessage();
       this.message = this.messagingService.currentMessage;
+      console.log(this.message);
       if (this.user.isNewUser) {
         this._openDetailsDialog();
       }
@@ -104,4 +105,13 @@ export class HomePageComponent implements OnInit {
       this.user.skills.push(this.uiCoursesMap[skillName]);
     });
   }
+
+  // public showNotif(m : ){
+  //   if(m){
+  //     return '!';
+  //   }
+  //   else{
+  //     return '';
+  //   }
+  // }
 }
