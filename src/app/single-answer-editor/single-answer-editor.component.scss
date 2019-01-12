@@ -1,0 +1,103 @@
+@import "~@angular/material/theming";
+
+$icon-size: 32px;
+
+.Question {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.AnswerEditorCard {
+  background: mat-color($mat-gray, 300);
+  //margin: 0 60px;
+  width: 100%;
+}
+
+.AnswerEditorCard /deep/ .angular-editor-wrapper {
+  max-height: 150px;
+}
+
+.AnswerEditorCard /deep/ .angular-editor-textarea {
+  max-height: 126px;
+}
+
+.CourseTag {
+  color: mat-color($mat-gray, 700);
+  background-color: mat-color($mat-gray, 300);
+}
+
+.QuestionEditorHeader {
+  color: mat-color($mat-gray, 100);
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+
+.QuestionTextArea /deep/ .angular-editor-wrapper {
+  background-color: white;
+}
+
+.PostTextArea /deep/ .angular-editor-wrapper,
+.PostTextArea /deep/ .angular-editor-toolbar  {
+  background: white;
+}
+
+.QuestionEditorHeaderText {
+  font-weight: 400;
+}
+
+.AnswerEditor {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  margin-left: 90px;
+}
+
+.PostTitle {
+  max-width: 25%;
+  width: 100%;
+}
+
+.PostTitleText {
+  color: mat-color($mat-gray, 700);
+  //margin-left: 10px;
+}
+
+.SelectedCourses {
+  align-items: center;
+  display: flex;
+}
+
+.ChipList {
+  margin-right: 8px;
+}
+
+.PlusIconButton {
+  background: mat-color($mat-gray, 300);
+  color: mat-color($mat-gray, 700);
+  height: $icon-size;
+  line-height: $icon-size;
+  width: $icon-size;
+}
+
+.PlusIcon {
+  font-size: 18px;
+}
+
+.DoneButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+.Button {
+  background: mat-color($mat-gray, 500);
+  color: mat-color($mat-gray, 800);
+  //font-size: 15px;
+  text-transform: uppercase;
+  line-height: 27px;
+  font-size: 12px;
+}
+
+.CancelButton {
+  margin-right: 10px;
+}

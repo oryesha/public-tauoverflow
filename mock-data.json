@@ -1,0 +1,111 @@
+{
+  "userDetails": {
+    "name": {
+      "first": "Geffen",
+      "last": "Menchik"
+    },
+    "program": "Computer Science and Electrical Engineering",
+    "profilePicturePath": "../../assets/geffen.jpg",
+    "rank": 100,
+    "description": "25 YO developer, from Ra'anana",
+    "skills": [
+      {
+        "name": "Data Structures",
+        "courseId": "03682158"
+      },
+      {
+        "name": "Intro To Data Science",
+        "courseId": "03685060"
+      },
+      {
+        "name": "Intro to NLP",
+        "courseId": "03683235"
+      }
+    ]
+  },
+  "courses": [
+    {
+      "name": "Data Structures",
+      "courseId": "03682158",
+      "rank": "2.5",
+      "questions": [
+        {
+          "subject": "Amortized time complexity",
+          "content": "blah blah",
+          "timestamp": "2018-04-23T18:25:43.511Z",
+          "owner": {
+            "name": {
+              "first": "Nati",
+              "last": "Yosephian"
+            }
+          }
+        },
+        {
+          "subject": "Red-Black tree",
+          "content": "hey",
+          "timestamp": "2018-08-05T13:02:06.511Z",
+          "owner": {
+            "name": {
+              "first": "Nati",
+              "last": "Yosephian"
+            }
+          }
+        }
+      ],
+      "reviews": [
+        {
+          "subject": "Great Course!",
+          "content": "hdfkjdfhjkd",
+          "timestamp": "2018-11-21T10:25:43.511Z",
+          "rank": "2",
+          "owner": {
+            "name": {
+              "first": "Or",
+              "last": "Yesha"
+            }
+          }
+        },
+        {
+          "subject": "Perfect Course!",
+          "content": "hdfkjdfhjkd",
+          "timestamp": "2018-11-25T10:25:43.511Z",
+          "rank": "4",
+          "owner": {
+            "name": {
+              "first": "Or",
+              "last": "Yesha"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Linear Algebra 1A",
+      "courseId": "03662160"
+    },
+    {
+      "name": "Discrete Math",
+      "courseId": "03682000"
+    },
+    {
+      "name": "Classic Physics",
+      "courseId": "03252160"
+    },
+    {
+      "name": "Intro To Data Science",
+      "courseId": "03685060"
+    },
+    {
+      "name": "Algorithms",
+      "courseId": "03682160"
+    },
+    {
+      "name": "Algebra B1",
+      "courseId": "03662132"
+    },
+    {
+      "name": "Intro to NLP",
+      "courseId": "03683235"
+    }
+  ]
+}

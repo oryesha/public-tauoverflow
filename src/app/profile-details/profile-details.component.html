@@ -1,0 +1,24 @@
+<mat-card class="HomeCard {{classes}}">
+  <app-spinner *ngIf="!isLoaded"></app-spinner>
+  <ng-container *ngIf="isLoaded">
+    <h2 class="mat-h2 UserName" *ngIf="!isProfilePage">Hello {{userDetails.name.first}}!</h2>
+    <h2 class="mat-h2 UserName" *ngIf="isProfilePage">{{userDetails.name.first}} {{userDetails.name.last}}</h2>
+    <div class="mat-body-2 Program" *ngIf="userDetails.program">{{userDetails.program}}</div>
+    <img src="{{userDetails.image ? userDetails.image : '../../assets/geffen.jpg'}}" class="CardProfileImage">
+    <div class="UserRank">
+      <mat-icon>child_care</mat-icon>{{userDetails.rank}}
+    </div>
+    <ng-container *ngIf="isProfilePage">
+      <div class="mat-body About">
+        <div>{{userDetails.description}}</div>
+      </div>
+      <div class="mat-body Skills">
+        Skills:
+        <mat-chip-list>
+          <mat-chip class="Chip" *ngFor="let skill of userDetails.skills" (click)="navigateToCoursePage(skill)">{{skill.name}}</mat-chip>
+          <mat-chip class="Chip">+</mat-chip>
+        </mat-chip-list>
+      </div>
+    </ng-container>
+  </ng-container>
+</mat-card>

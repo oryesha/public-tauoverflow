@@ -1,0 +1,24 @@
+<div class="QuestionCard">
+  <div class="UserPicture">
+    <img src="{{'../../assets/geffen.jpg'}}" class="CardProfileImage">
+    <div>{{question.owner.name.first}} {{question.owner.name.last}}</div>
+  </div>
+  <mat-card class="PostCard">
+    <mat-card-content class="ContentAndDetails">
+      <div class="QuestionContent" [innerHtml]="question.content"></div>
+      <div class="Date">
+        {{question.timestamp | date}}
+      </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <div class="QuestionBottom">
+    <span class="ButtonsContainer">
+      <button mat-icon-button class="Button" (click)="upvote()">
+          <mat-icon class="ThumbIcon">thumb_up</mat-icon>
+        </button>
+      <span class="NumOfLikes">{{question.upvote.count}}</span>
+    </span>
+      <button mat-raised-button class="AnswerButton" (click)="newAnswer()">ANSWER</button>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,109 @@
+@import '~@angular/material/theming';
+
+.HomePage {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.NavBarContainer {
+  flex: 0 0 auto;
+}
+
+.ProfileDetails {
+  font-size: 16px;
+}
+
+.AllContent {
+  display: flex;
+  flex: 1 1 auto;
+  height: 0;
+  width: 100%;
+}
+
+.HomeProfileCard {
+  flex: 0 0 auto;
+}
+
+.SearchBarContainer {
+  max-width: 100%;
+  width: 100%;
+}
+
+.SearchAndButtonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 542px;
+  width: 100%;
+}
+
+.LogoAndSearch {
+  display: flex;
+  flex-direction: column;
+}
+
+.MainContent {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: center;
+  padding: 20px;
+  width: 0;
+}
+
+.MainFeatures {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: row;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.Feature {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  padding: 20px;
+}
+
+.FeatureDescription {
+  color: mat-color($mat-gray, 600);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  text-align: center;
+}
+
+.FeatureIcon {
+  background: mat-color($mat-gray, 600);
+  color: mat-color($mat-gray, 200);
+}
+
+img.resize {
+  max-width:50%;
+  width: 100%;
+  max-height:50%;
+}
+
+.ImgContainer {
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.Results {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  padding-bottom: 10px;
+}
+
+.Results /deep/ .mat-list-base{
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  max-width: 100%;
+  width: 100%;
+}

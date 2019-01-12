@@ -1,0 +1,59 @@
+@import "~@angular/material/theming";
+
+.DetailsDialogContent .mat-form-field.mat-focused /deep/ .mat-form-field-ripple {
+  background: mat-color($mat-deep-orange, 200);
+}
+
+.DetailsDialogContent {
+  //color: mat-color($mat-gray, 500);
+}
+
+.DialogCourseSelector.mat-focused /deep/ .mat-select-arrow {
+  color: mat-color($mat-deep-orange, 200);
+}
+
+.DialogCourseSelector.mat-focused /deep/ .mat-form-field-label {
+  color: mat-color($mat-deep-orange, 200);
+}
+
+.DetailsDialogTitle {
+  color: mat-color($mat-gray, 700);
+}
+
+.OptionSelect /deep/ .mat-pseudo-checkbox-checked {
+  background: mat-color($mat-teal, 200);
+}
+
+.OptionSelect.mat-selected:not(.mat-option-disabled) {
+  color: mat-color($mat-teal, 200);
+}
+
+.OptionSelect {
+  color: mat-color($mat-gray, 700);
+}
+
+.DetailsDialogDoneButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.DetailsDialogDoneButton {
+  background: mat-color($mat-gray, 500);
+  color: mat-color($mat-gray, 800);
+  text-transform: uppercase;
+}
+
+.FirstHeader {
+  margin: 0;
+}
+
+.SmallDialogHeader {
+  color: mat-color($mat-gray, 500);
+  font-size: 14px;
+  margin: 16px 0 0;
+}
+
+.DetailsDialogContent /deep/ .mat-form-field-appearance-outline {
+  background: white;
+  border-radius: 6px;
+}

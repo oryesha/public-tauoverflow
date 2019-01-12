@@ -1,0 +1,20 @@
+<app-nav-bar></app-nav-bar>
+<app-post-editor
+  (postSubmitted)="postQuestion($event)"
+  [postTitle]="'Ask a Question'"
+  [titleLabel]="'Write question subject'"
+  [descriptionTitle]="'Question'"
+  [isAskQuestion]="true">
+  <div class="SelectedCourses">
+    <mat-chip-list class="ChipList" *ngIf="isCourseChosen">
+      <mat-chip [removable]="true" (removed)="remove(course)"
+                class="CourseTag" *ngFor="let course of courses">
+        {{course.name}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+    <button mat-icon-button class="PlusIconButton">
+      <mat-icon class="PlusIcon">add</mat-icon>
+    </button>
+  </div>
+</app-post-editor>

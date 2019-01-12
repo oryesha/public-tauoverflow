@@ -1,0 +1,71 @@
+@import "~@angular/material/theming";
+
+$icon-size: 32px;
+$text-box-width: 33%;
+
+.Review {
+  margin-bottom: 8px;
+}
+
+.PostCard {
+  background: mat-color($mat-deep-orange, 100);
+  color: mat-color($mat-gray, 700);
+  max-width: 920px;
+  width: 100%;
+}
+
+.PostTextArea /deep/ .angular-editor-toolbar {
+  background: mat-color($mat-gray, 200);
+}
+
+.PostTextArea /deep/ .angular-editor-wrapper {
+  background: white;
+}
+
+.PostEditor {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.DoneButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+.RaisedDoneButton {
+  background: mat-color($mat-gray, 500);
+  color: mat-color($mat-gray, 800);
+  text-transform: uppercase;
+}
+
+.AutocompletePostContainer {
+  max-width: $text-box-width;
+}
+
+.PostCardTitle {
+  font-size: 24px;
+}
+
+.PostTitleText {
+  font-weight: 500;
+  margin-bottom: 4px;
+  margin-top: 0px;
+}
+
+.PostTitle {
+  max-width: $text-box-width;
+}
+
+.PostHeader {
+  justify-content: center;
+}
+
+.CourseNameSelector {
+  width: 100%;
+}
+
+.AutocompletePost /deep/ .mat-form-field-flex {
+  background: white !important;
+}

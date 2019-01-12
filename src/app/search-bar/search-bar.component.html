@@ -1,0 +1,31 @@
+<div class="SearchComponent">
+  <mat-form-field appearance="outline" class="SearchBox">
+    <div *ngIf="isSearchQuestion">
+      <input matInput placeholder="Search a question..." [(ngModel)]="searchContent"
+             (keypress.enter)="getQuestionsFromQuery()">
+    </div>
+    <div *ngIf="!isSearchQuestion">
+      <input matInput placeholder="Search a course...">
+    </div>
+    <div matSuffix class="ActionButtonsContainer">
+      <button matTooltip="'search'" mat-icon-button class="SearchIcon"
+              (click)="getQuestionsFromQuery()">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button matTooltip="'filter'" mat-icon-button class="SearchIcon" (click)="openDialog()">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+    </div>
+  </mat-form-field>
+  <div class="FilterChipsContainer" *ngIf="hasFilters">
+    <mat-chip-list>
+      <mat-chip
+        *ngFor="let filter of selectedFilters"
+        [removable]="true"
+        (removed)="remove(filter)">
+        {{filter}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+</div>

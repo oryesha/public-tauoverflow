@@ -1,0 +1,14 @@
+<div class="FilterDialog">
+  <h1 mat-dialog-title class="DialogTitle">{{title}}</h1>
+  <mat-dialog-content class="DialogContent">
+    <app-multi-select-autocomplete [placeholder]="'Type course name'" [selectedOptions]="selected" #multiSelect
+                                   (inputChanged)="maybeDisableButton($event)" [options]="courses">
+    </app-multi-select-autocomplete>
+  </mat-dialog-content>
+  <mat-dialog-actions class="ChooseButtonContainer">
+    <button mat-raised-button class="ChooseButton" (click)="close()" *ngIf="isSearch" #chooseButton
+            [disabled]="disabled">Choose</button>
+    <button mat-raised-button class="ChooseButton" (click)="close()" [disabled]="disabled"
+            *ngIf="!isSearch" #chooseButton>Choose</button>
+  </mat-dialog-actions>
+</div>

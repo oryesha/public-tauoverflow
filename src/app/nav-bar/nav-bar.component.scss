@@ -1,0 +1,40 @@
+@import "~@angular/material/theming";
+
+:host {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.NavBar {
+  background: mat-color($mat-deep-orange, 200);
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+h1 {
+  color: white;
+  font-size: 24px;
+  letter-spacing: 0.5px;
+}
+
+.Icon {
+  color: mat-color($mat-deep-orange, 100);
+}
+
+.Button {
+  color: white;
+  letter-spacing: 0.8px;
+  margin-left: 8px;
+}
+
+.RaisedButton {
+  background: mat-color($mat-gray, 500);
+  color: mat-color($mat-gray, 800);
+  text-transform: uppercase;
+}
+
+.Content {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,0 +1,59 @@
+<app-nav-bar></app-nav-bar>
+<div class="MainWrapper">
+  <mat-tab-group class="CoursesViewTabs">
+    <mat-tab label="All Courses">
+      <app-spinner *ngIf="!isLoaded"></app-spinner>
+      <ng-container *ngIf="isLoaded">
+        <mat-list>
+          <mat-list-item class="ListItem" *ngFor="let course of allCourses">
+            <button mat-flat-button mat-line class="mat-h4 CourseName" (click)="navigateToCoursePage(course)">
+              {{course.name}}
+              <mat-icon class="CourseIcon">school</mat-icon>
+            </button>
+            <span mat-line class="CourseNum">
+            {{course.courseNumber}}
+          </span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </ng-container>
+    </mat-tab>
+    <mat-tab label="My Courses">
+      <mat-list>
+        <div>
+          <h3 mat-subheader>Mandatory</h3>
+        </div>
+        <mat-list-item class="ListItem" *ngFor="let courseName of myMandatoryCourses">
+            <button mat-flat-button mat-line class="mat-h4 CourseName" routerLink="/course-page">
+            {{courseName.name}}
+              <mat-icon class="CourseIcon">school</mat-icon>
+          </button>
+          <span mat-line class="CourseNum">
+            <span>{{courseName.courseNum}}</span>
+          </span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div>
+          <h3 mat-subheader>Non-Mandatory</h3>
+        </div>
+        <mat-list-item class="ListItem" *ngFor="let courseName of myChoiceCourses">
+           <button mat-flat-button mat-line class="mat-h4 CourseName" routerLink="/course-page">
+            {{courseName.name}}
+             <mat-icon class="CourseIcon">school</mat-icon>
+          </button>
+          <span mat-line class="CourseNum">
+            <span>{{courseName.courseNum}}</span>
+          </span>
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="SearchContainer">
+    <app-autocomplete [isRequired]="false"
+                      [isCourseSearch]="true"
+                      class="AutocompleteCourses"
+                      [options]="courses"
+                      [placeholder]="'Search a course...'">
+    </app-autocomplete>
+  </div>
+</div>

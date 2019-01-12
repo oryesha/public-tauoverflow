@@ -1,0 +1,34 @@
+<div class="MainResult">
+  <h2 mat-header-row class="ResultHeader">{{results.length}} Result{{results.length == 1 ? '' : 's'}}</h2>
+  <mat-divider></mat-divider>
+  <mat-list>
+      <mat-list-item class="ListItem" *ngFor="let result of results">
+        <mat-divider></mat-divider>
+        <div class="IconDetails">
+          <mat-icon matListIcon class="IconDetails">check_circle</mat-icon>
+          <div class="IconText">
+            <!-- TODO: Check what is this supposed to be? -->
+            <div class="IconRes">{{result.answers?.length}}</div>
+            <div class="IconExp">answers</div>
+          </div>
+        </div>
+        <div class="IconDetails">
+          <mat-icon matListIcon class="IconDetails">thumb_up</mat-icon>
+          <div class="IconText">
+            <div class="IconRes">{{result.upvote?.count}}</div>
+            <div class="IconExp">votes</div>
+          </div>
+        </div>
+        <div class="NameAndDate">
+          <!--<div>{{result.owner?.name.first}} {{result.owner?.name.last}}</div>-->
+          <div>{{result.timestamp?.getDate() | date}}</div>
+        </div>
+        <button mat-button matLine class="ResTitleButton"
+                (click)="navigateToQuestionPage(result)">{{result.subject}}
+        </button>
+        <p matLine>
+          <span class="ResContent"> {{result.content}} </span>
+        </p>
+      </mat-list-item>
+  </mat-list>
+</div>

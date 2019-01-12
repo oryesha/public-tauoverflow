@@ -1,0 +1,15 @@
+<div class="AnswerEditor">
+  <mat-card class="AnswerEditorCard">
+    <mat-card-content>
+      <div class="Question">
+        <span class="mat-h2 PostTitleText">Answer:</span>
+        <angular-editor [config]="editorConfig" class="QuestionTextArea" [(ngModel)]="content">
+        </angular-editor>
+      </div>
+      <div class="DoneButtonContainer">
+        <button mat-raised-button class="Button CancelButton" (click)="cancel()">cancel</button>
+        <button mat-raised-button class="Button" (click)="submitAnswer()">submit</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

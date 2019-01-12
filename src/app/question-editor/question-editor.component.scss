@@ -1,0 +1,30 @@
+@import "~@angular/material/theming";
+
+$icon-size: 32px;
+
+.CourseTag {
+  color: mat-color($mat-gray, 700);
+  background-color: mat-color($mat-gray, 300);
+}
+
+.SelectedCourses {
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.ChipList {
+  margin-right: 8px;
+}
+
+.PlusIconButton {
+  background: mat-color($mat-gray, 300);
+  color: mat-color($mat-gray, 700);
+  height: $icon-size;
+  line-height: $icon-size;
+  width: $icon-size;
+}
+
+.PlusIcon {
+  font-size: 18px;
+}
