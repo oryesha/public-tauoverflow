@@ -25,9 +25,9 @@ export class SearchResultsComponent implements OnInit {
   ngOnInit() {
   }
 
-  navigateToQuestionPage(questionSelected: any) {
-    // console.log('in result');
-    // console.log(questionSelected);
-    this.router.navigate(['question-page'], {queryParams: {id: questionSelected._id}});
+  navigateToQuestionPage(questionSelected: Question) {
+    this.routingDataService.setRoutingData(
+      'question', new QuestionNavigationData(questionSelected));
+    this.router.navigate(['question-page'], {queryParams: {id: questionSelected.id}});
   }
 }
