@@ -10,7 +10,10 @@
                     #descriptionField>
     </app-form-field>
     <h5 class="SmallDialogHeader">Add your skills:</h5>
-    <app-multi-select-autocomplete [placeholder]="'Type course name'" [isRequired]="false" #skillsMultiselect>
+    <app-multi-select-autocomplete [placeholder]="'Type course name'"
+                                   [isRequired]="false"
+                                   [options]="courses"
+                                   #skillsMultiselect>
     </app-multi-select-autocomplete>
   </mat-dialog-content>
   <mat-dialog-actions class="DetailsDialogDoneButtonContainer">

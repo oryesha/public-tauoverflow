@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {MatDialogConfig} from '@angular/material/dialog';
@@ -13,17 +13,17 @@ import {Question} from '../models/question.model';
 })
 export class SearchBarComponent implements OnInit {
   showResults: boolean = false;
-  questions: Question[];
   constructor(private dialog: MatDialog,
               private courseService: CourseService,
               private queryService: QueryService) { }
 
   @Input() isSearchQuestion: boolean;
-  private searcContent: string;
+  private searchContent: string;
   private selectedFilters: string[] = [];
   private hasFilters: boolean;
+  @Output() results = new EventEmitter<Question[]>();
 
-  openDialog(): void {
+  async openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
     dialogConfig.data = {
@@ -32,6 +32,7 @@ export class SearchBarComponent implements OnInit {
       isSearch: true,
       selected: this.selectedFilters.slice()
     };
+    await this.courseService.waitForCourses();
     this.dialog
         .open(FilterDialogComponent, dialogConfig)
         .afterClosed()
@@ -48,20 +49,19 @@ export class SearchBarComponent implements OnInit {
       this.hasFilters = this.selectedFilters.length > 0;
     }
   }
-  getQuestionsFromQuery(query: string, filters: string[]) {
+
+  async getQuestionsFromQuery() {
+    await this.courseService.waitForCourses();
     const courseMap = this.courseService.getCoursesMap();
     const filtersId: string[] = [];
-    filtersId.push('');
-    filters.forEach((filter: string) => {
+    this.selectedFilters.forEach((filter: string) => {
       filtersId.push(courseMap[filter].courseNumber);
     });
-    console.log('WOW!');
-    this.queryService.getQueryResult(query, filtersId).subscribe(questions => {
-      // assign the questions list property to the proper http response
-      this.questions = questions;
-      this.showResults = true;
-      console.log(questions);
-    });
+    this.queryService.getQueryResult(this.searchContent, filtersId)
+      .subscribe(questions => {
+        // assign the questions list property to the proper http response
+        this.results.emit(questions);
+      });
   }
 
   ngOnInit() {

@@ -22,7 +22,7 @@ export class Question extends Post {
       const uiCourse = UiCourse.deserialize(course);
       relatedCourses.push(uiCourse);
     });
-    const timestamp = new Date(question.timeStamp);
+    const timestamp = new Date(question.timestamp);
     return new Question(question.subject, question.content,
       owner, relatedCourses, answers, question._id, timestamp, question.isLocked);
   }

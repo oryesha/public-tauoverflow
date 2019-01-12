@@ -32,7 +32,7 @@
         {
           "subject": "Amortized time complexity",
           "content": "blah blah",
-          "timeStamp": "2018-04-23T18:25:43.511Z",
+          "timestamp": "2018-04-23T18:25:43.511Z",
           "owner": {
             "name": {
               "first": "Nati",
@@ -43,7 +43,7 @@
         {
           "subject": "Red-Black tree",
           "content": "hey",
-          "timeStamp": "2018-08-05T13:02:06.511Z",
+          "timestamp": "2018-08-05T13:02:06.511Z",
           "owner": {
             "name": {
               "first": "Nati",
@@ -56,7 +56,7 @@
         {
           "subject": "Great Course!",
           "content": "hdfkjdfhjkd",
-          "timeStamp": "2018-11-21T10:25:43.511Z",
+          "timestamp": "2018-11-21T10:25:43.511Z",
           "rank": "2",
           "owner": {
             "name": {
@@ -68,7 +68,7 @@
         {
           "subject": "Perfect Course!",
           "content": "hdfkjdfhjkd",
-          "timeStamp": "2018-11-25T10:25:43.511Z",
+          "timestamp": "2018-11-25T10:25:43.511Z",
           "rank": "4",
           "owner": {
             "name": {

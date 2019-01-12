@@ -1,6 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from '../app.service';
-import {Course} from '../models/course.model';
 import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
 import {Router} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
@@ -8,13 +7,6 @@ import {CourseService} from '../services/course.service';
 
 class Section {
 }
-
-// class UiCourse {
-//   name: string;
-//   id: string;
-//
-//   constructor(name: string, id: string) { this.name = name; this.id = id; }
-// }
 
 @Component({
   selector: 'app-course-page',
@@ -58,30 +50,6 @@ export class CoursesComponent implements OnInit {
               private router: Router,
               private courseService: CourseService,
               private routingDataService: AppRoutingDataService) {
-    this.courseService.getUiCourses().subscribe(res => {
-      const temp: UiCourse[] = [];
-      // res.data.docs.forEach(course => {
-      //   temp.push(new UiCourse(course.name, course.courseId));
-      // });
-      this._buildAllCourses(temp);
-      this.isLoaded = true;
-    });
-  }
-
-  private coursesMap: {[courseId: string]: UiCourse} = {};
-
-  private _buildAllCourses(courses: UiCourse[]) {
-    // const uiCourses: UiCourse[] =
-    //   courses.map((course: Course) => {
-    //     this.coursesMap[course.courseId] = course;
-    //     return new UiCourse(course.name, course.courseId);
-    //   });
-    courses.sort((c1, c2) => {
-      if (c1.name > c2.name) { return 1; }
-      if (c1.name < c2.name) { return -1; }
-      return 0;
-    });
-    this.allCourses = courses;
   }
 
   navigateToCoursePage(uiCourse: UiCourse) {
@@ -91,5 +59,21 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.courseService.waitForCourses().then(() => {
+      this.courseService.getCourseNames().forEach(courseName => {
+        const map = this.courseService.getCoursesMap();
+        this.allCourses.push(map[courseName]);
+      });
+      this._sortCourses();
+      this.isLoaded = true;
+    });
+  }
+
+  private _sortCourses() {
+    this.allCourses.sort((c1, c2) => {
+      if (c1.name > c2.name) { return 1; }
+      if (c1.name < c2.name) { return -1; }
+      return 0;
+    });
   }
 }

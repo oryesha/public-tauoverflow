@@ -1,13 +1,17 @@
 <div class="SearchComponent">
   <mat-form-field appearance="outline" class="SearchBox">
     <div *ngIf="isSearchQuestion">
-      <input matInput placeholder="Search a question..." [(ngModel)]="searcContent">
+      <input matInput placeholder="Search a question..." [(ngModel)]="searchContent"
+             (keypress.enter)="getQuestionsFromQuery()">
     </div>
     <div *ngIf="!isSearchQuestion">
       <input matInput placeholder="Search a course...">
     </div>
     <div matSuffix class="ActionButtonsContainer">
-      <button matTooltip="'search'" mat-icon-button class="SearchIcon" (click)="getQuestionsFromQuery(searcContent,selectedFilters)"><mat-icon>search</mat-icon></button>
+      <button matTooltip="'search'" mat-icon-button class="SearchIcon"
+              (click)="getQuestionsFromQuery()">
+        <mat-icon>search</mat-icon>
+      </button>
       <button matTooltip="'filter'" mat-icon-button class="SearchIcon" (click)="openDialog()">
         <mat-icon>filter_list</mat-icon>
       </button>
@@ -23,8 +27,5 @@
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
     </mat-chip-list>
-  </div>
-  <div class="Results" *ngIf="showResults">
-    <app-search-results [results]="questions"></app-search-results>
   </div>
 </div>

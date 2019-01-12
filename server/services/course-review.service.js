@@ -18,7 +18,7 @@ exports.createCourseReview = async function(courseReview){
     content: courseReview.content,
     owner: courseReview.owner.id,
     course: courseReview.course.id,
-    timeStamp: courseReview.timeStamp,//TimeFormat,
+    timestamp: courseReview.timestamp,//TimeFormat,
     isLocked: courseReview.isLocked,
     rank: courseReview.rank
   });

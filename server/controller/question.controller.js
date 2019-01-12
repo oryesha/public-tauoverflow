@@ -26,7 +26,7 @@ exports.createQuestion = async function(req,res){
       subject: req.body.subject,
       content: req.body.content,
       owner: req.body.owner,
-      timeStamp: req.body.timeStamp,//TimeFormat,
+      timestamp: req.body.timestamp,//TimeFormat,
       isLocked: req.body.isLocked,
       relatedCourses: req.body.relatedCourses,
       upvote: req.body.upvote
@@ -54,7 +54,7 @@ exports.updateQuestion = async function(req,res){
       subject: req.body.subject ? req.body.subject : null,
       content: req.body.content ? req.body.content : null,
       owner: req.body.owner ? req.body.owner : null,
-      timeStamp: req.body.timeStamp ? req.body.timeStamp : null,
+      timestamp: req.body.timestamp ? req.body.timestamp : null,
       isLocked: req.body.isLocked ? req.body.isLocked : null,
       relatedCourses: req.body.relatedCourses ? req.body.relatedCourses : null,
       answers: req.body.answers ? req.body.answers : null,

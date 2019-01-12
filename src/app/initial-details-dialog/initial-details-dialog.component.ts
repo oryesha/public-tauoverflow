@@ -4,6 +4,7 @@ import {AutocompleteComponent} from '../autocomplete/autocomplete.component';
 import {MultiSelectAutocompleteComponent} from '../multi-select-autocomplete/multi-select-autocomplete.component';
 import {FormFieldComponent} from '../form-field/form-field.component';
 import {UserProfile} from '../models/user-profile.model';
+import {CourseService} from '../services/course.service';
 
 @Component({
   selector: 'app-initial-details-dialog',
@@ -18,9 +19,11 @@ export class InitialDetailsDialogComponent implements OnInit {
   user: UserProfile;
   programs: string[] = ['Computer Science', 'Electrical Engineering', 'Law', 'Computer Science and Electrical Engineering', 'Economics',
     'Management', 'Physics', 'Chemistry'];
+  courses: string[] = this.courseService.getCourseNames();
 
   constructor(
     private dialogRef: MatDialogRef<InitialDetailsDialogComponent>,
+    private courseService: CourseService,
     @Inject(MAT_DIALOG_DATA) data,
     private snackBar: MatSnackBar) {
     this.title = data.title;

@@ -17,7 +17,7 @@ exports.createChangeHoursPost = async function(post){
     content: post.content,
     owner: post.owner,
     course: post.course,
-    timeStamp: post.date,//TimeFormat,
+    timestamp: post.date,//TimeFormat,
     isLocked: post.isLocked
   });
 

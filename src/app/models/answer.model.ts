@@ -5,7 +5,7 @@ export class Answer {
   id: string;
   content: string;
   upvote: Upvote;
-  timeStamp = new Date(Date.now());
+  timestamp = new Date(Date.now());
   owner: UserProfile;
   questionId: string;
 
@@ -16,13 +16,13 @@ export class Answer {
     this.questionId = questionId;
     if (id) {
       this.id = id;
-      this.timeStamp = timestamp;
+      this.timestamp = timestamp;
     }
   }
 
   static deserialize(answer: any): Answer {
     const owner = UserProfile.deserialize(answer.owner);
-    const timestamp = new Date(answer.timeStamp);
+    const timestamp = new Date(answer.timestamp);
     return new Answer(answer.content, owner, answer.questionId, answer._id, timestamp);
   }
 

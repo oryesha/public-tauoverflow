@@ -6,16 +6,3 @@
 .coursesChips {
   margin: 10px;
 }
-
-.SpinnerContainer {
-  display: flex;
-  justify-content: center;
-  padding: 30px;
-  width: 100%;
-}
-
-.SpinnerContainer /deep/ .mat-spinner-circle,
-.SpinnerContainer /deep/ .mat-progress-spinner,
-.SpinnerContainer /deep/ circle {
-  stroke: mat-color($mat-deep-orange, 200);
-}

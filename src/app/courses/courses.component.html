@@ -2,6 +2,7 @@
 <div class="MainWrapper">
   <mat-tab-group class="CoursesViewTabs">
     <mat-tab label="All Courses">
+      <app-spinner *ngIf="!isLoaded"></app-spinner>
       <ng-container *ngIf="isLoaded">
         <mat-list>
           <mat-list-item class="ListItem" *ngFor="let course of allCourses">
@@ -10,7 +11,7 @@
               <mat-icon class="CourseIcon">school</mat-icon>
             </button>
             <span mat-line class="CourseNum">
-            {{course.id}}
+            {{course.courseNumber}}
           </span>
           </mat-list-item>
           <mat-divider></mat-divider>
@@ -23,8 +24,6 @@
           <h3 mat-subheader>Mandatory</h3>
         </div>
         <mat-list-item class="ListItem" *ngFor="let courseName of myMandatoryCourses">
- <!--         <button  mat-flat-button="notification" routerLink="/answer-editor"><mat-icon mat-list-icon>local_library</mat-icon></button>
- -->
             <button mat-flat-button mat-line class="mat-h4 CourseName" routerLink="/course-page">
             {{courseName.name}}
               <mat-icon class="CourseIcon">school</mat-icon>
@@ -49,6 +48,12 @@
       </mat-list>
     </mat-tab>
   </mat-tab-group>
-  <div class="SearchContainer"><app-autocomplete [isRequired]="false" [isCourseSearch]="true" class="AutocompleteCourses" [options]="courses" [placeholder]="'Search a course...'"></app-autocomplete>
+  <div class="SearchContainer">
+    <app-autocomplete [isRequired]="false"
+                      [isCourseSearch]="true"
+                      class="AutocompleteCourses"
+                      [options]="courses"
+                      [placeholder]="'Search a course...'">
+    </app-autocomplete>
   </div>
 </div>
