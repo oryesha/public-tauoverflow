@@ -33,8 +33,6 @@ export class QuestionPageComponent implements OnInit {
     const routingData = routingDataService.getRoutingData('question');
     if (routingData) {
       this.question = routingData.getData();
-      console.log('in question page');
-      console.log(this.question);
       this.isLoaded = true;
     } else {
       route.queryParams.subscribe(
@@ -52,11 +50,7 @@ export class QuestionPageComponent implements OnInit {
     this.userService.getUser().then((user: UserProfile) => {
       this.user = user;
       this.isUserOwner = this.user.id === this.question.owner.id;
-      if (this.question.answers.length > 0) {
-        this.hasAnswers = true;
-      } else {
-        this.hasAnswers = false;
-      }
+      this.hasAnswers = this.question.answers.length > 0;
       console.log(this.user.id);
       console.log(this.question.owner.id);
     });
