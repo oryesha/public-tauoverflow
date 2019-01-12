@@ -50,6 +50,8 @@ export class HomePageComponent implements OnInit {
   }
 
   showResults(event: Question[]) {
+    // console.log(event);
+    // console.log('after searc');
     this.queryResults = event;
   }
 
