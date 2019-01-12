@@ -3,6 +3,7 @@ import {Question} from './question.model';
 import {PartnerPost} from './partner-post.model';
 import {Post} from './post.model';
 import {UiCourse} from './ui-course.model';
+import {CourseRelatedPost} from './course-related-post.model';
 
 export class Course {
   uiCourse: UiCourse;
@@ -29,7 +30,7 @@ export class Course {
       course.reviews.push(review);
     });
     dbCourse.partnerPosts.forEach((dbPartnerPost) => {
-      const partnerPost = PartnerPost.deserialize(dbPartnerPost);
+      const partnerPost: PartnerPost = PartnerPost.deserialize(dbPartnerPost);
       course.partnerPosts.push(partnerPost);
     });
     // TODO: add deserialize to changeHours when it is implemented
