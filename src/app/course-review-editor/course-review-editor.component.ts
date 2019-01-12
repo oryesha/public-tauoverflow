@@ -56,7 +56,9 @@ export class CourseReviewEditorComponent implements OnInit {
     this.userService.getUser().then((user: UserProfile) => {
       this.user = user;
     });
-    this.coursesMap = this.courseService.getCoursesMap();
+    this.courseService.waitForCourses().then(() => {
+      this.coursesMap = this.courseService.getCoursesMap();
+    });
   }
 
   updateStars(clickedStar: number): void {

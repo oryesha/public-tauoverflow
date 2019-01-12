@@ -15,7 +15,7 @@ exports.createAnswer = async function(req,res){
   let answer = {
     content: req.body.content,
     owner: req.body.owner,
-    timeStamp: req.body.timeStamp,//TimeFormat,
+    timestamp: req.body.timestamp,//TimeFormat,
     upvote: req.body.upvote,
     questionId: req.body.questionId
   };
@@ -41,7 +41,7 @@ exports.updateAnswer = async function(req,res){
     id,
     content: req.body.content ? req.body.content : null,
     owner: req.body.owner ? req.body.owner : null,
-    timeStamp: req.body.timeStamp ? req.body.timeStamp : null,
+    timestamp: req.body.timestamp ? req.body.timestamp : null,
     upvote: req.body.upvote ? req.body.upvote : null,
     questionId: req.body.questionId ? req.body.questionId : null
   };

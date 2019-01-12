@@ -61,6 +61,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {AnswerService} from './services/answer.service';
 import {ReviewService} from './services/review.service';
 import {PartnerPostService} from './services/partner-post.service';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import {PartnerPostService} from './services/partner-post.service';
     PostEditorComponent,
     MultiSelectAutocompleteComponent,
     InitialDetailsDialogComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

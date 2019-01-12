@@ -18,7 +18,7 @@ exports.createAnswer = async function (answer) {
   let newAnswer = new Answer({
     content: answer.content,
     owner: answer.owner.id,
-    timeStamp: answer.timeStamp,//TimeFormat,
+    timestamp: answer.timestamp,//TimeFormat,
     upvote: {count: answer.upvote.count, upvoters: ServiceHelper.getIdsFromList(answer.upvote.upvoters)},
     questionId: answer.questionId
   });
@@ -55,7 +55,7 @@ exports.updateAnswer = async function (answer) {
 
   oldAnswer.content = answer.content;
   oldAnswer.owner = answer.owner;
-  oldAnswer.timeStamp = answer.timeStamp;//TimeFormat,
+  oldAnswer.timestamp = answer.timestamp;//TimeFormat,
   oldAnswer.upvote = answer.upvote;
   oldAnswer.questionId = answer.questionId;
 

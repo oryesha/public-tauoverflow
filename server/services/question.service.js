@@ -33,7 +33,7 @@ exports.createQuestion = async function(question){
   // subject: String,
   //   content: String,
   //   owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'},
-  // timeStamp: Date,//TimeFormat,
+  // timestamp: Date,//TimeFormat,
   //   isLocked: Boolean,
   //   relatedCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
   //   answers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}],
@@ -46,7 +46,7 @@ exports.createQuestion = async function(question){
       subject: question.subject,
       content: question.content,
       owner: question.owner.id,
-      timeStamp: question.timeStamp,//TimeFormat,
+      timestamp: question.timestamp,//TimeFormat,
       isLocked: false,
       relatedCourses: ServiceHelper.getIdsFromList(question.relatedCourses),
       answers: [],
@@ -91,7 +91,7 @@ exports.updateQuestion = async function(question){
     oldQuestion.subject =  question.subject;
     oldQuestion.content = question.content;
     oldQuestion.owner = question.owner;
-    oldQuestion.timeStamp = question.timeStamp;//TimeFormat,
+    oldQuestion.timestamp = question.timestamp;//TimeFormat,
     oldQuestion.isLocked = question.isLocked;
     oldQuestion.relatedCourses =  question.relatedCourses;
     oldQuestion.answers = question.answers;

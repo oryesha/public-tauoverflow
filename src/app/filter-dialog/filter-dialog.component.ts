@@ -15,15 +15,12 @@ export class FilterDialogComponent implements OnInit {
   @ViewChild('multiSelect') multiSelectAutocomplete: MultiSelectAutocompleteComponent;
   selected: string[] = [];
   disabled = true;
-  courses: string[] = [];
+  courses: string[] = this.courseService.getCourseNames();
 
   constructor(
     private dialogRef: MatDialogRef<FilterDialogComponent>,
     private courseService: CourseService,
     @Inject(MAT_DIALOG_DATA) data) {
-    courseService.courses.forEach((course) => {
-      this.courses.push(course.name);
-    });
     this.title = data.title;
     this.isSearch = data.isSearch;
     this.selected = data.selected;

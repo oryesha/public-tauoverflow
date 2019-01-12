@@ -6,10 +6,10 @@ import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
 import {UserProfile} from '../models/user-profile.model';
 import {InitialDetailsDialogComponent} from '../initial-details-dialog/initial-details-dialog.component';
 import {UiCourse} from '../models/ui-course.model';
-import {Observable} from 'rxjs';
 import {CourseService} from '../services/course.service';
 import {UserService} from '../services/user.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
+import {Question} from '../models/question.model';
 
 @Component({
   selector: 'app-home-page',
@@ -28,8 +28,8 @@ export class HomePageComponent implements OnInit {
 
   relatedCourses: string[] = [];
   user: UserProfile;
-  uiCoursesObservable: Observable<UiCourse[]>;
   uiCoursesMap: UiCoursesMap;
+  queryResults: Question[];
 
   constructor(
     private dialog: MatDialog,
@@ -47,22 +47,25 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.courseService.getUiCourses().subscribe((courses: any) => {
-    //   this.uiCoursesMap = courses;
-    // });
   }
 
-  openCoursesDialog() {
+  showResults(event: Question[]) {
+    this.queryResults = event;
+  }
+
+  async openCoursesDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
     dialogConfig.data = {title: 'Select related courses', selected: []};
+    await this.courseService.waitForCourses();
     this.dialog.open(FilterDialogComponent, dialogConfig).afterClosed().subscribe(
       (result: string[]) => this._navigateToQuestionEditor(result)
     );
   }
 
-  private _navigateToQuestionEditor(result: string[]) {
+  private async _navigateToQuestionEditor(result: string[]) {
     const uiCourses: UiCourse[] = [];
+    await this.courseService.waitForCourses();
     this.uiCoursesMap = this.courseService.getCoursesMap();
     result.forEach(courseName => {
       uiCourses.push(this.uiCoursesMap[courseName]);
@@ -72,10 +75,11 @@ export class HomePageComponent implements OnInit {
     this.router.navigate(['/question-editor']);
   }
 
-  private _openDetailsDialog() {
+  private async _openDetailsDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
     dialogConfig.data = {title: 'Please add additional information', user: this.user};
+    await this.courseService.waitForCourses();
     this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
       result => {
         this.user.program = result.program;
@@ -92,12 +96,5 @@ export class HomePageComponent implements OnInit {
     skills.forEach(skillName => {
       this.user.skills.push(this.uiCoursesMap[skillName]);
     });
-  }
-
-  _sendPost() {
-    // this.courseService.addCourse(new UiCourse('name', '0011')).subscribe(res => {
-    //   console.log(res);
-    //   debugger;
-    // });
   }
 }

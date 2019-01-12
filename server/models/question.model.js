@@ -5,7 +5,7 @@ const QuestionSchema = new mongoose.Schema({
     subject: String,
     content: String,
     owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'},
-    timeStamp: Date,//TimeFormat,
+    timestamp: Date,//TimeFormat,
     isLocked: Boolean,
     relatedCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
     answers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}],

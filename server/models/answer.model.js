@@ -7,7 +7,7 @@ const AnswerSchema = new mongoose.Schema({
     count: Number,
     upvoters: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'}]
   },
-  timeStamp: Date,//TimeFormat,
+  timestamp: Date,//TimeFormat,
   owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'},
   questionId: {type: mongoose.Schema.Types.ObjectId, ref: 'Question'}
 });

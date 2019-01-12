@@ -19,7 +19,7 @@ exports.createPartnerPost = async function(partnerPost){
     content: partnerPost.content,
     owner: partnerPost.owner.id,
     course: partnerPost.course.id,
-    timeStamp: partnerPost.timeStamp,//TimeFormat,
+    timestamp: partnerPost.timestamp,//TimeFormat,
     isLocked: partnerPost.isLocked
   });
 

@@ -19,9 +19,7 @@
         </div>
       </ng-container>
     </ng-container>
-    <ng-container *ngIf="!initialDataLoaded">
-      <mat-spinner></mat-spinner>
-    </ng-container>
+    <app-spinner *ngIf="!initialDataLoaded"></app-spinner>
   </mat-card>
   <div class="page">
     <mat-tab-group class="Tabs">
@@ -36,15 +34,13 @@
             </button>
             <span mat-line class="NameAndDate">
               <span>{{question.owner.name.first}} {{question.owner.name.last}}</span>
-              <span>{{question.timeStamp | date}}</span>
+              <span>{{question.timestamp | date}}</span>
             </span>
           </mat-list-item>
         </ng-container>
       </mat-tab>
       <mat-tab label="Reviews">
-        <ng-container *ngIf="!courseDataLoaded">
-          <mat-spinner></mat-spinner>
-        </ng-container>
+        <app-spinner *ngIf="!courseDataLoaded"></app-spinner>
         <ng-container *ngIf="courseDataLoaded">
           <mat-list-item class="ListItem" *ngFor="let review of course.reviews">
             <button matLine mat-flat-button class="mat-h4 QuestionTitle">
@@ -55,35 +51,31 @@
             </button>
             <span matLine class="NameAndDate">
             <span>{{review.owner.name.first}} {{review.owner.name.last}}</span>
-            <span>{{review.timeStamp | date}}</span>
+            <span>{{review.timestamp | date}}</span>
           </span>
           </mat-list-item>
         </ng-container>
       </mat-tab>
       <mat-tab label="Partners">
-        <ng-container *ngIf="!courseDataLoaded">
-          <mat-spinner></mat-spinner>
-        </ng-container>
+        <app-spinner *ngIf="!courseDataLoaded"></app-spinner>
         <ng-container *ngIf="courseDataLoaded">
           <mat-list-item class="ListItem" *ngFor="let partner of course.partnerPosts">
             <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{partner.subject}}</button>
             <span mat-line class="NameAndDate">
             <span>{{partner.owner.name.first}} {{partner.owner.name.last}}</span>
-            <span>{{partner.timeStamp | date}}</span>
+            <span>{{partner.timestamp | date}}</span>
           </span>
           </mat-list-item>
         </ng-container>
       </mat-tab>
       <mat-tab label="Change hours">
-        <ng-container *ngIf="!courseDataLoaded">
-          <mat-spinner></mat-spinner>
-        </ng-container>
+        <app-spinner *ngIf="!courseDataLoaded"></app-spinner>
         <ng-container *ngIf="courseDataLoaded">
           <mat-list-item class="ListItem" *ngFor="let hour of course.changeHours">
             <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{hour.subject}}</button>
             <span mat-line class="NameAndDate">
             <span>{{hour.owner.name.first}} {{hour.owner.name.last}}</span>
-            <span>{{hour.timeStamp | date}}</span>
+            <span>{{hour.timestamp | date}}</span>
           </span>
           </mat-list-item>
         </ng-container>

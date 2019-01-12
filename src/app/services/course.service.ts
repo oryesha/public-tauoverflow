@@ -8,31 +8,36 @@ import {UiCoursesMap} from '../models/ui-courses-map.model';
 @Injectable()
 export class CourseService {
   coursesRequest: Observable<any>;
-  courses: UiCourse[] = [];
-  private _coursesMap: UiCoursesMap;
+  private _courseNames: string[] = [];
+  private _coursesMap: UiCoursesMap = {};
+  private readonly _coursesLoadedPromise: Promise<any>;
 
   constructor(private httpRequest: HttpRequestsService) {
     this.coursesRequest = this.httpRequest.get('/courses');
-    this.coursesRequest.subscribe((response: any) => {
-      const courses = response;
-      this._coursesMap = {};
-      courses.forEach((course: any) => {
-        const uiCourse = new UiCourse(course.id, course.courseName, course.courseNumber);
-        this.courses.push(uiCourse);
-        this._coursesMap[course.courseName] = uiCourse;
+    this._coursesLoadedPromise = new Promise<any>(resolve => {
+      this.coursesRequest.subscribe((response: any) => {
+        const courses = response;
+        this._coursesMap = {};
+        courses.forEach((course: any) => {
+          const uiCourse = new UiCourse(course.id, course.courseName, course.courseNumber);
+          this._courseNames.push(course.courseName);
+          this._coursesMap[course.courseName] = uiCourse;
+          resolve(null);
+        });
       });
     });
+  }
+
+  waitForCourses(): Promise<any> {
+    return this._coursesLoadedPromise;
   }
 
   getCoursesMap(): UiCoursesMap {
     return this._coursesMap;
   }
 
-  /**
-   * This will return the cached course map if initialized, as an observable for them.
-   */
-  getUiCourses(): Observable<any> {
-    return this._coursesMap ? /*Observable.*/of(this._coursesMap) : this.coursesRequest;
+  getCourseNames(): string[] {
+    return this._courseNames;
   }
 
   getCourse(courseId: string): Observable<Course> {

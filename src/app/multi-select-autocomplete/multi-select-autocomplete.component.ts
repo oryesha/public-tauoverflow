@@ -49,10 +49,10 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
     // this.selectableOptions = this.options || this.defaultOptions;
     this.selectableOptions = this.options;
     // Initialize allOptions map.
-    this.selectableOptions.map(opt => this.allOptions[opt] = false);
+    this.selectableOptions.forEach(opt => this.allOptions[opt] = false);
     // If on init options were already selected (e.g., when clicking the filter button after
     // choosing filters), then mark those options as selected.
-    this.selectedOptions.map(opt => this.allOptions[opt] = true);
+    this.selectedOptions.forEach(opt => this.allOptions[opt] = true);
     this.filteredOptions = this.optionsControl.valueChanges
       .pipe(
         startWith(''),

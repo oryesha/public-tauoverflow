@@ -16,7 +16,7 @@ exports.createCourseReview = async function(req,res){
     content: req.body.content,
     owner: req.body.owner,
     course: req.body.uiCourse,
-    timeStamp: req.body.timeStamp,//TimeFormat,
+    timestamp: req.body.timestamp,//TimeFormat,
     isLocked: req.body.isLocked,
     rank: req.body.rank
   };

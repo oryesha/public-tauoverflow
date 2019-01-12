@@ -16,7 +16,7 @@ exports.createPost = async function(req,res){
     content: req.body.content,
     owner: req.body.owner,
     course: req.body.course,
-    timeStamp: req.body.date,
+    timestamp: req.body.date,
     isLocked: req.body.isLocked
   };
 

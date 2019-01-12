@@ -6,7 +6,7 @@ const PartnerPostSchema = new mongoose.Schema({
   content: String,
   owner: {type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'},
   course: {type: mongoose.Schema.Types.ObjectId, ref: 'Course'},
-  timeStamp: Date,//TimeFormat,
+  timestamp: Date,//TimeFormat,
   isLocked: Boolean
 });
 
