@@ -1,31 +1,24 @@
-<mat-card class="PostCard">
-  <mat-card-header class="questionHeader">
-    <mat-card-title class="TitleAndIcons">
-      <span class="mat-h2 PostTitle">{{question.subject}}</span>
-      <span class="EditAndLockButtonsContainer">
-      <button mat-icon-button matTooltip="Edit question" class="Button">
-        <mat-icon class="Icon">edit</mat-icon>
-      </button>
-      <button mat-icon-button matTooltip="Lock this post" class="Button">
-        <mat-icon class="Icon">lock_open</mat-icon>
-      </button>
-    </span>
-    </mat-card-title>
-    <div class="NameAndDate">
-      <div>{{question.owner.name.first}} {{question.owner.name.last}}</div>
-      <div>{{question.timestamp | date}}</div>
-    </div>
-  </mat-card-header>
-  <mat-card-content class="MainQuestionContent">
-    <div class="Content" [innerHtml]="question.content"></div>
+<div class="QuestionCard">
+  <div class="UserPicture">
+    <img src="{{'../../assets/geffen.jpg'}}" class="CardProfileImage">
+    <div>{{question.owner.name.first}} {{question.owner.name.last}}</div>
+  </div>
+  <mat-card class="PostCard">
+    <mat-card-content class="ContentAndDetails">
+      <div class="QuestionContent" [innerHtml]="question.content"></div>
+      <div class="Date">
+        {{question.timestamp | date}}
+      </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
     <div class="QuestionBottom">
-      <div class="LikeButtonContainer">
-        <button mat-icon-button class="Button" (click)="upvote()">
+    <span class="ButtonsContainer">
+      <button mat-icon-button class="Button" (click)="upvote()">
           <mat-icon class="ThumbIcon">thumb_up</mat-icon>
         </button>
-        <span class="NumOfLikes">{{question.upvote.count}}</span>
-      </div>
+      <span class="NumOfLikes">{{question.upvote.count}}</span>
+    </span>
       <button mat-raised-button class="AnswerButton" (click)="newAnswer()">ANSWER</button>
     </div>
-  </mat-card-content>
-</mat-card>
+  </mat-card>
+</div>

@@ -1,12 +1,44 @@
 <app-nav-bar></app-nav-bar>
 <app-spinner *ngIf="!isLoaded"></app-spinner>
-<div class="questionPage" *ngIf="isLoaded">
+<div class="questionPage" *ngIf="isLoaded" #questionPageContainer>
   <div class="coursesChips">
     <mat-chip-list>
       <mat-chip *ngFor="let course of question.relatedCourses">{{course.name}}</mat-chip>
     </mat-chip-list>
   </div>
+  <mat-card-content class="QuestionHeader">
+    <div class="mat-h2 questionTitle">
+      {{question.subject}}
+    </div>
+    <span *ngIf="isUserOwner">
+      <button mat-icon-button matTooltip="Edit question" class="Button">
+        <mat-icon class="Icon">edit</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Lock this post" class="Button">
+        <mat-icon class="Icon">lock_open</mat-icon>
+      </button>
+    </span>
+    <span *ngIf="!isUserOwner">
+      <button *ngIf="isQuestionFavorite" mat-icon-button matTooltip="Unmark as favorite" class="Button"
+              (click)="UnmarkFavorite()">
+        <mat-icon class="Icon">favorite</mat-icon>
+      </button>
+      <button *ngIf="!isQuestionFavorite" mat-icon-button matTooltip="Mark as favorite" class="Button"
+              (click)="MarkFavorite()">
+        <mat-icon class="Icon">favorite_border</mat-icon>
+      </button>
+    </span>
+  </mat-card-content>
   <app-question-card [question]="question" (showAnswerEditor)="showAnswerEditor()"></app-question-card>
-  <app-answer-card *ngFor="let answer of question.answers" [answer]="answer"></app-answer-card>
-  <app-single-answer-editor (answerSubmitted)="postAnswer($event)" *ngIf="isShowAnswerEditor"></app-single-answer-editor>
+  <div class="AnswersContainer">
+    <div *ngIf="hasAnswers" class="AnswersTitle">
+      Answers
+    </div>
+    <app-answer-card *ngFor="let answer of question.answers" [answer]="answer" [isEvenAnswer]="isEven()">
+    </app-answer-card>
+    <app-single-answer-editor (answerSubmitted)="postAnswer($event)" (rendered)="scrollToBottom()"
+                              (answerCanceled)="cancelAnswer()"
+                              *ngIf="isShowAnswerEditor"></app-single-answer-editor>
+  </div>
 </div>
+

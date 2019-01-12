@@ -1,21 +1,23 @@
-<mat-card class="AnswerCard">
-  <mat-card-header class="AnswerHeader">
-    <mat-card-title>
-    </mat-card-title>
-    <div class="NameAndDate">
-      <div>{{answer.owner.name.first}} {{answer.owner.name.last}}</div>
-      <div>{{answer.timestamp | date}}</div>
-    </div>
-  </mat-card-header>
-  <mat-card-content class="AnswerContent">
-    <div class="Content" [innerHtml]="answer.content"></div>
+<div class="AnswerCard">
+  <div class="UserPicture">
+    <img src="{{'../../assets/geffen.jpg'}}" class="CardProfileImage">
+    <div>{{answer.owner.name.first}} {{answer.owner.name.last}}</div>
+  </div>
+  <mat-card class="{{isEvenAnswer ? 'EvenPostCard' : 'OddPostCard'}} mat-card">
+    <mat-card-content class="ContentAndDetails">
+      <div class="AnswerContent" [innerHtml]="answer.content"></div>
+      <div class="Date">
+        {{answer.timestamp | date}}
+      </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
     <div class="AnswerBottom">
-      <div class="LikeButtonContainer">
-        <button mat-icon-button class="Button" (click)="upvote()">
+    <span class="ButtonsContainer">
+      <button mat-icon-button class="Button" (click)="upvote()">
           <mat-icon class="ThumbIcon">thumb_up</mat-icon>
         </button>
-        <span class="NumOfLikes">{{answer.upvote.count}}</span>
-      </div>
+      <span class="NumOfLikes">{{answer.upvote.count}}</span>
+    </span>
     </div>
-  </mat-card-content>
-</mat-card>
+  </mat-card>
+</div>
