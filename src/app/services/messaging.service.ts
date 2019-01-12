@@ -65,4 +65,8 @@ export class MessagingService {
         this.currentMessage.next(payload);
       });
   }
+  resetMessage() {
+   this.currentMessage = null;
+  }
 }
+

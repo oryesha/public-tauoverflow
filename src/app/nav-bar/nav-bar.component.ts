@@ -11,15 +11,11 @@ export class NavBarComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   @Input() isSignUp: boolean;
-  @Input() isNotif;
+  isNotif = '';
   ngOnInit() {
   }
-  getNotif(isNotif) {
-    if (!this.isNotif) {
-      return '';
-    } else {
-      return '!';
-    }
+  resetNotif() {
+    this.isNotif = '';
   }
   logout() {
     this.authService.doLogout().then( () => this.router.navigate(['']));
