@@ -8,11 +8,10 @@ import {Router} from '@angular/router';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-
   constructor(private authService: AuthService, private router: Router) { }
 
   @Input() isSignUp: boolean;
-
+  @Input() isNotif = '';
   ngOnInit() {
   }
 

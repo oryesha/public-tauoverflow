@@ -1,6 +1,6 @@
 <div class="HomePage">
   <div class="NavBarContainer">
-    <app-nav-bar></app-nav-bar>
+    <app-nav-bar [isNotif]="massage | async | json"></app-nav-bar>
   </div>
   <div class="AllContent">
     <app-profile-details [classes]="'ProfileDetails'" class="HomeProfileCard"></app-profile-details>
@@ -50,4 +50,4 @@
     </div>
   </div>
 </div>
-<h3> {{ message | async | json }} </h3>
+

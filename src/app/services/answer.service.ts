@@ -56,7 +56,7 @@ export class AnswerService {
         console.log(questionOwnerToken);
         const headers = new HttpHeaders().set('Authorization', 'key=AAAAc9A8WeQ:APA91bEs459-ePMYaPJjllo7HtqDguA2Og' +
           '-vTkrSZM8BvDTxYfBmZ3iBhs6G5MXLQfisQQzOckxyHQZv8-MQ_D5QURI9C_xo4-NMsAQkLQBn5P7FiWD2-BAQsznVrfZ-A20ewuvBIAHk');
-        const notification = new Notification('You Have An Answer !', 'take a look', 'https://dummypage.com');
+        const notification = new Notification('You Have An Answer !', '!', 'https://dummypage.com');
         const data = new NotificationWrapper(notification, questionOwnerToken);
         this.http.post(url, data, {headers: headers}).subscribe((res: any) => {
           console.log(res);

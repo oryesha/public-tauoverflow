@@ -65,8 +65,9 @@ import {ReviewService} from './services/review.service';
 import {PartnerPostService} from './services/partner-post.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import {MessagingService} from './services/messaging.service';
+import { AsyncPipe } from '../../node_modules/@angular/common';
+import {MatBadgeModule} from '@angular/material/badge';
 
-// import { initializeFirebase } from './push-notification';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,7 @@ import {MessagingService} from './services/messaging.service';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     AngularFireMessagingModule,
     AngularFireDatabaseModule,
-
+    MatBadgeModule,
   ],
   providers: [
     QuestionService,
@@ -139,7 +140,8 @@ import {MessagingService} from './services/messaging.service';
     AuthGuard,
     HttpRequestsService,
     CourseService,
-    MessagingService
+    MessagingService,
+    AsyncPipe
   ],
   bootstrap: [AppComponent],
   entryComponents: [

@@ -5,7 +5,8 @@
     <button mat-raised-button class="Button RaisedButton" color="primary" routerLink="/home-page">Log in</button>
   </div>
   <div class="Content" *ngIf="!isSignUp">
-    <button mat-icon-button class="Icon"><mat-icon>notifications_active</mat-icon></button>
+    <button mat-icon-button class="Icon">
+      <mat-icon matBadge={{isNotif}}>notifications_active</mat-icon></button>
     <!--<button mat-button class="Button" routerLink='/user-profile'>Courses</button>-->
     <button mat-button class="Button" routerLink='/user-profile'>My Profile</button>
     <button mat-button class="Button" routerLink='/courses'>Courses</button>
