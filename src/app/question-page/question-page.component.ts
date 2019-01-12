@@ -60,6 +60,9 @@ export class QuestionPageComponent implements OnInit {
     this.answerService.createAnswer(answer).subscribe((response: any) => {
       answer.id = response.data._id;
       this.user.answered += 1;
+      this.answerService.notifyAnswer(this.user.firebaseToken).subscribe((res: any) => {
+        console.log(res);
+      });
     });
   }
 }
