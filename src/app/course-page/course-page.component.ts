@@ -1,11 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Course} from '../models/course.model';
-import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
+import {AppRoutingDataService} from '../app-routing-data.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UiCourse, UiCourseNavigationData} from '../models/ui-course.model';
 import {CourseService} from '../services/course.service';
 import {Question, QuestionNavigationData} from '../models/question.model';
+import {PostType} from '../models/post.model';
+import {CourseReview} from '../models/course-review.model';
 
+class StarsCounter {
+  filledStars: number;
+  halfStar = 0;
+  emptyStars: number;
+
+  constructor(rank: number) {
+    const fraction = rank % 1;
+    this.filledStars = rank - fraction;
+    if (fraction >= 0.5) {
+      this.halfStar++;
+    } else {
+      this.filledStars++;
+    }
+    this.emptyStars = 5 - this.filledStars - this.halfStar;
+  }
+}
 
 @Component({
   selector: 'app-course-page',
@@ -17,16 +35,25 @@ export class CoursePageComponent implements OnInit {
   course: Course; // Fetched from server.
   courseDataLoaded: boolean;
   initialDataLoaded: boolean;
+  reviews: CourseReview[];
+  starsCounter: StarsCounter;
+  @Input() postType: PostType;
+
   constructor(private routingDataService: AppRoutingDataService,
               private courseService: CourseService,
               private router: Router,
               private route: ActivatedRoute) {
   }
 
+  range(rank: number) {
+    return Array(rank - (rank % 1));
+  }
+
   ngOnInit() {
     let courseId;
     this.route.queryParams.subscribe(
       params => {
+        this.postType = params.tab ? params.tab : PostType.QUESTION;
         courseId = params.courseId;
         const routingData = this.routingDataService.getRoutingData(courseId);
         if (routingData) {
@@ -35,6 +62,7 @@ export class CoursePageComponent implements OnInit {
         }
         this.courseService.getCourse(courseId).subscribe((course: any) => {
           this.course = Course.deserialize(course);
+          this.starsCounter = new StarsCounter(this.course.rank);
           this.uiCourse = this.course.uiCourse;
           this.initialDataLoaded = true;
           this.courseDataLoaded = true;
@@ -43,25 +71,6 @@ export class CoursePageComponent implements OnInit {
     );
   }
 
-  starsRange(rank: number) {
-    const list = [];
-    for (let i = 1; i <= rank; i++) {
-      list.push(i);
-    }
-    return list;
-  }
-
-  halfStar(rank: number) {
-    return (rank % 1) !== 0;
-  }
-  emptyStarsRange(rank: number) {
-    const n = 5 - rank;
-    const list = [];
-    for (let i = 1; i <= n; i++) {
-      list.push(i);
-    }
-    return list;
-  }
   goToQuestion(question: Question) {
     this.routingDataService.setRoutingData('question', new QuestionNavigationData(question));
     this.router.navigate(['question-page'], {queryParams: {id: question.id}});
@@ -84,5 +93,4 @@ export class CoursePageComponent implements OnInit {
       }
     }
   }
-
 }

@@ -66,7 +66,6 @@
 
 .Tabs /deep/ .mat-ink-bar {
   background: mat-color($mat-deep-orange, 200);
-  //color: mat-color($mat-deep-orange, 300);
 }
 
 .Tabs /deep/ .mat-tab-label {
@@ -89,23 +88,22 @@
   background-color: mat-color($mat-gray, 300);
   margin-bottom: 5px;
   padding: 10px;
-  max-height: 40px;
 }
 
-.NameAndDate {
+.CourseReviewNameAndDate {
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
   font-size: 12px;
-  max-width: 16%;
-  width: 100%;
 }
 
 .QuestionTitle {
   margin: 0;
   font-size: 14px;
+  line-height: 28px;
   background-color: mat-color($mat-gray, 300);
   color: mat-color($mat-gray, 600);
-  padding: 0px 10px;
+  padding: 0 10px;
 }
 
 .QuestionTitle /deep/ .mat-button-wrapper {
@@ -117,4 +115,35 @@
   display: flex;
   flex-direction: column;
   margin-top: 10px;
+}
+
+.CoursePageExpansionPanel {
+  background: mat-color($mat-gray, 300);
+}
+
+.CoursePageAccordion .mat-expansion-panel {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+.CourseReviewPanelTitle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CourseReviewSubjectAndRank {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  width: 0;
+}
+
+.SmallStarsContainer {
+  margin-left: 5px;
+}
+
+.CoursePageAccordion /deep/ .mat-expansion-panel-body {
+  background: mat-color($mat-gray, 200);
+  padding-top: 16px;
 }

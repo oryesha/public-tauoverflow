@@ -20,3 +20,7 @@ export class Post {
     }
   }
 }
+
+export enum PostType {
+  QUESTION, REVIEW, PARTNER, CHANGE_HOURS
+}

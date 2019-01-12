@@ -11,6 +11,7 @@ import {UiCoursesMap} from '../models/ui-courses-map.model';
 import {PostContent} from '../post-editor/post-editor.component';
 import {CourseReview} from '../models/course-review.model';
 import {MatSnackBar} from '@angular/material';
+import {PostType} from '../models/post.model';
 
 @Component({
   selector: 'app-course-review-editor',
@@ -72,14 +73,21 @@ export class CourseReviewEditorComponent implements OnInit {
   postReview(event: PostContent) {
     const subject = event.subject;
     const content = event.content;
+    if (this.numOfStars === 0) {
+      this.snackBar.open('Please rank the course', '', {
+        duration: 2000 // Prompt the toast 2 seconds.
+      });
+      return;
+    }
     const review = new CourseReview(subject, content, this.user, this.course, this.numOfStars);
     this.reviewService.createReview(review).subscribe((response: any) => {
       review.id = response.data._id;
       this.snackBar.open(this.course.name + ' Review Added!', '', {
         duration: 2000 // Prompt the toast 2 seconds.
       });
-      this.router.navigate(['course-page'], {queryParams: {courseId: this.course.courseNumber}});
+      this.router.navigate(
+        ['course-page'],
+        {queryParams: {courseId: this.course.courseNumber, tab: PostType.REVIEW}});
     });
   }
-
 }

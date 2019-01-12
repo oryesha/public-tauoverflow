@@ -27,7 +27,6 @@ exports.createCourse = async function(course){
     let newCourse = new Course({
       name: course.name,
       courseNumber: course.courseNumber,
-      rank: 0,
     });
 
     try{
