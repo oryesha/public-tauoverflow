@@ -1,44 +1,65 @@
 @import "~@angular/material/theming";
 
-.PostCard {
-  background: mat-color($mat-deep-orange, 100);
-  color: mat-color($mat-gray, 600);
-  margin: 10px;
+.QuestionCard {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
 }
 
-.questionHeader {
-  align-items: center;
+.UserPicture {
+  font-size: 12px;
+  text-align: center;
+  max-width: 70px;
+}
+
+.ContentAndDetails {
   display: flex;
   justify-content: space-between;
 }
 
-.questionHeader .mat-card-title {
-  margin-bottom: 0;
+.QuestionContent {
+  color: mat-color($mat-gray, 800);
+  font-size: 14px;
 }
 
-.PostTitle {
+.PostCard {
+  background: mat-color($mat-gray, 300);
+  color: mat-color($mat-gray, 600);
+  margin-left: 20px;
+  align-self: flex-end;
+  flex: 1 1 auto;
+  width: 0;
+  padding-bottom: 10px;
+}
+
+.ButtonsContainer {
   align-items: center;
   display: flex;
-  font-weight: 600;
-  margin: 0 8px 0 0;
 }
 
-.TitleAndIcons {
-  display: flex;
+.CardProfileImage {
+  height: 65px;
+  width: 65px;
+  padding: 5px;
+  border-radius: 50%;
+  align-self: center;
 }
 
 .Icon {
-  //color: mat-color($mat-deep-orange, 300);
-  color: mat-color($mat-deep-orange, 200);
-  font-size: 22px;
+  color: mat-color($mat-gray, 700);
+  font-size: 20px;
   vertical-align: center;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .ThumbIcon {
-  //color: mat-color($mat-teal, 200);
   color: mat-color($mat-gray, 700);
-  font-size: 22px;
   vertical-align: center;
+  font-size: 20px;
+  line-height: 20px;
+  height: 20px;
+  width: 20px
 }
 
 .Button {
@@ -56,19 +77,15 @@
   display: flex;
   align-items: center;
   padding-top: 3px;
-  padding-left: 3px;
+  padding-left: 2px;
   color: mat-color($mat-gray, 700);
-  font-weight: 500;
+  font-size: 14px;
 }
 
-.NameAndDate {
+.Date {
   display: flex;
   flex-direction: column;
   font-size: 12px;
-  margin-right: 10px;
-/*  max-width: 16%;
-  width: 100%;*/
-  //margin-top: 10px;
 }
 
 .EditAndLockButtonsContainer {
@@ -76,9 +93,6 @@
   display: flex;
 }
 
-.MainQuestionContent {
-  margin: 10px;
-}
 .Content {
   background: mat-color($mat-gray, 200);
   color: mat-color($mat-gray, 700);
@@ -100,12 +114,13 @@
   display: flex;
   justify-content: space-between;
   margin-left: 5px;
+  padding-top: 8px;
 }
 
 .AnswerButton {
   background: mat-color($mat-gray, 400);
   border-radius: 6px;
-  line-height: 27px;//
+  line-height: 27px; //
   color: mat-color($mat-gray, 800);
-  font-size: 12px;//
+  font-size: 12px; //
 }

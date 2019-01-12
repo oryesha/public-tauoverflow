@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AppRoutingDataService} from '../app-routing-data.service';
 import {ActivatedRoute} from '@angular/router';
 import {QuestionService} from '../services/question.service';
@@ -15,10 +15,16 @@ import {UserService} from '../services/user.service';
   styleUrls: ['./question-page.component.scss']
 })
 export class QuestionPageComponent implements OnInit {
+  @ViewChild('questionPageContainer') questionPageContainer: ElementRef;
+
   isShowAnswerEditor: boolean;
   isLoaded = false;
+  isUserOwner: boolean;
+  isQuestionFavorite = false; // TODO: implement real favorite questions
+  hasAnswers: boolean;
   question: Question;
   user: UserProfile;
+  answerCounter = 0;
   constructor(private routingDataService: AppRoutingDataService,
               private questionService: QuestionService,
               private userService: UserService,
@@ -45,11 +51,28 @@ export class QuestionPageComponent implements OnInit {
   ngOnInit() {
     this.userService.getUser().then((user: UserProfile) => {
       this.user = user;
+      this.isUserOwner = this.user.id === this.question.owner.id;
+      if (this.question.answers.length > 0) {
+        this.hasAnswers = true;
+      } else {
+        this.hasAnswers = false;
+      }
+      console.log(this.user.id);
+      console.log(this.question.owner.id);
     });
   }
 
   showAnswerEditor() {
     this.isShowAnswerEditor = true;
+  }
+
+  scrollToBottom() {
+    const questionPageEl = this.questionPageContainer.nativeElement;
+    questionPageEl.scrollTop = questionPageEl.scrollHeight;
+  }
+
+  cancelAnswer() {
+    this.isShowAnswerEditor = false;
   }
 
   postAnswer(event: PostContent) {
@@ -62,5 +85,19 @@ export class QuestionPageComponent implements OnInit {
       this.user.answered += 1;
       this.answerService.notifyAnswer(this.question.owner.firebaseToken);
     });
+  }
+
+  isEven() {
+    const isEven = this.answerCounter % 2;
+    this.answerCounter++;
+    return 1 - isEven;
+  }
+
+  UnmarkFavorite() {
+    this.isQuestionFavorite = false;
+  }
+
+  MarkFavorite() {
+    this.isQuestionFavorite = true;
   }
 }

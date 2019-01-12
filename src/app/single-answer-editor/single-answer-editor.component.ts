@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewChecked, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AngularEditorConfig} from '@kolkov/angular-editor';
 import {PostContent} from '../post-editor/post-editor.component';
 import {MatSnackBar} from '@angular/material';
@@ -8,8 +8,10 @@ import {MatSnackBar} from '@angular/material';
   templateUrl: './single-answer-editor.component.html',
   styleUrls: ['./single-answer-editor.component.scss']
 })
-export class SingleAnswerEditorComponent implements OnInit {
+export class SingleAnswerEditorComponent implements OnInit, AfterViewChecked {
   @Output() answerSubmitted = new EventEmitter<PostContent>();
+  @Output() answerCanceled = new EventEmitter();
+  @Output() rendered = new EventEmitter();
   content = '';
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -39,6 +41,14 @@ export class SingleAnswerEditorComponent implements OnInit {
     } else {
       this.answerSubmitted.emit(new PostContent('', '', this.content));
     }
+  }
+
+  cancel () {
+    this.answerCanceled.emit();
+  }
+
+  ngAfterViewChecked(): void {
+    this.rendered.emit();
   }
 
 }
