@@ -20,6 +20,7 @@ export class ProfileDetailsComponent implements OnInit {
   @Input() classes: string;
   isLoaded = false;
   userDetails: UserProfile;
+  defaultImage = '../../assets/avatar.png';
 
   constructor(private appService: AppService,
               private router: Router,

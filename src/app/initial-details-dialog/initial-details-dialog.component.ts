@@ -20,6 +20,7 @@ export class InitialDetailsDialogComponent implements OnInit {
   programs: string[] = ['Computer Science', 'Electrical Engineering', 'Law', 'Computer Science and Electrical Engineering', 'Economics',
     'Management', 'Physics', 'Chemistry'];
   courses: string[] = this.courseService.getCourseNames();
+  private base64Image: string;
 
   constructor(
     private dialogRef: MatDialogRef<InitialDetailsDialogComponent>,
@@ -43,8 +44,22 @@ export class InitialDetailsDialogComponent implements OnInit {
       this.dialogRef.close({
         program: program,
         description: this.descriptionField.getContent(),
-        skills: this.skillsMultiselect.getSelectedOptions()
+        skills: this.skillsMultiselect.getSelectedOptions(),
+        image: this.base64Image
       });
     }
+  }
+
+  convertImage(file: any) {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = this._handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  private _handleReaderLoaded(readerEvt) {
+    const binaryString = readerEvt.target.result;
+    this.base64Image = btoa(binaryString);
   }
 }

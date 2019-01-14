@@ -1,5 +1,6 @@
 <mat-form-field class="Field" appearance="{{appearance}}">
   <mat-label>{{label}}</mat-label>
-  <textarea matInput *ngIf="isTextarea" placeholder="" [required]="isRequired" [value]="''" #textarea></textarea>
-  <input matInput placeholder="" [required]="isRequired" *ngIf="!isTextarea" #input>
+  <textarea matInput *ngIf="isTextarea && !isFilePicker" placeholder="" [required]="isRequired" [value]="''" #textarea></textarea>
+  <input matInput placeholder="" [required]="isRequired" *ngIf="!isTextarea && !isFilePicker" #input>
+  <input type="file" *ngIf="isFilePicker" (change)="addSelectedPhoto($event)" #inputFilePicker>
 </mat-form-field>
