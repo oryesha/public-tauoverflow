@@ -1,0 +1,10 @@
+<div class="FilterDialog">
+  <h1 mat-dialog-title class="DialogTitle">{{title}}</h1>
+  <mat-dialog-content class="DialogContent" *ngFor="let notif of notifications">
+    <mat-list-item>
+      <h2>{{notif.title}}</h2>
+      <h3>{{notif.body}}</h3>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-dialog-content>
+</div>

@@ -49,6 +49,11 @@ export class QuestionPageComponent implements OnInit {
   ngOnInit() {
     this.userService.getUser().then((user: UserProfile) => {
       this.user = user;
+      const routingData = this.routingDataService.getRoutingData('question');
+      if (routingData) {
+        this.isUserOwner = this.user.id === this.question.owner.id;
+        this.hasAnswers = this.question.answers.length > 0;
+      }
       // this.isUserOwner = this.user.id === this.question.owner.id;
       // this.hasAnswers = this.question.answers.length > 0;
       console.log(this.user.id);
@@ -77,6 +82,10 @@ export class QuestionPageComponent implements OnInit {
     this.answerService.createAnswer(answer).subscribe((response: any) => {
       answer.id = response.data._id;
       this.user.answered += 1;
+      const url = 'http://localhost:4200/question-page?id=';
+      this.answerService.notifyAnswer(this.question.owner.firebaseToken,
+                                      this.question.subject,
+                                      url + this.question.id);
     });
   }
 
