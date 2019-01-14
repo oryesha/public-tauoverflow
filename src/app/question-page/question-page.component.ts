@@ -49,10 +49,10 @@ export class QuestionPageComponent implements OnInit {
   ngOnInit() {
     this.userService.getUser().then((user: UserProfile) => {
       this.user = user;
-      this.isUserOwner = this.user.id === this.question.owner.id;
-      this.hasAnswers = this.question.answers.length > 0;
+      // this.isUserOwner = this.user.id === this.question.owner.id;
+      // this.hasAnswers = this.question.answers.length > 0;
       console.log(this.user.id);
-      console.log(this.question.owner.id);
+      // console.log(this.question.owner.id);
     });
   }
 

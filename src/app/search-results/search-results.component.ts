@@ -26,9 +26,9 @@ export class SearchResultsComponent implements OnInit {
   }
 
   navigateToQuestionPage(questionSelected: any) {
-    const question = Question.deserialize(questionSelected);
-    this.routingDataService.setRoutingData(
-      'question', new QuestionNavigationData(question));
-    this.router.navigate(['question-page'], {queryParams: {id: question.id}});
+    // const question = Question.deserialize(questionSelected);
+    // this.routingDataService.setRoutingData(
+    //   'question', new QuestionNavigationData(question));
+    this.router.navigate(['question-page'], {queryParams: {id: questionSelected._id}});
   }
 }
