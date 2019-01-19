@@ -60,8 +60,8 @@ export class UserService {
   //     }, err => reject(err));
   //   });
   // }
-  getUser(): Promise<UserProfile> {
-    if (this._currentUser) {
+  getUser(fromServer: boolean = false): Promise<UserProfile> {
+    if (this._currentUser && !fromServer) {
       return Promise.resolve(this._currentUser);
     }
     return new Promise<any>(resolve => {
@@ -76,5 +76,8 @@ export class UserService {
 
   setCurrentUser(user: UserProfile) {
     this._currentUser = user;
+  }
+  getUserFromDatabase(id: string): Observable<any> {
+    return this.httpRequest.get('/user', [], [id]);
   }
 }

@@ -1,61 +1,40 @@
 <app-nav-bar></app-nav-bar>
 <div class="CardsWrapper">
   <app-profile-details [isProfilePage]="true"></app-profile-details>
-  <!--<mat-card class="userCard">-->
-    <!--<h3 class="userTitle">{{userName}}</h3>-->
-    <!--<div class="mat-body-2 Program">{{userProgram}}</div>-->
-    <!--<img src="{{userProfileImage}}" class="card-profile-image">-->
-    <!--<div>-->
-      <!--<mat-icon class="Star" *ngFor="let i of [1,2,3]">star</mat-icon>-->
-      <!--<mat-icon class="Star">star_half</mat-icon>-->
-      <!--<mat-icon class="Star">star_border</mat-icon>-->
-    <!--</div>-->
-    <!--<div class="mat-body About">-->
-      <!--<div>{{userDescription}}</div>-->
-    <!--</div>-->
-    <!--<div class="mat-body Skills">-->
-      <!--Skills:-->
-        <!--<mat-chip-list>-->
-          <!--<mat-chip class="Chip" routerLink="/course-page">Data Structures</mat-chip>-->
-          <!--<mat-chip class="Chip">Software1</mat-chip>-->
-          <!--<mat-chip class="Chip">Computational Models</mat-chip>-->
-          <!--<mat-chip class="Chip">+</mat-chip>-->
-        <!--</mat-chip-list>-->
-    <!--</div>-->
-  <!--</mat-card>-->
-  <div class="Page">
+  <app-spinner *ngIf="!isLoaded"></app-spinner>
+  <div class="Page" *ngIf="isLoaded">
     <mat-tab-group class="Tabs">
       <mat-tab label="My Posts">
-        <div mat-subheader class="Subheader" *ngIf="myQuestions.length != 0">Questions</div>
-        <mat-list-item class="ListItem" *ngFor="let question of myQuestions">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{question.title}}</button>
+        <div mat-subheader class="Subheader" *ngIf="userDetails.myQuestions.length != 0">Questions</div>
+        <mat-list-item class="ListItem" *ngFor="let question of userDetails.myQuestions">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{question.subject}}</button>
           <span mat-line class="VotesAndAnswers">
-            <span>votes: {{question.votes}}</span>
-            <span>answers: {{question.answers}}</span>
+            <span>votes: {{question.upvote.count}}</span>
+            <span>answers: {{question.answers.length}}</span>
           </span>
         </mat-list-item>
         <mat-divider class="Divider"></mat-divider>
-        <div mat-subheader class="Subheader" *ngIf="findPartners.length != 0">Find a Partner</div>
-        <mat-list-item class="ListItem" *ngFor="let partner of findPartners">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{partner.title}}</button>
+        <div mat-subheader class="Subheader" *ngIf="userDetails.myPartnerPosts.length != 0">Find a Partner</div>
+        <mat-list-item class="ListItem" *ngFor="let partner of userDetails.myPartnerPosts">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{partner.subject}}</button>
         </mat-list-item>
         <mat-divider class="Divider"></mat-divider>
-        <div mat-subheader class="Subheader" *ngIf="changeHours.length != 0">Change Hours</div>
-        <mat-list-item class="ListItem" *ngFor="let hour of changeHours">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{hour.title}}</button>
+        <div mat-subheader class="Subheader" *ngIf="userDetails.myChangHoursPosts.length != 0">Change Hours</div>
+        <mat-list-item class="ListItem" *ngFor="let hour of userDetails.myChangHoursPosts">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{hour.subject}}</button>
         </mat-list-item>
         <mat-divider class="Divider"></mat-divider>
-        <div mat-subheader class="Subheader" *ngIf="reviews.length != 0">Reviews</div>
-        <mat-list-item class="ListItem" *ngFor="let review of reviews">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{review.title}}</button>
+        <div mat-subheader class="Subheader" *ngIf="userDetails.myCourseReviews.length != 0">Reviews</div>
+        <mat-list-item class="ListItem" *ngFor="let review of userDetails.myCourseReviews">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{review.subject}}</button>
         </mat-list-item>
       </mat-tab>
       <mat-tab label="Favorites">
-        <mat-list-item class="ListItem" *ngFor="let question of favorites">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{question.title}}</button>
+        <mat-list-item class="ListItem" *ngFor="let question of userDetails.favorites">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{question.subject}}</button>
           <span mat-line class="VotesAndAnswers">
-            <span>votes: {{question.votes}}</span>
-            <span>answers: {{question.answers}}</span>
+            <span>votes: {{question.upvote.count}}</span>
+            <span>answers: {{question.answers.length}}</span>
           </span>
         </mat-list-item>
       </mat-tab>

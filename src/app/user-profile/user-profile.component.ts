@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
-class Section {
-}
+import {AppRoutingDataService} from '../app-routing-data.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserProfile} from '../models/user-profile.model';
+import {AppService} from '../app.service';
+import {UserService} from '../services/user.service';
+import {Question} from '../models/question.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,66 +12,30 @@ class Section {
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
+  userDetails: UserProfile;
+  isLoaded = false;
 
-  userDescription = '25 years old developer from Raanana';
-  userName = 'Geffen Menchik';
-  userProgram = 'Computer Science & Electrical Engineering';
-  userProfileImage = '../../assets/geffen.jpg';
-  skills: string[] = ['Software1', 'Computationals Models', 'Data Structures', '+'];
-
-  myQuestions: Section[] = [
-    {
-      title: 'List sort in Java',
-      votes: '23',
-      answers: '9',
-    },
-    {
-      title: 'Map Reduce',
-      votes: '12',
-      answers: '4',
-    },
-    {
-      title: 'P = NP?',
-      votes: '5',
-      answers: '7',
-    }
-  ];
-
-  findPartners: Section[] = [
-    {
-      title: 'Looking for partner for the final project'
-    }
-  ];
-  changeHours: Section[] = [
-    {
-      title: 'Electronics lab'
-    },
-    {
-      title: 'Physics1 lab'
-    }
-  ];
-  reviews: Section[] = [
-    {
-      title: 'Google workshop was great'
-    }
-  ];
-
-  favorites: Section[] = [
-    {
-      title: 'Newton second law',
-      votes: '10',
-      answers: '20',
-    },
-    {
-      title: 'Psychology',
-      votes: '23',
-      answers: '9',
-    }
-  ];
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private appService: AppService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private userService: UserService,
+              private routingDataService: AppRoutingDataService) {
+    const routingData = routingDataService.getRoutingData('id');
+      route.queryParams.subscribe(
+        (params) => {
+          const id = params.id;
+          console.log('This is the ID = ' + id);
+          this.userService.getUserFromDatabase(id).subscribe((user: any) => {
+            if (user) {
+              this.userDetails = UserProfile.deserialize(user);
+              this.isLoaded = true;
+              // this.userService.setCurrentUser(this.userDetails);
+            }
+          });
+        });
   }
 
+  ngOnInit() {
+    const routingData = this.routingDataService.getRoutingData('id');
+  }
 }

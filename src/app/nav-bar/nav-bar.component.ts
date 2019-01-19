@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {MessagingService} from '../services/messaging.service';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {NotificationDialogComponent} from '../notification-dialog/notification-dialog.component';
+import {UserService} from '../services/user.service';
+import {UserProfile} from '../models/user-profile.model';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,11 +16,13 @@ export class NavBarComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
+              private userService: UserService,
               private messagingService: MessagingService,
               private dialog: MatDialog) { }
   messageSource = [];
   notifications;
   @Input() isSignUp: boolean;
+  @Input() user: UserProfile;
   tmp = this.messagingService.getTheMessage().subscribe(value => {
     if (value !== '') {
       console.log('Value is');
@@ -40,5 +44,11 @@ export class NavBarComponent implements OnInit {
         this.messageSource = [];
         this.messagingService.resetMessage();
       });
+  }
+  navigateToUserPage() {
+    this.userService.getUser().then((user) => {
+      console.log(user.firebaseToken);
+      this.router.navigate(['user-profile'], {queryParams: {id: user.firebaseToken}});
+    });
   }
 }
