@@ -7,6 +7,7 @@ import {HttpHeaders} from '@angular/common/http';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
+import {UserProfile} from '../models/user-profile.model';
 
 export class Notification {
   title: string;
@@ -43,6 +44,10 @@ export class AnswerService {
     return this.httpRequest.post('/answers', answer);
   }
 
+  updateAnswer(answer: Answer): Observable<any> {
+    console.log('update answer');
+    return this.httpRequest.put('/answers', answer);
+  }
   getAnswer(id: string): Observable<any> {
     return this.httpRequest.get('/answers', [], [id]);
   }

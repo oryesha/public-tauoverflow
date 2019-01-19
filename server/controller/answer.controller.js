@@ -31,11 +31,11 @@ exports.createAnswer = async function(req,res){
 
 exports.updateAnswer = async function(req,res){
 
-  if(!req.body._id){
+  if(!req.body.id){
     return res.status(400).json({status: 400., message: "Id must be present"})
   }
 
-  let id = req.body._id;
+  let id = req.body.id;
 
   let answer = {
     id,

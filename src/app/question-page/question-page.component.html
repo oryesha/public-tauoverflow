@@ -34,7 +34,7 @@
     <div *ngIf="hasAnswers" class="AnswersTitle">
       Answers
     </div>
-    <app-answer-card *ngFor="let answer of question.answers" [answer]="answer" [isEvenAnswer]="1 - isEvenAnswer">
+    <app-answer-card *ngFor="let answer of question.answers" [answer]="answer" [isEvenAnswer]="1 - isEvenAnswer" [user]="this.user">
     </app-answer-card>
     <app-single-answer-editor (answerSubmitted)="postAnswer($event)" (rendered)="scrollToBottom()"
                               (answerCanceled)="cancelAnswer()"

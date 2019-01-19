@@ -25,6 +25,7 @@ export class QuestionPageComponent implements OnInit {
   question: Question;
   user: UserProfile;
   answerCounter = 0;
+
   constructor(private routingDataService: AppRoutingDataService,
               private questionService: QuestionService,
               private userService: UserService,
@@ -84,8 +85,8 @@ export class QuestionPageComponent implements OnInit {
       this.user.answered += 1;
       const url = 'http://localhost:4200/question-page?id=';
       this.answerService.notifyAnswer(this.question.owner.firebaseToken,
-                                      this.question.subject,
-                                      url + this.question.id);
+        this.question.subject,
+        url + this.question.id);
     });
   }
 
