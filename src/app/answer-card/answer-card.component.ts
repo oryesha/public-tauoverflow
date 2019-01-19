@@ -12,6 +12,7 @@ export class AnswerCardComponent implements OnInit {
   @Input() answer: Answer;
   @Input() isEvenAnswer: boolean;
   @Input() user: UserProfile;
+  defaultImage = '../../assets/avatar.png';
 
   constructor(private answerService: AnswerService) { }
 

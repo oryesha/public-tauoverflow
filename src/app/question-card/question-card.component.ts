@@ -12,6 +12,8 @@ export class QuestionCardComponent implements OnInit {
   @Input() question: Question;
   @Input() user: UserProfile;
   @Output() showAnswerEditor = new EventEmitter<void>();
+  defaultImage = '../../assets/avatar.png';
+
   constructor( private questionService: QuestionService) { }
   upvote() {
     if (this.question.upvote.upvoters.includes(this.user.id)) {
