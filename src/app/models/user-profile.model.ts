@@ -2,6 +2,10 @@ import {Post} from './post.model';
 import {Course} from './course.model';
 import {Name} from './name.model';
 import {UiCourse} from './ui-course.model';
+import {Question} from './question.model';
+import {PartnerPost} from './partner-post.model';
+import {CourseReview} from './course-review.model';
+import {ChangeHoursPost} from './change-hours-post.model';
 
 export class UserProfile {
   id: string;
@@ -16,19 +20,24 @@ export class UserProfile {
   description = '';
   skills: UiCourse[] = [];
   favorites: Post[] = [];
-  myPosts: Post[] = [];
+  // myPosts: Post[] = [];
+  myQuestions: Question[] = [];
+  myPartnerPosts: PartnerPost[] = [];
+  myChangHoursPosts: ChangeHoursPost[] = [];
+  myCourseReviews: CourseReview[] = [];
   myCourses: Course[] = [];
   isNewUser = true;
 
   static deserialize(user: any): UserProfile {
     return new UserProfile(user.firebaseToken, user.firstName, user.lastName, user.email,
-      false, user._id, user.program, user.rank, user.image, user.asked, user.answered, user.description);
+      false, user._id, user.program, user.rank, user.image, user.asked, user.answered, user.description,
+      user.myQuestions);
   }
 
   constructor(token: string, firstName: string, lastName: string,
               email: string, isNewUser?: boolean, id?: string, program?: string,
               rank?: number, image?: string, asked?: number, answered?: number,
-              description?: string) {
+              description?: string, myQuestions?: Question[]) {
     this.firebaseToken = token;
     this.name = new Name(firstName, lastName);
     this.email = email;
@@ -41,6 +50,7 @@ export class UserProfile {
       this.description = description;
       this.asked = asked;
       this.answered = answered;
+      this.myQuestions = myQuestions;
     }
   }
 }
