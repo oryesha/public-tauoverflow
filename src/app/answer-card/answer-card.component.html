@@ -1,6 +1,9 @@
 <div class="AnswerCard">
   <div class="UserPicture">
-    <img src="{{'../../assets/geffen.jpg'}}" class="CardProfileImage">
+    <img *ngIf="!answer.owner.image" src="{{defaultImage}}"
+         class="CardProfileImage">
+    <img *ngIf="answer.owner.image" src="data:image/png;base64,{{answer.owner.image}}"
+         class="CardProfileImage">
     <div>{{answer.owner.name.first}} {{answer.owner.name.last}}</div>
   </div>
   <mat-card class="{{isEvenAnswer ? 'EvenPostCard' : 'OddPostCard'}} mat-card">

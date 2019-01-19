@@ -1,6 +1,9 @@
 <div class="QuestionCard">
   <div class="UserPicture">
-    <img src="{{'../../assets/geffen.jpg'}}" class="CardProfileImage">
+    <img *ngIf="!question.owner.image" src="{{defaultImage}}"
+         class="CardProfileImage">
+    <img *ngIf="question.owner.image" src="data:image/png;base64,{{question.owner.image}}"
+         class="CardProfileImage">
     <div>{{question.owner.name.first}} {{question.owner.name.last}}</div>
   </div>
   <mat-card class="PostCard">

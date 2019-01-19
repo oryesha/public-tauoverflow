@@ -9,6 +9,7 @@ import {Answer} from '../models/answer.model';
 export class AnswerCardComponent implements OnInit {
   @Input() answer: Answer;
   @Input() isEvenAnswer: boolean;
+  defaultImage = '../../assets/avatar.png';
 
   constructor() { }
 
