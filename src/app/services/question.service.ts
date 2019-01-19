@@ -2,6 +2,7 @@ import {Question} from '../models/question.model';
 import { Observable } from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpRequestsService} from './http-requests.service';
+import {UserProfile} from '../models/user-profile.model';
 
 @Injectable()
 export class QuestionService {
@@ -13,6 +14,11 @@ export class QuestionService {
   createQuestion(question: Question): Observable<any> {
     return this.httpRequest.post('/questions', question);
   }
+  updateQuestion(question: Question): Observable<any> {
+    console.log('update question');
+    return this.httpRequest.put('/questions', question);
+  }
+
   //
   // // Read Question, takes no arguments
   // getQuestions(): Observable<Question[]> {

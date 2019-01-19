@@ -29,7 +29,7 @@
       </button>
     </span>
   </mat-card-content>
-  <app-question-card [question]="question" (showAnswerEditor)="showAnswerEditor()"></app-question-card>
+  <app-question-card [user]="user" [question]="question" (showAnswerEditor)="showAnswerEditor()"></app-question-card>
   <div class="AnswersContainer">
     <div *ngIf="hasAnswers" class="AnswersTitle">
       Answers

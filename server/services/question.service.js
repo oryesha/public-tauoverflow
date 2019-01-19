@@ -16,7 +16,7 @@ exports.getAllQuestions = async function(query) {
 
 exports.getQuestion = async function(id) {
   try {
-    const question = await Question.findById(id).populate('owner relatedCourses answers upvote.upvoters').populate({
+    const question = await Question.findById(id).populate('owner relatedCourses answers').populate({
       path: 'answers',
       populate: { path: 'owner' }
     }).exec();
@@ -77,7 +77,8 @@ exports.updateQuestion = async function(question){
 
     let id = question.id;
     let oldQuestion;
-
+    console.log(question.isLocked);
+    console.log("after 1");
     try{
       oldQuestion = await Question.findById(id);
     }catch(e){
@@ -87,14 +88,16 @@ exports.updateQuestion = async function(question){
     if(!oldQuestion){
       return false;
     }
+    console.log(oldQuestion);
+  console.log("after 2");
 
-    oldQuestion.subject =  question.subject;
-    oldQuestion.content = question.content;
-    oldQuestion.owner = question.owner;
-    oldQuestion.timestamp = question.timestamp;//TimeFormat,
-    oldQuestion.isLocked = question.isLocked;
-    oldQuestion.relatedCourses =  question.relatedCourses;
-    oldQuestion.answers = question.answers;
+    // oldQuestion.subject =  question.subject;
+    // oldQuestion.content = question.content;
+    // oldQuestion.owner = question.owner;
+    // oldQuestion.timestamp = question.timestamp;//TimeFormat,
+    // oldQuestion.isLocked = question.isLocked;
+    // oldQuestion.relatedCourses =  question.relatedCourses;
+    // oldQuestion.answers = question.answers;
     oldQuestion.upvote = question.upvote;
 
     console.log(oldQuestion);
@@ -103,6 +106,7 @@ exports.updateQuestion = async function(question){
       let savedQuestion = await oldQuestion.save();
       return savedQuestion;
     }catch(e){
+      //console.log(e);
       throw Error("And Error occured while updating the question");
     }
 };
