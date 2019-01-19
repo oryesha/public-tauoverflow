@@ -23,8 +23,12 @@ export class Question extends Post {
       relatedCourses.push(uiCourse);
     });
     const timestamp = new Date(question.timestamp);
-    return new Question(question.subject, question.content,
+    const newQuestion = new Question(question.subject, question.content,
       owner, relatedCourses, answers, question._id, timestamp, question.isLocked);
+    if (question.upvote.upvoters !== []) {
+      newQuestion.upvote = question.upvote;
+    }
+    return newQuestion;
   }
 
   constructor(subject: string, content: string, owner: UserProfile, relatedCourses: UiCourse[],

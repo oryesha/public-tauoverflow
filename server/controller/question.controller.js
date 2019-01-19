@@ -43,11 +43,11 @@ exports.createQuestion = async function(req,res){
 
 exports.updateQuestion = async function(req,res){
 
-    if(!req.body._id){
+    if(!req.body.id){
       return res.status(400).json({status: 400., message: "Id must be present"})
     }
 
-    let id = req.body._id;
+    let id = req.body.id;
 
     let question = {
       id,
@@ -55,7 +55,7 @@ exports.updateQuestion = async function(req,res){
       content: req.body.content ? req.body.content : null,
       owner: req.body.owner ? req.body.owner : null,
       timestamp: req.body.timestamp ? req.body.timestamp : null,
-      isLocked: req.body.isLocked ? req.body.isLocked : null,
+      isLocked: req.body.isLocked ? req.body.isLocked : false,
       relatedCourses: req.body.relatedCourses ? req.body.relatedCourses : null,
       answers: req.body.answers ? req.body.answers : null,
       upvote: req.body.upvote ? req.body.upvote : null

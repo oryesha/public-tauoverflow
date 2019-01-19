@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Question} from '../models/question.model';
+import {UserProfile} from '../models/user-profile.model';
+import {QuestionService} from '../services/question.service';
 
 @Component({
   selector: 'app-question-card',
@@ -8,17 +10,23 @@ import {Question} from '../models/question.model';
 })
 export class QuestionCardComponent implements OnInit {
   @Input() question: Question;
+  @Input() user: UserProfile;
   @Output() showAnswerEditor = new EventEmitter<void>();
-
+  constructor( private questionService: QuestionService) { }
   upvote() {
+    if (this.question.upvote.upvoters.includes(this.user.id)) {
+      return;
+    }
     this.question.upvote.count++;
-    // TODO: add the upvoter and send an update to the server.
+    this.question.upvote.upvoters.push(this.user.id);
+    this.questionService.updateQuestion(this.question).subscribe(res => {
+      console.log('Update Succesful');
+    }, err => {
+      console.error('Update Unsuccesful');
+    });
   }
-
-  constructor() { }
-
   ngOnInit() {
-
+  console.log(this.question);
   }
 
   newAnswer() {
