@@ -60,6 +60,7 @@ export class HomePageComponent implements OnInit {
     this.message = this.messagingService.currentMessage;
     console.log(this.message);
   }
+
   ngOnInit() {
   }
 
@@ -72,6 +73,7 @@ export class HomePageComponent implements OnInit {
     dialogConfig.width = '500px';
     dialogConfig.data = {title: 'Select related courses', selected: []};
     await this.courseService.waitForCourses();
+    this._initCourses();
     this.dialog.open(FilterDialogComponent, dialogConfig).afterClosed().subscribe(
       (result: string[]) => this._navigateToQuestionEditor(result)
     );
@@ -79,8 +81,6 @@ export class HomePageComponent implements OnInit {
 
   private async _navigateToQuestionEditor(result: string[]) {
     const uiCourses: UiCourse[] = [];
-    await this.courseService.waitForCourses();
-    this.uiCoursesMap = this.courseService.getCoursesMap();
     result.forEach(courseName => {
       uiCourses.push(this.uiCoursesMap[courseName]);
     });
@@ -94,6 +94,7 @@ export class HomePageComponent implements OnInit {
     dialogConfig.width = '500px';
     dialogConfig.data = {title: 'Please add additional information', user: this.user};
     await this.courseService.waitForCourses();
+    this._initCourses();
     this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
       result => {
         this.user.program = result.program;
@@ -111,5 +112,11 @@ export class HomePageComponent implements OnInit {
     skills.forEach(skillName => {
       this.user.skills.push(this.uiCoursesMap[skillName]);
     });
+  }
+
+  private _initCourses(): void {
+    if (!this.uiCoursesMap) {
+      this.uiCoursesMap = this.courseService.getCoursesMap();
+    }
   }
 }

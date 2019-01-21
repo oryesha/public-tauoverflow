@@ -50,16 +50,7 @@ export class InitialDetailsDialogComponent implements OnInit {
     }
   }
 
-  convertImage(file: any) {
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = this._handleReaderLoaded.bind(this);
-      reader.readAsBinaryString(file);
-    }
-  }
-
-  private _handleReaderLoaded(readerEvt) {
-    const binaryString = readerEvt.target.result;
-    this.base64Image = btoa(binaryString);
+  saveImage(image: any) {
+    this.base64Image = image;
   }
 }

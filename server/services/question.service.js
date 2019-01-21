@@ -87,20 +87,12 @@ exports.updateQuestion = async function(question){
       return false;
     }
 
-    // oldQuestion.subject =  question.subject;
-    // oldQuestion.content = question.content;
-    // oldQuestion.owner = question.owner;
-    // oldQuestion.timestamp = question.timestamp;//TimeFormat,
-    // oldQuestion.isLocked = question.isLocked;
-    // oldQuestion.relatedCourses =  question.relatedCourses;
-    // oldQuestion.answers = question.answers;
     oldQuestion.upvote = question.upvote;
 
     try{
       let savedQuestion = await oldQuestion.save();
       return savedQuestion;
     }catch(e){
-      //console.log(e);
       throw Error("And Error occured while updating the question");
     }
 };

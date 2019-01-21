@@ -55,8 +55,8 @@ export class UserService {
       {userId: user.id, questionId: question.id});
   }
 
-  getUser(fromServer: boolean = false): Promise<UserProfile> {
-    if (this._currentUser && !fromServer) {
+  getUser(): Promise<UserProfile> {
+    if (this._currentUser) {
       return Promise.resolve(this._currentUser);
     }
     return new Promise<any>(resolve => {
@@ -71,8 +71,5 @@ export class UserService {
 
   setCurrentUser(user: UserProfile) {
     this._currentUser = user;
-  }
-  getUserFromDatabase(id: string): Observable<any> {
-    return this.httpRequest.get('/user', [], [id]);
   }
 }

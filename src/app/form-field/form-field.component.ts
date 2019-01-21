@@ -16,9 +16,6 @@ export class FormFieldComponent implements OnInit {
   @Input() label: string;
   @Input() isTextarea: boolean;
   @Input() appearance = 'fill';
-  @Input() isFilePicker = false;
-
-  @Output() imageSelected = new EventEmitter();
 
   ngOnInit() {
   }
@@ -28,9 +25,5 @@ export class FormFieldComponent implements OnInit {
       return this.textarea.nativeElement.value;
     }
     return this.input.nativeElement.value;
-  }
-
-  addSelectedPhoto(event: any) {
-    this.imageSelected.emit(event.target.files[0]);
   }
 }

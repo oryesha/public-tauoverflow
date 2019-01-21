@@ -66,9 +66,10 @@ import {ReviewService} from './services/review.service';
 import {PartnerPostService} from './services/partner-post.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import {MessagingService} from './services/messaging.service';
-import { AsyncPipe } from '../../node_modules/@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {MatBadgeModule} from '@angular/material/badge';
 import { NotificationDialogComponent } from './notification-dialog/notification-dialog.component';
+import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { NotificationDialogComponent } from './notification-dialog/notification-
     InitialDetailsDialogComponent,
     SpinnerComponent,
     NotificationDialogComponent,
+    FileUploaderComponent,
   ],
   imports: [
     BrowserModule,

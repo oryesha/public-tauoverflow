@@ -48,16 +48,12 @@ exports.updateAnswer = async function (answer) {
   } catch (e) {
     throw Error("Error occured while Finding the answer")
   }
-
+  console.log(oldAnswer);
   if (!oldAnswer) {
     return false;
   }
 
-  oldAnswer.content = answer.content;
-  oldAnswer.owner = answer.owner;
-  oldAnswer.timestamp = answer.timestamp;//TimeFormat,
   oldAnswer.upvote = answer.upvote;
-  oldAnswer.questionId = answer.questionId;
 
   try {
     let savedAnswer = await oldAnswer.save();
