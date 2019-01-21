@@ -27,8 +27,6 @@ export class NavBarComponent implements OnInit {
   @Input() user: UserProfile;
   tmp = this.messagingService.getTheMessage().subscribe(value => {
     if (value !== '') {
-      console.log('Value is');
-      console.log(value.notification);
       this.messageSource.push(value.notification);
     }
   });

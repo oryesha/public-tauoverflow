@@ -58,7 +58,7 @@ export class HomePageComponent implements OnInit {
     this.messagingService.requestPermission(userId);
     this.messagingService.receiveMessage();
     this.message = this.messagingService.currentMessage;
-    console.log(this.message);
+    // console.log(this.message);
   }
 
   ngOnInit() {
