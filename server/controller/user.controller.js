@@ -31,6 +31,7 @@ exports.updateFavorites = async function (req, res) {
 };
 
 
+
 exports.updateUser = async function (req, res) {
 
   if (!req.body.firebaseToken) {
