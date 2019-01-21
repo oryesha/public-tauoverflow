@@ -16,8 +16,7 @@
                                    #skillsMultiselect>
     </app-multi-select-autocomplete>
     <h5 class="SmallDialogHeader">Upload a photo:</h5>
-    <app-form-field [isFilePicker]="true" [appearance]="fill"
-                    [isRequired]="false" (imageSelected)="convertImage($event)"></app-form-field>
+    <app-file-uploader (imageSelected)="saveImage($event)"></app-file-uploader>
   </mat-dialog-content>
   <mat-dialog-actions class="DetailsDialogDoneButtonContainer">
     <button mat-raised-button class="DetailsDialogDoneButton" (click)="checkFormAndSubmit()" [disabled]="disabled"

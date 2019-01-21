@@ -23,7 +23,6 @@ exports.getUser = async function(userToken) {
 };
 
 exports.createNewUser = async function(user){
-  console.log(user);
   let newUser = new User({
     firebaseToken: user.firebaseToken,
     firstName: user.firstName,
