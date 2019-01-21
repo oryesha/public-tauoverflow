@@ -1,0 +1,16 @@
+<button mat-raised-button class="FileUploaderRaisedButton" (click)="clickInput()" color="primary" *ngIf="!image">
+  Choose a photo...
+</button>
+<div *ngIf="image" class="AfterImageSelected">
+  <img class="UploadedImage" src="data:image/png;base64,{{image}}">
+  <div class="IconButtonsContainer">
+    <button mat-icon-button matTooltip="Select new image" (click)="clickInput()" class="ImageSelectorIconButton">
+      <mat-icon class="ImageSelectorIcon">edit</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Remove selected image" (click)="removeImage()" class="ImageSelectorIconButton">
+      <mat-icon class="ImageSelectorIcon">cancel</mat-icon>
+    </button>
+  </div>
+</div>
+
+<input type="file" hidden (change)="addSelectedPhoto($event)" #inputFilePicker>

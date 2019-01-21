@@ -25,3 +25,7 @@
 .Field /deep/ .mat-form-field-outline-thick {
   color: mat-color($mat-deep-orange, 200);
 }
+
+.TextareaField /deep/ .mat-form-field-wrapper {
+  padding-bottom: 0;
+}

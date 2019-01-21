@@ -6,6 +6,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {NotificationDialogComponent} from '../notification-dialog/notification-dialog.component';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
+import {AppRoutingDataService} from '../app-routing-data.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -16,6 +17,7 @@ export class NavBarComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
+              private routingDataService: AppRoutingDataService,
               private userService: UserService,
               private messagingService: MessagingService,
               private dialog: MatDialog) { }
@@ -30,11 +32,14 @@ export class NavBarComponent implements OnInit {
       this.messageSource.push(value.notification);
     }
   });
+
   ngOnInit() {
   }
+
   logout() {
     this.authService.doLogout().then( () => this.router.navigate(['']));
   }
+
   resetNotification() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
@@ -45,9 +50,9 @@ export class NavBarComponent implements OnInit {
         this.messagingService.resetMessage();
       });
   }
+
   navigateToUserPage() {
     this.userService.getUser().then((user) => {
-      console.log(user.firebaseToken);
       this.router.navigate(['user-profile'], {queryParams: {id: user.firebaseToken}});
     });
   }

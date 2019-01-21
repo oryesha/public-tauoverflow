@@ -1,0 +1,43 @@
+@import '~@angular/material/theming';
+
+.FileUploaderRaisedButton {
+  background: mat-color($mat-gray, 500);
+  color: mat-color($mat-gray, 800);
+  letter-spacing: 0.8px;
+  line-height: 24px;
+  font-size: 12px;
+  margin: 8px 0;
+  text-transform: uppercase;
+}
+
+.UploadedImage {
+  cursor: pointer;
+  height: 65px;
+  width: 65px;
+  padding: 5px;
+  border-radius: 50%;
+  align-self: center;
+}
+
+.AfterImageSelected {
+  display: flex;
+}
+
+.IconButtonsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.ImageSelectorIconButton {
+  height: 24px;
+  line-height: 24px;
+  width: 24px;
+}
+
+.ImageSelectorIcon {
+  color: mat-color($mat-gray, 700);
+  font-size: 20px;
+  vertical-align: center;
+  margin-left: 2px;
+  margin-right: 2px;
+}
