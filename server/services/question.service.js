@@ -77,8 +77,6 @@ exports.updateQuestion = async function(question){
 
     let id = question.id;
     let oldQuestion;
-    console.log(question.isLocked);
-    console.log("after 1");
     try{
       oldQuestion = await Question.findById(id);
     }catch(e){
@@ -88,8 +86,6 @@ exports.updateQuestion = async function(question){
     if(!oldQuestion){
       return false;
     }
-    console.log(oldQuestion);
-  console.log("after 2");
 
     // oldQuestion.subject =  question.subject;
     // oldQuestion.content = question.content;
@@ -99,8 +95,6 @@ exports.updateQuestion = async function(question){
     // oldQuestion.relatedCourses =  question.relatedCourses;
     // oldQuestion.answers = question.answers;
     oldQuestion.upvote = question.upvote;
-
-    console.log(oldQuestion);
 
     try{
       let savedQuestion = await oldQuestion.save();

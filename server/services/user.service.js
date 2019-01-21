@@ -1,4 +1,5 @@
 let User = require('../models/user-profile.model');
+let ServiceHelper = require('../services/serviceHelper');
 
 _this = this;
 
@@ -13,8 +14,17 @@ exports.getAllUsers = async function() {
 
 exports.getUser = async function(userToken) {
   try {
-    const user = await User.findOne({firebaseToken: userToken}).populate('questions answers myQuestions myCourses ' +
-      'myPartnerPosts myCourseReviews myChangHoursPosts').exec();
+    const user = await User.findOne({firebaseToken: userToken})
+      .populate({
+        path: 'myPartnerPosts myCourseReviews myChangeHoursPosts',
+        populate: { path: 'owner course' }
+      }).populate({
+        path: 'skills myCourses',
+        populate: {path: 'questions reviews partnerPosts changeHours'}
+      }).populate({
+        path: 'favorites myQuestions',
+        populate: {path: 'owner relatedCourses answers upvote.upvoters'}
+      }).exec();
     return user;
   }
   catch (e) {
@@ -23,7 +33,6 @@ exports.getUser = async function(userToken) {
 };
 
 exports.createNewUser = async function(user){
-  console.log(user);
   let newUser = new User({
     firebaseToken: user.firebaseToken,
     firstName: user.firstName,
@@ -46,6 +55,26 @@ exports.createNewUser = async function(user){
   }
 };
 
+exports.updateFavorites = async function(userId, questionId) {
+  let user;
+  try {
+    user = await User.findById(userId);
+  } catch (e) {
+    throw Error('Couldn\'t find user');
+  }
+  const index = user.favorites.indexOf(questionId);
+  if (index === -1) {
+    user.favorites.push(questionId);
+  } else {
+    user.favorites.splice(index, 1);
+  }
+
+  try {
+    return await user.save();
+  } catch (e) {
+    throw Error('Couldn\'t save updated user');
+  }
+};
 
 exports.updateUser = async function(user){
 
@@ -72,13 +101,12 @@ exports.updateUser = async function(user){
   oldUser.answered = user.answered;
   oldUser.image = user.image;
   oldUser.description = user.description;
-  (user.skills).forEach(function (skillId) {
-    if (oldUser.skills.indexOf(skillId) === -1) {
-      oldUser.skills.push(skillId);
-    }
-  });
-
-  console.log(oldUser);
+  ServiceHelper.updateList(oldUser.skills, user.skills);
+  ServiceHelper.updateList(oldUser.favorites, user.favorites);
+  ServiceHelper.updateList(oldUser.myQuestions, user.myQuestions);
+  ServiceHelper.updateList(oldUser.myPartnerPosts, user.myPartnerPosts);
+  ServiceHelper.updateList(oldUser.myChangeHoursPosts, user.myChangeHoursPosts);
+  ServiceHelper.updateList(oldUser.myCourseReviews, user.myCourseReviews);
 
   try{
     let savedUser = await oldUser.save();
@@ -87,3 +115,5 @@ exports.updateUser = async function(user){
     throw Error("Error occured while updating the user");
   }
 };
+
+

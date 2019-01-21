@@ -1,14 +1,14 @@
-import {UserProfile} from './user-profile.model';
+import {UiUser} from './ui-user.model';
 
 export class Post {
   id: string;
   subject: string;
   content: string;
-  owner: UserProfile;
+  owner: UiUser;
   timestamp = new Date(Date.now());
   isLocked = false;
 
-  constructor(subject: string, content: string, owner: UserProfile,
+  constructor(subject: string, content: string, owner: UiUser,
               id?: string, timestamp?: Date, isLocked?: boolean) {
     this.subject = subject;
     this.content = content;

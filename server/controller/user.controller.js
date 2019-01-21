@@ -1,28 +1,39 @@
-let UserService = require('../services/user.service')
-let ServiceHelper = require('../services/serviceHelper')
+let UserService = require('../services/user.service');
+let ServiceHelper = require('../services/serviceHelper');
 
-exports.getAllUsers = async function(req,res){
-  try{
+exports.getAllUsers = async function (req, res) {
+  try {
     let users = await UserService.getAllUsers();
     return res.status(200).json({status: 200, data: users, message: "Succesfully Users Recieved"});
-  }catch(e){
+  } catch (e) {
     return res.status(400).json({status: 400, message: e.message});
   }
 };
 
-exports.getUser = async function(req,res) {
-  try{
+exports.getUser = async function (req, res) {
+  try {
     let users = await UserService.getUser(req.params.id);
     return res.status(200).json({status: 200, data: users, message: "Succesfully User Recieved by id"});
-  }catch(e){
+  } catch (e) {
     return res.status(400).json({status: 400, message: e.message});
   }
 };
 
+exports.updateFavorites = async function (req, res) {
+  const userId = req.body.userId;
+  const questionId = req.body.questionId;
+  try {
+    let updatedUser = await UserService.updateFavorites(userId, questionId);
+    return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User: " + userId})
+  } catch (e) {
+    return res.status(400).json({status: 400., message: e.message})
+  }
+};
 
-exports.updateUser = async function(req,res){
 
-  if(!req.body.firebaseToken){
+exports.updateUser = async function (req, res) {
+
+  if (!req.body.firebaseToken) {
     return res.status(400).json({status: 400., message: "Id must be present"})
   }
 
@@ -40,18 +51,22 @@ exports.updateUser = async function(req,res){
     answered: req.body.answered ? req.body.answered : null,
     description: req.body.description ? req.body.description : null,
     skills: ServiceHelper.getIdsFromList(req.body.skills),
-    //add all after debug
+    favorites: ServiceHelper.getIdsFromList(req.body.favorites),
+    myQuestions: ServiceHelper.getIdsFromList(req.body.myQuestions),
+    myPartnerPosts: ServiceHelper.getIdsFromList(req.body.myPartnerPosts),
+    myChangeHoursPosts: ServiceHelper.getIdsFromList(req.body.myChangeHoursPosts),
+    myCourseReviews: ServiceHelper.getIdsFromList(req.body.myCourseReviews),
   };
 
-  try{
+  try {
     let updatedUser = await UserService.updateUser(user);
     return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User: " + token})
-  }catch(e){
+  } catch (e) {
     return res.status(400).json({status: 400., message: e.message})
   }
 };
 
-exports.createNewUser = async function(req,res){
+exports.createNewUser = async function (req, res) {
   let user = {
     firebaseToken: req.body.firebaseToken,
     firstName: req.body.name.first,
@@ -63,10 +78,10 @@ exports.createNewUser = async function(req,res){
     skills: req.body.skills
   };
 
-  try{
+  try {
     let createdUser = await UserService.createNewUser(user);
     return res.status(201).json({status: 201, data: createdUser, message: "Succesfully Created New User"})
-  }catch(e){
+  } catch (e) {
     return res.status(400).json({status: 400, message: "User Creation was Unsuccesfull"})
   }
 };
