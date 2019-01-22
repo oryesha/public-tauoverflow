@@ -27,7 +27,10 @@
     <mat-tab-group class="Tabs" [selectedIndex]="postType">
       <mat-tab label="Questions">
         <app-spinner *ngIf="!courseDataLoaded"></app-spinner>
-        <ng-container *ngIf="courseDataLoaded">
+        <app-empty-state
+          [emptyStateMessage]="'No questions yet...'"
+          *ngIf="courseDataLoaded && course.questions.length == 0"></app-empty-state>
+        <ng-container *ngIf="courseDataLoaded && course.questions.length > 0">
           <mat-list-item class="ListItem" *ngFor="let question of course.questions">
             <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="goToQuestion(question)">
               {{question.subject}}
@@ -41,7 +44,10 @@
       </mat-tab>
       <mat-tab label="Reviews">
         <app-spinner *ngIf="!courseDataLoaded"></app-spinner>
-        <ng-container *ngIf="courseDataLoaded">
+        <app-empty-state
+          [emptyStateMessage]="'No reviews yet...'"
+          *ngIf="courseDataLoaded && course.reviews.length == 0"></app-empty-state>
+        <ng-container *ngIf="courseDataLoaded && course.reviews.length > 0">
           <mat-accordion class="CoursePageAccordion">
             <mat-expansion-panel *ngFor="let review of course.reviews" #expansionPanel
                                  class="CoursePageExpansionPanel" [hideToggle]="true">
@@ -68,7 +74,10 @@
       </mat-tab>
       <mat-tab label="Partners">
         <app-spinner *ngIf="!courseDataLoaded"></app-spinner>
-        <ng-container *ngIf="courseDataLoaded">
+        <app-empty-state
+          [emptyStateMessage]="'No one is looking for a partner...'"
+          *ngIf="courseDataLoaded && course.partnerPosts.length == 0"></app-empty-state>
+        <ng-container *ngIf="courseDataLoaded && course.partnerPosts.length > 0">
           <mat-accordion class="CoursePageAccordion">
             <mat-expansion-panel *ngFor="let partnerPost of course.partnerPosts"
                                  class="CoursePageExpansionPanel" [hideToggle]="true">
@@ -92,7 +101,10 @@
       </mat-tab>
       <mat-tab label="Change hours">
         <app-spinner *ngIf="!courseDataLoaded"></app-spinner>
-        <ng-container *ngIf="courseDataLoaded">
+        <app-empty-state
+          [emptyStateMessage]="'No one is looking to change hours...'"
+          *ngIf="courseDataLoaded && course.changeHours.length == 0"></app-empty-state>
+        <ng-container *ngIf="courseDataLoaded && course.changeHours.length > 0">
           <mat-accordion class="CoursePageAccordion">
             <mat-expansion-panel *ngFor="let changeHoursPost of course.changeHours"
                                  class="CoursePageExpansionPanel" [hideToggle]="true">
