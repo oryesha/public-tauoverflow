@@ -72,6 +72,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { NotificationDialogComponent } from './notification-dialog/notification-dialog.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { CopyToClipboardComponent } from './copy-to-clipboard/copy-to-clipboard.component';
+import { EmptyStateComponent } from './empty-state/empty-state.component';
 
 
 @NgModule({
@@ -104,6 +105,7 @@ import { CopyToClipboardComponent } from './copy-to-clipboard/copy-to-clipboard.
     NotificationDialogComponent,
     FileUploaderComponent,
     CopyToClipboardComponent,
+    EmptyStateComponent,
   ],
   imports: [
     BrowserModule,
