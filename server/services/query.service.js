@@ -18,6 +18,11 @@ getCourseId = async function (ids) {
   return coursesId;
 };
 
+getQueryRegex = function (query) {
+  const reg = query.replace(' ', '.*');
+  return reg;
+}
+
 
 
 exports.getQuestionsFromQuery = async function(query) {
@@ -30,23 +35,26 @@ exports.getQuestionsFromQuery = async function(query) {
     coursesId = await getCourseId(query.filters).then();
   }
 
-  const term = query.content;
-  let tmpQuestions = await Question.find(
-    {$text: { $search: term }})
-        .catch(e => console.log(e));
-      if(query.filters){
-        coursesId.forEach(async (id) => {
-          tmpQuestions.forEach(async (question) => {
-            if (question.relatedCourses.indexOf(id) > -1) {
-              questions.push(question)
-            }
-          });
-        });
-      }
-      else{
-        questions = tmpQuestions;
-      }
-      return questions;
+  const queryRegex = getQueryRegex(query.content);
+  let tmpQuestions = await Question.find({
+    $or: [
+      {subject: {$regex: queryRegex, $options: 'si'}},
+      {content: {$regex: queryRegex, $options: 'si'}}
+    ]
+  }).catch(e => console.log(e));
+
+  if (query.filters) {
+    coursesId.forEach((id) => {
+      tmpQuestions.forEach( (question) => {
+        if (question.relatedCourses.indexOf(id) > -1) {
+          questions.push(question)
+        }
+      });
+    });
+  } else {
+    questions = tmpQuestions;
+  }
+  return questions;
 };
 
 //where('likes').in(['vaporizing', 'talking']).
