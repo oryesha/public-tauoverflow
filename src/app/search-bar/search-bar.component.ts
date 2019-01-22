@@ -22,7 +22,7 @@ export class SearchBarComponent implements OnInit {
   private selectedFilters: string[] = [];
   private hasFilters: boolean;
   @Output() results = new EventEmitter<Question[]>();
-  @Output() searchInProgress = new EventEmitter<>();
+  @Output() searchInProgress = new EventEmitter();
 
   async openDialog() {
     const dialogConfig = new MatDialogConfig();
