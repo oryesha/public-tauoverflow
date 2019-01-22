@@ -7,7 +7,7 @@
         <mat-list>
           <mat-list-item class="ListItem" *ngFor="let course of allCourses">
             <button mat-flat-button mat-line class="mat-h4 CourseName" (click)="navigateToCoursePage(course)">
-              {{course.name}}
+              <span class="AllCoursesCourseName">{{course.name}}</span>
               <mat-icon class="CourseIcon">school</mat-icon>
             </button>
             <span mat-line class="CourseNum">
