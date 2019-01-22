@@ -10,9 +10,9 @@ exports.getAllCourses = async function() {
 
     let coursesToSend = [];
 
-    const courses = await Course.paginate();
+    const courses = await Course.find({});
 
-    courses.docs.forEach((course) => {
+    courses.forEach((course) => {
       coursesToSend.push({id: course.id, courseName: course.name,
       courseNumber: course.courseNumber});
     });
