@@ -55,8 +55,8 @@ export class UserService {
       {userId: user.id, questionId: question.id});
   }
 
-  getUser(): Promise<UserProfile> {
-    if (this._currentUser) {
+  getUser(fromServer = false): Promise<UserProfile> {
+    if (this._currentUser && !fromServer) {
       return Promise.resolve(this._currentUser);
     }
     return new Promise<any>(resolve => {

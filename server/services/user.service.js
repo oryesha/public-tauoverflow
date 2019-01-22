@@ -23,7 +23,8 @@ exports.getUser = async function(userToken) {
         populate: {path: 'questions reviews partnerPosts changeHours'}
       }).populate({
         path: 'favorites myQuestions',
-        populate: {path: 'owner relatedCourses answers upvote.upvoters'}
+        populate: {path: 'owner relatedCourses answers upvote.upvoters',
+        populate: { path: 'owner upvote.upvoters' }}
       }).exec();
     return user;
   }
