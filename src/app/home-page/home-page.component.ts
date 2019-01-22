@@ -49,9 +49,13 @@ export class HomePageComponent implements OnInit {
         this._openDetailsDialog();
       }
     } else {
-      this.userService.getUser().then(user => this._getNotificationFromService(user));
+      this.userService.getUser().then((user) => {
+        this.user = UserProfile.deserialize(user);
+        this._getNotificationFromService(user);
+      });
     }
   }
+
   _getNotificationFromService(user: UserProfile) {
     console.log(user.firebaseToken);
     const userId = user.firebaseToken;

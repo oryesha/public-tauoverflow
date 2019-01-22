@@ -7,6 +7,9 @@ import {CourseService} from '../services/course.service';
 import {Question, QuestionNavigationData} from '../models/question.model';
 import {PostType} from '../models/post.model';
 import {CourseReview} from '../models/course-review.model';
+import {ClipboardService} from 'ngx-clipboard';
+import {MatSnackBar} from '@angular/material';
+import {CourseRelatedPost} from '../models/course-related-post.model';
 
 class StarsCounter {
   filledStars: number;
@@ -18,7 +21,7 @@ class StarsCounter {
     this.filledStars = rank - fraction;
     if (fraction >= 0.5) {
       this.halfStar++;
-    } else {
+    } else if (fraction > 0) {
       this.filledStars++;
     }
     this.emptyStars = 5 - this.filledStars - this.halfStar;
@@ -42,7 +45,9 @@ export class CoursePageComponent implements OnInit {
   constructor(private routingDataService: AppRoutingDataService,
               private courseService: CourseService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private snackBar: MatSnackBar,
+              private clipboardService: ClipboardService) {
   }
 
   range(rank: number) {
@@ -92,5 +97,12 @@ export class CoursePageComponent implements OnInit {
         break;
       }
     }
+  }
+
+  copyEmail(post: CourseRelatedPost) {
+    this.clipboardService.copyFromContent(post.owner.email);
+    this.snackBar.open('Email copied to clipboard', '', {
+      duration: 2000 // Prompt the toast 2 seconds.
+    });
   }
 }

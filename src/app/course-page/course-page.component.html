@@ -43,7 +43,7 @@
         <app-spinner *ngIf="!courseDataLoaded"></app-spinner>
         <ng-container *ngIf="courseDataLoaded">
           <mat-accordion class="CoursePageAccordion">
-            <mat-expansion-panel *ngFor="let review of course.reviews"
+            <mat-expansion-panel *ngFor="let review of course.reviews" #expansionPanel
                                  class="CoursePageExpansionPanel" [hideToggle]="true">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -62,6 +62,14 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div [innerHtml]="review.content"></div>
+              <mat-divider class="ContactDivider"></mat-divider>
+              <div class="ContactDetailsContainer">
+                <button matTooltip="Copy to clipboard"
+                        (click)="copyEmail(review)" mat-icon-button class="EmailIconButton">
+                  <mat-icon>mail_outline</mat-icon>
+                </button>
+                <span>{{review.owner.email}}</span>
+              </div>
             </mat-expansion-panel>
           </mat-accordion>
         </ng-container>
@@ -84,6 +92,14 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div [innerHtml]="partnerPost.content"></div>
+              <mat-divider class="ContactDivider"></mat-divider>
+              <div class="ContactDetailsContainer">
+                <button matTooltip="Copy to clipboard"
+                        (click)="copyEmail(partnerPost)" mat-icon-button class="EmailIconButton">
+                  <mat-icon>mail_outline</mat-icon>
+                </button>
+                <span>{{partnerPost.owner.email}}</span>
+              </div>
             </mat-expansion-panel>
           </mat-accordion>
         </ng-container>
