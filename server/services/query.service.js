@@ -64,7 +64,6 @@ exports.getQuestionsFromQuery = async function(query) {
       let inFilter = courses.some(r => getCourseNumbersFromList(question.relatedCourses).includes(r));
       if (inFilter) {
         questions.push(question);
-        dbIds.push(question._id);
       }
     });
   } else {
