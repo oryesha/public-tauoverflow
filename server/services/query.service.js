@@ -57,7 +57,7 @@ exports.getQuestionsFromQuery = async function(query) {
       {subject: {$regex: queryRegex, $options: 'si'}},
       {content: {$regex: queryRegex, $options: 'si'}}
     ]
-  }).populate([{ path: 'relatedCourses' }]);
+  }).populate([{ path: 'relatedCourses owner' }]);
 
   if (query.filters) {
     tmpQuestions.forEach( (question) => {
