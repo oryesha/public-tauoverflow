@@ -79,7 +79,8 @@ export class CourseReviewEditorComponent implements OnInit {
       });
       return;
     }
-    const review = new CourseReview(subject, content, this.user, this.course, this.numOfStars);
+    const review = new CourseReview(subject, content, this.user.getUiUser(), this.course, this.numOfStars);
+    this.user.myCourseReviews.push(review);
     this.reviewService.createReview(review).subscribe((response: any) => {
       review.id = response.data._id;
       this.snackBar.open(this.course.name + ' Review Added!', '', {

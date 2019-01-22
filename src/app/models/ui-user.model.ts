@@ -8,7 +8,7 @@ export class UiUser {
   image = ''; // TODO(nati): Decide how this should look.
 
   static deserialize(user: any): UiUser {
-    return new UiUser(user.firstName, user.lastName, user.firebaseToken, user.email, user.id, user.image);
+    return new UiUser(user.firstName, user.lastName, user.firebaseToken, user.email, user._id, user.image);
   }
 
   constructor(firstName: string, lastName: string, firebaseToken: string,

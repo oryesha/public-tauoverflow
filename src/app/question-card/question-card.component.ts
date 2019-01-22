@@ -11,6 +11,7 @@ import {QuestionService} from '../services/question.service';
 export class QuestionCardComponent implements OnInit {
   @Input() question: Question;
   @Input() user: UserProfile;
+  @Input() isLocked: boolean;
   @Output() showAnswerEditor = new EventEmitter<void>();
   defaultImage = '../../assets/avatar.png';
 
