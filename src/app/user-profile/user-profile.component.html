@@ -4,34 +4,70 @@
   <app-spinner *ngIf="!isLoaded"></app-spinner>
   <div class="Page" *ngIf="isLoaded">
     <mat-tab-group class="Tabs">
-      <mat-tab label="My Posts">
-        <div mat-subheader class="Subheader" *ngIf="userDetails.myQuestions.length != 0">Questions</div>
+      <mat-tab label="My Questions">
         <mat-list-item class="ListItem" *ngFor="let question of userDetails.myQuestions">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{question.subject}}</button>
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
           <span mat-line class="VotesAndAnswers">
             <span>votes: {{question.upvote.count}}</span>
             <span>answers: {{question.answers.length}}</span>
           </span>
         </mat-list-item>
-        <mat-divider class="Divider"></mat-divider>
+      </mat-tab>
+      <mat-tab label="My Posts">
         <div mat-subheader class="Subheader" *ngIf="userDetails.myPartnerPosts.length != 0">Find a Partner</div>
-        <mat-list-item class="ListItem" *ngFor="let partner of userDetails.myPartnerPosts">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{partner.subject}}</button>
-        </mat-list-item>
-        <mat-divider class="Divider"></mat-divider>
+        <mat-accordion class="CoursePageAccordion">
+        <mat-expansion-panel class="CoursePageExpansionPanel" *ngFor="let partner of userDetails.myPartnerPosts" [hideToggle]="true">
+          <mat-expansion-panel-header class="Header">
+            <mat-panel-title>
+                  <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
+                    <span>{{partner.subject}}</span>
+                  </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div [innerHtml]="partner.content"></div>
+          <mat-divider class="ContactDivider"></mat-divider>
+          <app-copy-to-clipboard [email]="partner.owner.email"></app-copy-to-clipboard>
+        </mat-expansion-panel>
+        </mat-accordion>
+        <mat-divider class="CoursePageAccordion" *ngIf="userDetails.myPartnerPosts.length != 0"></mat-divider>
         <div mat-subheader class="Subheader" *ngIf="userDetails.myChangeHoursPosts.length != 0">Change Hours</div>
-        <mat-list-item class="ListItem" *ngFor="let hour of userDetails.myChangeHoursPosts">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{hour.subject}}</button>
-        </mat-list-item>
-        <mat-divider class="Divider"></mat-divider>
+        <mat-accordion class="CoursePageAccordion">
+          <mat-expansion-panel *ngFor="let hour of userDetails.myChangeHoursPosts" class="CoursePageExpansionPanel" [hideToggle]="true">
+            <mat-expansion-panel-header class="Header">
+              <mat-panel-title>
+                  <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
+                    <span>{{hour.subject}}</span>
+                  </span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div [innerHtml]="hour.content"></div>
+            <mat-divider class="ContactDivider"></mat-divider>
+            <app-copy-to-clipboard [email]="hour.owner.email"></app-copy-to-clipboard>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-divider class="Divider" *ngIf="userDetails.myChangeHoursPosts.length != 0"></mat-divider>
         <div mat-subheader class="Subheader" *ngIf="userDetails.myCourseReviews.length != 0">Reviews</div>
-        <mat-list-item class="ListItem" *ngFor="let review of userDetails.myCourseReviews">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{review.subject}}</button>
-        </mat-list-item>
+        <mat-accordion class="CoursePageAccordion">
+          <mat-expansion-panel *ngFor="let review of userDetails.myCourseReviews" class="CoursePageExpansionPanel" [hideToggle]="true">
+            <mat-expansion-panel-header class="Header">
+              <mat-panel-title>
+                  <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
+                    <span>{{review.subject}}</span>
+                    <span class="SmallStarsContainer">
+                      <mat-icon [inline]="true" class="SmallStar" *ngFor="let i of range(review.rank)">
+                        star
+                      </mat-icon>
+                    </span>
+                  </span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div [innerHtml]="review.content"></div>
+          </mat-expansion-panel>
+        </mat-accordion>
       </mat-tab>
       <mat-tab label="Favorites">
         <mat-list-item class="ListItem" *ngFor="let question of userDetails.favorites">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{question.subject}}</button>
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
           <span mat-line class="VotesAndAnswers">
             <span>votes: {{question.upvote.count}}</span>
             <span>answers: {{question.answers.length}}</span>

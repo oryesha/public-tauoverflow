@@ -14,8 +14,11 @@
       <button mat-icon-button matTooltip="Edit question" class="Button">
         <mat-icon class="Icon">edit</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="Lock this post" class="Button">
+      <button *ngIf="!isQuestionLocked" mat-icon-button matTooltip="Lock this post" class="Button" (click)="LockQuestion()">
         <mat-icon class="Icon">lock_open</mat-icon>
+      </button>
+      <button *ngIf="isQuestionLocked" mat-icon-button matTooltip="Unlock this post" class="Button" (click)="UnlockQuestion()">
+        <mat-icon class="Icon">lock</mat-icon>
       </button>
     </span>
     <span *ngIf="!isUserOwner">
@@ -29,11 +32,8 @@
       </button>
     </span>
   </mat-card-content>
-  <app-question-card [user]="user" [question]="question" (showAnswerEditor)="showAnswerEditor()"></app-question-card>
+  <app-question-card [user]="user" [question]="question" [isLocked]="isQuestionLocked" (showAnswerEditor)="showAnswerEditor()"></app-question-card>
   <div class="AnswersContainer">
-    <div *ngIf="hasAnswers" class="AnswersTitle">
-      Answers
-    </div>
     <app-answer-card *ngFor="let answer of question.answers" [answer]="answer"
                      [isEvenAnswer]="1 - isEvenAnswer">
     </app-answer-card>

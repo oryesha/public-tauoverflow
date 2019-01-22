@@ -91,7 +91,6 @@
 
 .ListItem {
   color: mat-color($mat-gray, 600);
-  //margin-left: 20px;
 }
 
 .ListItem /deep/ .mat-list-text {
@@ -99,8 +98,12 @@
   display: flex;
   justify-content: space-between;
   background-color: mat-color($mat-gray, 300);
-  margin-bottom: 5px;
+  margin-top: 4px;
   padding: 10px;
+  max-height: 40px;
+}
+
+.Header {
   max-height: 40px;
 }
 
@@ -138,4 +141,37 @@
 
 .Divider {
   margin-top: 10px;
+}
+
+.CoursePageAccordion /deep/ .mat-expansion-panel-body {
+  background: mat-color($mat-gray, 200);
+  padding-top: 16px;
+}
+
+.CoursePageAccordion .mat-expansion-panel {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+.CoursePageExpansionPanel {
+  background: mat-color($mat-gray, 300);
+}
+
+.CourseReviewSubjectAndRank {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  width: 0;
+  font-weight: 500;
+}
+
+.SmallStarsContainer {
+  margin-left: 5px;
+}
+
+.SmallStar {
+  color: mat-color($mat-teal, 400);
+  justify-content: center;
+  font-size: 1px;
 }

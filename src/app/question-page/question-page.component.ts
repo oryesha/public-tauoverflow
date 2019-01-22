@@ -20,8 +20,8 @@ export class QuestionPageComponent implements OnInit {
   isShowAnswerEditor: boolean;
   isLoaded = false;
   isUserOwner: boolean;
-  isQuestionFavorite = false; // TODO: implement real favorite questions
-  hasAnswers: boolean;
+  isQuestionLocked: boolean;
+  isQuestionFavorite = false;
   question: Question;
   user: UserProfile;
   answerCounter = 0;
@@ -54,7 +54,7 @@ export class QuestionPageComponent implements OnInit {
 
   private _updateMembers() {
     this.isUserOwner = this.user.id === this.question.owner.id;
-    this.hasAnswers = this.question.answers.length > 0;
+    this.isQuestionLocked = this.question.isLocked;
     if (!this.user.favorites || this.user.favorites.length === 0) {
       return;
     }
@@ -114,6 +114,18 @@ export class QuestionPageComponent implements OnInit {
     this.isQuestionFavorite = true;
     this.user.favorites.push(this.question);
     this._updateFavorites();
+  }
+
+  LockQuestion() {
+    this.isQuestionLocked = true;
+    this.question.isLocked = true;
+    this.questionService.updateQuestion(this.question).subscribe(() => {});
+  }
+
+  UnlockQuestion() {
+    this.isQuestionLocked = false;
+    this.question.isLocked = false;
+    this.questionService.updateQuestion(this.question).subscribe(() => {});
   }
 
   private _updateFavorites() {

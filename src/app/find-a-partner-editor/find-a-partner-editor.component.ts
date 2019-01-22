@@ -63,7 +63,8 @@ export class FindAPartnerEditorComponent implements OnInit {
   postPartnerFind(event: PostContent) {
     const subject = event.subject;
     const content = event.content;
-    const partnerPost = new PartnerPost(subject, content, this.user, this.course);
+    const partnerPost = new PartnerPost(subject, content, this.user.getUiUser(), this.course);
+    this.user.myPartnerPosts.push(partnerPost);
     this.partnerPostService.createPartnerPost(partnerPost).subscribe((response: any) => {
       partnerPost.id = response.data._id;
       this.snackBar.open(this.course.name + ' Partner Post Added!', '', {
