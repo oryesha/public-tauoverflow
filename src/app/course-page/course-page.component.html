@@ -62,14 +62,6 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div [innerHtml]="review.content"></div>
-              <mat-divider class="ContactDivider"></mat-divider>
-              <div class="ContactDetailsContainer">
-                <button matTooltip="Copy to clipboard"
-                        (click)="copyEmail(review)" mat-icon-button class="EmailIconButton">
-                  <mat-icon>mail_outline</mat-icon>
-                </button>
-                <span>{{review.owner.email}}</span>
-              </div>
             </mat-expansion-panel>
           </mat-accordion>
         </ng-container>
