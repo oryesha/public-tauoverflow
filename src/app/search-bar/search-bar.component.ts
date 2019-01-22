@@ -62,8 +62,14 @@ export class SearchBarComponent implements OnInit {
     this.queryService.getQueryResult(this.searchContent, filtersId)
       .subscribe(questions => {
         // assign the questions list property to the proper http response
-        this.results.emit(questions);
+        this.results.emit(this._parseQuestions(questions));
       });
+  }
+
+  private _parseQuestions(resQuestions: any[]): Question[] {
+    const questions: Question[] = [];
+    resQuestions.forEach((question) => questions.push(Question.deserialize(question)));
+    return questions;
   }
 
   ngOnInit() {

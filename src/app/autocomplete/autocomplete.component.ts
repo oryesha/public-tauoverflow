@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output, 
 import {FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {MatAutocompleteSelectedEvent} from '@angular/material';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -25,7 +26,7 @@ export class AutocompleteComponent implements OnInit {
   @Input() isCourseSearch: boolean;
   @Input() isRequired = true;
 
-  @Output() private optionSelected = new EventEmitter();
+  @Output() private optionSelected = new EventEmitter<string>();
 
   filteredOptions: Observable<string[]>;
   appearance = 'fill';
@@ -63,5 +64,9 @@ export class AutocompleteComponent implements OnInit {
       selection = this.inputEl.nativeElement.value;
     }
     return selection;
+  }
+
+  emitOption(selectedOption: MatAutocompleteSelectedEvent) {
+    this.optionSelected.emit(selectedOption.option.value);
   }
 }
