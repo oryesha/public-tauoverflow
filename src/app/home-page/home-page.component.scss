@@ -18,6 +18,7 @@
   display: flex;
   flex: 1 1 auto;
   height: 0;
+  overflow: auto;
   width: 100%;
 }
 
@@ -28,6 +29,7 @@
 .SearchBarContainer {
   max-width: 100%;
   width: 100%;
+  flex: 0 0 auto;
 }
 
 .SearchAndButtonContainer {
@@ -41,11 +43,14 @@
 .LogoAndSearch {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
+  height: 0;
 }
 
 .MainContent {
   display: flex;
   flex: 1 1 auto;
+  height: 100%;
   justify-content: center;
   padding: 20px;
   width: 0;
@@ -98,9 +103,11 @@ img.resize {
   width: 100%;
   max-width: 100%;
   padding-bottom: 10px;
+  flex: 1 1 auto;
+  height: 0;
 }
 
-.Results /deep/ .mat-list-base{
+.Results /deep/ .mat-list-base {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;

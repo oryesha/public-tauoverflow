@@ -11,42 +11,51 @@
 }
 
 .ListItem {
-  /*background-color: mat-color($mat-gray, 200);*/
   padding: 10px;
   display: flex;
-  max-width: 100%;
-  width: 100%;
+  //max-width: 100%;
+  //width: 100%;
 }
 
 .IconDetails {
-  width: 10%;
+  //width: 10%;
+  align-items: center;
   display: flex;
-  flex-direction: row;
-  padding: 10px;
-  color: mat-color($mat-teal, 200);
+  font-size: 12px;
+  padding: 5px;
+  color: mat-color($mat-teal, 400);
 }
 
 .IconText {
-  color: mat-color($mat-deep-orange, 300);
-  text-align: center;
+  color: mat-color($mat-gray, 600);
+  align-items: center;
   display: flex;
-  flex-direction: column;
 }
 
-.IconExp {
-  color: mat-color($mat-gray, 600);
-  font-size: xx-small;
+.MainResult /deep/ .mat-list-base {
+  padding-top: 0;
 }
+
+//.IconExp {
+//  color: mat-color($mat-gray, 600);
+//  font-size: xx-small;
+//}
 
 .NameAndDate {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   color: mat-color($mat-gray, 600);
   font-size: 12px;
-  max-width: 10%;
-  width: 100%;
+  //max-width: 10%;
+  //width: 100%;
 }
 
+.IconDetails.mat-list-icon {
+  height: 16px !important;
+  width: 16px !important;
+  font-size: 16px !important;
+}
 
 .ResTitleButton {
   margin: 0;
@@ -54,7 +63,7 @@
   font-size: 14px;
   font-weight: bold;
   color: mat-color($mat-gray, 700);
-  padding: 10px;
+  padding: 0;
 }
 
 .ResContent {
@@ -62,4 +71,31 @@
   font-size: 12px;
   font-weight: lighter;
   color: mat-color($mat-gray, 600);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ResultHeaderContent {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.QuestionHeaderAndContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  width: 0;
+  padding: 0 8px;
+}
+
+.QuestionDetailsContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.QuestionStatsContainer {
+  display: flex;
+  margin-right: 12px;
 }

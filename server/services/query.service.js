@@ -2,22 +2,39 @@ let UserProfile = require('../models/user-profile.model');
 let Answer = require('../models/answer.model');
 let Question = require('../models/question.model');
 let Course = require('../models/course.model');
+let serviceHelper = require('../services/serviceHelper');
 
 _this = this;
 
 getCourseId = async function (ids) {
-  let coursesId = [];
+  let coursesIds = [];
   ids.forEach(async (courseId) => {
-      if(courseId === ""){}
-      else {
+      if (courseId != '') {
         let course = await Course.findOne({courseNumber: courseId});
-        coursesId.push(course._id);
+        coursesIds.push(course._id);
       }
     }
   );
-  return coursesId;
+  return coursesIds;
 };
 
+getQueryRegex = function (query) {
+  const reg = query.replace(' ', '.*');
+  return reg;
+}
+
+
+getCourseNumbersFromList = function(list) {
+  const res = [];
+  if (list === undefined || list.length == 0) {
+    return res;
+  }
+  list.forEach(function (listItem) {
+    const num = listItem.courseNumber;
+    res.push(num);
+  });
+  return res;
+};
 
 
 exports.getQuestionsFromQuery = async function(query) {
@@ -25,28 +42,35 @@ exports.getQuestionsFromQuery = async function(query) {
    return [];
  }
   let questions = [];
-  let coursesId = [];
-  if(query.filters) {
-    coursesId = await getCourseId(query.filters).then();
+  let courses = [];
+  if(query.filters && !Array.isArray(query.filters)) {
+    courses = query.filters.split(',');
+    //coursesId = await getCourseId(query.filters)
+  }
+  else {
+    courses = query.filters;
   }
 
-  const term = query.content;
-  let tmpQuestions = await Question.find(
-    {$text: { $search: term }})
-        .catch(e => console.log(e));
-      if(query.filters){
-        coursesId.forEach(async (id) => {
-          tmpQuestions.forEach(async (question) => {
-            if (question.relatedCourses.indexOf(id) > -1) {
-              questions.push(question)
-            }
-          });
-        });
+  const queryRegex = getQueryRegex(query.content);
+  let tmpQuestions = await Question.find({
+    $or: [
+      {subject: {$regex: queryRegex, $options: 'si'}},
+      {content: {$regex: queryRegex, $options: 'si'}}
+    ]
+  }).populate([{ path: 'relatedCourses owner' }]);
+
+  if (query.filters) {
+    tmpQuestions.forEach( (question) => {
+      let inFilter = courses.some(r => getCourseNumbersFromList(question.relatedCourses).includes(r));
+      if (inFilter) {
+        questions.push(question);
+        dbIds.push(question._id);
       }
-      else{
-        questions = tmpQuestions;
-      }
-      return questions;
+    });
+  } else {
+    questions = tmpQuestions;
+  }
+  return questions;
 };
 
 //where('likes').in(['vaporizing', 'talking']).

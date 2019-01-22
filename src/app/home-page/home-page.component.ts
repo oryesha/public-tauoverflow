@@ -32,6 +32,7 @@ export class HomePageComponent implements OnInit {
   user: UserProfile;
   uiCoursesMap: UiCoursesMap;
   queryResults: Question[];
+  showQuerySpinner = false;
 
   message;
   constructor(
@@ -69,6 +70,7 @@ export class HomePageComponent implements OnInit {
   }
 
   showResults(event: Question[]) {
+    this.showQuerySpinner = false;
     this.queryResults = event;
   }
 
@@ -122,5 +124,9 @@ export class HomePageComponent implements OnInit {
     if (!this.uiCoursesMap) {
       this.uiCoursesMap = this.courseService.getCoursesMap();
     }
+  }
+
+  showSpinner() {
+    this.showQuerySpinner = true;
   }
 }
