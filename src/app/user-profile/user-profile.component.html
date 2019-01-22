@@ -20,43 +20,47 @@
         </ng-container>
       </mat-tab>
       <mat-tab label="My Posts">
-        <div mat-subheader class="Subheader" *ngIf="userDetails.myPartnerPosts.length != 0">Find a Partner</div>
-        <mat-accordion class="CoursePageAccordion">
-        <mat-expansion-panel class="CoursePageExpansionPanel" *ngFor="let partner of userDetails.myPartnerPosts" [hideToggle]="true">
-          <mat-expansion-panel-header class="Header">
-            <mat-panel-title>
+        <app-empty-state
+          [emptyStateMessage]="'You didn\'t write any posts...'"
+          *ngIf="cumulativeLength == 0"></app-empty-state>
+        <ng-container *ngIf="cumulativeLength > 0">
+          <div mat-subheader class="Subheader" *ngIf="userDetails.myPartnerPosts.length != 0">Find a Partner</div>
+          <mat-accordion class="CoursePageAccordion">
+            <mat-expansion-panel class="CoursePageExpansionPanel" *ngFor="let partner of userDetails.myPartnerPosts" [hideToggle]="true">
+              <mat-expansion-panel-header class="Header">
+                <mat-panel-title>
                   <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
                     <span>{{partner.subject}}</span>
                   </span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <div [innerHtml]="partner.content"></div>
-          <mat-divider class="ContactDivider"></mat-divider>
-          <app-copy-to-clipboard [email]="partner.owner.email"></app-copy-to-clipboard>
-        </mat-expansion-panel>
-        </mat-accordion>
-        <mat-divider class="CoursePageAccordion" *ngIf="userDetails.myPartnerPosts.length != 0"></mat-divider>
-        <div mat-subheader class="Subheader" *ngIf="userDetails.myChangeHoursPosts.length != 0">Change Hours</div>
-        <mat-accordion class="CoursePageAccordion">
-          <mat-expansion-panel *ngFor="let hour of userDetails.myChangeHoursPosts" class="CoursePageExpansionPanel" [hideToggle]="true">
-            <mat-expansion-panel-header class="Header">
-              <mat-panel-title>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div [innerHtml]="partner.content"></div>
+              <mat-divider class="ContactDivider"></mat-divider>
+              <app-copy-to-clipboard [email]="partner.owner.email"></app-copy-to-clipboard>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-divider class="CoursePageAccordion" *ngIf="userDetails.myPartnerPosts.length != 0"></mat-divider>
+          <div mat-subheader class="Subheader" *ngIf="userDetails.myChangeHoursPosts.length != 0">Change Hours</div>
+          <mat-accordion class="CoursePageAccordion">
+            <mat-expansion-panel *ngFor="let hour of userDetails.myChangeHoursPosts" class="CoursePageExpansionPanel" [hideToggle]="true">
+              <mat-expansion-panel-header class="Header">
+                <mat-panel-title>
                   <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
                     <span>{{hour.subject}}</span>
                   </span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div [innerHtml]="hour.content"></div>
-            <mat-divider class="ContactDivider"></mat-divider>
-            <app-copy-to-clipboard [email]="hour.owner.email"></app-copy-to-clipboard>
-          </mat-expansion-panel>
-        </mat-accordion>
-        <mat-divider class="Divider" *ngIf="userDetails.myChangeHoursPosts.length != 0"></mat-divider>
-        <div mat-subheader class="Subheader" *ngIf="userDetails.myCourseReviews.length != 0">Reviews</div>
-        <mat-accordion class="CoursePageAccordion">
-          <mat-expansion-panel *ngFor="let review of userDetails.myCourseReviews" class="CoursePageExpansionPanel" [hideToggle]="true">
-            <mat-expansion-panel-header class="Header">
-              <mat-panel-title>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div [innerHtml]="hour.content"></div>
+              <mat-divider class="ContactDivider"></mat-divider>
+              <app-copy-to-clipboard [email]="hour.owner.email"></app-copy-to-clipboard>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <mat-divider class="Divider" *ngIf="userDetails.myChangeHoursPosts.length != 0"></mat-divider>
+          <div mat-subheader class="Subheader" *ngIf="userDetails.myCourseReviews.length != 0">Reviews</div>
+          <mat-accordion class="CoursePageAccordion">
+            <mat-expansion-panel *ngFor="let review of userDetails.myCourseReviews" class="CoursePageExpansionPanel" [hideToggle]="true">
+              <mat-expansion-panel-header class="Header">
+                <mat-panel-title>
                   <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
                     <span>{{review.subject}}</span>
                     <span class="SmallStarsContainer">
@@ -65,11 +69,12 @@
                       </mat-icon>
                     </span>
                   </span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div [innerHtml]="review.content"></div>
-          </mat-expansion-panel>
-        </mat-accordion>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div [innerHtml]="review.content"></div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </ng-container>
       </mat-tab>
       <mat-tab label="Favorites">
         <app-empty-state

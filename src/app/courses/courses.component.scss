@@ -24,7 +24,7 @@ h3.mat-subheader{
   display: flex;
   flex-direction: column;
   font-size: 16px;
-  max-width: 25%;
+  max-width: 400px;
   width: 100%;
 }
 
@@ -63,6 +63,7 @@ h3.mat-subheader{
   background-color: mat-color($mat-gray, 200);
   color: mat-color($mat-gray, 700);
   text-align: left;
+  display: flex;
 }
 
 .CourseName /deep/ .mat-button-wrapper {
@@ -74,6 +75,7 @@ h3.mat-subheader{
 }
 
 .CourseIcon {
+  flex: 0 0 auto;
   color: mat-color($mat-gray, 500);
 }
 
@@ -93,4 +95,12 @@ h3.mat-subheader{
 .MainWrapper {
   padding: 10px 0;
   position: relative;
+}
+
+.AllCoursesCourseName {
+  flex: 1 1 auto;
+  width: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
