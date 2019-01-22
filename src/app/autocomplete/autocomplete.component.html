@@ -6,6 +6,6 @@
       {{option}}
     </mat-option>
   </mat-autocomplete>
-  <mat-hint *ngIf="!isRequired">[optional]</mat-hint>
+  <mat-hint *ngIf="!isRequired && !isCourseSearch">[optional]</mat-hint>
   <mat-hint *ngIf="isRequired">[required]</mat-hint>
 </mat-form-field>

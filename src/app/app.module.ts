@@ -19,6 +19,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -133,6 +134,7 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
     AngularFireMessagingModule,
     AngularFireDatabaseModule,
     MatBadgeModule,
+    ClipboardModule,
   ],
   providers: [
     QuestionService,
