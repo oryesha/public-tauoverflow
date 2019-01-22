@@ -1,4 +1,3 @@
-import {Post} from './post.model';
 import {Course} from './course.model';
 import {Name} from './name.model';
 import {UiCourse} from './ui-course.model';
@@ -6,6 +5,7 @@ import {Question} from './question.model';
 import {PartnerPost} from './partner-post.model';
 import {CourseReview} from './course-review.model';
 import {ChangeHoursPost} from './change-hours-post.model';
+import {UiUser} from './ui-user.model';
 
 export class UserProfile {
   id: string;
@@ -73,5 +73,9 @@ export class UserProfile {
       this.asked = asked;
       this.answered = answered;
     }
+  }
+
+  getUiUser(): UiUser {
+    return new UiUser(this.name.first, this.name.last, this.firebaseToken, this.email, this.id, this.image);
   }
 }

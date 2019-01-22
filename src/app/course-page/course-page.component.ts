@@ -39,6 +39,7 @@ export class CoursePageComponent implements OnInit {
   courseDataLoaded: boolean;
   initialDataLoaded: boolean;
   reviews: CourseReview[];
+  courseReviewId: string;
   starsCounter: StarsCounter;
   @Input() postType: PostType;
 
@@ -65,6 +66,7 @@ export class CoursePageComponent implements OnInit {
           this.uiCourse = routingData.getData();
           this.initialDataLoaded = true;
         }
+        this.courseReviewId = params.reviewId ? params.reviewId : undefined;
         this.courseService.getCourse(courseId).subscribe((course: any) => {
           this.course = Course.deserialize(course);
           this.starsCounter = new StarsCounter(this.course.rank);

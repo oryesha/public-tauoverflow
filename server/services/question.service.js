@@ -88,6 +88,7 @@ exports.updateQuestion = async function(question){
     }
 
     oldQuestion.upvote = question.upvote;
+    oldQuestion.isLocked = question.isLocked;
 
     try{
       let savedQuestion = await oldQuestion.save();

@@ -85,13 +85,7 @@
               </mat-expansion-panel-header>
               <div [innerHtml]="partnerPost.content"></div>
               <mat-divider class="ContactDivider"></mat-divider>
-              <div class="ContactDetailsContainer">
-                <button matTooltip="Copy to clipboard"
-                        (click)="copyEmail(partnerPost)" mat-icon-button class="EmailIconButton">
-                  <mat-icon>mail_outline</mat-icon>
-                </button>
-                <span>{{partnerPost.owner.email}}</span>
-              </div>
+              <app-copy-to-clipboard [email]="partnerPost.owner.email"></app-copy-to-clipboard>
             </mat-expansion-panel>
           </mat-accordion>
         </ng-container>
@@ -114,6 +108,8 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div [innerHtml]="changeHoursPost.content"></div>
+              <mat-divider class="ContactDivider"></mat-divider>
+              <app-copy-to-clipboard [email]="changeHoursPost.owner.email"></app-copy-to-clipboard>
             </mat-expansion-panel>
           </mat-accordion>
         </ng-container>

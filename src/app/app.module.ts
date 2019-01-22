@@ -71,6 +71,7 @@ import { AsyncPipe } from '@angular/common';
 import {MatBadgeModule} from '@angular/material/badge';
 import { NotificationDialogComponent } from './notification-dialog/notification-dialog.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
+import { CopyToClipboardComponent } from './copy-to-clipboard/copy-to-clipboard.component';
 
 
 @NgModule({
@@ -102,6 +103,7 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
     SpinnerComponent,
     NotificationDialogComponent,
     FileUploaderComponent,
+    CopyToClipboardComponent,
   ],
   imports: [
     BrowserModule,

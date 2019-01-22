@@ -21,7 +21,7 @@
         </button>
       <span class="NumOfLikes">{{question.upvote.count}}</span>
     </span>
-      <button mat-raised-button class="AnswerButton" (click)="newAnswer()">ANSWER</button>
+      <button *ngIf="!isLocked" mat-raised-button class="AnswerButton" (click)="newAnswer()">ANSWER</button>
     </div>
   </mat-card>
 </div>
