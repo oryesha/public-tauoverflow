@@ -6,6 +6,7 @@ import {UserProfile} from '../models/user-profile.model';
 import {HttpRequestsService, QueryParams} from './http-requests.service';
 import {Observable} from 'rxjs';
 import {HttpResponse} from '@angular/common/http';
+import {Question} from '../models/question.model';
 
 @Injectable()
 export class UserService {
@@ -49,17 +50,11 @@ export class UserService {
     return this.httpRequest.put('/user', user);
   }
 
-  // updateCurrentUser(value) {
-  //   return new Promise((resolve, reject) => {
-  //     firebase.auth().currentUser;
-  //     user.updateProfile({
-  //       displayName: value.name,
-  //       photoURL: user.photoURL
-  //     }).then(res => {
-  //       resolve(res);
-  //     }, err => reject(err));
-  //   });
-  // }
+  updateFavorites(user: UserProfile, question: Question): Observable<any> {
+    return this.httpRequest.put('/user/update-favorite',
+      {userId: user.id, questionId: question.id});
+  }
+
   getUser(): Promise<UserProfile> {
     if (this._currentUser) {
       return Promise.resolve(this._currentUser);

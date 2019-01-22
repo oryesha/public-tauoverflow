@@ -31,35 +31,39 @@ export class QuestionPageComponent implements OnInit {
               private userService: UserService,
               private route: ActivatedRoute,
               private answerService: AnswerService) {
-    const routingData = routingDataService.getRoutingData('question');
-    if (routingData) {
-      this.question = routingData.getData();
-      this.isLoaded = true;
-    } else {
-      route.queryParams.subscribe(
-        (params) => {
-          const id = params.id;
-          questionService.getQuestion(id).subscribe((question: any) => {
-            this.question = Question.deserialize(question);
-            this.isLoaded = true;
+    this.userService.getUser().then((user: UserProfile) => {
+      this.user = user;
+      const routingData = routingDataService.getRoutingData('question');
+      if (routingData) {
+        this.question = routingData.getData();
+        this._updateMembers();
+        this.isLoaded = true;
+      } else {
+        route.queryParams.subscribe(
+          (params) => {
+            const id = params.id;
+            questionService.getQuestion(id).subscribe((question: any) => {
+              this.question = Question.deserialize(question);
+              this._updateMembers();
+              this.isLoaded = true;
+            });
           });
-        });
+      }
+    });
+  }
+
+  private _updateMembers() {
+    this.isUserOwner = this.user.id === this.question.owner.id;
+    this.hasAnswers = this.question.answers.length > 0;
+    if (!this.user.favorites || this.user.favorites.length === 0) {
+      return;
     }
+    this.isQuestionFavorite = this.user.favorites.map((question: Question) => {
+      return question.id;
+    }).includes(this.question.id);
   }
 
   ngOnInit() {
-    this.userService.getUser().then((user: UserProfile) => {
-      this.user = user;
-      const routingData = this.routingDataService.getRoutingData('question');
-      if (routingData) {
-        this.isUserOwner = this.user.id === this.question.owner.id;
-        this.hasAnswers = this.question.answers.length > 0;
-      }
-      // this.isUserOwner = this.user.id === this.question.owner.id;
-      // this.hasAnswers = this.question.answers.length > 0;
-      // console.log(this.user.id);
-      // console.log(this.question.owner.id);
-    });
   }
 
   showAnswerEditor() {
@@ -98,9 +102,21 @@ export class QuestionPageComponent implements OnInit {
 
   UnmarkFavorite() {
     this.isQuestionFavorite = false;
+    const index = this.user.favorites.map((question: Question) => question.id)
+      .indexOf(this.question.id, 0);
+    if (index > -1) {
+      this.user.favorites.splice(index, 1);
+    }
+    this._updateFavorites();
   }
 
   MarkFavorite() {
     this.isQuestionFavorite = true;
+    this.user.favorites.push(this.question);
+    this._updateFavorites();
+  }
+
+  private _updateFavorites() {
+    this.userService.updateFavorites(this.user, this.question).subscribe(() => {});
   }
 }

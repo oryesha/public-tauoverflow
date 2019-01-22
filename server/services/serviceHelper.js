@@ -10,3 +10,11 @@ exports.getIdsFromList = function(list) {
   });
   return res;
 };
+
+exports.updateList = function(oldList, newList) {
+  newList.forEach((id) => {
+    if (oldList.indexOf(id) === -1) {
+      oldList.push(id);
+    }
+  });
+};

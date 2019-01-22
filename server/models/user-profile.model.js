@@ -13,12 +13,12 @@ const UserProfileSchema = new mongoose.Schema({
   answered: Number,
   description: String,
   skills: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
-  favorites: [{ body:"string", by: mongoose.Schema.Types.ObjectId }],
+  favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],
   myQuestions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],
   myCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
   myPartnerPosts: [{type: mongoose.Schema.Types.ObjectId, ref: 'PartnerPost'}],
   myCourseReviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'CourseReview'}],
-  myChangHoursPosts: [{type: mongoose.Schema.Types.ObjectId, ref: 'ChangeHoursPost'}]
+  myChangeHoursPosts: [{type: mongoose.Schema.Types.ObjectId, ref: 'ChangeHoursPost'}]
 });
 
 UserProfileSchema.plugin(mongoosePaginate);

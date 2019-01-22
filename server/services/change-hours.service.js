@@ -1,4 +1,6 @@
 let Post = require('../models/change-hours-post.model');
+let UserProfile = require('../models/user-profile.model');
+let Course = require('../models/course.model');
 
 _this = this;
 
@@ -23,12 +25,12 @@ exports.createChangeHoursPost = async function(post){
 
   try{
     let savedPost = await newPost.save();
-    savedPost.populate('course owner').exec(function(err, post) {
-        post.course.changeHours.push(post);
-        post.course.save();
-        post.owner.myChangHoursPosts.push(post);
-        post.owner.save();
-      });
+    const user = await UserProfile.findById(newPost.owner);
+    user.myChangeHoursPosts.push(savedPost._id);
+    user.save();
+    const course = await Course.findById(newPost.course);
+    course.partnerPosts.push(savedPost._id);
+    course.save();
     return savedPost;
   }catch(e){
     throw Error("Error while Creating Change Hour Post")

@@ -19,8 +19,8 @@
           <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{partner.subject}}</button>
         </mat-list-item>
         <mat-divider class="Divider"></mat-divider>
-        <div mat-subheader class="Subheader" *ngIf="userDetails.myChangHoursPosts.length != 0">Change Hours</div>
-        <mat-list-item class="ListItem" *ngFor="let hour of userDetails.myChangHoursPosts">
+        <div mat-subheader class="Subheader" *ngIf="userDetails.myChangeHoursPosts.length != 0">Change Hours</div>
+        <mat-list-item class="ListItem" *ngFor="let hour of userDetails.myChangeHoursPosts">
           <button mat-flat-button mat-line class="mat-h4 QuestionTitle">{{hour.subject}}</button>
         </mat-list-item>
         <mat-divider class="Divider"></mat-divider>

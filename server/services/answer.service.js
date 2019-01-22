@@ -48,7 +48,7 @@ exports.updateAnswer = async function (answer) {
   } catch (e) {
     throw Error("Error occured while Finding the answer")
   }
-  console.log(oldAnswer);
+  // console.log(oldAnswer);
   if (!oldAnswer) {
     return false;
   }

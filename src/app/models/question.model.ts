@@ -1,9 +1,9 @@
 import {Post} from './post.model';
 import {Answer} from './answer.model';
 import {Upvote} from './upvote.model';
-import {UserProfile} from './user-profile.model';
 import {UiCourse} from './ui-course.model';
 import {RoutingData} from '../app-routing-data.service';
+import {UiUser} from './ui-user.model';
 
 export class Question extends Post {
   relatedCourses: UiCourse[];
@@ -11,7 +11,7 @@ export class Question extends Post {
   upvote: Upvote;
 
   static deserialize(question): Question {
-    const owner = UserProfile.deserialize(question.owner);
+    const owner = UiUser.deserialize(question.owner);
     const relatedCourses = [];
     const answers = [];
     question.answers.forEach((dbAnswer) => {
@@ -31,7 +31,7 @@ export class Question extends Post {
     return newQuestion;
   }
 
-  constructor(subject: string, content: string, owner: UserProfile, relatedCourses: UiCourse[],
+  constructor(subject: string, content: string, owner: UiUser, relatedCourses: UiCourse[],
               answers?: Answer[], id?: string, timestamp?: Date, isLocked?: boolean) {
     super(subject, content, owner, id, timestamp, isLocked);
     this.relatedCourses = relatedCourses;
