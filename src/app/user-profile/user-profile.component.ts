@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService: UserService,
               private routingDataService: AppRoutingDataService,
               private router: Router) {
-    this.userService.getUser().then((user: UserProfile) => {
+    this.userService.getUser(true).then((user: UserProfile) => {
       this.userDetails = user;
       this.cumulativeLength = this.userDetails.myCourseReviews.length +
         this.userDetails.myPartnerPosts.length + this.userDetails.myChangeHoursPosts.length;
