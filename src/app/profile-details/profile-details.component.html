@@ -8,9 +8,9 @@
          class="CardProfileImage">
     <img *ngIf="userDetails.image" src="data:image/png;base64,{{userDetails.image}}"
          class="CardProfileImage">
-    <div class="UserRank">
-      <mat-icon>child_care</mat-icon>{{userDetails.rank}}
-    </div>
+    <!--<div class="UserRank">-->
+      <!--<mat-icon>child_care</mat-icon>{{userDetails.rank}}-->
+    <!--</div>-->
     <ng-container *ngIf="isProfilePage">
       <div class="mat-body About">
         <div>{{userDetails.description}}</div>

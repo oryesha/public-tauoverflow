@@ -37,6 +37,7 @@
     "mongoose-paginate": "^5.0.3",
     "ng6x-editor": "^4.0.2",
     "ngx-bootstrap": "^3.1.2",
+    "ngx-clipboard": "^11.1.9",
     "ngx-editor": "^4.1.0",
     "ngx-quill": "^4.3.2",
     "nodemon": "^1.18.8",
