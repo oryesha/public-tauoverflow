@@ -4,6 +4,7 @@ import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
 import {Router} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
 import {CourseService} from '../services/course.service';
+import {UiCoursesMap} from '../models/ui-courses-map.model';
 
 class Section {
 }
@@ -45,6 +46,8 @@ export class CoursesComponent implements OnInit {
       courseNum: '03683319'
     }
   ];
+  courseNames: string[] = [];
+  coursesMap: UiCoursesMap;
 
   constructor(private appService: AppService,
               private router: Router,
@@ -52,7 +55,8 @@ export class CoursesComponent implements OnInit {
               private routingDataService: AppRoutingDataService) {
   }
 
-  navigateToCoursePage(uiCourse: UiCourse) {
+  navigateToCoursePage(course: UiCourse|string) {
+    const uiCourse = typeof course === 'string' ? this.coursesMap[course] : course;
     const courseData = new CoursesComponent.CourseNavigationData(uiCourse);
     this.routingDataService.setRoutingData(uiCourse.courseNumber, courseData);
     this.router.navigate(['/course-page'], { queryParams: { courseId: uiCourse.courseNumber } });
@@ -61,8 +65,9 @@ export class CoursesComponent implements OnInit {
   ngOnInit() {
     this.courseService.waitForCourses().then(() => {
       this.courseService.getCourseNames().forEach(courseName => {
-        const map = this.courseService.getCoursesMap();
-        this.allCourses.push(map[courseName]);
+        this.coursesMap = this.courseService.getCoursesMap();
+        this.allCourses.push(this.coursesMap[courseName]);
+        this.courseNames.push(courseName);
       });
       this._sortCourses();
       this.isLoaded = true;
