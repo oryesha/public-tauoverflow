@@ -2,33 +2,41 @@
   <h2 mat-header-row class="ResultHeader">{{results.length}} Result{{results.length == 1 ? '' : 's'}}</h2>
   <mat-divider></mat-divider>
   <mat-list>
-      <mat-list-item class="ListItem" *ngFor="let result of results">
-        <mat-divider></mat-divider>
-        <div class="IconDetails">
-          <mat-icon matListIcon class="IconDetails">check_circle</mat-icon>
-          <div class="IconText">
-            <!-- TODO: Check what is this supposed to be? -->
-            <div class="IconRes">{{result.answers?.length}}</div>
-            <div class="IconExp">answers</div>
+    <mat-list-item class="ListItem" *ngFor="let result of results">
+      <mat-divider></mat-divider>
+      <div class="ResultHeaderContent">
+        <div class="QuestionHeaderAndContent">
+          <button mat-button matLine class="ResTitleButton"
+                  (click)="navigateToQuestionPage(result)">{{result.subject}}
+          </button>
+          <div class="ResContent">{{result.content}}</div>
+        </div>
+        <div class="QuestionDetailsContainer">
+          <div class="QuestionStatsContainer">
+            <div class="IconDetails">
+              <mat-icon matTooltip="Answers" matListIcon class="IconDetails">check_circle</mat-icon>
+              <div class="IconText">{{result.answers?.length}}</div>
+              <!--<div class="IconText">-->
+                <!--&lt;!&ndash; TODO: Check what is this supposed to be? &ndash;&gt;-->
+                <!--<div class="IconRes">{{result.answers?.length}}</div>-->
+                <!--<div class="IconExp">answers</div>-->
+              <!--</div>-->
+            </div>
+            <div class="IconDetails">
+              <mat-icon matTooltip="Votes" matListIcon class="IconDetails">thumb_up</mat-icon>
+              <span class="IconText">{{result.upvote?.count}}</span>
+              <!--<div class="IconText">-->
+                <!--<div class="IconRes">{{result.upvote?.count}}</div>-->
+                <!--<div class="IconExp">votes</div>-->
+              <!--</div>-->
+            </div>
+          </div>
+          <div class="NameAndDate">
+            <!--<div>{{result.owner?.name.first}} {{result.owner?.name.last}}</div>-->
+            <div>{{result.timestamp | date}}</div>
           </div>
         </div>
-        <div class="IconDetails">
-          <mat-icon matListIcon class="IconDetails">thumb_up</mat-icon>
-          <div class="IconText">
-            <div class="IconRes">{{result.upvote?.count}}</div>
-            <div class="IconExp">votes</div>
-          </div>
-        </div>
-        <div class="NameAndDate">
-          <!--<div>{{result.owner?.name.first}} {{result.owner?.name.last}}</div>-->
-          <div>{{result.timestamp | date}}</div>
-        </div>
-        <button mat-button matLine class="ResTitleButton"
-                (click)="navigateToQuestionPage(result)">{{result.subject}}
-        </button>
-        <p matLine>
-          <span class="ResContent"> {{result.content}} </span>
-        </p>
-      </mat-list-item>
+      </div>
+    </mat-list-item>
   </mat-list>
 </div>
