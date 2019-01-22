@@ -21,7 +21,7 @@ getCourseId = async function (ids) {
 getQueryRegex = function (query) {
   const reg = query.replace(' ', '.*');
   return reg;
-}
+};
 
 
 getCourseNumbersFromList = function(list) {

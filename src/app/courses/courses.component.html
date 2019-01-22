@@ -52,7 +52,8 @@
     <app-autocomplete [isRequired]="false"
                       [isCourseSearch]="true"
                       class="AutocompleteCourses"
-                      [options]="courses"
+                      [options]="courseNames"
+                      (optionSelected)="navigateToCoursePage($event)"
                       [placeholder]="'Search a course...'">
     </app-autocomplete>
   </div>

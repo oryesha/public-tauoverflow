@@ -5,13 +5,19 @@
   <div class="Page" *ngIf="isLoaded">
     <mat-tab-group class="Tabs">
       <mat-tab label="My Questions">
-        <mat-list-item class="ListItem" *ngFor="let question of userDetails.myQuestions">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
-          <span mat-line class="VotesAndAnswers">
+        <app-empty-state
+          [emptyStateMessage]="'You didn\'t ask any questions...'"
+          *ngIf="userDetails.myQuestions.length == 0"></app-empty-state>
+        <ng-container *ngIf="userDetails.myQuestions.length > 0">
+          <mat-list-item class="ListItem" *ngFor="let question of userDetails.myQuestions">
+            <button mat-flat-button mat-line class="mat-h4 QuestionTitle"
+                    (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
+            <span mat-line class="VotesAndAnswers">
             <span>votes: {{question.upvote.count}}</span>
             <span>answers: {{question.answers.length}}</span>
           </span>
-        </mat-list-item>
+          </mat-list-item>
+        </ng-container>
       </mat-tab>
       <mat-tab label="My Posts">
         <div mat-subheader class="Subheader" *ngIf="userDetails.myPartnerPosts.length != 0">Find a Partner</div>
@@ -66,13 +72,18 @@
         </mat-accordion>
       </mat-tab>
       <mat-tab label="Favorites">
-        <mat-list-item class="ListItem" *ngFor="let question of userDetails.favorites">
-          <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
-          <span mat-line class="VotesAndAnswers">
+        <app-empty-state
+          [emptyStateMessage]="'You didn\'t choose favorite questions...'"
+          *ngIf="userDetails.favorites.length == 0"></app-empty-state>
+        <ng-container *ngIf="userDetails.favorites.length > 0">
+          <mat-list-item class="ListItem" *ngFor="let question of userDetails.favorites">
+            <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
+            <span mat-line class="VotesAndAnswers">
             <span>votes: {{question.upvote.count}}</span>
             <span>answers: {{question.answers.length}}</span>
           </span>
-        </mat-list-item>
+          </mat-list-item>
+        </ng-container>
       </mat-tab>
     </mat-tab-group>
   </div>

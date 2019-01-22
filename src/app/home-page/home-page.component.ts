@@ -69,9 +69,9 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
   }
 
-  showResults(event: Question[]) {
+  showResults(questions: Question[]) {
     this.showQuerySpinner = false;
-    this.queryResults = event;
+    this.queryResults = questions;
   }
 
   async openCoursesDialog() {
