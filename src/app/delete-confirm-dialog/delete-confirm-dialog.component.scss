@@ -1,0 +1,39 @@
+@import "~@angular/material/theming";
+
+.DeleteDialogContent .mat-form-field.mat-focused /deep/ .mat-form-field-ripple {
+  background: mat-color($mat-deep-orange, 200);
+}
+
+.DeleteDialogContent {
+  //color: mat-color($mat-gray, 500);
+}
+
+.DeleteDialogTitle {
+  color: mat-color($mat-gray, 700);
+}
+
+.DeleteDialogDoneButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.DeleteButton {
+  background: mat-color($mat-gray, 500);
+  color: mat-color($mat-gray, 800);
+  text-transform: uppercase;
+}
+
+.FirstHeader {
+  margin: 0;
+}
+
+.SmallDialogHeader {
+  color: mat-color($mat-gray, 500);
+  font-size: 14px;
+  margin: 16px 0 0;
+}
+
+.DeleteDialogContent /deep/ .mat-form-field-appearance-outline {
+  background: white;
+  border-radius: 6px;
+}
