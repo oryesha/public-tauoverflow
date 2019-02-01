@@ -73,6 +73,7 @@ import { NotificationDialogComponent } from './notification-dialog/notification-
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { CopyToClipboardComponent } from './copy-to-clipboard/copy-to-clipboard.component';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
+import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-confirm-dialog.component';
 
 
 @NgModule({
@@ -106,6 +107,7 @@ import { EmptyStateComponent } from './empty-state/empty-state.component';
     FileUploaderComponent,
     CopyToClipboardComponent,
     EmptyStateComponent,
+    DeleteConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -158,6 +160,7 @@ import { EmptyStateComponent } from './empty-state/empty-state.component';
   bootstrap: [AppComponent],
   entryComponents: [
     FilterDialogComponent,
+    DeleteConfirmDialogComponent,
     InitialDetailsDialogComponent,
     NotificationDialogComponent
   ]

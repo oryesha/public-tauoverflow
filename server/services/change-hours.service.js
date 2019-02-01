@@ -36,3 +36,15 @@ exports.createChangeHoursPost = async function(post){
     throw Error("Error while Creating Change Hour Post")
   }
 };
+
+exports.deleteChangeHoursPost = async function(id){
+  try{
+    let deleted = await Post.deleteOne({_id: id});
+    if(deleted.n === 0){
+      throw Error("post Could not be deleted")
+    }
+    return deleted
+  }catch(e){
+    throw Error("Error Occured while Deleting the post")
+  }
+};
