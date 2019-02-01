@@ -37,5 +37,17 @@ exports.createPartnerPost = async function(partnerPost){
   }
 };
 
+exports.deletePartnerPost = async function(id){
+  try{
+    let deleted = await PartnerPost.deleteOne({_id: id});
+    if(deleted.n === 0){
+      throw Error("post Could not be deleted")
+    }
+    return deleted
+  }catch(e){
+    throw Error("Error Occured while Deleting the post")
+  }
+};
+
 
 
