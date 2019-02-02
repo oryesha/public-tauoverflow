@@ -1,5 +1,6 @@
 import {Component, OnInit, Inject, ViewChild} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA, MatButton} from '@angular/material';
+import {Notification} from '../services/answer.service';
 
 @Component({
   selector: 'app-notification-dialog',
@@ -8,7 +9,7 @@ import {MatDialogRef, MAT_DIALOG_DATA, MatButton} from '@angular/material';
 })
 export class NotificationDialogComponent implements OnInit {
   title: string;
-  notifications: string[] = [];
+  notifications: Notification[] = [];
   constructor(
     private dialogRef: MatDialogRef<NotificationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
