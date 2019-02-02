@@ -1,12 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {MessagingService} from '../services/messaging.service';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {NotificationDialogComponent} from '../notification-dialog/notification-dialog.component';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService} from '../app-routing-data.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-nav-bar',
@@ -20,6 +21,7 @@ export class NavBarComponent implements OnInit {
               private routingDataService: AppRoutingDataService,
               private userService: UserService,
               private messagingService: MessagingService,
+              private snackBar: MatSnackBar,
               private dialog: MatDialog) { }
   messageSource = [];
   notifications;
@@ -30,6 +32,12 @@ export class NavBarComponent implements OnInit {
       this.messageSource.push(value.notification);
     }
   });
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required])
+  });
+  @Output() loginAttempt = new EventEmitter();
+
 
   ngOnInit() {
   }
@@ -53,5 +61,15 @@ export class NavBarComponent implements OnInit {
     this.userService.getUser().then((user) => {
       this.router.navigate(['user-profile'], {queryParams: {id: user.firebaseToken}});
     });
+  }
+
+  login() {
+    if (!this.loginForm.valid) {
+      this.snackBar.open('Please enter valid credentials', '', {
+        duration: 2000 // Prompt the toast 2 seconds.
+      });
+      return;
+    }
+    this.loginAttempt.emit(this.loginForm.value);
   }
 }
