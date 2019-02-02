@@ -34,6 +34,26 @@
   margin-bottom: 5px;
 }
 
+.Button {
+  height: 24px;
+  line-height: 24px;
+  width: 24px;
+}
+
+.AddCourseIcon {
+  color: mat-color($mat-gray, 700);
+  font-size: 20px;
+  vertical-align: center;
+  //margin-left: 2px;
+  //margin-right: 2px;
+}
+
+.RemoveCourseIcon {
+  color: mat-color($mat-gray, 500);
+  font-size: 20px;
+  vertical-align: center;
+}
+
 .SmallStar {
   color: mat-color($mat-teal, 400);
   justify-content: center;
@@ -59,6 +79,7 @@
   background: mat-color($mat-gray, 400);
   color: mat-color($mat-gray, 600);
   margin: 4px;
+  max-height: 32px;
 }
 
 .Tabs {

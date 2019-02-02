@@ -1,0 +1,10 @@
+<div class="DeleteDialog">
+  <h1 mat-dialog-title class="DeleteDialogTitle">{{title}}</h1>
+  <mat-dialog-content class="DeleteDialogContent">
+    <p [innerHTML]="text"></p>
+  </mat-dialog-content>
+  <mat-dialog-actions class="DeleteDialogDoneButtonContainer">
+    <button mat-raised-button class="DeleteButton" (click)="cancel()">Cancel</button>
+    <button mat-raised-button class="DeleteButton" (click)="delete()" color="primary">Delete</button>
+  </mat-dialog-actions>
+</div>
