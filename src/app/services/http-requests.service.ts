@@ -28,6 +28,11 @@ export class HttpRequestsService {
     return this.http.post(this._baseUrl + path, model);
   }
 
+  delete(path: string, id: string): Observable<any> {
+    path += ('/' + id);
+    return this.http.delete(this._baseUrl + path);
+  }
+
   get(path: string, reqQuery?: QueryParams[], params?: string[]): Observable<any> {
     const queryParams = {};
     let pathAndParams = path;

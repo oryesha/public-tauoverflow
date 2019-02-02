@@ -13,4 +13,8 @@ export class PartnerPostService {
   createPartnerPost(partnerPost: PartnerPost): Observable<any> {
     return this.httpRequest.post('/partner-posts', partnerPost);
   }
+  deletePartnerPost(dbId: string, isPartnerPost: boolean) {
+    const path = isPartnerPost ? '/partner-posts' : '/change-hours';
+    return this.httpRequest.delete(path , dbId);
+  }
 }

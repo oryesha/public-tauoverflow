@@ -27,3 +27,13 @@ exports.createPost = async function(req,res){
     return res.status(400).json({status: 400, message: "Change Hours Post Creation was Unsuccesfull"})
   }
 };
+
+exports.deleteChangeHoursPost = async function(req,res) {
+  let id = req.params.id;
+  try {
+    let deleted = await ChangeHoursService.deleteChangeHoursPost(id);
+    return res.status(200).json({status: 200, message: "Succesfully Deleted Post"})
+  } catch (e) {
+    return res.status(400).json({status: 400, message: e.message})
+  }
+}

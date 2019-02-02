@@ -32,6 +32,9 @@
                   <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
                     <span>{{partner.subject}}</span>
                   </span>
+                  <span>
+                    <mat-icon [inline]="true" (click)="tryDeletePost(partner, true)" class="DeleteIcon">delete</mat-icon>
+                  </span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div [innerHtml]="partner.content"></div>
@@ -47,6 +50,9 @@
                 <mat-panel-title>
                   <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
                     <span>{{hour.subject}}</span>
+                  </span>
+                  <span>
+                    <mat-icon [inline]="true" (click)="tryDeletePost(hour, false)" class="DeleteIcon">delete</mat-icon>
                   </span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
