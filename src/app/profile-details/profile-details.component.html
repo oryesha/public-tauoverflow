@@ -19,7 +19,7 @@
         Skills:
         <mat-chip-list>
           <mat-chip class="Chip" *ngFor="let skill of userDetails.skills" (click)="navigateToCoursePage(skill)">{{skill.name}}</mat-chip>
-          <mat-chip class="Chip">+</mat-chip>
+          <mat-chip class="Chip" (click)="addSkill">+</mat-chip>
         </mat-chip-list>
       </div>
     </ng-container>

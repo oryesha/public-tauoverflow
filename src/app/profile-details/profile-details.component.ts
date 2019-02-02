@@ -53,4 +53,8 @@ export class ProfileDetailsComponent implements OnInit {
     this.routingDataService.setRoutingData(course.courseNumber, courseData);
     this.router.navigate(['/course-page'], { queryParams: { courseId: course.courseNumber } });
   }
+
+  addSkill() {
+
+  }
 }
