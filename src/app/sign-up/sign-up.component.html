@@ -1,5 +1,5 @@
 <div class="SignUpPage">
-  <app-nav-bar [isSignUp]="true"></app-nav-bar>
+  <app-nav-bar [isSignUp]="true" (loginAttempt)="tryLogin($event)"></app-nav-bar>
   <mat-card class="SignUpCard">
     <mat-card-header class="SignUpHeader">
       <mat-card-title class="SignUpTitle">
@@ -32,7 +32,8 @@
         </mat-form-field>
         <mat-form-field appearance="fill" class="LongField Field">
           <mat-label>Password</mat-label>
-          <input matInput placeholder="" required [type]="'password'" formControlName="password">
+          <input matInput placeholder="" required [type]="hidePassword ? 'password' : 'text'"
+                 formControlName="password">
           <mat-icon class="HideIcon" matSuffix (click)="hidePassword = !hidePassword">
             {{hidePassword ? 'visibility_off' : 'visibility'}}
           </mat-icon>
