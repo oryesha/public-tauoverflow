@@ -6,6 +6,7 @@ import {PartnerPost} from './partner-post.model';
 import {CourseReview} from './course-review.model';
 import {ChangeHoursPost} from './change-hours-post.model';
 import {UiUser} from './ui-user.model';
+import {Answer} from './answer.model';
 
 export class UserProfile {
   id: string;
@@ -21,6 +22,7 @@ export class UserProfile {
   skills: UiCourse[] = [];
   favorites: Question[] = [];
   myQuestions: Question[] = [];
+  myAnswers: Answer[] = [];
   myPartnerPosts: PartnerPost[] = [];
   myChangeHoursPosts: ChangeHoursPost[] = [];
   myCourseReviews: CourseReview[] = [];
@@ -29,7 +31,7 @@ export class UserProfile {
 
   static deserialize(user: any): UserProfile {
     const userProfile = new UserProfile(user.firebaseToken, user.firstName, user.lastName, user.email,
-      false, user._id, user.program, user.rank, user.image, user.asked, user.answered, user.description);
+      false, user._id, user.program, user.rank, user.image, user.myQuestions.length, user.myAnswers.length, user.description);
     user.skills.forEach((dbSkill) => {
       userProfile.skills.push(new UiCourse(dbSkill._id, dbSkill.name, dbSkill.courseNumber));
     });

@@ -49,9 +49,9 @@ export class NavBarComponent implements OnInit {
       });
   }
 
-  navigateToUserPage() {
-    this.userService.getUser().then((user) => {
-      this.router.navigate(['user-profile'], {queryParams: {id: user.firebaseToken}});
+  navigateToPage(page) {
+    this.userService.getUser(true).then((user) => {
+      this.router.navigate([page], {queryParams: {id: user.firebaseToken}});
     });
   }
 }

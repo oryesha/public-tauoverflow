@@ -1,3 +1,4 @@
+let ProfileRank = require('../services/profileRank');
 let User = require('../models/user-profile.model');
 let ServiceHelper = require('../services/serviceHelper');
 
@@ -22,10 +23,13 @@ exports.getUser = async function(userToken) {
         path: 'skills myCourses',
         populate: {path: 'questions reviews partnerPosts changeHours'}
       }).populate({
-        path: 'favorites myQuestions',
+        path: 'favorites myQuestions myAnswers',
         populate: {path: 'owner relatedCourses answers upvote.upvoters',
         populate: { path: 'owner upvote.upvoters' }}
       }).exec();
+    const rank = Math.round(ProfileRank.calcUserRank(user));
+    user.rank = rank;
+    await user.save();
     return user;
   }
   catch (e) {
@@ -42,8 +46,8 @@ exports.createNewUser = async function(user){
     email: user.email,
     rank: 0,
     image: user.image,
-    asked: 0,
-    answered: 0,
+    // asked: 0,
+    // answered: 0,
     description: user.description,
     skills: user.skills,
   });
@@ -98,13 +102,14 @@ exports.updateUser = async function(user){
   oldUser.program = user.program;
   oldUser.rank = user.rank;
   oldUser.email = user.email;
-  oldUser.asked = user.asked;
-  oldUser.answered = user.answered;
+  // oldUser.asked = user.asked;
+  // oldUser.answered = user.answered;
   oldUser.image = user.image;
   oldUser.description = user.description;
   ServiceHelper.updateList(oldUser.skills, user.skills);
   ServiceHelper.updateList(oldUser.favorites, user.favorites);
   ServiceHelper.updateList(oldUser.myQuestions, user.myQuestions);
+  ServiceHelper.updateList(oldUser.myAnswers, user.myAnswers);
   ServiceHelper.updateList(oldUser.myPartnerPosts, user.myPartnerPosts);
   ServiceHelper.updateList(oldUser.myChangeHoursPosts, user.myChangeHoursPosts);
   ServiceHelper.updateList(oldUser.myCourseReviews, user.myCourseReviews);
