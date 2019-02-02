@@ -12,11 +12,12 @@
     <button mat-raised-button class="Button RaisedButton" color="primary" routerLink="/home-page">Log in</button>
   </div>
   <div class="Content" *ngIf="!isSignUp">
-    <button mat-icon-button class="Icon">
+    <!--<button mat-icon-button class="Icon">-->
     <!-- TODO: When notifications are fully implemented, add this. IMPORTANT: Don't show 0 notifications. -->
-    <!--<button mat-icon-button class="Icon" (click)="resetNotification()">-->
-      <!--<mat-icon matBadge={{messageSource.length}}>notifications_active</mat-icon>-->
-      <mat-icon>notifications_active</mat-icon>
+    <button mat-icon-button class="Icon" (click)="resetNotification()">
+
+      <mat-icon *ngIf="messageSource.length > 0" matBadge={{messageSource.length}}>notifications_active</mat-icon>
+      <mat-icon *ngIf="messageSource.length === 0">notifications_active</mat-icon>
     </button>
     <!--<button mat-button class="Button" routerLink='/user-profile'>Courses</button>-->
     <button mat-button class="Button" (click)="navigateToUserPage()">My Profile</button>
