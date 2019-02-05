@@ -8,7 +8,7 @@ import {NotificationDialogComponent} from '../notification-dialog/notification-d
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService} from '../app-routing-data.service';
-import {Notification} from '../services/answer.service';
+import {Message} from '../services/answer.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
