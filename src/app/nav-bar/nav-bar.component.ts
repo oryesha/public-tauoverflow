@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {MessagingService} from '../services/messaging.service';
@@ -7,14 +8,16 @@ import {NotificationDialogComponent} from '../notification-dialog/notification-d
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService} from '../app-routing-data.service';
+import {Notification} from '../services/answer.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnDestroy, OnInit  {
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -27,10 +30,9 @@ export class NavBarComponent implements OnInit {
   notifications;
   @Input() isSignUp: boolean;
   @Input() user: UserProfile;
+
   tmp = this.messagingService.getTheMessage().subscribe(value => {
-    if (value !== '') {
-      this.messageSource.push(value.notification);
-    }
+    this.messageSource = this.messagingService.messages;
   });
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -41,7 +43,9 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  ngOnDestroy() {
+    this.tmp.unsubscribe();
+  }
   logout() {
     this.authService.doLogout().then( () => this.router.navigate(['']));
   }
