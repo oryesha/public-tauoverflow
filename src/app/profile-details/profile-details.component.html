@@ -5,15 +5,18 @@
     <h2 class="mat-h2 UserName" *ngIf="isProfilePage">{{userDetails.name.first}} {{userDetails.name.last}}</h2>
     <div class="mat-body-2 Program" *ngIf="userDetails.program">{{userDetails.program}}</div>
     <img *ngIf="!userDetails.image" src="{{defaultImage}}"
-         class="CardProfileImage">
+         class="CardProfileImage {{isDetailsDialog ? 'DetailsDialogImage' : ''}}">
     <img *ngIf="userDetails.image" src="data:image/png;base64,{{userDetails.image}}"
-         class="CardProfileImage">
+         class="CardProfileImage {{isDetailsDialog ? 'DetailsDialogImage' : ''}}">
     <!--<div class="UserRank">-->
       <!--<mat-icon>child_care</mat-icon>{{userDetails.rank}}-->
     <!--</div>-->
-    <ng-container *ngIf="isProfilePage">
+    <ng-container *ngIf="isProfilePage || isDetailsDialog">
       <div class="mat-body About">
         <div>{{userDetails.description}}</div>
+      </div>
+      <div class="mat-body About" *ngIf="isDetailsDialog">
+        <app-copy-to-clipboard [email]="userDetails.email"></app-copy-to-clipboard>
       </div>
       <div class="mat-body Skills">
         Skills:

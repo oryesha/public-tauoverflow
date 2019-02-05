@@ -13,6 +13,7 @@ import {MatListModule} from '@angular/material';
 import {MatChipsModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatMenuModule} from '@angular/material/menu';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import {HttpClientModule} from '@angular/common/http';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -74,6 +75,8 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { CopyToClipboardComponent } from './copy-to-clipboard/copy-to-clipboard.component';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
 import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-confirm-dialog.component';
+import { ProfileDetailsDialogComponent } from './profile-details-dialog/profile-details-dialog.component';
+import { ClickableProfilePictureComponent } from './clickable-profile-picture/clickable-profile-picture.component';
 
 
 @NgModule({
@@ -108,6 +111,8 @@ import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-con
     CopyToClipboardComponent,
     EmptyStateComponent,
     DeleteConfirmDialogComponent,
+    ProfileDetailsDialogComponent,
+    ClickableProfilePictureComponent,
   ],
   imports: [
     BrowserModule,
@@ -141,6 +146,7 @@ import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-con
     AngularFireDatabaseModule,
     MatBadgeModule,
     ClipboardModule,
+    MatMenuModule,
   ],
   providers: [
     QuestionService,
@@ -162,7 +168,8 @@ import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-con
     FilterDialogComponent,
     DeleteConfirmDialogComponent,
     InitialDetailsDialogComponent,
-    NotificationDialogComponent
+    NotificationDialogComponent,
+    ProfileDetailsDialogComponent
   ]
 })
 export class AppModule {
