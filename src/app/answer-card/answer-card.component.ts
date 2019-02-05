@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Answer} from '../models/answer.model';
 import {AnswerService} from '../services/answer.service';
-import {UserProfile} from '../models/user-profile.model';
 import {UserService} from '../services/user.service';
 
 @Component({
@@ -12,10 +11,11 @@ import {UserService} from '../services/user.service';
 export class AnswerCardComponent implements OnInit {
   @Input() answer: Answer;
   @Input() isEvenAnswer: boolean;
-  defaultImage = '../../assets/avatar.png';
+  @Input() isUserOwner: boolean;
 
   constructor(private answerService: AnswerService,
-              private userService: UserService) { }
+              private userService: UserService) {
+  }
 
   upvote() {
     this.userService.getUser().then((user) => {
