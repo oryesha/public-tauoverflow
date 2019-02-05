@@ -1,15 +1,13 @@
-
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, ComponentFactoryResolver, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {MessagingService} from '../services/messaging.service';
-import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
-import {NotificationDialogComponent} from '../notification-dialog/notification-dialog.component';
+import {MatButton, MatDialog, MatSnackBar} from '@angular/material';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService} from '../app-routing-data.service';
-import {Message} from '../services/answer.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {NotificationsCardComponent} from '../notifications-card/notifications-card.component';
 
 
 @Component({
@@ -18,6 +16,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnDestroy, OnInit  {
+  @ViewChild('notificationsButton') notificationsButton: MatButton;
+  @ViewChild('notificationsCard') notificationsCard: NotificationsCardComponent;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -25,9 +25,12 @@ export class NavBarComponent implements OnDestroy, OnInit  {
               private userService: UserService,
               private messagingService: MessagingService,
               private snackBar: MatSnackBar,
+              private componentFactoryResolver: ComponentFactoryResolver,
               private dialog: MatDialog) { }
+
   messageSource = [];
   notifications;
+  showNotifications: boolean;
   @Input() isSignUp: boolean;
   @Input() user: UserProfile;
 
@@ -40,25 +43,27 @@ export class NavBarComponent implements OnDestroy, OnInit  {
   });
   @Output() loginAttempt = new EventEmitter();
 
-
   ngOnInit() {
   }
+
   ngOnDestroy() {
     this.tmp.unsubscribe();
   }
+
   logout() {
     this.authService.doLogout().then( () => this.router.navigate(['']));
   }
 
   resetNotification() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '500px';
-    dialogConfig.data = {title: 'Notification information', notifications: this.messageSource};
-    this.dialog.open(NotificationDialogComponent, dialogConfig).afterClosed().subscribe(
-      result => {
-        this.messageSource = [];
-        this.messagingService.resetMessage();
-      });
+    this._openNotifications();
+    // const dialogConfig = new MatDialogConfig();
+    // dialogConfig.width = '500px';
+    // dialogConfig.data = {title: 'Notification information', notifications: this.messageSource};
+    // this.dialog.open(NotificationDialogComponent, dialogConfig).afterClosed().subscribe(
+    //   result => {
+    //     this.messageSource = [];
+    //     this.messagingService.resetMessage();
+    //   });
   }
 
   navigateToPage(page) {
@@ -75,5 +80,12 @@ export class NavBarComponent implements OnDestroy, OnInit  {
       return;
     }
     this.loginAttempt.emit(this.loginForm.value);
+  }
+
+  private _openNotifications() {
+    // const factory = this.componentFactoryResolver.resolveComponentFactory(NotificationsCardComponent);
+    // const viewContainerRef = this.notificationsCard.viewContainerRef;
+    // viewContainerRef.clear();
+    // viewContainerRef.createComponent(factory);
   }
 }
