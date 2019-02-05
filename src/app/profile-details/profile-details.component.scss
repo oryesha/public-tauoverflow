@@ -29,6 +29,7 @@ $icon-small-size: 50px;
 }
 
 .UserName {
+  text-align: center;
   font-weight: 500;
   margin-bottom: 0;
   padding: 10px;
@@ -64,4 +65,15 @@ $icon-small-size: 50px;
 
 .RankIcon {
   font-size: 28px;
+}
+
+.DetailsDialogImage {
+  height: 80px;
+  padding: 6px;
+  width: 80px;
+}
+
+.DetailsDialogClass {
+  margin: 0;
+  max-width: 240px;
 }

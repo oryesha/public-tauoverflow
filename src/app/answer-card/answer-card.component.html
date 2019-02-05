@@ -1,9 +1,6 @@
-<div class="AnswerCard">
+<div class="AnswerCard" *ngIf="answer">
   <div class="UserPicture">
-    <img *ngIf="!answer.owner.image" src="{{defaultImage}}"
-         class="CardProfileImage">
-    <img *ngIf="answer.owner.image" src="data:image/png;base64,{{answer.owner.image}}"
-         class="CardProfileImage">
+    <app-clickable-profile-picture [isUserOwner]="isUserOwner" [owner]="answer.owner"></app-clickable-profile-picture>
     <div>{{answer.owner.name.first}} {{answer.owner.name.last}}</div>
   </div>
   <mat-card class="{{isEvenAnswer ? 'EvenPostCard' : 'OddPostCard'}} mat-card">
