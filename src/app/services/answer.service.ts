@@ -9,25 +9,26 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import {UserProfile} from '../models/user-profile.model';
 import {UiCourse} from '../models/ui-course.model';
+import {Notification} from '../models/notification.model';
 
-export class Notification {
+export class Message {
   title: string;
   user: string;
-  relatedCourses: UiCourse[];
+  // relatedCourses: UiCourse[];
   link: string;
-  constructor(title, user, relatedCourses, link) {
+  constructor(title, user, link) {
     this.title = title;
     this.link = link;
     this.user = user;
-    this.relatedCourses = relatedCourses;
+    // this.relatedCourses = relatedCourses;
   }
 }
 
-export class NotificationWrapper {
-  notification: Notification;
+export class MessageWrapper {
+  message: Message;
   to: string;
-  constructor(notification, to) {
-    this.notification = notification;
+  constructor(message, to) {
+    this.message = message;
     this.to = to;
   }
 }
@@ -62,11 +63,16 @@ export class AnswerService {
         const questionOwnerToken = list[firebaseToken];
         const headers = new HttpHeaders().set('Authorization', 'key=AAAAc9A8WeQ:APA91bEs459-ePMYaPJjllo7HtqDguA2Og' +
           '-vTkrSZM8BvDTxYfBmZ3iBhs6G5MXLQfisQQzOckxyHQZv8-MQ_D5QURI9C_xo4-NMsAQkLQBn5P7FiWD2-BAQsznVrfZ-A20ewuvBIAHk');
-        const notification = new Notification(questionName , userName, relatedCourses, questionPath);
-        const data = new NotificationWrapper(notification, questionOwnerToken);
+        const message = new Message(questionName , userName, questionPath);
+        const data = new MessageWrapper(message, questionOwnerToken);
+        // send notification to user
         this.http.post(url, data, {headers: headers}).subscribe((res: any) => {
           // console.log(res);
         });
+        // add notification to db
+        const notification = new Notification(questionName, userName, null, true, questionPath);
+        const path = ('notifications/' + firebaseToken);
+        this.httpRequest.post(path, notification);
       });
   }
 }

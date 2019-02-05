@@ -6,12 +6,14 @@ import { mergeMapTo } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {UserService} from './user.service';
-import {Notification} from './answer.service';
+import {Message} from './answer.service';
+import {Notification} from '../models/notification.model';
 
 @Injectable()
 export class MessagingService {
   userId;
   messages = [];
+  notifications: Notification[] = [];
   currentMessage = new BehaviorSubject(<any> '');
   constructor(
     private userService: UserService,
@@ -71,13 +73,16 @@ export class MessagingService {
   receiveMessage() {
     this.angularFireMessaging.messages.subscribe(
       (payload: any) => {
-        console.log('new message received. ', payload);
+        // console.log('new message received. ', payload);
         this.currentMessage.next(payload.valueOf());
         const value = payload.valueOf();
-            this.messages.push(new Notification(value.notification.title, value.data['gcm.notification.user'],
-              JSON.parse(value.data['gcm.notification.relatedCourses']), value.data['gcm.notification.link']));
+        // this.messages.push(new Message(value.notification.title, value.data['gcm.notification.user'],
+        //   JSON.parse(value.data['gcm.notification.relatedCourses']), value.data['gcm.notification.link']));
+        this.messages.push(new Message(value.notification.title, value.data['gcm.notification.user'],
+          value.data['gcm.notification.link']));
       });
   }
+
   resetMessage() {
     this.currentMessage.next('');
     this.messages = [];

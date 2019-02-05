@@ -20,6 +20,7 @@ export class ProfileDetailsComponent implements OnInit {
   @Input() userToDisplay: UserProfile;
   isLoaded = false;
   userDetails: UserProfile;
+  rankTitle: string;
   defaultImage = '../../assets/avatar.png';
 
   constructor(private appService: AppService,
@@ -37,11 +38,13 @@ export class ProfileDetailsComponent implements OnInit {
     if (routingData) {
       this.userDetails = routingData.getData();
       this.isLoaded = true;
+      this.getRankTitle();
     } else {
       this.userService.getUser()
         .then((user: UserProfile) => {
           this.userDetails = user;
           this.isLoaded = true;
+          this.getRankTitle();
         });
     }
   }
@@ -54,5 +57,20 @@ export class ProfileDetailsComponent implements OnInit {
 
   addSkill() {
 
+  }
+
+  getRankTitle() {
+    const rank = this.userDetails.rank;
+    if (rank < 100) {
+      this.rankTitle = 'babys-room';
+    } else if (rank < 500) {
+      this.rankTitle = 'lego-head';
+    } else if (rank < 700) {
+      this.rankTitle = 'bot';
+    } else if (rank < 1000) {
+      this.rankTitle = 'rocket';
+    } else {
+      this.rankTitle = 'iron-man';
+    }
   }
 }

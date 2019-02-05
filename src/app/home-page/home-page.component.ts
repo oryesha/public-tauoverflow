@@ -51,7 +51,7 @@ export class HomePageComponent implements OnInit {
       }
     } else {
       this.userService.getUser().then((user) => {
-        this.user = UserProfile.deserialize(user);
+        // this.user = UserProfile.deserialize(user);
         this._getNotificationFromService(user);
       });
     }

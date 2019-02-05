@@ -8,7 +8,7 @@ import {NotificationDialogComponent} from '../notification-dialog/notification-d
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService} from '../app-routing-data.service';
-import {Notification} from '../services/answer.service';
+import {Message} from '../services/answer.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
@@ -61,9 +61,9 @@ export class NavBarComponent implements OnDestroy, OnInit  {
       });
   }
 
-  navigateToUserPage() {
-    this.userService.getUser().then((user) => {
-      this.router.navigate(['user-profile'], {queryParams: {id: user.firebaseToken}});
+  navigateToPage(page) {
+    this.userService.getUser(true).then((user) => {
+      this.router.navigate([page], {queryParams: {id: user.firebaseToken}});
     });
   }
 

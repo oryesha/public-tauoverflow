@@ -26,7 +26,8 @@ exports.createAnswer = async function (answer) {
   try {
     let savedAnswer = await newAnswer.save();
     const user = await UserProfile.findById(newAnswer.owner);
-    user.answered += 1;
+    //user.answered += 1;
+    user.myAnswers.push(savedAnswer._id);
     user.save();
     const question = await Question.findById(newAnswer.questionId);
     question.answers.push(savedAnswer._id);
@@ -65,8 +66,8 @@ exports.updateAnswer = async function (answer) {
 
 exports.deleteAnswer = async function (id) {
   try {
-    let deleted = await Answer.remove({_id: id});
-    if (deleted.result.n === 0) {
+    let deleted = await Answer.deleteOne({_id: id});
+    if (deleted.n === 0) {
       throw Error("answer Could not be deleted")
     }
     return deleted

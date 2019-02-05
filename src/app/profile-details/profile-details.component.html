@@ -8,9 +8,10 @@
          class="CardProfileImage {{isDetailsDialog ? 'DetailsDialogImage' : ''}}">
     <img *ngIf="userDetails.image" src="data:image/png;base64,{{userDetails.image}}"
          class="CardProfileImage {{isDetailsDialog ? 'DetailsDialogImage' : ''}}">
-    <!--<div class="UserRank">-->
-      <!--<mat-icon>child_care</mat-icon>{{userDetails.rank}}-->
-    <!--</div>-->
+    <div class="UserRank">
+      <img class="RankIcon" src="https://img.icons8.com/wired/36/424242/{{rankTitle}}.png">
+      {{userDetails.rank}}
+    </div>
     <ng-container *ngIf="isProfilePage || isDetailsDialog">
       <div class="mat-body About">
         <div>{{userDetails.description}}</div>
