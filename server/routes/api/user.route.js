@@ -9,5 +9,6 @@ router.get('/:id', UserController.getUser);
 router.post('/',UserController.createNewUser);
 router.put('/', UserController.updateUser);
 router.put('/update-favorite', UserController.updateFavorites);
+router.put('/update-my-courses', UserController.updateMyCourses);
 
 module.exports = router;

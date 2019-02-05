@@ -81,6 +81,27 @@ exports.updateFavorites = async function(userId, questionId) {
   }
 };
 
+exports.updateMyCourses = async function(userId, courseId) {
+  let user;
+  try {
+    user = await User.findById(userId);
+  } catch (e) {
+    throw Error('Couldn\'t find user');
+  }
+  const index = user.myCourses.indexOf(courseId);
+  if (index === -1) {
+    user.myCourses.push(courseId);
+  } else {
+    user.myCourses.splice(index, 1);
+  }
+
+  try {
+    return await user.save();
+  } catch (e) {
+    throw Error('Couldn\'t save updated user');
+  }
+};
+
 exports.updateUser = async function(user){
 
   let token = user.firebaseToken;

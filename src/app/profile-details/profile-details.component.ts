@@ -57,6 +57,10 @@ export class ProfileDetailsComponent implements OnInit {
     this.router.navigate(['/course-page'], { queryParams: { courseId: course.courseNumber } });
   }
 
+  addSkill() {
+
+  }
+
   getRankTitle() {
     const rank = this.userDetails.rank;
     if (rank < 100) {

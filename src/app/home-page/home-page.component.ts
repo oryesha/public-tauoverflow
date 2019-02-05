@@ -11,7 +11,7 @@ import {UserService} from '../services/user.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
 import {Question} from '../models/question.model';
 import {MessagingService} from '../services/messaging.service';
-import {BehaviorSubject} from 'rxjs';
+
 
 @Component({
   selector: 'app-home-page',
@@ -58,12 +58,8 @@ export class HomePageComponent implements OnInit {
   }
 
   _getNotificationFromService(user: UserProfile) {
-    console.log(user.firebaseToken);
     const userId = user.firebaseToken;
     this.messagingService.requestPermission(userId);
-    this.messagingService.receiveMessage();
-    this.message = this.messagingService.currentMessage;
-    // console.log(this.message);
   }
 
   ngOnInit() {

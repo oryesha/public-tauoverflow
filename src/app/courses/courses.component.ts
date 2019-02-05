@@ -25,27 +25,7 @@ export class CoursesComponent implements OnInit {
 
   isLoaded = false;
   allCourses: UiCourse[] = [];
-  myMandatoryCourses: Section[] = [
-    {
-      name: 'Algorithms',
-      courseNum: '03682160',
-    },
-    {
-      name: 'Data Structures',
-      courseNum: '03682158',
-    }
-  ];
-
-  myChoiceCourses: Section[] = [
-    {
-      name: 'Intro to NLP',
-      courseNum: '03683235',
-    },
-    {
-      name: 'Intro to Data Science',
-      courseNum: '03683319'
-    }
-  ];
+  myCourses: UiCourse[] = [];
   courseNames: string[] = [];
   coursesMap: UiCoursesMap;
 

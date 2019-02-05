@@ -7,6 +7,7 @@ import {HttpRequestsService, QueryParams} from './http-requests.service';
 import {Observable} from 'rxjs';
 import {HttpResponse} from '@angular/common/http';
 import {Question} from '../models/question.model';
+import {UiCourse} from '../models/ui-course.model';
 
 @Injectable()
 export class UserService {
@@ -53,6 +54,11 @@ export class UserService {
   updateFavorites(user: UserProfile, question: Question): Observable<any> {
     return this.httpRequest.put('/user/update-favorite',
       {userId: user.id, questionId: question.id});
+  }
+
+  updateMyCourses(user: UserProfile, course: UiCourse): Observable<any> {
+    return this.httpRequest.put('/user/update-my-courses',
+      {userId: user.id, courseId: course.id});
   }
 
   getUser(fromServer = false): Promise<UserProfile> {

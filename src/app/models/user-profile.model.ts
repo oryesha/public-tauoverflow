@@ -26,7 +26,7 @@ export class UserProfile {
   myPartnerPosts: PartnerPost[] = [];
   myChangeHoursPosts: ChangeHoursPost[] = [];
   myCourseReviews: CourseReview[] = [];
-  myCourses: Course[] = [];
+  myCourses: UiCourse[] = [];
   isNewUser = true;
 
   static deserialize(user: any): UserProfile {
@@ -54,6 +54,9 @@ export class UserProfile {
     user.myCourseReviews.forEach((dbCourseReview) => {
       const courseReview = CourseReview.deserialize(dbCourseReview);
       userProfile.myCourseReviews.push(courseReview);
+    });
+    user.myCourses.forEach((dbMyCourse) => {
+      userProfile.myCourses.push(new UiCourse(dbMyCourse._id, dbMyCourse.name, dbMyCourse.courseNumber));
     });
     return userProfile;
   }

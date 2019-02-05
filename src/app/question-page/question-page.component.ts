@@ -89,7 +89,8 @@ export class QuestionPageComponent implements OnInit {
       this.user.answered += 1;
       const url = 'http://localhost:4200/question-page?id=';
       this.answerService.notifyAnswer(this.question.owner.firebaseToken,
-        this.question.subject,
+        this.question.subject, this.user.name.first + ' ' + this.user.name.last,
+        this.question.relatedCourses,
         url + this.question.id);
     });
   }
