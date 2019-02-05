@@ -8,6 +8,7 @@ import {Answer} from '../models/answer.model';
 import {AnswerService} from '../services/answer.service';
 import {UserProfile} from '../models/user-profile.model';
 import {UserService} from '../services/user.service';
+import {MessagingService} from '../services/messaging.service';
 
 @Component({
   selector: 'app-question-page',
@@ -30,7 +31,8 @@ export class QuestionPageComponent implements OnInit {
               private questionService: QuestionService,
               private userService: UserService,
               private route: ActivatedRoute,
-              private answerService: AnswerService) {
+              private answerService: AnswerService,
+              private messagingService: MessagingService) {
     this.userService.getUser().then((user: UserProfile) => {
       this.user = user;
       const routingData = routingDataService.getRoutingData('question');
@@ -87,11 +89,10 @@ export class QuestionPageComponent implements OnInit {
     this.answerService.createAnswer(answer).subscribe((response: any) => {
       answer.id = response.data._id;
       this.user.answered += 1;
-      const url = 'http://localhost:4200/question-page?id=';
-      this.answerService.notifyAnswer(this.question.owner.firebaseToken,
+      // const url = 'http://localhost:4200/question-page?id=';
+      this.messagingService.sendMessage(this.question.owner.firebaseToken,
         this.question.subject, this.user.name.first + ' ' + this.user.name.last,
-        this.question.relatedCourses,
-        url + this.question.id);
+        this.question.id, true);
     });
   }
 

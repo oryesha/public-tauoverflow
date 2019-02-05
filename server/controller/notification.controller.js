@@ -19,7 +19,7 @@ exports.addNotification = async function(req,res){
     timestamp: req.body.timestamp,//TimeFormat,
     isAnswer: req.body.isAnswer,
     isSeen: req.body.isSeen,
-    link: req.body.link
+    questionId: req.body.questionId
   };
 
   try{

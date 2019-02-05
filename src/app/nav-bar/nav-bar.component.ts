@@ -8,7 +8,7 @@ import {NotificationDialogComponent} from '../notification-dialog/notification-d
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService} from '../app-routing-data.service';
-import {Message} from '../services/answer.service';
+import {Notification} from '../models/notification.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
@@ -32,7 +32,7 @@ export class NavBarComponent implements OnDestroy, OnInit  {
   @Input() user: UserProfile;
 
   tmp = this.messagingService.getTheMessage().subscribe(value => {
-    this.messageSource = this.messagingService.messages;
+    this.messageSource = this.messagingService.notifications;
   });
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),

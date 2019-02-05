@@ -16,11 +16,12 @@ exports.addNotification = async function(notification){
     timestamp: notification.timestamp,//TimeFormat,
     isAnswer: notification.isAnswer,
     isSeen: notification.isSeen,
-    link: notification.link
+    questionId: notification.questionId
   });
 
   try{
-    await newNotification.save();
+    let savedNotification = await newNotification.save();
+    return savedNotification;
   }catch(e){
     throw Error("Error while adding notification")
   }
