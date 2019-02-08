@@ -77,6 +77,9 @@ import { EmptyStateComponent } from './empty-state/empty-state.component';
 import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-confirm-dialog.component';
 import { ProfileDetailsDialogComponent } from './profile-details-dialog/profile-details-dialog.component';
 import { ClickableProfilePictureComponent } from './clickable-profile-picture/clickable-profile-picture.component';
+import { NotificationsCardComponent } from './notifications-card/notifications-card.component';
+import { NotificationComponent } from './notification/notification.component';
+import { NotificationHostDirective } from './notifications-card/notification-host.directive';
 
 
 @NgModule({
@@ -113,6 +116,9 @@ import { ClickableProfilePictureComponent } from './clickable-profile-picture/cl
     DeleteConfirmDialogComponent,
     ProfileDetailsDialogComponent,
     ClickableProfilePictureComponent,
+    NotificationsCardComponent,
+    NotificationComponent,
+    NotificationHostDirective,
   ],
   imports: [
     BrowserModule,
@@ -169,7 +175,8 @@ import { ClickableProfilePictureComponent } from './clickable-profile-picture/cl
     DeleteConfirmDialogComponent,
     InitialDetailsDialogComponent,
     NotificationDialogComponent,
-    ProfileDetailsDialogComponent
+    ProfileDetailsDialogComponent,
+    NotificationComponent,
   ]
 })
 export class AppModule {
