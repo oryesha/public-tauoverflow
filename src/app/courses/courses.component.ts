@@ -5,6 +5,10 @@ import {Router} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
 import {CourseService} from '../services/course.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
+import {UserService} from '../services/user.service';
+import {UserProfile} from '../models/user-profile.model';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 
 class Section {
 }
@@ -24,15 +28,19 @@ export class CoursesComponent implements OnInit {
   };
 
   isLoaded = false;
+  isUserCoursesLoaded = false;
   allCourses: UiCourse[] = [];
   myCourses: UiCourse[] = [];
   courseNames: string[] = [];
   coursesMap: UiCoursesMap;
+  user: UserProfile;
 
   constructor(private appService: AppService,
               private router: Router,
               private courseService: CourseService,
-              private routingDataService: AppRoutingDataService) {
+              private userService: UserService,
+              private routingDataService: AppRoutingDataService,
+              private dialog: MatDialog) {
   }
 
   navigateToCoursePage(course: UiCourse|string) {
@@ -52,6 +60,12 @@ export class CoursesComponent implements OnInit {
       this._sortCourses();
       this.isLoaded = true;
     });
+    this.userService.getUser().then((user: UserProfile) => {
+      this.user = user;
+      this.myCourses = this.user.myCourses;
+      this._sortMyCourses();
+      this.isUserCoursesLoaded = true;
+    });
   }
 
   private _sortCourses() {
@@ -60,5 +74,53 @@ export class CoursesComponent implements OnInit {
       if (c1.name < c2.name) { return -1; }
       return 0;
     });
+  }
+
+  private _sortMyCourses() {
+    this.myCourses.sort((c1, c2) => {
+      if (c1.name > c2.name) { return 1; }
+      if (c1.name < c2.name) { return -1; }
+      return 0;
+    });
+  }
+
+  async addCourses() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.data = {title: 'Select your courses', selected: []};
+    await this.courseService.waitForCourses();
+    this.dialog.open(FilterDialogComponent, dialogConfig).afterClosed().subscribe(
+      (result: string[]) => this._addToMyCourses(result)
+    );
+  }
+
+  removeFromMyCourses(course: UiCourse) {
+    const courseId = course.id;
+    const index = this.user.myCourses.map((uiCourse: UiCourse) => uiCourse.id)
+      .indexOf(courseId, 0);
+    if (index > -1) {
+      this.user.myCourses.splice(index, 1);
+    }
+    this._removeCourseFromMyCourses(courseId);
+  }
+  private _addToMyCourses(result: string[]) {
+    const courseIds: string[] = [];
+    result.forEach(courseName => {
+      const uiCourse = this.coursesMap[courseName];
+      const index = this.user.myCourses.map(course => course.id).indexOf(uiCourse.id);
+      if (index === -1) {
+        this.user.myCourses.push(uiCourse);
+        courseIds.push(uiCourse.id);
+      }
+    });
+    this._updateMyCourses(courseIds);
+  }
+
+  private _updateMyCourses(courseIds) {
+    this.userService.addToMyCourses(this.user, courseIds).subscribe(() => {});
+  }
+
+  private _removeCourseFromMyCourses(courseId: string) {
+    this.userService.removeFromMyCourses(this.user, courseId).subscribe(() => {});
   }
 }

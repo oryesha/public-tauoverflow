@@ -98,6 +98,43 @@ exports.updateMyCourses = async function(userId, courseId) {
   }
 };
 
+exports.addToMyCourses = async function(userId, courseIds) {
+  let user;
+  try {
+    user = await User.findById(userId);
+  } catch (e) {
+    throw Error('Couldn\'t find user');
+  }
+  courseIds.forEach((id) => {
+    user.myCourses.push(id);
+  });
+
+  try {
+    return await user.save();
+  } catch (e) {
+    throw Error('Couldn\'t save updated user');
+  }
+};
+
+exports.removeFromMyCourses = async function(userId, courseId) {
+  let user;
+  try {
+    user = await User.findById(userId);
+  } catch (e) {
+    throw Error('Couldn\'t find user');
+  }
+  const index = user.myCourses.indexOf(courseId);
+  if (index !== -1) {
+    user.myCourses.splice(index, 1);
+  }
+
+  try {
+    return await user.save();
+  } catch (e) {
+    throw Error('Couldn\'t save updated user');
+  }
+};
+
 exports.updateUser = async function(user){
 
   let token = user.firebaseToken;
