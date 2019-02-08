@@ -59,7 +59,36 @@ h3.mat-subheader{
   width: 100%;
 }
 
+.CourseNum /deep/ .mat-line {
+   padding-left: 10px;
+ }
+
+.CourseNum /deep/ .mat-list-item {
+  padding-left: 10px;
+}
+
+.CourseHeader {
+  background-color: mat-color($mat-gray, 200);
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.CourseHeader.mat-line {
+  display: inline-flex;
+}
+
 .CourseName {
+  background-color: mat-color($mat-gray, 200);
+  color: mat-color($mat-gray, 700);
+  text-align: left;
+  display: flex;
+}
+
+.MyCoursesCourseName {
+  //background-color: transparent;
+  flex: 1 1 auto;
+  width: 0;
   background-color: mat-color($mat-gray, 200);
   color: mat-color($mat-gray, 700);
   text-align: left;
@@ -82,6 +111,15 @@ h3.mat-subheader{
 .CourseIcon{
   margin-left: auto;
   color: mat-color($mat-deep-orange, 100);
+  font-size: 20px;
+}
+
+.RemoveIcon {
+  font-size: 16px;
+}
+
+.AllCoursesIcon {
+  padding-left: 4px;
 }
 
 .SearchContainer {
@@ -103,4 +141,37 @@ h3.mat-subheader{
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/*.AddCoursesButton {
+  background: mat-color($mat-gray, 300);
+  color: mat-color($mat-gray, 600);
+  margin-left: 12px;
+  max-height: 32px;
+}*/
+
+.AddToMyCoursesContainer {
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  color: mat-color($mat-gray, 500);
+}
+
+.Button {
+  height: 24px;
+  line-height: 24px;
+  width: 24px;
+}
+
+.AddCoursesIcon {
+  color: mat-color($mat-gray, 700);
+  font-size: 20px;
+  vertical-align: center;
+  padding-left: 6px;
+}
+
+.RemoveFromMyCourses {
+  flex: 0 0 auto;
 }
