@@ -45,22 +45,22 @@ export class HomePageComponent implements OnInit {
     const routingData = this.routingDataService.getRoutingData('user');
     if (routingData) {
       this.user = routingData.getData();
-      this._getNotificationFromService(this.user);
+      // this._getNotificationFromService(this.user);
       if (this.user.isNewUser) {
         this._openDetailsDialog();
       }
     } else {
-      this.userService.getUser().then((user) => {
-        // this.user = UserProfile.deserialize(user);
-        this._getNotificationFromService(user);
+      this.userService.getUser().then((user: UserProfile) => {
+        this.user = user;
+        // this._getNotificationFromService(user);
       });
     }
   }
 
-  _getNotificationFromService(user: UserProfile) {
-    const userId = user.firebaseToken;
-    this.messagingService.requestPermission(userId);
-  }
+  // _getNotificationFromService(user: UserProfile) {
+  //   const userId = user.firebaseToken;
+  //   this.messagingService.requestPermission(userId);
+  // }
 
   ngOnInit() {
   }

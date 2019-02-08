@@ -13,7 +13,8 @@ import {HttpRequestsService} from './http-requests.service';
 export class MessagingService {
   userId;
   // messages = [];
-  notifications: Notification[] = [];
+  seenNotifications: Notification[] = [];
+  newNotifications: Notification[] = [];
   currentMessage = new BehaviorSubject(<any> '');
   constructor(
     private userService: UserService,
@@ -24,6 +25,19 @@ export class MessagingService {
     private angularFireMessaging: AngularFireMessaging) {
     this.userService.getFirebaseUser().then(value => {
       this.userId = value.uid;
+      this.requestPermission();
+      // get offline notifications
+      this.httpRequest.get('/notifications', [], [this.userId]).subscribe((res) => {
+        if (res) {
+          res.forEach((notification) => {
+            if (notification.isSeen) {
+              this.seenNotifications.push(Notification.deserialize(notification));
+            } else {
+              this.newNotifications.push(Notification.deserialize(notification));
+            }
+          });
+        }
+      });
     });
     this.angularFireMessaging.messaging.subscribe(
       (_messaging) => {
@@ -31,6 +45,7 @@ export class MessagingService {
         _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
       }
     );
+    // hook message receiver
     this.receiveMessage();
   }
 
@@ -49,15 +64,15 @@ export class MessagingService {
         this.angularFireDB.object('fcmTokens/').update(data);
       });
   }
+
   public getTheMessage(): Observable<any> {
     return this.currentMessage.asObservable();
   }
+
   /**
    * request permission for notification from firebase cloud messaging
-   *
-   * @param userId userId
    */
-  requestPermission(userId) {
+  requestPermission() {
     this.angularFireMessaging.requestToken.subscribe(
       (token) => {
         // console.log(token);
@@ -67,6 +82,16 @@ export class MessagingService {
         console.error('Unable to get permission to notify.', err);
       }
     );
+  }
+
+  deleteNotification(id) {
+    this.httpRequest.delete('/notifications', id).subscribe((response: any) => {
+      this.newNotifications.forEach((notification) => {
+        notification.isSeen = true;
+        this.seenNotifications.push(notification);
+      });
+      this.newNotifications = [];
+    });
   }
 
   /**
@@ -80,7 +105,7 @@ export class MessagingService {
         const value = payload.valueOf();
         // this.messages.push(new Message(value.notification.title, value.data['gcm.notification.user'],
         //   JSON.parse(value.data['gcm.notification.relatedCourses']), value.data['gcm.notification.link']));
-        this.notifications.push(new Notification(value.data['gcm.notification.subject'],
+        this.newNotifications.push(new Notification(value.data['gcm.notification.subject'],
           value.data['gcm.notification.owner'], JSON.parse(value.data['gcm.notification.isSeen']),
           JSON.parse(value.data['gcm.notification.isAnswer']), value.data['gcm.notification.link'],
           value.data['gcm.notification.id'], new Date(value.data['gcm.notification.timestamp'])));
@@ -112,4 +137,5 @@ export class MessagingService {
       });
   }
 }
+
 
