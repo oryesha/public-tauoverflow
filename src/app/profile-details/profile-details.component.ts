@@ -6,6 +6,11 @@ import {Router} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
+import {Observable} from 'rxjs';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {InitialDetailsDialogComponent} from '../initial-details-dialog/initial-details-dialog.component';
+import {CourseService} from '../services/course.service';
+import {UiCoursesMap} from '../models/ui-courses-map.model';
 
 
 @Component({
@@ -22,10 +27,21 @@ export class ProfileDetailsComponent implements OnInit {
   userDetails: UserProfile;
   rankTitle: string;
   defaultImage = '../../assets/avatar.png';
+  uiCoursesMap: UiCoursesMap;
 
   constructor(private appService: AppService,
               private router: Router,
               private userService: UserService,
+              private courseService: CourseService,
+              private dialog: MatDialog,
+              private routingDataService: AppRoutingDataService) {
+    // this.userService
+    // appService.getResponse('userDetails').subscribe((response) => {
+    //   this.userDetails = response;
+    //   this.isLoaded = true;
+    // });
+    // debugger;
+  }
               private routingDataService: AppRoutingDataService) {}
 
   ngOnInit() {
@@ -57,6 +73,40 @@ export class ProfileDetailsComponent implements OnInit {
 
   addSkill() {
 
+  }
+
+  async editProfile() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.data = {title: 'Customize Your Information', user: this.userDetails,
+      selectedProgram: this.userDetails.program, description: this.userDetails.description,
+      selectedSkills: this.userDetails.skills.map(skill => skill.name),
+      firstInit: false};
+    await this.courseService.waitForCourses();
+    this._initCourses();
+    this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        this.userDetails.program = result.program;
+        this.userDetails.description = result.description;
+        this._addUserSkills(result.skills);
+        this.userDetails.isNewUser = false;
+        this.userService.updateUserDetails(this.userDetails).subscribe(() => {
+        });
+      }
+    );
+  }
+
+  private _addUserSkills(skills: string[]) {
+    this.userDetails.skills = [];
+    skills.forEach(skillName => {
+      this.userDetails.skills.push(this.uiCoursesMap[skillName]);
+    });
+  }
+
+  private _initCourses(): void {
+    if (!this.uiCoursesMap) {
+      this.uiCoursesMap = this.courseService.getCoursesMap();
+    }
   }
 
   getRankTitle() {
