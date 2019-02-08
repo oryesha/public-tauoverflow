@@ -117,6 +117,12 @@ export class MessagingService {
     // this.messages = [];
   }
 
+  markNotificationsAsSeen(justSeenNotification: Notification[]) {
+    justSeenNotification.forEach((notification) => {
+      this.seenNotifications.push(notification);
+    });
+  }
+
   sendMessage(receiverFbToken: string, questionName: string, senderName: string, questionId: string,
               isSenderAnswered: boolean) {
     const url = 'https://fcm.googleapis.com/fcm/send';

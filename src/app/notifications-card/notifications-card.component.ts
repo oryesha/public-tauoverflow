@@ -24,10 +24,11 @@ export class NotificationsCardComponent implements OnInit {
 
   updateNotifications() {
     this.notificationsHost.viewContainerRef.clear();
-    this.seenNotifications = this.messagingService.seenNotifications.slice();
-    this.newNotifications = this.messagingService.newNotifications.slice();
+    this.seenNotifications = this.messagingService.seenNotifications;
+    this.newNotifications = this.messagingService.newNotifications;
     const factory = this.componentFactoryResolver.resolveComponentFactory(NotificationComponent);
     this.newNotifications.forEach((notification) => this._addNotificationToCard(notification, factory));
+    this.seenNotifications.forEach((notification) => this._addNotificationToCard(notification, factory));
   }
 
   private _addNotificationToCard(notification: Notification,
