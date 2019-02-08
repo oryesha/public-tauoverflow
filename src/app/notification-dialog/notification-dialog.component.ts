@@ -25,11 +25,6 @@ export class NotificationDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  // delete notification from db + client and go to referenced question
-  goToQuestion(notification: Notification) {
-    // delete notification
-    this.messagingService.deleteNotification(notification.id);
-    this.router.navigate(['question-page'], {queryParams: {id: notification.questionId}});
-  }
+
 
 }
