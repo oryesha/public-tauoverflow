@@ -39,3 +39,17 @@ exports.deleteNotification = async function(req,res) {
     return res.status(400).json({status: 400, message: e.message})
   }
 }
+
+exports.updateNotification = async function(req,res) {
+  if(!req.body.id || !req.body.isSeen){
+    return res.status(400).json({status: 400., message: "all params must be present"})
+  }
+  let id = req.body.id;
+  let isSeen = req.body.isSeen;
+  try {
+    await NotificationService.updateNotification(id, isSeen);
+    return res.status(200).json({status: 200, message: "Succesfully Updated Notification"})
+  } catch (e) {
+    return res.status(400).json({status: 400, message: e.message})
+  }
+}
