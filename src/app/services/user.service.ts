@@ -56,9 +56,20 @@ export class UserService {
       {userId: user.id, questionId: question.id});
   }
 
-  updateMyCourses(user: UserProfile, course: UiCourse): Observable<any> {
-    return this.httpRequest.put('/user/update-my-courses',
-      {userId: user.id, courseId: course.id});
+  updateMyCourses(user: UserProfile, courseId: string): Observable<any> {
+    return this.httpRequest.put(
+      '/user/update-my-courses',
+      {userId: user.id, courseId: courseId});
+  }
+
+  addToMyCourses(user: UserProfile, courseIds: string[]): Observable<any> {
+    return this.httpRequest.put('/user/add-to-my-courses',
+      {userId: user.id, courseIds: courseIds});
+  }
+
+  removeFromMyCourses(user: UserProfile, courseId: string): Observable<any> {
+    return this.httpRequest.put('/user/remove-from-my-courses',
+      {userId: user.id, courseId: courseId});
   }
 
   getUser(fromServer = false): Promise<UserProfile> {

@@ -143,6 +143,6 @@ export class CoursePageComponent implements OnInit {
   }
 
   private _updateMyCourses() {
-    this.userService.updateMyCourses(this.user, this.uiCourse).subscribe(() => {});
+    this.userService.updateMyCourses(this.user, this.uiCourse.id).subscribe(() => {});
   }
 }

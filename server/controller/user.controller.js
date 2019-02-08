@@ -41,6 +41,28 @@ exports.updateMyCourses = async function (req, res) {
   }
 };
 
+exports.addToMyCourses = async function(req, res) {
+  const userId = req.body.userId;
+  const courseIds = req.body.courseIds;
+  try {
+    let updatedUser = await UserService.addToMyCourses(userId, courseIds);
+    return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User: " + userId})
+  } catch (e) {
+    return res.status(400).json({status: 400., message: e.message})
+  }
+};
+
+exports.removeFromMyCourses = async function(req, res) {
+  const userId = req.body.userId;
+  const courseId = req.body.courseId;
+  try {
+    let updatedUser = await UserService.removeFromMyCourses(userId, courseId);
+    return res.status(200).json({status: 200, data: updatedUser, message: "Succesfully Updated User: " + userId})
+  } catch (e) {
+    return res.status(400).json({status: 400., message: e.message})
+  }
+}
+
 exports.updateUser = async function (req, res) {
 
   if (!req.body.firebaseToken) {
