@@ -1,12 +1,12 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import {Router} from '@angular/router';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {AutocompleteComponent} from '../autocomplete/autocomplete.component';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
 import * as firebase from 'firebase';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -24,27 +24,13 @@ export class SignUpComponent implements OnInit {
     }
   };
 
-  // programFormControl = new FormControl('', [Validators.required]);
   signUpForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required])
-    // program: new FormControl('', [this.autocompleteValidator()])
   });
   hidePassword = true;
-
-  // autocompleteValidator(): ValidatorFn {
-  //   debugger;
-  //   const signUpComponent = this;
-  //   return (control: AbstractControl): { [key: string]: any } | null => {
-  //     const illegal = {'illegalOption': false};
-  //     if (signUpComponent && signUpComponent.autocomplete) {
-  //       return signUpComponent.autocomplete.valid(control.value) ? null : illegal;
-  //     }
-  //     return illegal;
-  //   };
-  // }
 
   programs: string[] = ['Computer Science', 'Electrical Engineering', 'Law', 'Computer Science and Electrical Engineering', 'Economics',
     'Management', 'Physics', 'Chemistry'];
@@ -55,8 +41,8 @@ export class SignUpComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private userService: UserService,
-    private routingDataService: AppRoutingDataService,
-    private formBuilder: FormBuilder
+    private snackBar: MatSnackBar,
+    private routingDataService: AppRoutingDataService
   ) { }
 
   tryGoogleLogin() {
@@ -75,21 +61,52 @@ export class SignUpComponent implements OnInit {
         this.successMessage = 'Your account has been created';
         this._enterApp(response, value);
       }, err => {
-        console.log(err);
-        this.errorMessage = err.message;
-        this.successMessage = '';
+        let message;
+        const errCode: string = err.code;
+        if (errCode.includes('email-already-in-use')) {
+          message = 'Email already in use!';
+        }
+        this._promptToast(message);
       });
+  }
+
+  private _promptToast(msg?: string) {
+    const message = msg ? msg : 'Something went wrong, please try again';
+    this.snackBar.open(message, '', {
+      duration: 2000 // Prompt the toast 2 seconds.
+    });
+  }
+
+  tryLogin(value) {
+    this.authService.doLogin(value).then(
+        (res) => {
+          this._enterApp(res, value);
+        },
+        (err) => {
+          let message;
+          const errCode: string = err.code;
+          if (errCode.includes('wrong-password')) {
+            message = 'Wrong password!';
+          } else if (errCode.includes('user-not-found')) {
+            message = 'Wrong email!';
+          }
+          this._promptToast(message);
+        });
   }
 
   ngOnInit() {
   }
 
   private _enterApp(response: firebase.auth.UserCredential, value?: any) {
-    const user = this._createUser(response, value);
-    if (user.isNewUser) {
+    if (response.additionalUserInfo.isNewUser) {
+      const user = this._createUser(response, value);
       this._subscribeUser(user);
+      this._navigateToHomePage(user);
+    } else {
+      this.userService.getUser(true).then((user: UserProfile) => {
+        this._navigateToHomePage(user);
+      });
     }
-    this._navigateToHomePage(user);
   }
 
   private _subscribeUser(user: UserProfile) {

@@ -12,10 +12,11 @@ export class QuestionCardComponent implements OnInit {
   @Input() question: Question;
   @Input() user: UserProfile;
   @Input() isLocked: boolean;
+  @Input() isUserOwner: boolean;
   @Output() showAnswerEditor = new EventEmitter<void>();
-  defaultImage = '../../assets/avatar.png';
 
-  constructor( private questionService: QuestionService) { }
+  constructor(private questionService: QuestionService) {}
+
   upvote() {
     if (this.question.upvote.upvoters.includes(this.user.id)) {
       return;
@@ -28,6 +29,7 @@ export class QuestionCardComponent implements OnInit {
       console.error('Update Unsuccesful');
     });
   }
+
   ngOnInit() {
   }
 

@@ -11,7 +11,7 @@ import {UserService} from '../services/user.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
 import {Question} from '../models/question.model';
 import {MessagingService} from '../services/messaging.service';
-import {BehaviorSubject} from 'rxjs';
+
 
 @Component({
   selector: 'app-home-page',
@@ -45,26 +45,22 @@ export class HomePageComponent implements OnInit {
     const routingData = this.routingDataService.getRoutingData('user');
     if (routingData) {
       this.user = routingData.getData();
-      this._getNotificationFromService(this.user);
+      // this._getNotificationFromService(this.user);
       if (this.user.isNewUser) {
         this._openDetailsDialog();
       }
     } else {
-      this.userService.getUser().then((user) => {
-        this.user = UserProfile.deserialize(user);
-        this._getNotificationFromService(user);
+      this.userService.getUser().then((user: UserProfile) => {
+        this.user = user;
+        // this._getNotificationFromService(user);
       });
     }
   }
 
-  _getNotificationFromService(user: UserProfile) {
-    console.log(user.firebaseToken);
-    const userId = user.firebaseToken;
-    this.messagingService.requestPermission(userId);
-    this.messagingService.receiveMessage();
-    this.message = this.messagingService.currentMessage;
-    // console.log(this.message);
-  }
+  // _getNotificationFromService(user: UserProfile) {
+  //   const userId = user.firebaseToken;
+  //   this.messagingService.requestPermission(userId);
+  // }
 
   ngOnInit() {
   }
