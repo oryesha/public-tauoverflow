@@ -85,13 +85,17 @@ export class MessagingService {
     );
   }
 
-  deleteNotification(id) {
-    this.httpRequest.delete('/notifications', id).subscribe((response: any) => {
-      this.newNotifications.forEach((notification) => {
-        notification.isSeen = true;
-        this.seenNotifications.push(notification);
-      });
-      this.newNotifications = [];
+  deleteNotification(notification: Notification) {
+    this.httpRequest.delete('/notifications', notification.id).subscribe((response: any) => {
+      let index = this.newNotifications.indexOf(notification);
+      if (index > -1) {
+        this.newNotifications.splice(index, 1);
+      } else { // already seen
+        index = this.seenNotifications.indexOf(notification);
+        if (index > -1) {
+          this.seenNotifications.splice(index, 1);
+        }
+      }
     });
   }
 
@@ -123,6 +127,14 @@ export class MessagingService {
   resetMessage() {
     // this.currentMessage.
     // this.messages = [];
+  }
+
+  markNotificationsAsSeen(justSeenNotification: Notification[]) {
+    justSeenNotification.forEach((notification) => {
+      notification.isSeen = true;
+      // TODO: add call to server to update isSeen field
+      this.seenNotifications.push(notification);
+    });
   }
 
   sendMessage(receiverFbToken: string, questionName: string, senderName: string, questionId: string,

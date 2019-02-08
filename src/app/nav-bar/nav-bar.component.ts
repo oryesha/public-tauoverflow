@@ -57,6 +57,8 @@ export class NavBarComponent implements OnDestroy, OnInit  {
 
   resetNotification() {
     this.notificationsCard.updateNotifications();
+    const justSeenNotification = this.newNotifications.splice(0, this.newNotifications.length);
+    this.messagingService.markNotificationsAsSeen(justSeenNotification);
     // const dialogConfig = new MatDialogConfig();
     // dialogConfig.width = '500px';
     // dialogConfig.data = {title: 'Notification information', newNotifications: this.newNotifications,
