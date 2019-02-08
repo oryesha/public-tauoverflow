@@ -4,7 +4,7 @@ exports.getUserNotifications = async function(req,res){
   let id = req.params.id; //this is firebase id !!!
   try {
     let notifications = await NotificationService.getUserNotifications(id);
-    return res.status(200).json({status: 200, message: "Succesfully recieved notifications"})
+    return res.status(200).json({status: 200, data: notifications, message: "Succesfully recieved notifications"})
   } catch (e) {
     return res.status(400).json({status: 400, message: e.message})
   }

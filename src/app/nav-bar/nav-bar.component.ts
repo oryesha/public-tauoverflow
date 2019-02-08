@@ -26,13 +26,13 @@ export class NavBarComponent implements OnDestroy, OnInit  {
               private messagingService: MessagingService,
               private snackBar: MatSnackBar,
               private dialog: MatDialog) { }
-  messageSource = [];
-  notifications;
+  seenNotifications = this.messagingService.seenNotifications;
+  newNotifications = this.messagingService.newNotifications;
   @Input() isSignUp: boolean;
   @Input() user: UserProfile;
 
-  tmp = this.messagingService.getTheMessage().subscribe(value => {
-    this.messageSource = this.messagingService.notifications;
+  tmp = this.messagingService.getTheMessage().subscribe((newMessage) => {
+    this.newNotifications.push(newMessage);
   });
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -53,12 +53,15 @@ export class NavBarComponent implements OnDestroy, OnInit  {
   resetNotification() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
-    dialogConfig.data = {title: 'Notification information', notifications: this.messageSource};
-    this.dialog.open(NotificationDialogComponent, dialogConfig).afterClosed().subscribe(
-      result => {
-        this.messageSource = [];
-        this.messagingService.resetMessage();
-      });
+    dialogConfig.data = {title: 'Notification information', newNotifications: this.newNotifications,
+    seenNotification: this.seenNotifications};
+    // this.dialog.open(NotificationDialogComponent, dialogConfig).afterClosed().subscribe(
+    //   (result) => {
+    //     this.seenNotifications = this.seenNotifications.concat(this.newNotifications);
+    //     this.newNotifications = [];
+    //     // this.messagingService.resetMessage();
+    //   });
+    this.dialog.open(NotificationDialogComponent, dialogConfig);
   }
 
   navigateToPage(page) {

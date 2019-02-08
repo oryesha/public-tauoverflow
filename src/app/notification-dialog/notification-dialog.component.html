@@ -1,14 +1,10 @@
 <div class="FilterDialog">
   <h1 mat-dialog-title class="DialogTitle">{{title}}</h1>
-  <mat-dialog-content class="DialogContent" *ngFor="let notif of notifications">
+  <mat-dialog-content class="DialogContent" *ngFor="let notif of newNotifications">
     <mat-list-item>
       <mat-card class="notificationCard">
-        <a href="{{notif.link}}">Question name: {{notif.title}}</a>
-        <h6>Received from: {{notif.user}}</h6>
-        <h6>Related Courses:</h6>
-        <ul *ngFor="let course of notif.relatedCourses">
-          <li>{{course.name}} - {{course.courseNumber}}</li>
-        </ul>
+        <a (click)="goToQuestion(notif)">Question name: {{notif.subject}}</a>
+        <h6>Received from: {{notif.owner}}</h6>
       </mat-card>
       <mat-divider></mat-divider>
     </mat-list-item>
