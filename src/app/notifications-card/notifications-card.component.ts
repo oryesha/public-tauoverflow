@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ComponentFactory, ComponentFactoryResolver, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MatMenu} from '@angular/material';
 import {MessagingService} from '../services/messaging.service';
 import {Notification} from '../models/notification.model';
@@ -14,7 +14,8 @@ export class NotificationsCardComponent implements OnInit {
   @ViewChild('notificationsMenu') notificationsMenu: MatMenu;
   @ViewChild(NotificationHostDirective) notificationsHost: NotificationHostDirective;
 
-  notifications: Notification[];
+  newNotifications: Notification[];
+  seenNotifications: Notification[];
   @Output() menuClosed = new EventEmitter();
 
   constructor(private messagingService: MessagingService,
@@ -22,15 +23,18 @@ export class NotificationsCardComponent implements OnInit {
   }
 
   updateNotifications() {
-    const viewContainerRef = this.notificationsHost.viewContainerRef;
-    viewContainerRef.clear();
-    this.notifications = this.messagingService.notifications.slice();
+    this.notificationsHost.viewContainerRef.clear();
+    this.seenNotifications = this.messagingService.seenNotifications.slice();
+    this.newNotifications = this.messagingService.newNotifications.slice();
     const factory = this.componentFactoryResolver.resolveComponentFactory(NotificationComponent);
-    this.notifications.forEach((notification) => {
-      const notificationInstance: NotificationComponent =
-        viewContainerRef.createComponent(factory).instance;
-      notificationInstance.notification = notification;
-    });
+    this.newNotifications.forEach((notification) => this._addNotificationToCard(notification, factory));
+  }
+
+  private _addNotificationToCard(notification: Notification,
+                                 factory: ComponentFactory<NotificationComponent>) {
+    const notificationInstance: NotificationComponent =
+      this.notificationsHost.viewContainerRef.createComponent(factory).instance;
+    notificationInstance.notification = notification;
   }
 
   ngOnInit() {
