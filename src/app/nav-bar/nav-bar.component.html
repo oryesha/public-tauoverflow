@@ -18,8 +18,8 @@
     <!-- TODO: When notifications are fully implemented, add this. IMPORTANT: Don't show 0 notifications. -->
     <button mat-icon-button class="Icon" (click)="resetNotification()" #notificationsButton
             [matMenuTriggerFor]="notificationsCard?.notificationsMenu">
-      <mat-icon *ngIf="messageSource.length > 0" matBadge={{messageSource.length}}>notifications_active</mat-icon>
-      <mat-icon *ngIf="messageSource.length === 0">notifications_active</mat-icon>
+      <mat-icon *ngIf="newNotifications.length > 0" matBadge={{newNotifications.length}}>notifications_active</mat-icon>
+      <mat-icon *ngIf="newNotifications.length === 0">notifications_active</mat-icon>
     </button>
     <app-notifications-card #notificationsCard></app-notifications-card>
     <!--<button mat-button class="Button" routerLink='/user-profile'>Courses</button>-->

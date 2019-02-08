@@ -2,12 +2,14 @@ import {Component, ComponentFactoryResolver, EventEmitter, Input, OnDestroy, OnI
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {MessagingService} from '../services/messaging.service';
-import {MatButton, MatDialog, MatSnackBar} from '@angular/material';
+import {MatButton, MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService} from '../app-routing-data.service';
+import {Notification} from '../models/notification.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NotificationsCardComponent} from '../notifications-card/notifications-card.component';
+import {NotificationDialogComponent} from '../notification-dialog/notification-dialog.component';
 
 
 @Component({
@@ -27,15 +29,14 @@ export class NavBarComponent implements OnDestroy, OnInit  {
               private snackBar: MatSnackBar,
               private componentFactoryResolver: ComponentFactoryResolver,
               private dialog: MatDialog) { }
-
-  messageSource = [];
-  notifications;
+  seenNotifications = this.messagingService.seenNotifications;
+  newNotifications = this.messagingService.newNotifications;
   showNotifications: boolean;
   @Input() isSignUp: boolean;
   @Input() user: UserProfile;
 
-  tmp = this.messagingService.getTheMessage().subscribe(value => {
-    this.messageSource = this.messagingService.messages;
+  tmp = this.messagingService.getTheMessage().subscribe((newMessage) => {
+    this.newNotifications.push(newMessage);
   });
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -55,15 +56,18 @@ export class NavBarComponent implements OnDestroy, OnInit  {
   }
 
   resetNotification() {
-    this._openNotifications();
-    // const dialogConfig = new MatDialogConfig();
-    // dialogConfig.width = '500px';
-    // dialogConfig.data = {title: 'Notification information', notifications: this.messageSource};
+    this.notificationsCard.updateNotifications();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.data = {title: 'Notification information', newNotifications: this.newNotifications,
+    seenNotification: this.seenNotifications};
     // this.dialog.open(NotificationDialogComponent, dialogConfig).afterClosed().subscribe(
-    //   result => {
-    //     this.messageSource = [];
-    //     this.messagingService.resetMessage();
+    //   (result) => {
+    //     this.seenNotifications = this.seenNotifications.concat(this.newNotifications);
+    //     this.newNotifications = [];
+    //     // this.messagingService.resetMessage();
     //   });
+    this.dialog.open(NotificationDialogComponent, dialogConfig);
   }
 
   navigateToPage(page) {

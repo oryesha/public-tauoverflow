@@ -1,6 +1,8 @@
 import {Component, OnInit, Inject, ViewChild} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA, MatButton} from '@angular/material';
-import {Message} from '../services/answer.service';
+import {Notification} from '../models/notification.model';
+import {MessagingService} from '../services/messaging.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-notification-dialog',
@@ -9,14 +11,25 @@ import {Message} from '../services/answer.service';
 })
 export class NotificationDialogComponent implements OnInit {
   title: string;
-  notifications: Message[] = [];
+  newNotifications: Notification[] = [];
+  seenNotifications: Notification[] = [];
   constructor(
     private dialogRef: MatDialogRef<NotificationDialogComponent>,
+    private messagingService: MessagingService,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) data) {
     this.title = data.title;
-    this.notifications = data.notifications;
+    this.newNotifications = data.newNotifications;
+    this.seenNotifications = data.seenNotifications;
   }
   ngOnInit() {
+  }
+
+  // delete notification from db + client and go to referenced question
+  goToQuestion(notification: Notification) {
+    // delete notification
+    this.messagingService.deleteNotification(notification.id);
+    this.router.navigate(['question-page'], {queryParams: {id: notification.questionId}});
   }
 
 }

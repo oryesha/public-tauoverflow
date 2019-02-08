@@ -8,7 +8,7 @@ const NotificationSchema = new mongoose.Schema({
   timestamp: Date,//TimeFormat,
   isAnswer: Boolean, //can notify on answer or question
   isSeen: Boolean,
-  link: String,
+  questionId: String,
 });
 NotificationSchema.plugin(mongoosePaginate);
 const Notification = mongoose.model('Notification', NotificationSchema);
