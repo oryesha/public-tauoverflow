@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, Input, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 import {AutocompleteComponent} from '../autocomplete/autocomplete.component';
 import {MultiSelectAutocompleteComponent} from '../multi-select-autocomplete/multi-select-autocomplete.component';
@@ -16,7 +16,11 @@ export class InitialDetailsDialogComponent implements OnInit {
   @ViewChild('skillsMultiselect') skillsMultiselect: MultiSelectAutocompleteComponent;
   @ViewChild('descriptionField') descriptionField: FormFieldComponent;
   title: string;
+  selectedProgram: string;
+  description: string;
+  selectedSkills: string[];
   user: UserProfile;
+  firstInit: boolean;
   programs: string[] = ['Computer Science', 'Electrical Engineering', 'Law', 'Computer Science and Electrical Engineering', 'Economics',
     'Management', 'Physics', 'Chemistry'];
   courses: string[] = this.courseService.getCourseNames();
@@ -29,6 +33,10 @@ export class InitialDetailsDialogComponent implements OnInit {
     private snackBar: MatSnackBar) {
     this.title = data.title;
     this.user = data.user;
+    this.selectedProgram = data.selectedProgram;
+    this.description = data.description;
+    this.selectedSkills = data.selectedSkills ? data.selectedSkills : [];
+    this.firstInit = data.firstInit;
   }
 
   ngOnInit() {

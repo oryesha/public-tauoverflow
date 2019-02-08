@@ -25,6 +25,7 @@ export class AutocompleteComponent implements OnInit {
   @Input() placeholder: string;
   @Input() isCourseSearch: boolean;
   @Input() isRequired = true;
+  @Input() selectedOption: string;
 
   @Output() private optionSelected = new EventEmitter<string>();
 
@@ -40,6 +41,9 @@ export class AutocompleteComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.selectedOption) {
+      this.myControl.setValue(this.selectedOption);
+    }
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -54,8 +58,8 @@ export class AutocompleteComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     const optionsToFilter = this.options || this.defaultOptions;
-
-    return optionsToFilter.filter(option => option.toLowerCase().includes(filterValue));
+    return optionsToFilter.filter(option => option.toLowerCase().includes(filterValue)
+      && option !== this.selectedOption);
   }
 
   getSelection(): string {
