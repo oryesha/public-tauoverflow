@@ -35,8 +35,8 @@ export class NavBarComponent implements OnDestroy, OnInit  {
   @Input() isSignUp: boolean;
   @Input() user: UserProfile;
 
-  tmp = this.messagingService.getTheMessage().subscribe((newMessage) => {
-    this.newNotifications.push(newMessage);
+  tmp = this.messagingService.getTheMessage().subscribe((newMessage: Notification) => {
+    // this.newNotifications.push(newMessage);
   });
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
