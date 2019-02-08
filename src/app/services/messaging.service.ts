@@ -3,7 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireMessaging } from 'angularfire2/messaging';
 import { take } from 'rxjs/operators';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {UserService} from './user.service';
 import {Notification} from '../models/notification.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -15,7 +15,7 @@ export class MessagingService {
   // messages = [];
   seenNotifications: Notification[] = [];
   newNotifications: Notification[] = [];
-  currentMessage = new BehaviorSubject(<any> '');
+  currentMessage: Subject<Notification> = new Subject<Notification>();
   constructor(
     private userService: UserService,
     private angularFireDB: AngularFireDatabase,
@@ -24,6 +24,7 @@ export class MessagingService {
     private httpRequest: HttpRequestsService,
     private angularFireMessaging: AngularFireMessaging) {
     this.userService.getFirebaseUser().then(value => {
+      debugger;
       this.userId = value.uid;
       this.requestPermission();
       // get offline notifications
@@ -65,7 +66,7 @@ export class MessagingService {
       });
   }
 
-  public getTheMessage(): Observable<any> {
+  public getTheMessage(): Observable<Notification> {
     return this.currentMessage.asObservable();
   }
 
@@ -100,20 +101,27 @@ export class MessagingService {
   receiveMessage() {
     this.angularFireMessaging.messages.subscribe(
       (payload: any) => {
-        // console.log('new message received. ', payload);
-        this.currentMessage.next(payload.valueOf());
         const value = payload.valueOf();
-        // this.messages.push(new Message(value.notification.title, value.data['gcm.notification.user'],
-        //   JSON.parse(value.data['gcm.notification.relatedCourses']), value.data['gcm.notification.link']));
-        this.newNotifications.push(new Notification(value.data['gcm.notification.subject'],
+        const receivedNotification = new Notification(value.data['gcm.notification.subject'],
           value.data['gcm.notification.owner'], JSON.parse(value.data['gcm.notification.isSeen']),
           JSON.parse(value.data['gcm.notification.isAnswer']), value.data['gcm.notification.link'],
-          value.data['gcm.notification.id'], new Date(value.data['gcm.notification.timestamp'])));
+          value.data['gcm.notification.id'], new Date(value.data['gcm.notification.timestamp']));
+        this.newNotifications.push(receivedNotification);
+        this.currentMessage.next(receivedNotification);
+        // console.log('new message received. ', payload);
+        // this.currentMessage.next(payload.valueOf());
+        // const value = payload.valueOf();
+        // this.messages.push(new Message(value.notification.title, value.data['gcm.notification.user'],
+        //   JSON.parse(value.data['gcm.notification.relatedCourses']), value.data['gcm.notification.link']));
+        // this.newNotifications.push(new Notification(value.data['gcm.notification.subject'],
+        //   value.data['gcm.notification.owner'], JSON.parse(value.data['gcm.notification.isSeen']),
+        //   JSON.parse(value.data['gcm.notification.isAnswer']), value.data['gcm.notification.link'],
+        //   value.data['gcm.notification.id'], new Date(value.data['gcm.notification.timestamp'])));
       });
   }
 
   resetMessage() {
-    this.currentMessage.next('');
+    // this.currentMessage.
     // this.messages = [];
   }
 
