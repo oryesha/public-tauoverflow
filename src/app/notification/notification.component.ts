@@ -3,6 +3,10 @@ import {Notification} from '../models/notification.model';
 import {MessagingService} from '../services/messaging.service';
 import {Router} from '@angular/router';
 
+enum TimeUnit {
+  SECONDS, MINUTES, HOURS, DAYS
+}
+
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -10,6 +14,7 @@ import {Router} from '@angular/router';
 })
 export class NotificationComponent implements OnInit {
   @Input() notification: Notification;
+  @Input() isNew: boolean;
 
   constructor(private messagingService: MessagingService,
               private router: Router) { }
@@ -22,5 +27,41 @@ export class NotificationComponent implements OnInit {
     // delete notification
     this.messagingService.deleteNotification(this.notification);
     this.router.navigate(['question-page'], {queryParams: {id: this.notification.questionId}});
+  }
+
+  getElapsedTime(): string {
+    const oneDay = 24 * 60 * 60 * 1000;
+    const elapsed = new Date(Date.now() - this.notification.timestamp.getTime());
+    let value = Math.floor(elapsed.getTime() / oneDay);
+    if (value >= 1) {
+      return this._timeUnit(value, TimeUnit.DAYS);
+    }
+    value = elapsed.getHours();
+    if (value >= 1) {
+      return this._timeUnit(value, TimeUnit.HOURS);
+    }
+    value = elapsed.getMinutes();
+    if (value >= 1) {
+      return this._timeUnit(value, TimeUnit.MINUTES);
+    }
+    return this._timeUnit(elapsed.getSeconds(), TimeUnit.SECONDS);
+  }
+
+  private _timeUnit(value: number, timeUnit: TimeUnit) {
+    return value + ' ' + this._getTimeUnitString(value, timeUnit);
+  }
+
+  private _getTimeUnitString(value: number, timeUnit: TimeUnit) {
+    const suffix = value === 1 ? '' : 's';
+    switch (timeUnit) {
+      case TimeUnit.SECONDS:
+        return 'second' + suffix;
+      case TimeUnit.MINUTES:
+        return 'minute' + suffix;
+      case TimeUnit.HOURS:
+        return 'hour' + suffix;
+      case TimeUnit.DAYS:
+        return 'day' + suffix;
+    }
   }
 }
