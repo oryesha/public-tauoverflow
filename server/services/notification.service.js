@@ -39,5 +39,13 @@ exports.deleteNotification = async function(id){
   }
 };
 
+exports.updateNotification = async function(id, isSeen){
+  try {
+    await Notification.findByIdAndUpdate(id, { isSeen: isSeen});
+  } catch(e){
+  throw Error("Error occured while updating notification")
+  }
+}
+
 
 
