@@ -63,6 +63,14 @@ $icon-small-size: 50px;
   flex-direction: column;
 }
 
+.EditProfileButton {
+  font-size: 12px;
+  background-color: mat-color($mat-gray, 200);
+  margin-top: 14px;
+  line-height: 26px;
+}
+
+
 .RankIcon {
   font-size: 28px;
 }

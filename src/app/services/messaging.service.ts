@@ -131,7 +131,11 @@ export class MessagingService {
   markNotificationsAsSeen(justSeenNotification: Notification[]) {
     justSeenNotification.forEach((notification) => {
       notification.isSeen = true;
-      // TODO: add call to server to update isSeen field
+      this.httpRequest.put('/notifications', notification).subscribe(res => {
+        console.log('Update Succesful');
+      }, err => {
+        console.error('Update Unsuccesful');
+      });
       this.seenNotifications.push(notification);
     });
   }

@@ -1,3 +1,6 @@
+@import "~@angular/material/theming";
+
 .EmptyState {
   padding: 12px;
+  color: mat-color($mat-gray, 500);
 }

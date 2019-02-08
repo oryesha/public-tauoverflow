@@ -94,7 +94,7 @@ export class HomePageComponent implements OnInit {
   private async _openDetailsDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
-    dialogConfig.data = {title: 'Please add additional information', user: this.user};
+    dialogConfig.data = {title: 'Please add additional information', user: this.user, firstInit: true};
     await this.courseService.waitForCourses();
     this._initCourses();
     this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
