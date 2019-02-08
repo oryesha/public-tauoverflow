@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AppService} from '../app.service';
-import {Course} from '../models/course.model';
 import {CoursesComponent} from '../courses/courses.component';
-import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
+import {AppRoutingDataService} from '../app-routing-data.service';
 import {Router} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
 import {UserService} from '../services/user.service';
@@ -21,9 +20,12 @@ import {UiCoursesMap} from '../models/ui-courses-map.model';
 })
 export class ProfileDetailsComponent implements OnInit {
   @Input() isProfilePage = false;
+  @Input() isDetailsDialog = false;
   @Input() classes: string;
+  @Input() userToDisplay: UserProfile;
   isLoaded = false;
   userDetails: UserProfile;
+  rankTitle: string;
   defaultImage = '../../assets/avatar.png';
   uiCoursesMap: UiCoursesMap;
 
@@ -40,17 +42,25 @@ export class ProfileDetailsComponent implements OnInit {
     // });
     // debugger;
   }
+              private routingDataService: AppRoutingDataService) {}
 
   ngOnInit() {
+    if (this.isDetailsDialog) {
+      this.userDetails = this.userToDisplay;
+      this.isLoaded = true;
+      return;
+    }
     const routingData = this.routingDataService.getRoutingData('user');
     if (routingData) {
       this.userDetails = routingData.getData();
       this.isLoaded = true;
+      this.getRankTitle();
     } else {
       this.userService.getUser()
         .then((user: UserProfile) => {
           this.userDetails = user;
           this.isLoaded = true;
+          this.getRankTitle();
         });
     }
   }
@@ -96,6 +106,21 @@ export class ProfileDetailsComponent implements OnInit {
   private _initCourses(): void {
     if (!this.uiCoursesMap) {
       this.uiCoursesMap = this.courseService.getCoursesMap();
+    }
+  }
+
+  getRankTitle() {
+    const rank = this.userDetails.rank;
+    if (rank < 100) {
+      this.rankTitle = 'babys-room';
+    } else if (rank < 500) {
+      this.rankTitle = 'lego-head';
+    } else if (rank < 700) {
+      this.rankTitle = 'bot';
+    } else if (rank < 1000) {
+      this.rankTitle = 'rocket';
+    } else {
+      this.rankTitle = 'iron-man';
     }
   }
 }

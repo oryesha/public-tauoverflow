@@ -1,9 +1,7 @@
-<div class="QuestionCard">
+<div class="QuestionCard" *ngIf="question">
   <div class="UserPicture">
-    <img *ngIf="!question.owner.image" src="{{defaultImage}}"
-         class="CardProfileImage">
-    <img *ngIf="question.owner.image" src="data:image/png;base64,{{question.owner.image}}"
-         class="CardProfileImage">
+    <app-clickable-profile-picture
+      [isUserOwner]="isUserOwner" [owner]="question.owner"></app-clickable-profile-picture>
     <div>{{question.owner.name.first}} {{question.owner.name.last}}</div>
   </div>
   <mat-card class="PostCard">
