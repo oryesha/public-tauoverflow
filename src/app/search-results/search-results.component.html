@@ -2,7 +2,7 @@
   <h2 mat-header-row class="ResultHeader">{{results.length}} Result{{results.length == 1 ? '' : 's'}}</h2>
   <mat-divider></mat-divider>
   <mat-list>
-    <mat-list-item class="ListItem" *ngFor="let result of results" #resultItems>
+    <mat-list-item class="ListItem" *ngFor="let result of results">
       <mat-divider></mat-divider>
       <div class="ResultHeaderContent">
         <div class="QuestionHeaderAndContent">
