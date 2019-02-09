@@ -9,6 +9,7 @@ const CourseSchema = new mongoose.Schema({
   reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'CourseReview'}],
   partnerPosts: [{type: mongoose.Schema.Types.ObjectId, ref: 'PartnerPost'}],
   changeHours: [{type: mongoose.Schema.Types.ObjectId, ref: 'ChangeHoursPost'}],
+  skilled: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'}],
 });
 
 CourseSchema .plugin(mongoosePaginate);

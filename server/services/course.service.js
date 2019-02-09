@@ -50,7 +50,27 @@ exports.getCourse = async function(courseNum) {
     return course;
   }
   catch (e) {
-    throw Error('Error while fetching course: ' + courseNum)
+    throw Error('Error while fetching course: ' + courseNum);
+  }
+};
+
+exports.getSkilledUsers = async function(courseId) {
+  try {
+    const skilledUsers = [];
+
+    const course = await Course.findOne({_id: courseId})
+      .populate('skilled').exec();
+
+    if(course.skilled) {
+      course.skilled.forEach((user) => {
+        skilledUsers.push(user.firebaseToken);
+      });
+    }
+
+    return skilledUsers;
+  }
+  catch (e) {
+    throw Error('Error while fetching skilled users from course: ' + courseId);
   }
 };
 
