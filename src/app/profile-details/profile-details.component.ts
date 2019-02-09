@@ -34,19 +34,12 @@ export class ProfileDetailsComponent implements OnInit {
               private userService: UserService,
               private courseService: CourseService,
               private dialog: MatDialog,
-              private routingDataService: AppRoutingDataService) {
-    // this.userService
-    // appService.getResponse('userDetails').subscribe((response) => {
-    //   this.userDetails = response;
-    //   this.isLoaded = true;
-    // });
-    // debugger;
-  }
               private routingDataService: AppRoutingDataService) {}
 
   ngOnInit() {
     if (this.isDetailsDialog) {
       this.userDetails = this.userToDisplay;
+      this.getRankTitle();
       this.isLoaded = true;
       return;
     }
