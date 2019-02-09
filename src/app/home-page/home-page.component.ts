@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
 import {UserProfile} from '../models/user-profile.model';
 import {InitialDetailsDialogComponent} from '../initial-details-dialog/initial-details-dialog.component';
@@ -11,6 +11,9 @@ import {UserService} from '../services/user.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
 import {Question} from '../models/question.model';
 import {MessagingService} from '../services/messaging.service';
+import {QueryService} from '../services/query.service';
+import {SearchBarComponent} from '../search-bar/search-bar.component';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -18,7 +21,7 @@ import {MessagingService} from '../services/messaging.service';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, OnDestroy {
   static CourseList = class implements RoutingData<UiCourse[]> {
     constructor(private selectedCourses: UiCourse[]) {
     }
@@ -28,20 +31,29 @@ export class HomePageComponent implements OnInit {
     }
   };
 
+  @ViewChild('searchBar') searchBar: SearchBarComponent;
   relatedCourses: string[] = [];
   user: UserProfile;
   uiCoursesMap: UiCoursesMap;
   queryResults: Question[];
+  selectedQueryFilters: string[] = [];
+  query: string;
   showQuerySpinner = false;
+  queryParamsSubscribe: Subscription;
 
   message;
   constructor(
     private dialog: MatDialog,
     private router: Router,
+    private route: ActivatedRoute,
     private courseService: CourseService,
     private userService: UserService,
     private messagingService: MessagingService,
+    private queryService: QueryService,
     private routingDataService: AppRoutingDataService) {
+    this.queryParamsSubscribe = route.queryParams.subscribe((params) => {
+      this._checkIfQueryView(params);
+    });
     const routingData = this.routingDataService.getRoutingData('user');
     if (routingData) {
       this.user = routingData.getData();
@@ -49,25 +61,16 @@ export class HomePageComponent implements OnInit {
       if (this.user.isNewUser) {
         this._openDetailsDialog();
       }
+      this.routingDataService.setRoutingData('user', null);
     } else {
-      this.userService.getUser().then((user: UserProfile) => {
+      this.userService.getUser(true).then((user: UserProfile) => {
         this.user = user;
         // this._getNotificationFromService(user);
       });
     }
   }
 
-  // _getNotificationFromService(user: UserProfile) {
-  //   const userId = user.firebaseToken;
-  //   this.messagingService.requestPermission(userId);
-  // }
-
   ngOnInit() {
-  }
-
-  showResults(questions: Question[]) {
-    this.showQuerySpinner = false;
-    this.queryResults = questions;
   }
 
   async openCoursesDialog() {
@@ -122,7 +125,37 @@ export class HomePageComponent implements OnInit {
     }
   }
 
-  showSpinner() {
-    this.showQuerySpinner = true;
+  private _checkIfQueryView(params: Params) {
+    this.queryResults = undefined;
+    if (params.query) {
+      this.showQuerySpinner = true;
+      this.query = params.query;
+      this.selectedQueryFilters = params.filters ? params.filters.split(',') : [];
+      this._getQueryResults();
+    } else {
+      this.showQuerySpinner = false;
+      if (this.searchBar) {
+        this.searchBar.updateElementsWithSearchParams('', []);
+      }
+    }
+  }
+
+  private _getQueryResults() {
+    this.queryService.getQueryResult(this.query, this.selectedQueryFilters).subscribe(
+      questions => {
+        this.queryResults = this._parseQuestions(questions);
+        this.showQuerySpinner = false;
+        this.searchBar.updateElementsWithSearchParams(this.query, this.selectedQueryFilters);
+      });
+  }
+
+  private _parseQuestions(resQuestions: any[]): Question[] {
+    const questions: Question[] = [];
+    resQuestions.forEach((question) => questions.push(Question.deserialize(question)));
+    return questions;
+  }
+
+  ngOnDestroy(): void {
+    this.queryParamsSubscribe.unsubscribe();
   }
 }

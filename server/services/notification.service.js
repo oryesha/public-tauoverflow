@@ -6,7 +6,7 @@ _this = this;
 exports.getUserNotifications = async function(id) {
   let notifications = Notification.find({toNotify: id});
   return notifications;
-}
+};
 
 exports.addNotification = async function(notification){
   let newNotification = new Notification({
@@ -45,7 +45,7 @@ exports.updateNotification = async function(id, isSeen){
   } catch(e){
   throw Error("Error occured while updating notification")
   }
-}
+};
 
 
 

@@ -1,4 +1,4 @@
-let NotificationService = require('../services/notification.service')
+let NotificationService = require('../services/notification.service');
 
 exports.getUserNotifications = async function(req,res){
   let id = req.params.id; //this is firebase id !!!
@@ -8,7 +8,7 @@ exports.getUserNotifications = async function(req,res){
   } catch (e) {
     return res.status(400).json({status: 400, message: e.message})
   }
-}
+};
 
 exports.addNotification = async function(req,res){
 
@@ -38,7 +38,7 @@ exports.deleteNotification = async function(req,res) {
   } catch (e) {
     return res.status(400).json({status: 400, message: e.message})
   }
-}
+};
 
 exports.updateNotification = async function(req,res) {
   if(!req.body.id || !req.body.isSeen){
@@ -52,4 +52,4 @@ exports.updateNotification = async function(req,res) {
   } catch (e) {
     return res.status(400).json({status: 400, message: e.message})
   }
-}
+};
