@@ -13,6 +13,9 @@
   text-align: left;
   color: mat-color($mat-gray, 700);
   font-size: 18px;
+  margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 .ListItem {
@@ -107,4 +110,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
+}
+
+.ResultsHeaderContainer {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.BackIconButton {
+  color: mat-color($mat-gray, 500);
 }

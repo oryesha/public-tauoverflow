@@ -1,5 +1,8 @@
 <div class="MainResult">
-  <h2 mat-header-row class="ResultHeader">{{results.length}} Result{{results.length == 1 ? '' : 's'}}</h2>
+  <div class="ResultsHeaderContainer">
+    <button mat-icon-button class="BackIconButton" routerLink="/home-page"><mat-icon>arrow_back</mat-icon></button>
+    <h2 mat-header-row class="ResultHeader">{{results.length}} Result{{results.length == 1 ? '' : 's'}}</h2>
+  </div>
   <mat-divider></mat-divider>
   <mat-list>
     <mat-list-item class="ListItem" *ngFor="let result of results">
