@@ -6,7 +6,6 @@ import {Router} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
-import {Observable} from 'rxjs';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {InitialDetailsDialogComponent} from '../initial-details-dialog/initial-details-dialog.component';
 import {CourseService} from '../services/course.service';
@@ -35,14 +34,7 @@ export class ProfileDetailsComponent implements OnInit {
               private courseService: CourseService,
               private dialog: MatDialog,
               private routingDataService: AppRoutingDataService) {
-    // this.userService
-    // appService.getResponse('userDetails').subscribe((response) => {
-    //   this.userDetails = response;
-    //   this.isLoaded = true;
-    // });
-    // debugger;
   }
-              private routingDataService: AppRoutingDataService) {}
 
   ngOnInit() {
     if (this.isDetailsDialog) {

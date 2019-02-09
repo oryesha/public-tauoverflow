@@ -50,7 +50,7 @@ export class HomePageComponent implements OnInit {
         this._openDetailsDialog();
       }
     } else {
-      this.userService.getUser().then((user: UserProfile) => {
+      this.userService.getUser(true).then((user: UserProfile) => {
         this.user = user;
         // this._getNotificationFromService(user);
       });

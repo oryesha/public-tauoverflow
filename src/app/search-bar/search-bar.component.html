@@ -2,7 +2,7 @@
   <mat-form-field appearance="outline" class="SearchBox">
     <div *ngIf="isSearchQuestion">
       <input matInput placeholder="Search a question..." [(ngModel)]="searchContent"
-             (keypress.enter)="getQuestionsFromQuery()">
+             (keydown.enter)="getQuestionsFromQuery()">
     </div>
     <div *ngIf="!isSearchQuestion">
       <input matInput placeholder="Search a course...">
