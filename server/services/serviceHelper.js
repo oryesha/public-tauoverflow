@@ -12,6 +12,14 @@ exports.getIdsFromList = function(list) {
 };
 
 exports.updateList = function(oldList, newList) {
+  //delete old items
+  oldList.forEach((id) => {
+    if (newList.indexOf(id) === -1) {
+      const index = oldList.indexOf(id);
+      oldList.splice(index, 1);
+    }
+  });
+  //add new items
   newList.forEach((id) => {
     if (oldList.indexOf(id) === -1) {
       oldList.push(id);
