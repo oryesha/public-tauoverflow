@@ -14,7 +14,7 @@ exports.getIdsFromList = function(list) {
 exports.updateList = function(oldList, newList) {
   //delete old items
   oldList.forEach((id) => {
-    if (newList.indexOf(id) === -1) {
+    if (newList.indexOf(id.toString()) === -1) {
       const index = oldList.indexOf(id);
       oldList.splice(index, 1);
     }
