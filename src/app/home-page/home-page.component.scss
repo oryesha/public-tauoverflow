@@ -23,7 +23,9 @@
 }
 
 .HomeProfileCard {
+  display: flex;
   flex: 0 0 auto;
+  flex-direction: column;
 }
 
 .SearchBarContainer {
@@ -35,6 +37,7 @@
 .SearchAndButtonContainer {
   display: flex;
   flex-direction: column;
+  height: 100%;
   justify-content: space-between;
   max-width: 542px;
   width: 100%;
