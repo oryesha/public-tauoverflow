@@ -1,10 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {MatDialogConfig} from '@angular/material/dialog';
 import {CourseService} from '../services/course.service';
-import {QueryService} from '../services/query.service';
-import {Question} from '../models/question.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,17 +11,17 @@ import {Question} from '../models/question.model';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-  showResults: boolean = false;
+  @ViewChild('searchBarInput') searchBarInput: ElementRef;
+
   constructor(private dialog: MatDialog,
               private courseService: CourseService,
-              private queryService: QueryService) { }
+              private router: Router) { }
 
   @Input() isSearchQuestion: boolean;
   private searchContent: string;
   private selectedFilters: string[] = [];
   private hasFilters: boolean;
-  @Output() results = new EventEmitter<Question[]>();
-  @Output() searchInProgress = new EventEmitter();
+  private isSearchResultsShown = false;
 
   async openDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -40,6 +39,9 @@ export class SearchBarComponent implements OnInit {
         .subscribe( (result: string[]) => {
           this.selectedFilters = result ? result : this.selectedFilters;
           this.hasFilters = this.selectedFilters.length > 0;
+          if (this.isSearchResultsShown) {
+            this.initiateSearch();
+          }
         });
   }
 
@@ -48,32 +50,39 @@ export class SearchBarComponent implements OnInit {
     if (index >= 0) {
       this.selectedFilters.splice(index, 1);
       this.hasFilters = this.selectedFilters.length > 0;
+      if (this.isSearchResultsShown) {
+        this.initiateSearch();
+      }
     }
   }
 
-  async getQuestionsFromQuery() {
-    this.searchInProgress.emit();
+  ngOnInit() {}
+
+  async updateElementsWithSearchParams(query: string, filters?: string[]) {
+    await this.courseService.waitForCourses();
+    this.isSearchResultsShown = true;
+    this.selectedFilters = [];
+    this.searchContent = query;
+    if (filters) {
+      filters.forEach((courseNumber) => {
+        this.selectedFilters.push(this.courseService.getCourseName(courseNumber));
+      });
+      this.hasFilters = this.selectedFilters.length > 0;
+    }
+  }
+
+  async initiateSearch() {
+    if (!this.searchContent) {
+      return;
+    }
     await this.courseService.waitForCourses();
     const courseMap = this.courseService.getCoursesMap();
-    const filtersId: string[] = [];
+    const filterIds: string[] = [];
     this.selectedFilters.forEach((filter: string) => {
-      filtersId.push(courseMap[filter].courseNumber);
+      filterIds.push(courseMap[filter].courseNumber);
     });
-    this.queryService.getQueryResult(this.searchContent, filtersId)
-      .subscribe(questions => {
-        // assign the questions list property to the proper http response
-        this.results.emit(this._parseQuestions(questions));
-      });
-  }
-
-  private _parseQuestions(resQuestions: any[]): Question[] {
-    const questions: Question[] = [];
-    resQuestions.forEach((question) => questions.push(Question.deserialize(question)));
-    return questions;
-  }
-
-  ngOnInit() {
+    const query = this.searchContent;
+    const queryParams = filterIds.length > 0 ? {query, filters: filterIds.join(',')} : {query};
+    this.router.navigate(['home-page'], {queryParams});
   }
 }
-
-
