@@ -9,6 +9,7 @@ import {Question, QuestionNavigationData} from '../models/question.model';
 import {UserProfile} from '../models/user-profile.model';
 import {QuestionService} from '../services/question.service';
 import {Router} from '@angular/router';
+import {MessagingService} from '../services/messaging.service';
 
 @Component({
   selector: 'app-question-editor',
@@ -25,6 +26,7 @@ export class QuestionEditorComponent implements OnInit {
   constructor(private userService: UserService,
               private courseService: CourseService,
               private questionService: QuestionService,
+              private messagingService: MessagingService,
               private router: Router,
               private routingDataService: AppRoutingDataService) {}
 
@@ -52,8 +54,27 @@ export class QuestionEditorComponent implements OnInit {
     this.questionService.createQuestion(question).subscribe((response: any) => {
       question.id = response.data._id;
       this.user.asked += 1;
+      this._sendNotificationToCourseRelatedSkilledUsers(question);
       this.routingDataService.setRoutingData('question', new QuestionNavigationData(question));
       this.router.navigate(['question-page'], {queryParams: {id: question.id}});
     });
+  }
+
+  _sendNotificationToCourseRelatedSkilledUsers(question: Question) {
+   this.courses.forEach((course) => {
+     this.courseService.getSkilledUsers(course.id).subscribe((response) => {
+       debugger;
+       let users = [];
+       if (Array.isArray(response)) {
+         users = response;
+       } else {
+         users.push(response);
+       }
+       users.forEach((user) => {
+         this.messagingService.sendMessage(user, question.subject,
+           question.owner.name.first + ' ' + question.owner.name.last, question.id, false);
+       });
+     });
+   });
   }
 }
