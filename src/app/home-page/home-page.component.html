@@ -19,7 +19,7 @@
             <app-search-results [results]="queryResults"></app-search-results>
           </div>
         </div>
-        <div class="MainFeatures">
+        <div class="MainFeatures" *ngIf="!queryResults">
           <div class="Feature">
             <button mat-fab class="FeatureIcon" (click)="openCoursesDialog()">
               <mat-icon>live_help</mat-icon>
