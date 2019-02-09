@@ -6,17 +6,19 @@ export class UiUser {
   name: Name;
   email: string;
   image = ''; // TODO(nati): Decide how this should look.
+  rank = 0;
 
   static deserialize(user: any): UiUser {
-    return new UiUser(user.firstName, user.lastName, user.firebaseToken, user.email, user._id, user.image);
+    return new UiUser(user.firstName, user.lastName, user.firebaseToken, user.email, user._id, user.image, user.rank);
   }
 
   constructor(firstName: string, lastName: string, firebaseToken: string,
-              email: string, id?: string, image?: string) {
+              email: string, id?: string, image?: string, rank?: number) {
     this.name = new Name(firstName, lastName);
     this.firebaseToken = firebaseToken;
     this.email = email;
     this.id = id;
     this.image = image;
+    this.rank = rank;
   }
 }

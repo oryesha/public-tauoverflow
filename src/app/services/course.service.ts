@@ -50,6 +50,11 @@ export class CourseService {
     return this.httpRequest.get('/courses', [], [courseId]);
   }
 
+  // get skilled users firebase token
+  getSkilledUsers(courseId: string): Observable<any> {
+    return this.httpRequest.get('/courses/skilled-users', [], [courseId]);
+  }
+
   addCourse(uiCourse: UiCourse): Observable<any> {
     return this.httpRequest.post('/courses', new Course(uiCourse));
   }
