@@ -64,10 +64,6 @@ export class ProfileDetailsComponent implements OnInit {
     this.router.navigate(['/course-page'], { queryParams: { courseId: course.courseNumber } });
   }
 
-  addSkill() {
-
-  }
-
   async editProfile() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';

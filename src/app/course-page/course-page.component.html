@@ -20,6 +20,10 @@
             <mat-icon class="Star" *ngFor="let i of range(starsCounter.emptyStars)">star_border</mat-icon>
           </div>
           <div class="mat-body-2 Reviews"> Reviews: {{course.reviews.length}} </div>
+          <button mat-flat-button class="AddToMyCoursesButton" (click)="addToMyCourses(uiCourse.id)">Add To My Courses</button>
+          <div class="DividerContainer">
+            <mat-divider></mat-divider>
+          </div>
           <div class="CoursePageButtonContainer">
             <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('question')">Ask a question</button>
             <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('review')">Write a review</button>

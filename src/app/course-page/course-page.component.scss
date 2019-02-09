@@ -138,6 +138,17 @@
   margin-top: 10px;
 }
 
+.AddToMyCoursesButton {
+  display: flex;
+  flex-direction: column;
+ // background: mat-color($mat-gray, 400);
+  color: mat-color($mat-gray, 600);
+  //margin: 4px;
+  max-height: 32px;
+  border: 1px solid mat-color($mat-gray, 500);
+  background: transparent;
+}
+
 .CoursePageExpansionPanel {
   background: mat-color($mat-gray, 300);
 }
@@ -175,6 +186,12 @@
 
 .ContactDivider {
   margin-top: 16px;
+}
+
+.DividerContainer {
+  width: 100%;
+  position: relative;
+  margin-top: 10px;
 }
 
 .ContactDetailsContainer {

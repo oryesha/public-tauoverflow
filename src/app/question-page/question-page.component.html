@@ -32,11 +32,11 @@
       </button>
     </span>
   </mat-card-content>
-  <app-question-card [user]="user" [question]="question" [isLocked]="isQuestionLocked"
-                     [isUserOwner]="isUserOwner"
+  <app-question-card [user]="user" [question]="question" [isLocked]="isQuestionLocked" [isUserOwner]="isUserOwner"
                      (showAnswerEditor)="showAnswerEditor()"></app-question-card>
   <div class="AnswersContainer">
-    <app-answer-card *ngFor="let answer of question.answers" [answer]="answer" [isUserOwner]="isUserOwner"
+    <app-answer-card *ngFor="let answer of question.answers" [answer]="answer"
+                     [isUserOwner]="user.id === answer.owner.id"
                      [isEvenAnswer]="1 - isEvenAnswer">
     </app-answer-card>
     <app-single-answer-editor (answerSubmitted)="postAnswer($event)" (rendered)="scrollToBottom()"
