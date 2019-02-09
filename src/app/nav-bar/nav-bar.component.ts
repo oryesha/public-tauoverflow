@@ -1,15 +1,14 @@
-import {Component, ComponentFactoryResolver, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {MessagingService} from '../services/messaging.service';
-import {MatButton, MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
+import {MatButton, MatSnackBar} from '@angular/material';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService} from '../app-routing-data.service';
 import {Notification} from '../models/notification.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NotificationsCardComponent} from '../notifications-card/notifications-card.component';
-import {NotificationDialogComponent} from '../notification-dialog/notification-dialog.component';
 
 
 @Component({
@@ -26,12 +25,9 @@ export class NavBarComponent implements OnDestroy, OnInit  {
               private routingDataService: AppRoutingDataService,
               private userService: UserService,
               private messagingService: MessagingService,
-              private snackBar: MatSnackBar,
-              private componentFactoryResolver: ComponentFactoryResolver,
-              private dialog: MatDialog) { }
+              private snackBar: MatSnackBar) { }
   seenNotifications = this.messagingService.seenNotifications;
   newNotifications = this.messagingService.newNotifications;
-  showNotifications: boolean;
   @Input() isSignUp: boolean;
   @Input() user: UserProfile;
 
@@ -59,17 +55,6 @@ export class NavBarComponent implements OnDestroy, OnInit  {
     this.notificationsCard.updateNotifications();
     const justSeenNotification = this.newNotifications.splice(0, this.newNotifications.length);
     this.messagingService.markNotificationsAsSeen(justSeenNotification);
-    // const dialogConfig = new MatDialogConfig();
-    // dialogConfig.width = '500px';
-    // dialogConfig.data = {title: 'Notification information', newNotifications: this.newNotifications,
-    // seenNotification: this.seenNotifications};
-    // this.dialog.open(NotificationDialogComponent, dialogConfig).afterClosed().subscribe(
-    //   (result) => {
-    //     this.seenNotifications = this.seenNotifications.concat(this.newNotifications);
-    //     this.newNotifications = [];
-    //     // this.messagingService.resetMessage();
-    //   });
-    // this.dialog.open(NotificationDialogComponent, dialogConfig);
   }
 
   navigateToPage(page) {
@@ -86,12 +71,5 @@ export class NavBarComponent implements OnDestroy, OnInit  {
       return;
     }
     this.loginAttempt.emit(this.loginForm.value);
-  }
-
-  private _openNotifications() {
-    // const factory = this.componentFactoryResolver.resolveComponentFactory(NotificationsCardComponent);
-    // const viewContainerRef = this.notificationsCard.viewContainerRef;
-    // viewContainerRef.clear();
-    // viewContainerRef.createComponent(factory);
   }
 }

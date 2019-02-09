@@ -17,7 +17,6 @@ export class NotificationsCardComponent implements OnInit {
   newNotifications: Notification[];
   seenNotifications: Notification[];
   notificationComponentFactory: ComponentFactory<NotificationComponent>;
-  @Output() menuClosed = new EventEmitter();
 
   constructor(private messagingService: MessagingService,
               private componentFactoryResolver: ComponentFactoryResolver) {
@@ -39,13 +38,9 @@ export class NotificationsCardComponent implements OnInit {
             .viewContainerRef
             .createComponent(this.notificationComponentFactory).instance;
     notificationInstance.notification = notification;
+    notificationInstance.isNew = !notification.isSeen;
   }
 
   ngOnInit() {
-    // this.menuTrigger.openMenu();
-  }
-
-  destroyComponent() {
-    this.menuClosed.emit();
   }
 }

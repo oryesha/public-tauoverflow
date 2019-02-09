@@ -1,3 +1,14 @@
-<div (click)="goToQuestion()">
-  {{notification.subject}}
-</div>
+<button mat-flat-button (click)="goToQuestion()"
+        [ngClass]="{'Notification': true, 'NewNotification': isNew}">
+  <span class="NotificationIconAndDescription">
+    <mat-icon class="NotificationIcon">{{notification.isAnswer ? 'chat' : 'live_help'}}</mat-icon>
+    <span class="NotificationDescription">
+      <b>{{notification.owner}}</b> {{notification.isAnswer ?
+                                      'answered your question' :
+                                      'asked a question that might interest you'}}:
+    </span>
+  </span>
+  <span class="NotificationSubject"><b>{{notification.subject}}</b></span>
+  <span class="NotificationTimeElapsed">{{getElapsedTime()}} ago</span>
+</button>
+<mat-divider></mat-divider>

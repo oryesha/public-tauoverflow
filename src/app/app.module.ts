@@ -70,7 +70,6 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import {MessagingService} from './services/messaging.service';
 import { AsyncPipe } from '@angular/common';
 import {MatBadgeModule} from '@angular/material/badge';
-import { NotificationDialogComponent } from './notification-dialog/notification-dialog.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { CopyToClipboardComponent } from './copy-to-clipboard/copy-to-clipboard.component';
 import { EmptyStateComponent } from './empty-state/empty-state.component';
@@ -109,7 +108,6 @@ import { NotificationHostDirective } from './notifications-card/notification-hos
     MultiSelectAutocompleteComponent,
     InitialDetailsDialogComponent,
     SpinnerComponent,
-    NotificationDialogComponent,
     FileUploaderComponent,
     CopyToClipboardComponent,
     EmptyStateComponent,
@@ -174,7 +172,6 @@ import { NotificationHostDirective } from './notifications-card/notification-hos
     FilterDialogComponent,
     DeleteConfirmDialogComponent,
     InitialDetailsDialogComponent,
-    NotificationDialogComponent,
     ProfileDetailsDialogComponent,
     NotificationComponent,
   ]

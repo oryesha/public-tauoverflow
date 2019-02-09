@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FileChangeEvent} from '@angular/compiler-cli/src/perform_watch';
 
 @Component({
@@ -6,7 +6,7 @@ import {FileChangeEvent} from '@angular/compiler-cli/src/perform_watch';
   templateUrl: './form-field.component.html',
   styleUrls: ['./form-field.component.scss']
 })
-export class FormFieldComponent implements OnInit {
+export class FormFieldComponent implements OnInit, AfterViewChecked {
   @ViewChild('textarea') textarea: ElementRef;
   @ViewChild('input') input: ElementRef;
 
@@ -16,8 +16,15 @@ export class FormFieldComponent implements OnInit {
   @Input() label: string;
   @Input() isTextarea: boolean;
   @Input() appearance = 'fill';
+  @Input() description: string;
 
   ngOnInit() {
+  }
+
+  ngAfterViewChecked() {
+    // if (this.description && this.isTextarea) {
+    //   this.textarea.nativeElement.value = this.description;
+    // }
   }
 
   getContent(): string {

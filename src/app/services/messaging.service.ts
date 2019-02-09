@@ -3,7 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireMessaging } from 'angularfire2/messaging';
 import { take } from 'rxjs/operators';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {UserService} from './user.service';
 import {Notification} from '../models/notification.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';

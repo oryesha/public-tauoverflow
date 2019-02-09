@@ -2,21 +2,23 @@
   <h1 mat-dialog-title class="DetailsDialogTitle">{{title}}</h1>
   <mat-dialog-content class="DetailsDialogContent">
     <h5 class="SmallDialogHeader FirstHeader">Choose your program:</h5>
-    <app-autocomplete [options]="programs" #programAutocomplete [isRequired]="true"
-                      [placeholder]="'Choose your program'">
+    <app-autocomplete class="DetailsInput ProgramInput" [options]="programs" #programAutocomplete [isRequired]="true"
+                      [placeholder]="'Choose your program'" [selectedOption]="selectedProgram">
     </app-autocomplete>
     <h5 class="SmallDialogHeader">Add a short description about yourself:</h5>
-    <app-form-field [isTextarea]="true" [label]="''" [appearance]="'outline'"
+    <app-form-field class="DetailsInput DescriptonInput" [isTextarea]="true" [label]="''" [appearance]="'outline'" [description]="description"
                     #descriptionField>
     </app-form-field>
     <h5 class="SmallDialogHeader">Add your skills:</h5>
-    <app-multi-select-autocomplete [placeholder]="'Type course name'"
+    <app-multi-select-autocomplete class="SkillChips" [placeholder]="'Type course name'"
                                    [isRequired]="false"
-                                   [options]="courses"
+                                   [options]="courses" [selectedOptions]="selectedSkills"
                                    #skillsMultiselect>
     </app-multi-select-autocomplete>
-    <h5 class="SmallDialogHeader">Upload a photo:</h5>
-    <app-file-uploader (imageSelected)="saveImage($event)"></app-file-uploader>
+    <ng-container *ngIf="firstInit">
+      <h5 class="SmallDialogHeader">Upload a photo:</h5>
+      <app-file-uploader (imageSelected)="saveImage($event)"></app-file-uploader>
+    </ng-container>
   </mat-dialog-content>
   <mat-dialog-actions class="DetailsDialogDoneButtonContainer">
     <button mat-raised-button class="DetailsDialogDoneButton" (click)="checkFormAndSubmit()" [disabled]="disabled"
