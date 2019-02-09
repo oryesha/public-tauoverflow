@@ -7,11 +7,11 @@
     <div class="MainContent">
       <div class="SearchAndButtonContainer">
         <div class="LogoAndSearch">
-          <div class="ImgContainer" *ngIf="!queryResults">
+          <div class="ImgContainer" *ngIf="!queryResults && !showQuerySpinner">
             <img class="resize" src="../../assets/logo.png"/>
           </div>
           <div class="SearchBarContainer">
-            <app-search-bar (searchInProgress)="showSpinner()" (results)="showResults($event)" [isSearchQuestion]="true">
+            <app-search-bar #searchBar [isSearchQuestion]="true">
             </app-search-bar>
           </div>
           <app-spinner *ngIf="!queryResults && showQuerySpinner"></app-spinner>

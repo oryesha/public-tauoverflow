@@ -57,12 +57,6 @@ export class NavBarComponent implements OnDestroy, OnInit  {
     this.messagingService.markNotificationsAsSeen(justSeenNotification);
   }
 
-  navigateToPage(page) {
-    this.userService.getUser(true).then((user) => {
-      this.router.navigate([page], {queryParams: {id: user.firebaseToken}});
-    });
-  }
-
   login() {
     if (!this.loginForm.valid) {
       this.snackBar.open('Please enter valid credentials', '', {

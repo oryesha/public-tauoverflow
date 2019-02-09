@@ -40,6 +40,7 @@ export class QuestionPageComponent implements OnInit {
         this.question = routingData.getData();
         this._updateMembers();
         this.isLoaded = true;
+        routingDataService.setRoutingData('question', null);
       } else {
         route.queryParams.subscribe(
           (params) => {
