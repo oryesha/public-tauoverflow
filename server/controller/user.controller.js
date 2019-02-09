@@ -61,7 +61,7 @@ exports.removeFromMyCourses = async function(req, res) {
   } catch (e) {
     return res.status(400).json({status: 400., message: e.message})
   }
-}
+};
 
 exports.updateUser = async function (req, res) {
 

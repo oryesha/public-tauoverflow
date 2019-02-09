@@ -1,3 +1,4 @@
+let Course = require("../models/course.model");
 let ProfileRank = require('../services/profileRank');
 let User = require('../models/user-profile.model');
 let ServiceHelper = require('../services/serviceHelper');
@@ -174,6 +175,15 @@ exports.updateUser = async function(user){
 
   try{
     let savedUser = await oldUser.save();
+    //updated course that someone is skilled on it
+    savedUser.skills.forEach(async (skillId) => {
+      let course = await Course.findOne({_id: skillId});
+      if(!course.skilled) {
+        course.skilled = [];
+      }
+      course.skilled.push(savedUser._id);
+      course.save();
+    });
     return savedUser;
   }catch(e){
     throw Error("Error occured while updating the user");

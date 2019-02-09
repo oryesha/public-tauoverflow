@@ -1,5 +1,9 @@
 @import "~@angular/material/theming";
 
+:host {
+  flex: 1 1 auto;
+  height: 0;
+}
 
 .MainResult {
   padding-bottom: 20px;
@@ -8,17 +12,18 @@
 .ResultHeader {
   text-align: left;
   color: mat-color($mat-gray, 700);
+  font-size: 18px;
+  margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 .ListItem {
   padding: 10px;
   display: flex;
-  //max-width: 100%;
-  //width: 100%;
 }
 
 .IconDetails {
-  //width: 10%;
   align-items: center;
   display: flex;
   font-size: 12px;
@@ -36,19 +41,14 @@
   padding-top: 0;
 }
 
-//.IconExp {
-//  color: mat-color($mat-gray, 600);
-//  font-size: xx-small;
-//}
-
 .NameAndDate {
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: mat-color($mat-gray, 600);
   font-size: 12px;
-  //max-width: 10%;
-  //width: 100%;
+  flex: 1 1 auto;
+  width: 0;
 }
 
 .IconDetails.mat-list-icon {
@@ -67,7 +67,9 @@
 }
 
 .ResContent {
+  display: inline-block;
   margin: 0;
+  max-height: 18px;
   font-size: 12px;
   font-weight: lighter;
   color: mat-color($mat-gray, 600);
@@ -78,7 +80,6 @@
 
 .ResultHeaderContent {
   display: flex;
-  justify-content: space-between;
   width: 100%;
 }
 
@@ -88,14 +89,34 @@
   flex: 1 1 auto;
   width: 0;
   padding: 0 8px;
+  max-width: 320px;
 }
 
 .QuestionDetailsContainer {
   display: flex;
-  justify-content: flex-end;
+  flex: 0 0 auto;
+  max-width: 190px;
+  width: 100%;
 }
 
 .QuestionStatsContainer {
   display: flex;
   margin-right: 12px;
+  flex: 0 0 auto;
+}
+
+.SearchResultName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.ResultsHeaderContainer {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.BackIconButton {
+  color: mat-color($mat-gray, 500);
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppRoutingDataService} from '../app-routing-data.service';
 import {Router} from '@angular/router';
 import {CourseService} from '../services/course.service';
@@ -11,8 +11,8 @@ import {Question, QuestionNavigationData} from '../models/question.model';
   styleUrls: ['./search-results.component.scss']
 })
 export class SearchResultsComponent implements OnInit {
-
   @Input() results: Question[];
+  @Output() viewChecked = new EventEmitter();
 
   constructor(
     private router: Router,

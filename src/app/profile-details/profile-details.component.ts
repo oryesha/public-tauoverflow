@@ -6,7 +6,6 @@ import {Router} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
-import {Observable} from 'rxjs';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {InitialDetailsDialogComponent} from '../initial-details-dialog/initial-details-dialog.component';
 import {CourseService} from '../services/course.service';
@@ -43,19 +42,12 @@ export class ProfileDetailsComponent implements OnInit {
       this.isLoaded = true;
       return;
     }
-    const routingData = this.routingDataService.getRoutingData('user');
-    if (routingData) {
-      this.userDetails = routingData.getData();
-      this.isLoaded = true;
-      this.getRankTitle();
-    } else {
-      this.userService.getUser()
-        .then((user: UserProfile) => {
-          this.userDetails = user;
-          this.isLoaded = true;
-          this.getRankTitle();
-        });
-    }
+    this.userService.getUser()
+      .then((user: UserProfile) => {
+        this.userDetails = user;
+        this.isLoaded = true;
+        this.getRankTitle();
+      });
   }
 
   navigateToCoursePage(course: UiCourse) {
