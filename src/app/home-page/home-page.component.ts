@@ -11,9 +11,7 @@ import {UserService} from '../services/user.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
 import {Question} from '../models/question.model';
 import {MessagingService} from '../services/messaging.service';
-import {Location} from '@angular/common';
 import {QueryService} from '../services/query.service';
-import {query} from '@angular/animations';
 import {SearchBarComponent} from '../search-bar/search-bar.component';
 import {Subscription} from 'rxjs';
 
@@ -51,7 +49,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
     private courseService: CourseService,
     private userService: UserService,
     private messagingService: MessagingService,
-    private location: Location,
     private queryService: QueryService,
     private routingDataService: AppRoutingDataService) {
     this.queryParamsSubscribe = route.queryParams.subscribe((params) => {
@@ -64,6 +61,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
       if (this.user.isNewUser) {
         this._openDetailsDialog();
       }
+      this.routingDataService.setRoutingData('user', null);
     } else {
       this.userService.getUser(true).then((user: UserProfile) => {
         this.user = user;

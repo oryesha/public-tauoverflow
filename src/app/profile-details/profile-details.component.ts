@@ -42,29 +42,18 @@ export class ProfileDetailsComponent implements OnInit {
       this.isLoaded = true;
       return;
     }
-    const routingData = this.routingDataService.getRoutingData('user');
-    if (routingData) {
-      this.userDetails = routingData.getData();
-      this.isLoaded = true;
-      this.getRankTitle();
-    } else {
-      this.userService.getUser()
-        .then((user: UserProfile) => {
-          this.userDetails = user;
-          this.isLoaded = true;
-          this.getRankTitle();
-        });
-    }
+    this.userService.getUser()
+      .then((user: UserProfile) => {
+        this.userDetails = user;
+        this.isLoaded = true;
+        this.getRankTitle();
+      });
   }
 
   navigateToCoursePage(course: UiCourse) {
     const courseData = new CoursesComponent.CourseNavigationData(course);
     this.routingDataService.setRoutingData(course.courseNumber, courseData);
     this.router.navigate(['/course-page'], { queryParams: { courseId: course.courseNumber } });
-  }
-
-  addSkill() {
-
   }
 
   async editProfile() {
