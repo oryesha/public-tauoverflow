@@ -18,6 +18,14 @@
   }
 }
 
+.NotificationsMenu {
+  max-width: 300px !important;
+
+  .mat-menu-content:not(:empty) {
+    padding: 0;
+  }
+}
+
 button:focus {
   outline: 0;
 }
