@@ -84,17 +84,34 @@ exports.updateFavorites = async function(userId, questionId) {
 
 exports.updateMyCourses = async function(userId, courseId) {
   let user;
+  let course;
   try {
     user = await User.findById(userId);
+    course = await Course.findOne({_id: courseId});
+    if(!course.interestedIn) {
+      course.interestedIn = [];
+    }
   } catch (e) {
     throw Error('Couldn\'t find user');
   }
+  //see if course should be added or removed from my courses
   const index = user.myCourses.indexOf(courseId);
+  //add course to my courses
   if (index === -1) {
     user.myCourses.push(courseId);
+    //add user as interested in this course
+    course.interestedIn.push(user._id);
+  //remove course from my courses
   } else {
     user.myCourses.splice(index, 1);
+    //remove user as interested in this course
+    const userIdx = course.interestedIn.indexOf(user._id);
+    if (index !== -1) {
+      course.interestedIn.splice(userIdx, 1);
+    }
   }
+
+  course.save();
 
   try {
     return await user.save();
@@ -107,12 +124,19 @@ exports.addToMyCourses = async function(userId, courseIds) {
   let user;
   try {
     user = await User.findById(userId);
+    courseIds.forEach(async (id) => {
+      user.myCourses.push(id);
+      //updated course that someone is skilled on it
+      let course = await Course.findOne({_id: id});
+      if(!course.interestedIn) {
+        course.interestedIn = [];
+      }
+      course.interestedIn.push(user._id);
+      course.save();
+    });
   } catch (e) {
     throw Error('Couldn\'t find user');
   }
-  courseIds.forEach((id) => {
-    user.myCourses.push(id);
-  });
 
   try {
     return await user.save();
@@ -132,8 +156,16 @@ exports.removeFromMyCourses = async function(userId, courseId) {
   if (index !== -1) {
     user.myCourses.splice(index, 1);
   }
-
+  // delete user from the course he is marked as interested - we don't want him to get notifications
   try {
+    let course = await Course.findById(courseId);
+    if(course.interestedIn) {
+      const index = course.interestedIn.indexOf(user._id);
+      if (index !== -1) {
+        course.interestedIn.splice(index, 1);
+        await course.save();
+      }
+    }
     return await user.save();
   } catch (e) {
     throw Error('Couldn\'t save updated user');
@@ -155,6 +187,13 @@ exports.updateUser = async function(user){
     return false;
   }
 
+  // delete user from interested in courses he is no longer skilled at
+  _deleteUserFromRemovedSkilledCourses(oldUser.skills, user.skills, oldUser._id);
+
+  //updated course that someone is skilled on it
+  _AddUserToNewSkilledCoursesNotificationList(oldUser.skills, user.skills, oldUser._id);
+
+
   oldUser.firebaseToken = user.firebaseToken;
   oldUser.firstName = user.firstName;
   oldUser.lastName = user.lastName;
@@ -175,19 +214,54 @@ exports.updateUser = async function(user){
 
   try{
     let savedUser = await oldUser.save();
-    //updated course that someone is skilled on it
-    savedUser.skills.forEach(async (skillId) => {
-      let course = await Course.findOne({_id: skillId});
-      if(!course.skilled) {
-        course.skilled = [];
-      }
-      course.skilled.push(savedUser._id);
-      course.save();
-    });
     return savedUser;
   }catch(e){
     throw Error("Error occured while updating the user");
   }
+};
+
+_deleteUserFromRemovedSkilledCourses = function(oldSkills, updatedSkills, userId){
+
+  try {
+    if (!oldSkills)
+      return;
+
+    oldSkills.forEach(async (skill) => {
+      if (!updatedSkills.includes(skill.toString())) {
+        // user should be deleted from interested list of this course - no longer skilled at
+        let course = await Course.findById(skill);
+        if(course.interestedIn) {
+          const index = course.interestedIn.indexOf(userId);
+          if (index !== -1) {
+            course.interestedIn.splice(index, 1);
+            await course.save();
+          }
+        }
+      }
+    });
+  } catch(e){
+  throw Error("Error occured while deleting user from courses he is no longer skilled at")
+  }
+
+};
+
+_AddUserToNewSkilledCoursesNotificationList = function(oldSkills, updatedSkills, userId) {
+
+  try {
+    updatedSkills.forEach(async (skillId) => {
+      if (oldSkills.indexOf(skillId) === -1) {
+        let course = await Course.findOne({_id: skillId});
+        if(!course.interestedIn) {
+          course.interestedIn = [];
+        }
+        course.interestedIn.push(userId);
+        course.save();
+      }
+    });
+  } catch(e){
+    throw Error("Error occured while adding user to new courses he is skilled at")
+  }
+
 };
 
 
