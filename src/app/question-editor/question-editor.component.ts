@@ -62,14 +62,7 @@ export class QuestionEditorComponent implements OnInit {
 
   _sendNotificationToCourseRelatedSkilledUsers(question: Question) {
    this.courses.forEach((course) => {
-     this.courseService.getSkilledUsers(course.id).subscribe((response) => {
-       debugger;
-       let users = [];
-       if (Array.isArray(response)) {
-         users = response;
-       } else {
-         users.push(response);
-       }
+     this.courseService.getSkilledUsers(course.id).subscribe((users) => {
        users.forEach((user) => {
          this.messagingService.sendMessage(user, question.subject,
            question.owner.name.first + ' ' + question.owner.name.last, question.id, false);
