@@ -12,7 +12,6 @@ import {Question, QuestionNavigationData} from '../models/question.model';
 })
 export class SearchResultsComponent implements OnInit {
   @Input() results: Question[];
-  @Output() viewChecked = new EventEmitter();
 
   constructor(
     private router: Router,
