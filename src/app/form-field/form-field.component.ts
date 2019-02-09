@@ -6,7 +6,7 @@ import {FileChangeEvent} from '@angular/compiler-cli/src/perform_watch';
   templateUrl: './form-field.component.html',
   styleUrls: ['./form-field.component.scss']
 })
-export class FormFieldComponent implements OnInit, AfterViewChecked {
+export class FormFieldComponent implements OnInit {
   @ViewChild('textarea') textarea: ElementRef;
   @ViewChild('input') input: ElementRef;
 
@@ -19,12 +19,6 @@ export class FormFieldComponent implements OnInit, AfterViewChecked {
   @Input() description: string;
 
   ngOnInit() {
-  }
-
-  ngAfterViewChecked() {
-    // if (this.description && this.isTextarea) {
-    //   this.textarea.nativeElement.value = this.description;
-    // }
   }
 
   getContent(): string {
