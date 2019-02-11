@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
@@ -48,6 +48,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private courseService: CourseService,
     private userService: UserService,
+    private snackBar: MatSnackBar,
     private messagingService: MessagingService,
     private queryService: QueryService,
     private routingDataService: AppRoutingDataService) {
@@ -80,8 +81,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
     await this.courseService.waitForCourses();
     this._initCourses();
     this.dialog.open(FilterDialogComponent, dialogConfig).afterClosed().subscribe(
-      (result: string[]) => this._navigateToQuestionEditor(result)
-    );
+      (result: string[]) => {
+        if (result) {
+          this._navigateToQuestionEditor(result);
+        }
+      });
   }
 
   private async _navigateToQuestionEditor(result: string[]) {
@@ -94,6 +98,12 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/question-editor']);
   }
 
+  private _toast(msg: string) {
+    this.snackBar.open(msg, '', {
+      duration: 2000 // Prompt the toast 2 seconds.
+    });
+  }
+
   private async _openDetailsDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
@@ -102,12 +112,18 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this._initCourses();
     this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
       result => {
+        if (!result) {
+          this._toast('Please click DONE when finished');
+          this._openDetailsDialog();
+          return;
+        }
         this.user.program = result.program;
         this.user.description = result.description;
         this._addUserSkills(result.skills);
         this.user.image = result.image;
         this.user.isNewUser = false;
         this.userService.updateUserDetails(this.user).subscribe(() => {
+          this._toast('User details updated');
         });
       }
     );

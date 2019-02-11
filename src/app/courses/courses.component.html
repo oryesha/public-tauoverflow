@@ -38,12 +38,12 @@
           </span>
           </mat-list-item>
         </mat-list>
-        <button *ngIf="myCourses.length > 0" mat-icon-button class="AddToMyCoursesContainer" (click)="addCourses()">
+        <button *ngIf="myCourses.length > 0" mat-flat-button class="AddToMyCoursesContainer" (click)="addCourses()">
           Add more courses...
           <mat-icon class="AddCoursesIcon">playlist_add</mat-icon>
         </button>
         <ng-container *ngIf="isUserCoursesLoaded && myCourses.length == 0">
-          <button mat-icon-button class="AddToMyCoursesContainer" (click)="addCourses()">
+          <button mat-flat-button class="AddToMyCoursesContainer" (click)="addCourses()">
             You didn't choose your courses yet...
             <mat-icon class="AddCoursesIcon">playlist_add</mat-icon>
           </button>

@@ -40,7 +40,6 @@ import {ProfileDetailsComponent} from './profile-details/profile-details.compone
 import {HomePageComponent} from './home-page/home-page.component';
 import { CoursesComponent } from './courses/courses.component';
 import {CoursePageComponent} from './course-page/course-page.component';
-import {AnswerEditorComponent} from './answer-editor/answer-editor.component';
 import {SearchBarComponent} from './search-bar/search-bar.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
@@ -90,7 +89,6 @@ import { NotificationHostDirective } from './notifications-card/notification-hos
     ProfileDetailsComponent,
     HomePageComponent,
     CoursePageComponent,
-    AnswerEditorComponent,
     SearchBarComponent,
     FilterDialogComponent,
     QuestionEditorComponent,

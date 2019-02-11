@@ -7,7 +7,7 @@ import {CourseService} from '../services/course.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 
 class Section {
@@ -38,6 +38,7 @@ export class CoursesComponent implements OnInit {
   constructor(private appService: AppService,
               private router: Router,
               private courseService: CourseService,
+              private snackBar: MatSnackBar,
               private userService: UserService,
               private routingDataService: AppRoutingDataService,
               private dialog: MatDialog) {
@@ -90,8 +91,11 @@ export class CoursesComponent implements OnInit {
     dialogConfig.data = {title: 'Select your courses', selected: []};
     await this.courseService.waitForCourses();
     this.dialog.open(FilterDialogComponent, dialogConfig).afterClosed().subscribe(
-      (result: string[]) => this._addToMyCourses(result)
-    );
+      (result: string[]) => {
+        if (result) {
+          this._addToMyCourses(result);
+        }
+      });
   }
 
   removeFromMyCourses(course: UiCourse) {
@@ -116,11 +120,21 @@ export class CoursesComponent implements OnInit {
     this._updateMyCourses(courseIds);
   }
 
-  private _updateMyCourses(courseIds) {
-    this.userService.addToMyCourses(this.user, courseIds).subscribe(() => {});
+  private _toast(msg: string) {
+    this.snackBar.open(msg, '', {
+      duration: 2000 // Prompt the toast 2 seconds.
+    });
+  }
+
+  private _updateMyCourses(courseIds: string[]) {
+    this.userService.addToMyCourses(this.user, courseIds).subscribe(() => {
+      this._toast('Course' + (courseIds.length > 1 ? 's' : '') + ' added successfully');
+    });
   }
 
   private _removeCourseFromMyCourses(courseId: string) {
-    this.userService.removeFromMyCourses(this.user, courseId).subscribe(() => {});
+    this.userService.removeFromMyCourses(this.user, courseId).subscribe(() => {
+      this._toast('Course removed successfully');
+    });
   }
 }

@@ -3,7 +3,6 @@ import {Routes, RouterModule} from '@angular/router';
 import {HomePageComponent} from './home-page/home-page.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {CoursesComponent} from './courses/courses.component';
-import {AnswerEditorComponent} from './answer-editor/answer-editor.component';
 import {QuestionEditorComponent} from './question-editor/question-editor.component';
 import {CoursePageComponent} from './course-page/course-page.component';
 import {SearchResultsComponent} from './search-results/search-results.component';
@@ -29,11 +28,6 @@ const routes: Routes = [
     path: 'courses',
     component: CoursesComponent,
     data: {pageTitle: 'Course Page'}
-  },
-  {
-    path: 'answer-editor',
-    component: AnswerEditorComponent,
-    data: {pageTitle: 'Answer Editor'}
   },
   {
     path: 'question-editor',
