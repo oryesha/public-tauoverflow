@@ -22,46 +22,55 @@ const routes: Routes = [
   {
     path: 'home-page',
     component: HomePageComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Home Page'}
   },
   {
     path: 'courses',
     component: CoursesComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Course Page'}
   },
   {
     path: 'question-editor',
     component: QuestionEditorComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'QuestionEditor'}
   },
   {
     path: 'course-page',
     component: CoursePageComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Course Page'}
   },
   {
     path: 'user-profile',
     component: UserProfileComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'User Profile'}
   },
   {
     path: 'search-results',
     component: SearchResultsComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Search Results'}
   },
   {
     path: 'find-a-partner-editor',
     component: FindAPartnerEditorComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Find A Partner Editor'}
   },
   {
     path: 'course-review-editor',
     component: CourseReviewEditorComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Course Review Editor'}
   },
   {
     path: 'question-page',
     component: QuestionPageComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Question Page'}
   }
 ];

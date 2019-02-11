@@ -24,6 +24,9 @@ export class MessagingService {
     private httpRequest: HttpRequestsService,
     private angularFireMessaging: AngularFireMessaging) {
     this.userService.getFirebaseUser().then(value => {
+      if (!value) {
+        return;
+      }
       this.userId = value.uid;
       this.requestPermission();
       // get offline notifications
