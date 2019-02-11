@@ -59,10 +59,10 @@ exports.getSkilledUsers = async function(courseId) {
     const skilledUsers = [];
 
     const course = await Course.findOne({_id: courseId})
-      .populate('skilled').exec();
+      .populate('interestedIn').exec();
 
-    if(course.skilled) {
-      course.skilled.forEach((user) => {
+    if(course.interestedIn) {
+      course.interestedIn.forEach((user) => {
         skilledUsers.push(user.firebaseToken);
       });
     }
