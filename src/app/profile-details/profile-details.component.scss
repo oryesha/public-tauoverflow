@@ -75,7 +75,13 @@ $icon-small-size: 50px;
   background-color: mat-color($mat-gray, 300);
   cursor: pointer;
   min-height: 25px;
-  padding: 7px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 160px;
+  float: left;
+  display: block;
+  padding: 4px 10px 7px;
 }
 //
 //.Chip /deep/ .mat-standard-chip {
