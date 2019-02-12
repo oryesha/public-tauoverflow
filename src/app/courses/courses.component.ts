@@ -10,8 +10,6 @@ import {UserProfile} from '../models/user-profile.model';
 import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 
-class Section {
-}
 
 @Component({
   selector: 'app-course-page',
@@ -31,7 +29,6 @@ export class CoursesComponent implements OnInit {
   isUserCoursesLoaded = false;
   allCourses: UiCourse[] = [];
   myCourses: UiCourse[] = [];
-  courseNames: string[] = [];
   coursesMap: UiCoursesMap;
   user: UserProfile;
 
@@ -45,7 +42,13 @@ export class CoursesComponent implements OnInit {
   }
 
   navigateToCoursePage(course: UiCourse|string) {
-    const uiCourse = typeof course === 'string' ? this.coursesMap[course] : course;
+    let uiCourse;
+    if (typeof course === 'string') {
+      const name = course.split(' - ')[0];
+      uiCourse = this.coursesMap[name];
+    } else {
+      uiCourse = course;
+    }
     const courseData = new CoursesComponent.CourseNavigationData(uiCourse);
     this.routingDataService.setRoutingData(uiCourse.courseNumber, courseData);
     this.router.navigate(['/course-page'], { queryParams: { courseId: uiCourse.courseNumber } });
@@ -53,11 +56,8 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit() {
     this.courseService.waitForCourses().then(() => {
-      this.courseService.getCourseNames().forEach(courseName => {
-        this.coursesMap = this.courseService.getCoursesMap();
-        this.allCourses.push(this.coursesMap[courseName]);
-        this.courseNames.push(courseName);
-      });
+      this.coursesMap = this.courseService.getCoursesMap();
+      this.allCourses = this.courseService.getCourses().slice();
       this._sortCourses();
       this.isLoaded = true;
     });

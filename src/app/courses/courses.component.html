@@ -51,11 +51,11 @@
       </ng-container>
     </mat-tab>
   </mat-tab-group>
-  <div class="SearchContainer">
+  <div class="SearchContainer" *ngIf="isLoaded">
     <app-autocomplete [isRequired]="false"
                       [isCourseSearch]="true"
                       class="AutocompleteCourses"
-                      [options]="courseNames"
+                      [options]="allCourses"
                       (optionSelected)="navigateToCoursePage($event)"
                       [placeholder]="'Search a course...'">
     </app-autocomplete>

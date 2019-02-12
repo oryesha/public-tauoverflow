@@ -14,6 +14,7 @@ import {MessagingService} from '../services/messaging.service';
 import {QueryService} from '../services/query.service';
 import {SearchBarComponent} from '../search-bar/search-bar.component';
 import {Subscription} from 'rxjs';
+import {ProgramService} from '../services/program.service';
 
 
 @Component({
@@ -49,6 +50,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     private courseService: CourseService,
     private userService: UserService,
     private snackBar: MatSnackBar,
+    private programService: ProgramService,
     private messagingService: MessagingService,
     private queryService: QueryService,
     private routingDataService: AppRoutingDataService) {
@@ -58,7 +60,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
     const routingData = this.routingDataService.getRoutingData('user');
     if (routingData) {
       this.user = routingData.getData();
-      // this._getNotificationFromService(this.user);
       if (this.user.isNewUser) {
         this._openDetailsDialog();
       }
@@ -66,7 +67,9 @@ export class HomePageComponent implements OnInit, OnDestroy {
     } else {
       this.userService.getUser(true).then((user: UserProfile) => {
         this.user = user;
-        // this._getNotificationFromService(user);
+        if (user.isNewUser) {
+          this._openDetailsDialog();
+        }
       });
     }
   }
@@ -105,10 +108,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   private async _openDetailsDialog() {
+    await this.courseService.waitForCourses();
+    const programs = await this.programService.getPrograms();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
-    dialogConfig.data = {title: 'Please add additional information', user: this.user, firstInit: true};
-    await this.courseService.waitForCourses();
+    dialogConfig.data = {title: 'Please add additional information', user: this.user, firstInit: true, programs: programs};
     this._initCourses();
     this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
       result => {

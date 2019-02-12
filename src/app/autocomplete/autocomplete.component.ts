@@ -3,6 +3,8 @@ import {FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatAutocompleteSelectedEvent} from '@angular/material';
+import {UiCourse} from '../models/ui-course.model';
+import {Program} from '../models/program.model';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -20,7 +22,7 @@ export class AutocompleteComponent implements OnInit {
   @ViewChild('input') inputEl: ElementRef;
 
   myControl = new FormControl();
-  @Input() options: string[];
+  @Input() options: Program[] | UiCourse[];
   @Input() editorCss: string;
   @Input() placeholder: string;
   @Input() isCourseSearch: boolean;
@@ -29,18 +31,20 @@ export class AutocompleteComponent implements OnInit {
 
   @Output() private optionSelected = new EventEmitter<string>();
 
+  displayOptions: string[];
+
   filteredOptions: Observable<string[]>;
   appearance = 'fill';
   outlineCss: string;
-  defaultOptions: string[] = ['Calculus 1b', 'Intro to CS', 'Linear Algebra', 'Discrete Mathematics', 'Complexity',
-    'Micro-Economics', 'Funding', 'Statistics'];
+  // defaultOptions: string[] = ['Calculus 1b', 'Intro to CS', 'Linear Algebra', 'Discrete Mathematics', 'Complexity',
+  //   'Micro-Economics', 'Funding', 'Statistics'];
 
   private _isSelectionValid(): boolean {
-    return (this.options || this.defaultOptions)
-        .indexOf(this.inputEl.nativeElement.value) > -1;
+    return this.displayOptions.indexOf(this.inputEl.nativeElement.value) > -1;
   }
 
   ngOnInit() {
+    this.displayOptions = this._parseOptions();
     if (this.selectedOption) {
       this.myControl.setValue(this.selectedOption);
     }
@@ -57,7 +61,7 @@ export class AutocompleteComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    const optionsToFilter = this.options || this.defaultOptions;
+    const optionsToFilter = this.displayOptions;
     return optionsToFilter.filter(option => option.toLowerCase().includes(filterValue)
       && option !== this.selectedOption);
   }
@@ -72,5 +76,16 @@ export class AutocompleteComponent implements OnInit {
 
   emitOption(selectedOption: MatAutocompleteSelectedEvent) {
     this.optionSelected.emit(selectedOption.option.value);
+  }
+
+  private _parseOptions(): string[] {
+    if (!this.options || this.options.length === 0) {
+      return [];
+    }
+    const isProgramSelection = this.options[0] instanceof Program;
+    if (isProgramSelection) {
+      return (<Program[]>(this.options)).map((option: Program) => option.name);
+    }
+    return (<UiCourse[]>(this.options)).map((option: UiCourse) => option.name + ' - ' + option.courseNumber);
   }
 }

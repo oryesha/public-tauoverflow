@@ -5,6 +5,8 @@ import {MultiSelectAutocompleteComponent} from '../multi-select-autocomplete/mul
 import {FormFieldComponent} from '../form-field/form-field.component';
 import {UserProfile} from '../models/user-profile.model';
 import {CourseService} from '../services/course.service';
+import {Program} from '../models/program.model';
+import {UiCourse} from '../models/ui-course.model';
 
 @Component({
   selector: 'app-initial-details-dialog',
@@ -21,9 +23,8 @@ export class InitialDetailsDialogComponent implements OnInit {
   selectedSkills: string[];
   user: UserProfile;
   firstInit: boolean;
-  programs: string[] = ['Computer Science', 'Electrical Engineering', 'Law', 'Computer Science and Electrical Engineering', 'Economics',
-    'Management', 'Physics', 'Chemistry'];
-  courses: string[] = this.courseService.getCourseNames();
+  programs: Program[];
+  courses: UiCourse[] = [];
   private base64Image: string;
 
   constructor(
@@ -37,6 +38,8 @@ export class InitialDetailsDialogComponent implements OnInit {
     this.description = data.description;
     this.selectedSkills = data.selectedSkills ? data.selectedSkills : [];
     this.firstInit = data.firstInit;
+    this.programs = data.programs;
+    this.courses = this.courseService.getCourses();
   }
 
   ngOnInit() {

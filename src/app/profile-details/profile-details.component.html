@@ -26,7 +26,9 @@
       <div *ngIf="userDetails.skills && userDetails.skills.length > 0" class="mat-body Skills">
         Skills:
         <mat-chip-list>
-          <mat-chip class="Chip" *ngFor="let skill of userDetails.skills" (click)="navigateToCoursePage(skill)">{{skill.name}}</mat-chip>
+          <mat-chip class="Chip" *ngFor="let skill of userDetails.skills" (click)="navigateToCoursePage(skill)">
+            {{skill.name}}
+          </mat-chip>
         </mat-chip-list>
       </div>
       <button *ngIf="!isDetailsDialog" mat-raised-button class="EditProfileButton" (click)="editProfile()">
