@@ -26,6 +26,11 @@
   }
 }
 
+.mat-snack-bar-container {
+  min-width: 250px !important;
+  width: auto !important;
+}
+
 button:focus {
   outline: 0;
 }

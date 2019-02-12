@@ -2,6 +2,7 @@ import {Component, OnInit, Inject, ViewChild} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA, MatButton} from '@angular/material';
 import {MultiSelectAutocompleteComponent} from '../multi-select-autocomplete/multi-select-autocomplete.component';
 import {CourseService} from '../services/course.service';
+import {UiCourse} from '../models/ui-course.model';
 
 @Component({
   selector: 'app-filter-dialog',
@@ -15,7 +16,7 @@ export class FilterDialogComponent implements OnInit {
   @ViewChild('multiSelect') multiSelectAutocomplete: MultiSelectAutocompleteComponent;
   selected: string[] = [];
   disabled = true;
-  courses: string[] = this.courseService.getCourseNames();
+  courses: UiCourse[] = this.courseService.getCourses();
 
   constructor(
     private dialogRef: MatDialogRef<FilterDialogComponent>,

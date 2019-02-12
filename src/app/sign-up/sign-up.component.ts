@@ -32,8 +32,6 @@ export class SignUpComponent implements OnInit {
   });
   hidePassword = true;
 
-  programs: string[] = ['Computer Science', 'Electrical Engineering', 'Law', 'Computer Science and Electrical Engineering', 'Economics',
-    'Management', 'Physics', 'Chemistry'];
   private successMessage: string;
   private errorMessage: string;
 

@@ -3,7 +3,6 @@ import {Routes, RouterModule} from '@angular/router';
 import {HomePageComponent} from './home-page/home-page.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {CoursesComponent} from './courses/courses.component';
-import {AnswerEditorComponent} from './answer-editor/answer-editor.component';
 import {QuestionEditorComponent} from './question-editor/question-editor.component';
 import {CoursePageComponent} from './course-page/course-page.component';
 import {SearchResultsComponent} from './search-results/search-results.component';
@@ -23,51 +22,55 @@ const routes: Routes = [
   {
     path: 'home-page',
     component: HomePageComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Home Page'}
   },
   {
     path: 'courses',
     component: CoursesComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Course Page'}
-  },
-  {
-    path: 'answer-editor',
-    component: AnswerEditorComponent,
-    data: {pageTitle: 'Answer Editor'}
   },
   {
     path: 'question-editor',
     component: QuestionEditorComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'QuestionEditor'}
   },
   {
     path: 'course-page',
     component: CoursePageComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Course Page'}
   },
   {
     path: 'user-profile',
     component: UserProfileComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'User Profile'}
   },
   {
     path: 'search-results',
     component: SearchResultsComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Search Results'}
   },
   {
     path: 'find-a-partner-editor',
     component: FindAPartnerEditorComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Find A Partner Editor'}
   },
   {
     path: 'course-review-editor',
     component: CourseReviewEditorComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Course Review Editor'}
   },
   {
     path: 'question-page',
     component: QuestionPageComponent,
+    canActivate: [AuthGuard],
     data: {pageTitle: 'Question Page'}
   }
 ];

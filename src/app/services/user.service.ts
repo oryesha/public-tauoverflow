@@ -24,13 +24,13 @@ export class UserService {
   }
 
   getFirebaseUser() {
-    return new Promise<any>((resolve, reject) => {
+    return new Promise<any>((resolve) => {
       firebase.auth().onAuthStateChanged((user: firebase.User) => {
         if (user) {
           // this.httpRequest
           resolve(user);
         } else {
-          reject('No user logged in');
+          resolve(null);
         }
       });
     });
@@ -78,6 +78,9 @@ export class UserService {
     }
     return new Promise<any>(resolve => {
       this.getFirebaseUser().then((res: firebase.User) => {
+        if (!res) {
+          return null;
+        }
         this.httpRequest.get('/user', [], [res.uid]).subscribe(user => {
           this._currentUser = UserProfile.deserialize(user);
           resolve(this._currentUser);

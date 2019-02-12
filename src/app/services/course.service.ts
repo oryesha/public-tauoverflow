@@ -8,7 +8,7 @@ import {UiCoursesMap, UiCoursesMapNumbers} from '../models/ui-courses-map.model'
 @Injectable()
 export class CourseService {
   coursesRequest: Observable<any>;
-  private _courseNames: string[] = [];
+  private _courses: UiCourse[] = [];
   private _coursesMap: UiCoursesMap = {};
   private _courseNumberToName: UiCoursesMapNumbers = {};
   private readonly _coursesLoadedPromise: Promise<any>;
@@ -21,7 +21,7 @@ export class CourseService {
         this._coursesMap = {};
         courses.forEach((course: any) => {
           const uiCourse = new UiCourse(course.id, course.courseName, course.courseNumber);
-          this._courseNames.push(course.courseName);
+          this._courses.push(uiCourse);
           this._coursesMap[course.courseName] = uiCourse;
           this._courseNumberToName[course.courseNumber] = course.courseName;
           resolve(null);
@@ -42,8 +42,8 @@ export class CourseService {
     return this._courseNumberToName[courseNumber];
   }
 
-  getCourseNames(): string[] {
-    return this._courseNames;
+  getCourses(): UiCourse[] {
+    return this._courses;
   }
 
   getCourse(courseId: string): Observable<Course> {

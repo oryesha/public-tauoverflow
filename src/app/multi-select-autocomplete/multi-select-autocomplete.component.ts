@@ -13,9 +13,14 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material';
+import {UiCourse} from '../models/ui-course.model';
 
 interface OptionMap {
   [name: string]: boolean;
+}
+
+interface SelectedMap {
+  [name: string]: string;
 }
 
 @Component({
@@ -24,7 +29,7 @@ interface OptionMap {
   styleUrls: ['./multi-select-autocomplete.component.scss']
 })
 export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecked {
-  @Input() private options: string[];
+  @Input() private options: UiCourse[];
   @Input() private placeholder: string;
   @Input() private isCourseSearch: boolean;
   @Input() private selectedOptions: string[] = [];
@@ -33,12 +38,9 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
   private filteredOptions: Observable<string[]>;
   readonly separatorKeys: number[] = [ENTER, COMMA];
   private allOptions: OptionMap = {};
+  private selectedMap: SelectedMap = {};
   private selectableOptions: string[];
   private optionsControl = new FormControl({value: '', disabled: this.selectedOptions.length >= 5});
-  // TEMP!
-  // defaultOptions: string[] = ['Calculus 1b', 'Intro to CS', 'Linear Algebra', 'Discrete Mathematics', 'Complexity',
-  //   'Micro-Economics', 'Funding', 'Statistics'];
-  // TEMP!
 
   @ViewChild('optionsInput') optionsInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -46,8 +48,7 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
   constructor() {}
 
   ngOnInit() {
-    // this.selectableOptions = this.options || this.defaultOptions;
-    this.selectableOptions = this.options;
+    this.selectableOptions = this.options.map(option => option.name + ' - ' + option.courseNumber);
     // Initialize allOptions map.
     this.selectableOptions.forEach(opt => this.allOptions[opt] = false);
     // If on init options were already selected (e.g., when clicking the filter button after
@@ -70,19 +71,34 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
   removeSelected(selectedOption: string) {
     const index = this.selectedOptions.indexOf(selectedOption);
     if (index >= 0) {
-      this.allOptions[selectedOption] = false;
+      const removed = this._concatRemoved(selectedOption);
+      this.allOptions[removed] = false;
       this.selectedOptions.splice(index, 1);
       this._resetInput();
       this.inputChanged.emit(this.selectedOptions.length);
     }
   }
 
+  private _concatRemoved(removed: string) {
+    const number = this.selectedMap[removed];
+    delete this.selectedMap[removed];
+    return removed + ' - ' + number;
+  }
+
   displaySelected(event: MatAutocompleteSelectedEvent) {
     const selected = event.option.viewValue;
     this.allOptions[selected] = true;
-    this.selectedOptions.push(selected);
+    const parsedSelected = this._parseSelected(selected);
+    this.selectedOptions.push(parsedSelected);
     this._resetInput();
     this.inputChanged.emit(this.selectedOptions.length);
+  }
+
+  private _parseSelected(selected: string) {
+    const split = selected.split(' - ');
+    const name = split[0];
+    this.selectedMap[name] = split[1];
+    return name;
   }
 
   getSelectedOptions(): string[] {

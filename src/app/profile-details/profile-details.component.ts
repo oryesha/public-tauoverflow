@@ -6,10 +6,11 @@ import {Router} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {InitialDetailsDialogComponent} from '../initial-details-dialog/initial-details-dialog.component';
 import {CourseService} from '../services/course.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
+import {ProgramService} from '../services/program.service';
 
 
 @Component({
@@ -31,7 +32,9 @@ export class ProfileDetailsComponent implements OnInit {
   constructor(private appService: AppService,
               private router: Router,
               private userService: UserService,
+              private snackBar: MatSnackBar,
               private courseService: CourseService,
+              private programService: ProgramService,
               private dialog: MatDialog,
               private routingDataService: AppRoutingDataService) {}
 
@@ -57,24 +60,35 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   async editProfile() {
+    const programs = await this.programService.getPrograms();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
     dialogConfig.data = {title: 'Customize Your Information', user: this.userDetails,
       selectedProgram: this.userDetails.program, description: this.userDetails.description,
       selectedSkills: this.userDetails.skills.map(skill => skill.name),
-      firstInit: false};
+      firstInit: false, programs: programs};
     await this.courseService.waitForCourses();
     this._initCourses();
     this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
       result => {
+        if (!result) {
+          return;
+        }
         this.userDetails.program = result.program;
         this.userDetails.description = result.description;
         this._addUserSkills(result.skills);
         this.userDetails.isNewUser = false;
         this.userService.updateUserDetails(this.userDetails).subscribe(() => {
+          this._toast('User details updated');
         });
       }
     );
+  }
+
+  private _toast(msg: string) {
+    this.snackBar.open(msg, '', {
+      duration: 2000 // Prompt the toast 2 seconds.
+    });
   }
 
   private _addUserSkills(skills: string[]) {

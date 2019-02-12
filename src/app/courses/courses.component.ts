@@ -7,11 +7,9 @@ import {CourseService} from '../services/course.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 
-class Section {
-}
 
 @Component({
   selector: 'app-course-page',
@@ -31,20 +29,26 @@ export class CoursesComponent implements OnInit {
   isUserCoursesLoaded = false;
   allCourses: UiCourse[] = [];
   myCourses: UiCourse[] = [];
-  courseNames: string[] = [];
   coursesMap: UiCoursesMap;
   user: UserProfile;
 
   constructor(private appService: AppService,
               private router: Router,
               private courseService: CourseService,
+              private snackBar: MatSnackBar,
               private userService: UserService,
               private routingDataService: AppRoutingDataService,
               private dialog: MatDialog) {
   }
 
   navigateToCoursePage(course: UiCourse|string) {
-    const uiCourse = typeof course === 'string' ? this.coursesMap[course] : course;
+    let uiCourse;
+    if (typeof course === 'string') {
+      const name = course.split(' - ')[0];
+      uiCourse = this.coursesMap[name];
+    } else {
+      uiCourse = course;
+    }
     const courseData = new CoursesComponent.CourseNavigationData(uiCourse);
     this.routingDataService.setRoutingData(uiCourse.courseNumber, courseData);
     this.router.navigate(['/course-page'], { queryParams: { courseId: uiCourse.courseNumber } });
@@ -52,11 +56,8 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit() {
     this.courseService.waitForCourses().then(() => {
-      this.courseService.getCourseNames().forEach(courseName => {
-        this.coursesMap = this.courseService.getCoursesMap();
-        this.allCourses.push(this.coursesMap[courseName]);
-        this.courseNames.push(courseName);
-      });
+      this.coursesMap = this.courseService.getCoursesMap();
+      this.allCourses = this.courseService.getCourses().slice();
       this._sortCourses();
       this.isLoaded = true;
     });
@@ -90,8 +91,11 @@ export class CoursesComponent implements OnInit {
     dialogConfig.data = {title: 'Select your courses', selected: []};
     await this.courseService.waitForCourses();
     this.dialog.open(FilterDialogComponent, dialogConfig).afterClosed().subscribe(
-      (result: string[]) => this._addToMyCourses(result)
-    );
+      (result: string[]) => {
+        if (result) {
+          this._addToMyCourses(result);
+        }
+      });
   }
 
   removeFromMyCourses(course: UiCourse) {
@@ -116,11 +120,21 @@ export class CoursesComponent implements OnInit {
     this._updateMyCourses(courseIds);
   }
 
-  private _updateMyCourses(courseIds) {
-    this.userService.addToMyCourses(this.user, courseIds).subscribe(() => {});
+  private _toast(msg: string) {
+    this.snackBar.open(msg, '', {
+      duration: 2000 // Prompt the toast 2 seconds.
+    });
+  }
+
+  private _updateMyCourses(courseIds: string[]) {
+    this.userService.addToMyCourses(this.user, courseIds).subscribe(() => {
+      this._toast('Course' + (courseIds.length > 1 ? 's' : '') + ' added successfully');
+    });
   }
 
   private _removeCourseFromMyCourses(courseId: string) {
-    this.userService.removeFromMyCourses(this.user, courseId).subscribe(() => {});
+    this.userService.removeFromMyCourses(this.user, courseId).subscribe(() => {
+      this._toast('Course removed successfully');
+    });
   }
 }
