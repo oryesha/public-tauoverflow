@@ -6,6 +6,10 @@ let serviceHelper = require('../services/serviceHelper');
 
 _this = this;
 
+const redundantWords = ['so', 'what', 'who', 'why', 'where', 'was', 'were', 'how ', 'which',
+  'to', 'it', 'the', 'from', 'in', 'on', 'is', 'she', 'he', 'her', 'his', 'them', 'they', 'this', 'that',
+'are', 'those', 'you', 'me', ' a ', 'ed ', 's', '\''];
+
 getCourseId = async function (ids) {
   let coursesIds = [];
   ids.forEach(async (courseId) => {
@@ -17,6 +21,14 @@ getCourseId = async function (ids) {
   );
   return coursesIds;
 };
+
+getReducedQueryRegex = function (query) {
+  let req = query.toLowerCase();
+  redundantWords.forEach((word) => {
+    req = req.replace(word, '.*');
+  });
+  return req;
+}
 
 getQueryRegex = function (query) {
   const reg = query.replace(' ', '.*');
@@ -51,13 +63,23 @@ exports.getQuestionsFromQuery = async function(query) {
     courses = query.filters;
   }
 
-  const queryRegex = getQueryRegex(query.content);
+  let queryRegex = getQueryRegex(query.content);
   let tmpQuestions = await Question.find({
     $or: [
       {subject: {$regex: queryRegex, $options: 'si'}},
       {content: {$regex: queryRegex, $options: 'si'}}
     ]
   }).populate([{ path: 'relatedCourses owner answers' , populate: { path: 'owner' }}]);
+
+  if (tmpQuestions.length === 0) {
+    queryRegex = getReducedQueryRegex(query.content);
+    tmpQuestions = await Question.find({
+      $or: [
+        {subject: {$regex: queryRegex, $options: 'si'}},
+        {content: {$regex: queryRegex, $options: 'si'}}
+      ]
+    }).populate([{ path: 'relatedCourses owner answers' , populate: { path: 'owner' }}]);
+  }
 
   if (query.filters) {
     tmpQuestions.forEach( (question) => {

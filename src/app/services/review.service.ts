@@ -14,6 +14,10 @@ export class ReviewService {
     return this.httpRequest.post('/course-reviews', review);
   }
 
+  deleteReview(dbId: string) {
+    return this.httpRequest.delete('/course-reviews' , dbId);
+  }
+
   getReview(id: string): Observable<any> {
     return this.httpRequest.get('/course-reviews', [], [id]);
   }

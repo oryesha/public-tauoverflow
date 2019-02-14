@@ -28,3 +28,13 @@ exports.createCourseReview = async function(req,res){
     return res.status(400).json({status: 400, message: "course-review Creation was Unsuccesfull"})
   }
 };
+
+exports.deleteCourseReview = async function(req,res) {
+  let id = req.params.id;
+  try {
+    let deleted = await CourseReviewService.deleteCourseReview(id);
+    return res.status(200).json({status: 200, message: "Succesfully Deleted review"})
+  } catch (e) {
+    return res.status(400).json({status: 400, message: e.message})
+  }
+};

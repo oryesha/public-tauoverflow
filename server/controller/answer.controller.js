@@ -53,3 +53,13 @@ exports.updateAnswer = async function(req,res){
     return res.status(400).json({status: 400., message: e.message})
   }
 };
+
+exports.deleteAnswer = async function(req,res) {
+  let id = req.params.id;
+  try {
+    let deleted = await AnswerService.deleteAnswer(id);
+    return res.status(200).json({status: 200, message: "Succesfully Deleted answer"})
+  } catch (e) {
+    return res.status(400).json({status: 400, message: e.message})
+  }
+};
