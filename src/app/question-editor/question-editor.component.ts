@@ -64,7 +64,7 @@ export class QuestionEditorComponent implements OnInit {
    this.courses.forEach((course) => {
      this.courseService.getSkilledUsers(course.id).subscribe((users) => {
        users.forEach((user) => {
-         this.messagingService.sendMessage(user, question.subject,
+         this.messagingService.sendMessage(user, question.owner.firebaseToken, question.subject,
            question.owner.name.first + ' ' + question.owner.name.last, question.id, false);
        });
      });

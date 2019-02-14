@@ -91,7 +91,7 @@ export class QuestionPageComponent implements OnInit {
       answer.id = response.data._id;
       this.user.answered += 1;
       // const url = 'http://localhost:4200/question-page?id=';
-      this.messagingService.sendMessage(this.question.owner.firebaseToken,
+      this.messagingService.sendMessage(this.question.owner.firebaseToken, this.user.firebaseToken,
         this.question.subject, this.user.name.first + ' ' + this.user.name.last,
         this.question.id, true);
     });

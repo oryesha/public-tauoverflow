@@ -110,7 +110,7 @@ export class MessagingService {
         const value = payload.valueOf();
         const receivedNotification = new Notification(value.data['gcm.notification.subject'],
           value.data['gcm.notification.owner'], JSON.parse(value.data['gcm.notification.isSeen']),
-          JSON.parse(value.data['gcm.notification.isAnswer']), value.data['gcm.notification.link'],
+          JSON.parse(value.data['gcm.notification.isAnswer']), value.data['gcm.notification.questionId'],
           value.data['gcm.notification.id'], new Date(value.data['gcm.notification.timestamp']));
         this.newNotifications.push(receivedNotification);
         this.currentMessage.next(receivedNotification);
@@ -143,8 +143,12 @@ export class MessagingService {
     });
   }
 
-  sendMessage(receiverFbToken: string, questionName: string, senderName: string, questionId: string,
+  sendMessage(receiverFbToken: string, senderFbToken: string, questionName: string, senderName: string, questionId: string,
               isSenderAnswered: boolean) {
+    // avoid self notifications
+    if (receiverFbToken === senderFbToken) {
+      return;
+    }
     const url = 'https://fcm.googleapis.com/fcm/send';
     this.angularFireDB.object('/fcmTokens/').valueChanges()
       .subscribe((list) => {
@@ -156,10 +160,10 @@ export class MessagingService {
         const path = ('/notifications/' + receiverFbToken);
         this.httpRequest.post(path, notification).subscribe((response: any) => {
           notification.id = response.data._id;
+          // send notification to user
+          const data = notification.getNotificationWrapper(questionOwnerToken);
+          this.http.post(url, data, {headers: headers}).subscribe();
         });
-        // send notification to user
-        const data = notification.getNotificationWrapper(questionOwnerToken);
-        this.http.post(url, data, {headers: headers}).subscribe();
       });
   }
 }

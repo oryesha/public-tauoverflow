@@ -87,7 +87,7 @@ exports.updateMyCourses = async function(userId, courseId) {
   let course;
   try {
     user = await User.findById(userId);
-    course = await Course.findOne({_id: courseId});
+    course = await Course.findById(courseId);
     if(!course.interestedIn) {
       course.interestedIn = [];
     }
@@ -127,7 +127,7 @@ exports.addToMyCourses = async function(userId, courseIds) {
     courseIds.forEach(async (id) => {
       user.myCourses.push(id);
       //updated course that someone is skilled on it
-      let course = await Course.findOne({_id: id});
+      let course = await Course.findById(id);
       if(!course.interestedIn) {
         course.interestedIn = [];
       }

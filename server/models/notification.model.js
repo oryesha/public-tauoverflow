@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 let mongoosePaginate = require('mongoose-paginate');
 
 const NotificationSchema = new mongoose.Schema({
-  toNotify: String, //notification owner
+  toNotify: {type: String, index: true}, //notification owner
   subject: String, //subject of question that was asked or answered
   owner: String, //who answered or asked
   timestamp: Date,//TimeFormat,
