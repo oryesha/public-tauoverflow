@@ -12,12 +12,17 @@
     </mat-card-content>
     <mat-divider></mat-divider>
     <div class="AnswerBottom">
-    <span class="ButtonsContainer">
+      <span class="ButtonsContainer">
       <button mat-icon-button class="Button" (click)="upvote()">
           <mat-icon class="ThumbIcon">thumb_up</mat-icon>
         </button>
       <span class="NumOfLikes">{{answer.upvote.count}}</span>
     </span>
+      <span *ngIf="isUserOwner">
+        <button mat-icon-button class="Button" (click)="deleteAnswer()">
+        <mat-icon class="DeleteIcon">delete</mat-icon>
+      </button>
+      </span>
     </div>
   </mat-card>
 </div>
