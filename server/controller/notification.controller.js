@@ -42,7 +42,7 @@ exports.deleteNotification = async function(req,res) {
 
 exports.updateNotification = async function(req,res) {
   if(!req.body.id || !req.body.isSeen){
-    return res.status(400).json({status: 400., message: "all params must be present"})
+    return res.status(400).json({status: 400, message: "all params must be present"})
   }
   let id = req.body.id;
   let isSeen = req.body.isSeen;

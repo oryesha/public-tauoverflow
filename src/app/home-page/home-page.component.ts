@@ -41,6 +41,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   query: string;
   showQuerySpinner = false;
   queryParamsSubscribe: Subscription;
+  isUserLoaded = false;
 
   message;
   constructor(
@@ -60,6 +61,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     const routingData = this.routingDataService.getRoutingData('user');
     if (routingData) {
       this.user = routingData.getData();
+      this.isUserLoaded = true;
       if (this.user.isNewUser) {
         this._openDetailsDialog();
       }
@@ -67,6 +69,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     } else {
       this.userService.getUser(true).then((user: UserProfile) => {
         this.user = user;
+        this.isUserLoaded = true;
         if (user.isNewUser) {
           this._openDetailsDialog();
         }

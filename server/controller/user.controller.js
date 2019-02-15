@@ -30,6 +30,17 @@ exports.updateFavorites = async function (req, res) {
   }
 };
 
+exports.updateNotificationSettings = async function(req, res) {
+  const userId = req.body.userId;
+  const newSettings = req.body.newSettings;
+  try {
+    const updatedUser = await UserService.updateNotificationSettings(userId, newSettings);
+    return res.status(200).json({status: 200, data: updatedUser, message: "Successfully Updated User: " + userId})
+  } catch (e) {
+    return res.status(400).json({status: 400., message: e.message})
+  }
+};
+
 exports.updateMyCourses = async function (req, res) {
   const userId = req.body.userId;
   const courseId = req.body.courseId;
@@ -108,13 +119,14 @@ exports.createNewUser = async function (req, res) {
     email: req.body.email,
     image: req.body.image,
     description: req.body.description,
-    skills: req.body.skills
+    skills: req.body.skills,
+    notificationSettings: req.body.notificationSettings,
   };
 
   try {
     let createdUser = await UserService.createNewUser(user);
-    return res.status(201).json({status: 201, data: createdUser, message: "Succesfully Created New User"})
+    return res.status(201).json({status: 201, data: createdUser, message: "Successfully Created New User"})
   } catch (e) {
-    return res.status(400).json({status: 400, message: "User Creation was Unsuccesfull"})
+    return res.status(400).json({status: 400, message: "User Creation was unsuccessful"})
   }
 };

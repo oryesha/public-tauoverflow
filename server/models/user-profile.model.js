@@ -19,7 +19,12 @@ const UserProfileSchema = new mongoose.Schema({
   myCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
   myPartnerPosts: [{type: mongoose.Schema.Types.ObjectId, ref: 'PartnerPost'}],
   myCourseReviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'CourseReview'}],
-  myChangeHoursPosts: [{type: mongoose.Schema.Types.ObjectId, ref: 'ChangeHoursPost'}]
+  myChangeHoursPosts: [{type: mongoose.Schema.Types.ObjectId, ref: 'ChangeHoursPost'}],
+  // Notification settings
+  notifyOnMyQuestions: Boolean,
+  notifyOnMyFavorites: Boolean,
+  notifyOnMyCourses: Boolean,
+  notifyOnMySkills: Boolean,
 });
 
 UserProfileSchema.plugin(mongoosePaginate);
