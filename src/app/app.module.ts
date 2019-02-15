@@ -21,6 +21,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ClipboardModule } from 'ngx-clipboard';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -78,6 +79,7 @@ import { ClickableProfilePictureComponent } from './clickable-profile-picture/cl
 import { NotificationsCardComponent } from './notifications-card/notifications-card.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationHostDirective } from './notifications-card/notification-host.directive';
+import { NotificationSettingsDialogComponent } from './notification-settings-dialog/notification-settings-dialog.component';
 
 
 @NgModule({
@@ -115,6 +117,7 @@ import { NotificationHostDirective } from './notifications-card/notification-hos
     NotificationsCardComponent,
     NotificationComponent,
     NotificationHostDirective,
+    NotificationSettingsDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -149,6 +152,7 @@ import { NotificationHostDirective } from './notifications-card/notification-hos
     MatBadgeModule,
     ClipboardModule,
     MatMenuModule,
+    MatSlideToggleModule,
   ],
   providers: [
     QuestionService,
@@ -172,6 +176,7 @@ import { NotificationHostDirective } from './notifications-card/notification-hos
     InitialDetailsDialogComponent,
     ProfileDetailsDialogComponent,
     NotificationComponent,
+    NotificationSettingsDialogComponent,
   ]
 })
 export class AppModule {

@@ -1,9 +1,11 @@
 import {Component, ComponentFactory, ComponentFactoryResolver, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {MatMenu} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatMenu} from '@angular/material';
 import {MessagingService} from '../services/messaging.service';
 import {Notification} from '../models/notification.model';
 import {NotificationHostDirective} from './notification-host.directive';
 import {NotificationComponent} from '../notification/notification.component';
+import {UserService} from '../services/user.service';
+import {NotificationSettingsDialogComponent} from '../notification-settings-dialog/notification-settings-dialog.component';
 
 @Component({
   selector: 'app-notifications-card',
@@ -19,6 +21,8 @@ export class NotificationsCardComponent implements OnInit {
   notificationComponentFactory: ComponentFactory<NotificationComponent>;
 
   constructor(private messagingService: MessagingService,
+              private userService: UserService,
+              private dialog: MatDialog,
               private componentFactoryResolver: ComponentFactoryResolver) {
     this.notificationComponentFactory =
       this.componentFactoryResolver.resolveComponentFactory(NotificationComponent);
@@ -42,5 +46,17 @@ export class NotificationsCardComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  async openNotificationSettingsDialog() {
+    const user = await this.userService.getUser();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.data = {
+      id: 1,
+      title: 'Notification Settings',
+      notificationSettings: user.notificationSettings,
+    };
+    this.dialog.open(NotificationSettingsDialogComponent, dialogConfig);
   }
 }

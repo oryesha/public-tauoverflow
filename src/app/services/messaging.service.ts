@@ -3,45 +3,22 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireMessaging } from 'angularfire2/messaging';
 import { take } from 'rxjs/operators';
-import {Observable, Subject} from 'rxjs';
-import {UserService} from './user.service';
 import {Notification} from '../models/notification.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {HttpRequestsService} from './http-requests.service';
+import {UserProfile} from '../models/user-profile.model';
 
 @Injectable()
 export class MessagingService {
-  userId;
-  // messages = [];
+  user: UserProfile;
   seenNotifications: Notification[] = [];
   newNotifications: Notification[] = [];
-  currentMessage: Subject<Notification> = new Subject<Notification>();
   constructor(
-    private userService: UserService,
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
     private http: HttpClient,
     private httpRequest: HttpRequestsService,
     private angularFireMessaging: AngularFireMessaging) {
-    this.userService.getFirebaseUser().then(value => {
-      if (!value) {
-        return;
-      }
-      this.userId = value.uid;
-      this.requestPermission();
-      // get offline notifications
-      this.httpRequest.get('/notifications', [], [this.userId]).subscribe((res) => {
-        if (res) {
-          res.forEach((notification) => {
-            if (notification.isSeen) {
-              this.seenNotifications.push(Notification.deserialize(notification));
-            } else {
-              this.newNotifications.push(Notification.deserialize(notification));
-            }
-          });
-        }
-      });
-    });
     this.angularFireMessaging.messaging.subscribe(
       (_messaging) => {
         _messaging.onMessage = _messaging.onMessage.bind(_messaging);
@@ -53,23 +30,43 @@ export class MessagingService {
   }
 
   /**
+   * Register user to notification service.
+   * @param user
+   */
+  registerUser(user: UserProfile) {
+    this.user = user;
+    this.requestPermission();
+  }
+
+  getOfflineNotifications(user: UserProfile) {
+    this.user = user;
+    this.requestPermission();
+    this.httpRequest.get('/notifications', [], [this.user.firebaseToken]).subscribe((res) => {
+      if (res) {
+        res.forEach((notification) => {
+          if (notification.isSeen) {
+            this.seenNotifications.push(Notification.deserialize(notification));
+          } else {
+            this.newNotifications.push(Notification.deserialize(notification));
+          }
+        });
+      }
+    });
+  }
+
+  /**
    * update token in firebase database
    *
-   * @param userId userId as a key
    * @param token token as a value
    */
-  updateToken(userId, token) {
+  updateToken(token) {
     // we can change this function to request our backend service
     this.angularFireAuth.authState.pipe(take(1)).subscribe(
       () => {
         const data = {};
-        data[this.userId] = token;
+        data[this.user.firebaseToken] = token;
         this.angularFireDB.object('fcmTokens/').update(data);
       });
-  }
-
-  public getTheMessage(): Observable<Notification> {
-    return this.currentMessage.asObservable();
   }
 
   /**
@@ -79,7 +76,7 @@ export class MessagingService {
     this.angularFireMessaging.requestToken.subscribe(
       (token) => {
         // console.log(token);
-        this.updateToken(this.userId, token);
+        this.updateToken(token);
       },
       (err) => {
         console.error('Unable to get permission to notify.', err);
@@ -108,21 +105,17 @@ export class MessagingService {
     this.angularFireMessaging.messages.subscribe(
       (payload: any) => {
         const value = payload.valueOf();
-        const receivedNotification = new Notification(value.data['gcm.notification.subject'],
-          value.data['gcm.notification.owner'], JSON.parse(value.data['gcm.notification.isSeen']),
-          JSON.parse(value.data['gcm.notification.isAnswer']), value.data['gcm.notification.questionId'],
-          value.data['gcm.notification.id'], new Date(value.data['gcm.notification.timestamp']));
+        const receivedNotification =
+            new Notification(
+                value.data['gcm.notification.subject'],
+                value.data['gcm.notification.owner'],
+                JSON.parse(value.data['gcm.notification.isSeen']),
+                JSON.parse(value.data['gcm.notification.isAnswer']),
+                value.data['gcm.notification.questionId'],
+                value.data['gcm.notification.id'],
+                new Date(value.data['gcm.notification.timestamp']));
+
         this.newNotifications.push(receivedNotification);
-        this.currentMessage.next(receivedNotification);
-        // console.log('new message received. ', payload);
-        // this.currentMessage.next(payload.valueOf());
-        // const value = payload.valueOf();
-        // this.messages.push(new Message(value.notification.title, value.data['gcm.notification.user'],
-        //   JSON.parse(value.data['gcm.notification.relatedCourses']), value.data['gcm.notification.link']));
-        // this.newNotifications.push(new Notification(value.data['gcm.notification.subject'],
-        //   value.data['gcm.notification.owner'], JSON.parse(value.data['gcm.notification.isSeen']),
-        //   JSON.parse(value.data['gcm.notification.isAnswer']), value.data['gcm.notification.link'],
-        //   value.data['gcm.notification.id'], new Date(value.data['gcm.notification.timestamp'])));
       });
   }
 
@@ -137,7 +130,7 @@ export class MessagingService {
       this.httpRequest.put('/notifications', notification).subscribe(res => {
         console.log('Update Succesful');
       }, err => {
-        console.error('Update Unsuccesful');
+        console.error('Update Unsuccessful: ' + err);
       });
       this.seenNotifications.push(notification);
     });
@@ -165,6 +158,12 @@ export class MessagingService {
           this.http.post(url, data, {headers: headers}).subscribe();
         });
       });
+  }
+
+  unregisterUser() {
+    this.seenNotifications.splice(0, this.seenNotifications.length);
+    this.newNotifications.splice(0, this.newNotifications.length);
+    this.user = null;
   }
 }
 
