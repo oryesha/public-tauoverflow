@@ -20,7 +20,7 @@ export class QuestionPageComponent implements OnInit {
 
   isShowAnswerEditor: boolean;
   isLoaded = false;
-  isUserOwner: boolean;
+  isUserQuestionOwner: boolean;
   isQuestionLocked: boolean;
   isQuestionFavorite = false;
   question: Question;
@@ -56,7 +56,7 @@ export class QuestionPageComponent implements OnInit {
   }
 
   private _updateMembers() {
-    this.isUserOwner = this.user.id === this.question.owner.id;
+    this.isUserQuestionOwner = this.user.id === this.question.owner.id;
     this.isQuestionLocked = this.question.isLocked;
     if (!this.user.favorites || this.user.favorites.length === 0) {
       return;
@@ -91,7 +91,7 @@ export class QuestionPageComponent implements OnInit {
       answer.id = response.data._id;
       this.user.answered += 1;
       // const url = 'http://localhost:4200/question-page?id=';
-      this.messagingService.sendMessage(this.question.owner.firebaseToken,
+      this.messagingService.sendMessage(this.question.owner.firebaseToken, this.user.firebaseToken,
         this.question.subject, this.user.name.first + ' ' + this.user.name.last,
         this.question.id, true);
     });
@@ -133,5 +133,9 @@ export class QuestionPageComponent implements OnInit {
 
   private _updateFavorites() {
     this.userService.updateFavorites(this.user, this.question).subscribe(() => {});
+  }
+
+  private checkIfUserAnswerOwner(id: string): boolean {
+    return this.user.id === id;
   }
 }

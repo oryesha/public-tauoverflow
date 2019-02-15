@@ -55,6 +55,9 @@ export class AnswerService {
   getAnswer(id: string): Observable<any> {
     return this.httpRequest.get('/answers', [], [id]);
   }
+  deleteAnswer(dbId: string) {
+    return this.httpRequest.delete('/answers' , dbId);
+  }
 
   // notifyAnswer(firebaseToken: string, questionName: string, userName: string, relatedCourses: UiCourse[] , questionPath: string) {
   //   const url = 'https://fcm.googleapis.com/fcm/send';

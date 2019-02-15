@@ -10,7 +10,7 @@
     <div class="mat-h2 questionTitle">
       {{question.subject}}
     </div>
-    <span *ngIf="isUserOwner">
+    <span *ngIf="isUserQuestionOwner">
       <button mat-icon-button matTooltip="Edit question" class="Button">
         <mat-icon class="Icon">edit</mat-icon>
       </button>
@@ -21,7 +21,7 @@
         <mat-icon class="Icon">lock</mat-icon>
       </button>
     </span>
-    <span *ngIf="!isUserOwner">
+    <span *ngIf="!isUserQuestionOwner">
       <button *ngIf="isQuestionFavorite" mat-icon-button matTooltip="Unmark as favorite" class="Button"
               (click)="UnmarkFavorite()">
         <mat-icon class="Icon">favorite</mat-icon>
@@ -33,10 +33,10 @@
     </span>
   </mat-card-content>
   <app-question-card [user]="user" [question]="question" [isLocked]="isQuestionLocked"
-                     [isUserOwner]="isUserOwner"
+                     [isUserOwner]="isUserQuestionOwner"
                      (showAnswerEditor)="showAnswerEditor()"></app-question-card>
   <div class="AnswersContainer">
-    <app-answer-card *ngFor="let answer of question.answers" [answer]="answer" [isUserOwner]="isUserOwner"
+    <app-answer-card *ngFor="let answer of question.answers" [answer]="answer" [isUserOwner]="checkIfUserAnswerOwner(answer.owner.id)"
                      [isEvenAnswer]="1 - isEvenAnswer">
     </app-answer-card>
     <app-single-answer-editor (answerSubmitted)="postAnswer($event)" (rendered)="scrollToBottom()"

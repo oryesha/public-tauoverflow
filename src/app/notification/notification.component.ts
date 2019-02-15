@@ -26,7 +26,14 @@ export class NotificationComponent implements OnInit {
   goToQuestion() {
     // delete notification
     this.messagingService.deleteNotification(this.notification);
-    this.router.navigate(['question-page'], {queryParams: {id: this.notification.questionId}});
+    const origUrl = this.router.url;
+    const id = this.notification.questionId;
+    this.router.navigate(['question-page'], {queryParams: {id: id}})
+      .then(() => {
+        if (origUrl.includes('question-page?id=' + id)) {
+          location.reload(); // get new answers
+        }
+      });
   }
 
   getElapsedTime(): string {

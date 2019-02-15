@@ -136,8 +136,12 @@ export class MessagingService {
     });
   }
 
-  sendMessage(receiverFbToken: string, questionName: string, senderName: string, questionId: string,
+  sendMessage(receiverFbToken: string, senderFbToken: string, questionName: string, senderName: string, questionId: string,
               isSenderAnswered: boolean) {
+    // avoid self notifications
+    if (receiverFbToken === senderFbToken) {
+      return;
+    }
     const url = 'https://fcm.googleapis.com/fcm/send';
     this.angularFireDB.object('/fcmTokens/').valueChanges()
       .subscribe((list) => {

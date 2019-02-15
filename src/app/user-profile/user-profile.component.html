@@ -34,7 +34,7 @@
                     <span>{{partner.subject}}</span>
                   </span>
                   <span>
-                    <mat-icon [inline]="true" (click)="tryDeletePost(partner, true)" class="DeleteIcon">delete</mat-icon>
+                    <mat-icon [inline]="true" (click)="tryDeletePost(partner, true, false)" class="DeleteIcon">delete</mat-icon>
                   </span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
@@ -53,7 +53,7 @@
                     <span>{{hour.subject}}</span>
                   </span>
                   <span>
-                    <mat-icon [inline]="true" (click)="tryDeletePost(hour, false)" class="DeleteIcon">delete</mat-icon>
+                    <mat-icon [inline]="true" (click)="tryDeletePost(hour, false, false)" class="DeleteIcon">delete</mat-icon>
                   </span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
@@ -75,6 +75,9 @@
                         star
                       </mat-icon>
                     </span>
+                  </span>
+                  <span>
+                    <mat-icon [inline]="true" (click)="tryDeletePost(review, false, true)" class="DeleteIcon">delete</mat-icon>
                   </span>
                 </mat-panel-title>
               </mat-expansion-panel-header>

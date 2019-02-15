@@ -37,5 +37,16 @@ exports.createCourseReview = async function(courseReview){
   }
 };
 
+exports.deleteCourseReview = async function(id){
+  try{
+    let deleted = await CourseReview.deleteOne({_id: id});
+    if(deleted.n === 0){
+      throw Error("review Could not be deleted")
+    }
+    return deleted
+  }catch(e){
+    throw Error("Error Occured while Deleting the review")
+  }
+};
 
 
