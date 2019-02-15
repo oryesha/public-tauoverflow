@@ -48,8 +48,12 @@ export class AuthService {
   doLogout() {
     return new Promise((resolve, reject) => {
       this.userService.getFirebaseUser().then(() => {
+        this.userService.unregisterFromNotifications();
         this.afAuth.auth.signOut().then(() => resolve(null));
-      }, () => this.afAuth.auth.signOut());
+      }, () => {
+        this.userService.unregisterFromNotifications();
+        this.afAuth.auth.signOut().then(() => resolve(null));
+      });
     });
   }
 }

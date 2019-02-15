@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {AuthService} from '../services/auth/auth.service';
 import {Router} from '@angular/router';
 import {MessagingService} from '../services/messaging.service';
@@ -6,7 +6,6 @@ import {MatButton, MatSnackBar} from '@angular/material';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService} from '../app-routing-data.service';
-import {Notification} from '../models/notification.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NotificationsCardComponent} from '../notifications-card/notifications-card.component';
 
@@ -16,7 +15,7 @@ import {NotificationsCardComponent} from '../notifications-card/notifications-ca
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent implements OnDestroy, OnInit  {
+export class NavBarComponent implements OnInit  {
   @ViewChild('notificationsButton') notificationsButton: MatButton;
   @ViewChild('notificationsCard') notificationsCard: NotificationsCardComponent;
 
@@ -31,9 +30,6 @@ export class NavBarComponent implements OnDestroy, OnInit  {
   @Input() isSignUp: boolean;
   @Input() user: UserProfile;
 
-  tmp = this.messagingService.getTheMessage().subscribe((newMessage: Notification) => {
-    // this.newNotifications.push(newMessage);
-  });
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required])
@@ -41,10 +37,6 @@ export class NavBarComponent implements OnDestroy, OnInit  {
   @Output() loginAttempt = new EventEmitter();
 
   ngOnInit() {
-  }
-
-  ngOnDestroy() {
-    this.tmp.unsubscribe();
   }
 
   logout() {

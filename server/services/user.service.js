@@ -16,7 +16,7 @@ exports.getAllUsers = async function() {
 
 exports.getUser = async function(userToken) {
   try {
-    const user = await User.findOne({firebaseToken: userToken})
+    const user =  await User.findOne({firebaseToken: userToken})
       .populate({
         path: 'myPartnerPosts myCourseReviews myChangeHoursPosts',
         populate: { path: 'owner course' }
@@ -51,6 +51,10 @@ exports.createNewUser = async function(user){
     // answered: 0,
     description: user.description,
     skills: user.skills,
+    notifyOnMyQuestions: user.notificationSettings.notifyOnMyQuestions,
+    notifyOnMyFavorites: user.notificationSettings.notifyOnMyFavorites,
+    notifyOnMyCourses: user.notificationSettings.notifyOnMyCourses,
+    notifyOnMySkills: user.notificationSettings.notifyOnMySkills,
   });
 
   try{
@@ -79,6 +83,19 @@ exports.updateFavorites = async function(userId, questionId) {
     return await user.save();
   } catch (e) {
     throw Error('Couldn\'t save updated user');
+  }
+};
+
+exports.updateNotificationSettings = async function(userId, newSettings) {
+  try {
+    const user = await User.findById(userId);
+    user.notifyOnMyQuestions = newSettings.notifyOnMyQuestions;
+    user.notifyOnMyFavorites = newSettings.notifyOnMyFavorites;
+    user.notifyOnMyCourses = newSettings.notifyOnMyCourses;
+    user.notifyOnMySkills = newSettings.notifyOnMySkills;
+    return await user.save();
+  } catch (e) {
+    throw Error("Couldn't update notification settings");
   }
 };
 

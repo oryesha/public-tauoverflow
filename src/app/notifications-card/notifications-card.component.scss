@@ -1,0 +1,23 @@
+@import "~@angular/material/theming";
+
+.NotificationSettingsContainer {
+  background: mat-color($mat-gray, 100);
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  color: mat-color($mat-gray, 600);
+  text-align: left;
+  width: 100%;
+}
+
+.SettingsIcon {
+  font-size: 14px;
+  height: 14px;
+  line-height: 14px;
+  width: 14px;
+  margin-right: 8px;
+}
+
+.NotificationSettings {
+  font-weight: 500;
+}

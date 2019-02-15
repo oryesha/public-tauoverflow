@@ -3,19 +3,21 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import {UserProfile} from '../models/user-profile.model';
-import {HttpRequestsService, QueryParams} from './http-requests.service';
+import {HttpRequestsService} from './http-requests.service';
 import {Observable} from 'rxjs';
-import {HttpResponse} from '@angular/common/http';
 import {Question} from '../models/question.model';
-import {UiCourse} from '../models/ui-course.model';
+import {NotificationSettings} from '../models/notification-settings.model';
+import {MessagingService} from './messaging.service';
 
 @Injectable()
 export class UserService {
   private _currentUser: UserProfile;
+  private _getOfflineNotifications = true;
 
   constructor(
     public db: AngularFirestore,
     public afAuth: AngularFireAuth,
+    private messagingService: MessagingService,
     private httpRequest: HttpRequestsService
   ) {}
 
@@ -42,6 +44,7 @@ export class UserService {
     const res = this.httpRequest.post('/user', user);
     res.subscribe((response: any) => {
       user.id = response.data._id;
+      this.messagingService.registerUser(this._currentUser);
     });
     return res;
   }
@@ -83,6 +86,10 @@ export class UserService {
         }
         this.httpRequest.get('/user', [], [res.uid]).subscribe(user => {
           this._currentUser = UserProfile.deserialize(user);
+          if (this._getOfflineNotifications) {
+            this.messagingService.getOfflineNotifications(this._currentUser);
+            this._getOfflineNotifications = false;
+          }
           resolve(this._currentUser);
         });
       });
@@ -91,5 +98,17 @@ export class UserService {
 
   setCurrentUser(user: UserProfile) {
     this._currentUser = user;
+  }
+
+  updateNotificationSettings(newSettings: NotificationSettings) {
+    this._currentUser.notificationSettings = newSettings;
+    const userId = this._currentUser.id;
+    return this.httpRequest.put('/user/update-notification-settings',
+      {userId, newSettings});
+  }
+
+  unregisterFromNotifications() {
+    this._getOfflineNotifications = true;
+    this.messagingService.unregisterUser();
   }
 }
