@@ -4,7 +4,7 @@ _this = this;
 
 //get notifications of user by its firebase id
 exports.getUserNotifications = async function(id) {
-  let notifications = Notification.find({toNotify: id});
+  let notifications = Notification.find({toNotify: id}).sort({timestamp: -1});
   return notifications;
 };
 
