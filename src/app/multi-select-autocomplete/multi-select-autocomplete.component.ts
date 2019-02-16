@@ -30,17 +30,17 @@ interface SelectedMap {
 })
 export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecked {
   @Input() private options: UiCourse[];
-  @Input() private placeholder: string;
+  @Input() public placeholder: string;
   @Input() private isCourseSearch: boolean;
-  @Input() private selectedOptions: string[] = [];
-  @Input() private isRequired = true;
+  @Input() public selectedOptions: string[] = [];
+  @Input() public isRequired = true;
   @Output() private inputChanged = new EventEmitter();
-  private filteredOptions: Observable<string[]>;
+  public filteredOptions: Observable<string[]>;
   readonly separatorKeys: number[] = [ENTER, COMMA];
   private allOptions: OptionMap = {};
   private selectedMap: SelectedMap = {};
   private selectableOptions: string[];
-  private optionsControl = new FormControl({value: '', disabled: this.selectedOptions.length >= 5});
+  public optionsControl = new FormControl({value: '', disabled: this.selectedOptions.length >= 5});
 
   @ViewChild('optionsInput') optionsInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;

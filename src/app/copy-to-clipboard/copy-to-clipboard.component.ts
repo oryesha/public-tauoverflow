@@ -8,7 +8,7 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./copy-to-clipboard.component.scss']
 })
 export class CopyToClipboardComponent implements OnInit {
-  @Input() private email: string;
+  @Input() public email: string;
   constructor(private snackBar: MatSnackBar, private clipboardService: ClipboardService) { }
 
   ngOnInit() {

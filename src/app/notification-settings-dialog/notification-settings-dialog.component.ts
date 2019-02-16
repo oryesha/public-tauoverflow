@@ -10,10 +10,13 @@ import {UserService} from '../services/user.service';
 })
 export class NotificationSettingsDialogComponent implements OnInit {
   @ViewChild(MatSlideToggle) slideToggle: MatSlideToggle;
-
-  private title: string;
-  private readonly notificationSettings: NotificationSettings;
-  private newSettings: NotificationSettings;
+  public MY_QUESTIONS;
+  public MY_FAVORITES;
+  public MY_COURSES;
+  public MY_SKILLS;
+  public title: string;
+  public readonly notificationSettings: NotificationSettings;
+  public newSettings: NotificationSettings;
 
   constructor(private dialogRef: MatDialogRef<NotificationSettingsDialogComponent>,
               private userService: UserService,
