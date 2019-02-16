@@ -22,6 +22,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ClipboardModule } from 'ngx-clipboard';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {KatexComponent, KatexModule} from 'ng-katex';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -80,6 +81,8 @@ import { NotificationsCardComponent } from './notifications-card/notifications-c
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationHostDirective } from './notifications-card/notification-host.directive';
 import { NotificationSettingsDialogComponent } from './notification-settings-dialog/notification-settings-dialog.component';
+import { EditorComponent } from './editor/editor.component';
+import {KatexService} from 'ng-katex/src/ng-katex.service';
 
 
 @NgModule({
@@ -118,6 +121,7 @@ import { NotificationSettingsDialogComponent } from './notification-settings-dia
     NotificationComponent,
     NotificationHostDirective,
     NotificationSettingsDialogComponent,
+    EditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -153,6 +157,7 @@ import { NotificationSettingsDialogComponent } from './notification-settings-dia
     ClipboardModule,
     MatMenuModule,
     MatSlideToggleModule,
+    KatexModule,
   ],
   providers: [
     QuestionService,
@@ -167,6 +172,7 @@ import { NotificationSettingsDialogComponent } from './notification-settings-dia
     HttpRequestsService,
     CourseService,
     MessagingService,
+    KatexService,
     AsyncPipe
   ],
   bootstrap: [AppComponent],

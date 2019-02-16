@@ -1,23 +1,36 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {
+  AfterViewChecked, AfterViewInit,
+  Component,
+  ComponentFactoryResolver, ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {Answer} from '../models/answer.model';
 import {AnswerService} from '../services/answer.service';
 import {UserService} from '../services/user.service';
 import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {DeleteConfirmDialogComponent} from '../delete-confirm-dialog/delete-confirm-dialog.component';
+import {LatexRenderingService} from '../services/latex-rendering.service';
 
 @Component({
   selector: 'app-answer-card',
   templateUrl: './answer-card.component.html',
   styleUrls: ['./answer-card.component.scss']
 })
-export class AnswerCardComponent implements OnInit {
+export class AnswerCardComponent implements OnInit, AfterViewChecked, AfterViewInit {
+  @ViewChild('contentContainer') contentContainer: ElementRef;
   @Input() answer: Answer;
   @Input() isEvenAnswer: boolean;
   @Input() isUserOwner: boolean;
+  initialContent = '';
+  equations: string[] = [];
 
   constructor(private answerService: AnswerService,
               private userService: UserService,
               private snackBar: MatSnackBar,
+              private latexRenderingService: LatexRenderingService,
+              private componentFactoryResolver: ComponentFactoryResolver,
               private dialog: MatDialog) {
   }
 
@@ -37,6 +50,9 @@ export class AnswerCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    const content = this.answer.content;
+    this.initialContent =
+      this.latexRenderingService.findAllEquations(content, this.equations);
   }
 
   private deleteAnswer() {
@@ -54,6 +70,13 @@ export class AnswerCardComponent implements OnInit {
           });
         }
       });
+  }
+
+  ngAfterViewChecked(): void {
+  }
+
+  ngAfterViewInit(): void {
+    this.latexRenderingService.renderEquations(this.contentContainer, this.equations);
   }
 
 }

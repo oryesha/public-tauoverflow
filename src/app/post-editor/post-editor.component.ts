@@ -4,6 +4,7 @@ import {AutocompleteComponent} from '../autocomplete/autocomplete.component';
 import {FormFieldComponent} from '../form-field/form-field.component';
 import {MatSnackBar} from '@angular/material';
 import {CourseService} from '../services/course.service';
+import {EditorComponent} from '../editor/editor.component';
 
 export class PostContent {
   subject: string;
@@ -25,6 +26,7 @@ export class PostContent {
 export class PostEditorComponent implements OnInit {
   @ViewChild('programAutocomplete') programAutocomplete: AutocompleteComponent;
   @ViewChild('titleField') titleFormField: FormFieldComponent;
+  @ViewChild('editor') editor: EditorComponent;
 
   @Input() postTitle: string;
   @Input() isAskQuestion: boolean;
@@ -33,22 +35,6 @@ export class PostEditorComponent implements OnInit {
   @Input() titleLabel: string;
   @Input() descriptionTitle: string;
   @Output() postSubmitted = new EventEmitter<PostContent>();
-
-  postContent = '';
-  coursesMap = this.courseService.getCoursesMap();
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    height: '15rem',
-    minHeight: '3rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    customClasses: [ // optional
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-    ]
-  };
 
   constructor(private snackBar: MatSnackBar, private courseService: CourseService) { }
 
@@ -61,12 +47,13 @@ export class PostEditorComponent implements OnInit {
     if (!this.isAskQuestion && !this.isCourseChosen) {
       course = this.programAutocomplete.getSelection();
     }
-    if (subject === '' || (course === '' && !this.isAskQuestion && !this.isCourseChosen) || this.postContent === '') {
+    const postContent = this.editor.getContent();
+    if (subject === '' || (course === '' && !this.isAskQuestion && !this.isCourseChosen) || postContent === '') {
       this.snackBar.open('Empty fields aren\'t allowed', '', {
         duration: 2000 // Prompt the toast 2 seconds.
       });
     } else {
-      this.postSubmitted.emit(new PostContent(subject, course, this.postContent));
+      this.postSubmitted.emit(new PostContent(subject, course, postContent));
     }
   }
 }

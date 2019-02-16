@@ -5,7 +5,8 @@
   </div>
   <mat-card class="{{isEvenAnswer ? 'EvenPostCard' : 'OddPostCard'}} mat-card">
     <mat-card-content class="ContentAndDetails">
-      <div class="AnswerContent" [innerHtml]="answer.content"></div>
+      <div class="AnswerContent" [innerHtml]="initialContent" #contentContainer>
+      </div>
       <div class="Date">
         {{answer.timestamp | date}}
       </div>

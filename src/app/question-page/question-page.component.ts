@@ -9,6 +9,7 @@ import {AnswerService} from '../services/answer.service';
 import {UserProfile} from '../models/user-profile.model';
 import {UserService} from '../services/user.service';
 import {MessagingService} from '../services/messaging.service';
+import {AngularEditorComponent} from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-question-page',
@@ -84,7 +85,7 @@ export class QuestionPageComponent implements OnInit {
 
   postAnswer(event: PostContent) {
     const content = event.content;
-    const answer = new Answer(content, this.user, this.question.id);
+    const answer = new Answer(content, this.user.getUiUser(), this.question.id);
     this.isShowAnswerEditor = false;
     this.question.answers.push(answer);
     this.answerService.createAnswer(answer).subscribe((response: any) => {
