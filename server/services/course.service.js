@@ -63,7 +63,9 @@ exports.getSkilledUsers = async function(courseId) {
 
     if(course.interestedIn) {
       course.interestedIn.forEach((user) => {
-        skilledUsers.push(user.firebaseToken);
+        if (skilledUsers.indexOf(user.firebaseToken) === -1) {
+          skilledUsers.push(user.firebaseToken);
+        }
       });
     }
 

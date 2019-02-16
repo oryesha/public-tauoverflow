@@ -86,13 +86,68 @@ exports.updateFavorites = async function(userId, questionId) {
   }
 };
 
+async function updateNeededChanges(user, newSettings) {
+  const changedCourses = {};
+  try {
+    // DONT CHANGE THIS CONDITION ! CAN BE undefined
+    if (!newSettings.notifyOnMyCourses && (user.notifyOnMyCourses || user.notifyOnMyCourses === 'undefined')) {
+      // user doesnt want to be updated on his courses questions anymore
+      // remove user from my courses as interested in
+      user.myCourses.forEach( (course) => {
+        let updatedCourse = course._id.toString() in changedCourses ? changedCourses[course._id.toString()] : course;
+        const index = updatedCourse.interestedIn.indexOf(user._id);
+        if (index !== -1) {
+          updatedCourse.interestedIn.splice(index, 1);
+          changedCourses[course._id.toString()] = updatedCourse;
+        }
+      });
+    } else if (newSettings.notifyOnMyCourses && (user.notifyOnMyCourses === false)) {
+      //user wasn't on course 'interested in' list and now he wants to be there
+      user.myCourses.forEach( (course) => {
+        let updatedCourse = course._id.toString() in changedCourses ? changedCourses[course._id.toString()] : course;
+        updatedCourse.interestedIn.push(user._id);
+        changedCourses[course._id.toString()] = updatedCourse;
+      });
+    }
+
+    if (!newSettings.notifyOnMySkills && (user.notifyOnMySkills === 'undefined' || user.notifyOnMySkills)) {
+      user.skills.forEach( (course) => {
+        let updatedCourse = course._id.toString() in changedCourses ? changedCourses[course._id.toString()] : course;
+        const index = updatedCourse.interestedIn.indexOf(user._id);
+        if (index !== -1) {
+          updatedCourse.interestedIn.splice(index, 1);
+          changedCourses[course._id.toString()] = updatedCourse;
+        }
+      });
+    } else if (newSettings.notifyOnMySkills && user.notifyOnMySkills === false) {
+      //user wasn't on course 'interested in' list and now he wants to be there
+      user.skills.forEach((course) => {
+        let updatedCourse = course._id.toString() in changedCourses ? changedCourses[course._id.toString()] : course;
+        updatedCourse.interestedIn.push(user._id);
+        changedCourses[course._id.toString()] = updatedCourse;
+      });
+    }
+    await Promise.all(Object.keys(changedCourses).map( async (key) => {
+      const course = changedCourses[key];
+      await course.save();
+    }
+    ));
+  } catch (e) {
+    throw Error("Couldn't update notification settings");
+  }
+};
+
 exports.updateNotificationSettings = async function(userId, newSettings) {
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate({path: 'myCourses skills'});
+
+    await updateNeededChanges(user, newSettings);
+
     user.notifyOnMyQuestions = newSettings.notifyOnMyQuestions;
     user.notifyOnMyFavorites = newSettings.notifyOnMyFavorites;
     user.notifyOnMyCourses = newSettings.notifyOnMyCourses;
     user.notifyOnMySkills = newSettings.notifyOnMySkills;
+
     return await user.save();
   } catch (e) {
     throw Error("Couldn't update notification settings");
@@ -116,15 +171,19 @@ exports.updateMyCourses = async function(userId, courseId) {
   //add course to my courses
   if (index === -1) {
     user.myCourses.push(courseId);
-    //add user as interested in this course
-    course.interestedIn.push(user._id);
+    if (user.notifyOnMyCourses === 'undefined' || user.notifyOnMyCourses) {
+      //add user as interested in this course
+      course.interestedIn.push(user._id);
+    }
   //remove course from my courses
   } else {
     user.myCourses.splice(index, 1);
-    //remove user as interested in this course
-    const userIdx = course.interestedIn.indexOf(user._id);
-    if (index !== -1) {
-      course.interestedIn.splice(userIdx, 1);
+    if (user.notifyOnMyCourses === 'undefined' || user.notifyOnMyCourses) {
+      //remove user as interested in this course
+      const userIdx = course.interestedIn.indexOf(user._id);
+      if (index !== -1) {
+        course.interestedIn.splice(userIdx, 1);
+      }
     }
   }
 
@@ -143,13 +202,15 @@ exports.addToMyCourses = async function(userId, courseIds) {
     user = await User.findById(userId);
     courseIds.forEach(async (id) => {
       user.myCourses.push(id);
-      //updated course that someone is skilled on it
-      let course = await Course.findById(id);
-      if(!course.interestedIn) {
-        course.interestedIn = [];
+      if (user.notifyOnMyCourses || user.notifyOnMyCourses === 'undefined') {
+        //updated course that someone is skilled on it
+        let course = await Course.findById(id);
+        if(!course.interestedIn) {
+          course.interestedIn = [];
+        }
+        course.interestedIn.push(user._id);
+        course.save();
       }
-      course.interestedIn.push(user._id);
-      course.save();
     });
   } catch (e) {
     throw Error('Couldn\'t find user');
@@ -175,12 +236,14 @@ exports.removeFromMyCourses = async function(userId, courseId) {
   }
   // delete user from the course he is marked as interested - we don't want him to get notifications
   try {
-    let course = await Course.findById(courseId);
-    if(course.interestedIn) {
-      const index = course.interestedIn.indexOf(user._id);
-      if (index !== -1) {
-        course.interestedIn.splice(index, 1);
-        await course.save();
+    if (user.notifyOnMyCourses || user.notifyOnMyCourses === 'undefined') {
+      let course = await Course.findById(courseId);
+      if(course.interestedIn) {
+        const index = course.interestedIn.indexOf(user._id);
+        if (index !== -1) {
+          course.interestedIn.splice(index, 1);
+          await course.save();
+        }
       }
     }
     return await user.save();
@@ -204,12 +267,13 @@ exports.updateUser = async function(user){
     return false;
   }
 
-  // delete user from interested in courses he is no longer skilled at
-  _deleteUserFromRemovedSkilledCourses(oldUser.skills, user.skills, oldUser._id);
+  if (oldUser.notifyOnMySkills === 'undefined' || oldUser.notifyOnMySkills) {
+    // delete user from interested in courses he is no longer skilled at
+    _deleteUserFromRemovedSkilledCourses(oldUser.skills, user.skills, oldUser._id);
 
-  //updated course that someone is skilled on it
-  _AddUserToNewSkilledCoursesNotificationList(oldUser.skills, user.skills, oldUser._id);
-
+    //updated course that someone is skilled on it
+    _AddUserToNewSkilledCoursesNotificationList(oldUser.skills, user.skills, oldUser._id);
+  }
 
   oldUser.firebaseToken = user.firebaseToken;
   oldUser.firstName = user.firstName;

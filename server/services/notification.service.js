@@ -1,3 +1,4 @@
+let UserProfile = require('../models/user-profile.model');
 let Notification = require('../models/notification.model');
 
 _this = this;
@@ -9,6 +10,13 @@ exports.getUserNotifications = async function(id) {
 };
 
 exports.addNotification = async function(notification){
+
+  let notifiedUser = await UserProfile.findOne({firebaseToken: notification.toNotify});
+
+  if (filterUserNotification(notifiedUser, notification)) {
+    return null;
+  }
+
   let newNotification = new Notification({
     toNotify: notification.toNotify,
     subject: notification.subject,
@@ -47,5 +55,25 @@ exports.updateNotification = async function(id, isSeen){
   }
 };
 
+function filterUserNotification(notifiedUser, notification) {
+
+  let shouldSkipNotification = false;
+
+  if (notification.isAnswer) {
+
+    const isUserFavorite = notifiedUser.favorites.indexOf(notification.questionId) !== -1;
+    const isUsersQuestion = notifiedUser.myQuestions.indexOf(notification.questionId) !== -1;
+
+    if ((notifiedUser.notifyOnMyFavorites === false && isUserFavorite) &&
+      (notifiedUser.notifyOnMyQuestions === false || !isUsersQuestion)) {
+      shouldSkipNotification = true;
+    } else if ((notifiedUser.notifyOnMyQuestions === false && isUsersQuestion) &&
+      (notifiedUser.notifyOnMyFavorites === false || !isUserFavorite)) { //question must be in my questions
+      shouldSkipNotification = true;
+    }
+  }
+
+  return shouldSkipNotification;
+};
 
 
