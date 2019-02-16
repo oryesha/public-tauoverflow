@@ -51,8 +51,9 @@ export class CourseService {
   }
 
   // get skilled users firebase token
-  getSkilledUsers(courseId: string): Observable<any> {
-    return this.httpRequest.get('/courses/skilled-users', [], [courseId]);
+  getSkilledUsers(courseIds: string[]): Observable<any> {
+    const queryParams = new QueryParams('courseIds', courseIds);
+    return this.httpRequest.get('/courses/skilled-users', [queryParams]);
   }
 
   addCourse(uiCourse: UiCourse): Observable<any> {

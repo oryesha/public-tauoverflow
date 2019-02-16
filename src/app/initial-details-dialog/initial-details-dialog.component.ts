@@ -17,6 +17,7 @@ export class InitialDetailsDialogComponent implements OnInit {
   @ViewChild('programAutocomplete') programAutocomplete: AutocompleteComponent;
   @ViewChild('skillsMultiselect') skillsMultiselect: MultiSelectAutocompleteComponent;
   @ViewChild('descriptionField') descriptionField: FormFieldComponent;
+  disabled;
   title: string;
   selectedProgram: string;
   description: string;

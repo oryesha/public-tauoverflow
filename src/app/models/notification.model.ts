@@ -6,6 +6,7 @@ export class Notification {
   isAnswer: boolean;
   isSeen = false;
   questionId: string;
+  relatedCourses: string[] = [];
 
   constructor(subject: string, owner: string, isSeen: boolean, isAnswer: boolean,
               questionId: string, id?: string, timestamp?: Date) {

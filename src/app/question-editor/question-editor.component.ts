@@ -61,13 +61,20 @@ export class QuestionEditorComponent implements OnInit {
   }
 
   _sendNotificationToCourseRelatedSkilledUsers(question: Question) {
-   this.courses.forEach((course) => {
-     this.courseService.getSkilledUsers(course.id).subscribe((users) => {
-       users.forEach((user) => {
-         this.messagingService.sendMessage(user, question.owner.firebaseToken, question.subject,
-           question.owner.name.first + ' ' + question.owner.name.last, question.id, false);
-       });
-     });
-   });
+    const courseIds = this.courses.map((course) => {
+      return course.id;
+    });
+    const usersToNotify = [];
+    this.courseService.getSkilledUsers(courseIds).subscribe((users) => {
+      users.forEach((user) => {
+        if (question.owner.firebaseToken !== user && usersToNotify.indexOf(user) === -1) {
+          usersToNotify.push(user);
+        }
+      });
+      usersToNotify.forEach((user) => {
+        this.messagingService.sendMessage(user, question.owner.firebaseToken, question.subject,
+          question.owner.name.first + ' ' + question.owner.name.last, question.id, false, courseIds);
+      });
+    });
   }
 }

@@ -91,10 +91,20 @@ export class QuestionPageComponent implements OnInit {
     this.answerService.createAnswer(answer).subscribe((response: any) => {
       answer.id = response.data._id;
       this.user.answered += 1;
-      // const url = 'http://localhost:4200/question-page?id=';
+
+      // send notification to question owner
       this.messagingService.sendMessage(this.question.owner.firebaseToken, this.user.firebaseToken,
         this.question.subject, this.user.name.first + ' ' + this.user.name.last,
         this.question.id, true);
+
+      // send notification to whoever marked the question as favorite
+      if (this.question.interestedIn) {
+        this.question.interestedIn.forEach((userToken) => {
+          this.messagingService.sendMessage(userToken, this.user.firebaseToken,
+            this.question.subject, this.user.name.first + ' ' + this.user.name.last,
+            this.question.id, true);
+        });
+      }
     });
   }
 
