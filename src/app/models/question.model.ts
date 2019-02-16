@@ -8,6 +8,7 @@ import {UiUser} from './ui-user.model';
 export class Question extends Post {
   relatedCourses: UiCourse[];
   answers: Answer[] = [];
+  interestedIn: string[] = [];
   upvote: Upvote;
 
   static deserialize(question): Question {
@@ -27,6 +28,11 @@ export class Question extends Post {
       owner, relatedCourses, answers, question._id, timestamp, question.isLocked);
     if (question.upvote.upvoters !== []) {
       newQuestion.upvote = question.upvote;
+    }
+    if (question.interestedIn) {
+      question.interestedIn.forEach((user) => {
+        newQuestion.interestedIn.push(user.firebaseToken);
+      });
     }
     return newQuestion;
   }

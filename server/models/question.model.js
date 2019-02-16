@@ -9,6 +9,7 @@ const QuestionSchema = new mongoose.Schema({
     isLocked: Boolean,
     relatedCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
     answers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}],
+    interestedIn: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'}],
     upvote: {
       count: Number,
       upvoters: [{type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile'}]

@@ -60,15 +60,8 @@ function filterUserNotification(notifiedUser, notification) {
   let shouldSkipNotification = false;
 
   if (notification.isAnswer) {
-
-    const isUserFavorite = notifiedUser.favorites.indexOf(notification.questionId) !== -1;
     const isUsersQuestion = notifiedUser.myQuestions.indexOf(notification.questionId) !== -1;
-
-    if ((notifiedUser.notifyOnMyFavorites === false && isUserFavorite) &&
-      (notifiedUser.notifyOnMyQuestions === false || !isUsersQuestion)) {
-      shouldSkipNotification = true;
-    } else if ((notifiedUser.notifyOnMyQuestions === false && isUsersQuestion) &&
-      (notifiedUser.notifyOnMyFavorites === false || !isUserFavorite)) { //question must be in my questions
+    if (notifiedUser.notifyOnMyQuestions === false && isUsersQuestion) { //question must be in my questions
       shouldSkipNotification = true;
     }
   }
