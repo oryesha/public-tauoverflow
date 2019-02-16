@@ -6,7 +6,7 @@
   </div>
   <mat-card class="PostCard">
     <mat-card-content class="ContentAndDetails">
-      <div class="QuestionContent" [innerHtml]="question.content"></div>
+      <div class="QuestionContent" [innerHtml]="initialContent" #contentContainer></div>
       <div class="Date">
         {{question.timestamp | date}}
       </div>

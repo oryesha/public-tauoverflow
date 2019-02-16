@@ -1,0 +1,47 @@
+@import "~@angular/material/theming";
+
+.PostTextArea /deep/ .angular-editor-toolbar {
+  background: mat-color($mat-gray, 200);
+}
+
+.PostTextArea /deep/ .angular-editor-wrapper {
+  background: white;
+}
+
+.PostTextArea /deep/ .angular-editor-button[title="Clear Formatting"],
+.PostTextArea /deep/ .angular-editor-button[title="Custom Style"],
+.PostTextArea /deep/ .select-custom-style[title="Custom Style"],
+.PostTextArea /deep/ .angular-editor-button[title="HTML Code"] {
+  display: none;
+}
+
+.PostTextArea /deep/ .angular-editor-wrapper {
+  max-height: 170px;
+}
+
+.PostTextArea /deep/ .angular-editor-textarea {
+  max-height: 146px;
+}
+
+.AnswerTextArea /deep/ .angular-editor-wrapper {
+  max-height: 150px;
+}
+
+.AnswerTextArea /deep/ .angular-editor-textarea {
+  max-height: 126px;
+}
+
+.InsertLatexButton {
+  background: mat-color($mat-gray, 200);
+  color: mat-color($mat-gray, 800);
+  text-transform: uppercase;
+  line-height: 27px;
+  font-size: 12px;
+  margin: 4px 0;
+}
+
+.LatexLogo {
+  height: 20px;
+  margin-left: 6px;
+  width: 20px;
+}

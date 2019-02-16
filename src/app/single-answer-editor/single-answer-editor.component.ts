@@ -1,7 +1,14 @@
-import {AfterViewChecked, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AngularEditorConfig} from '@kolkov/angular-editor';
+import {
+  AfterViewChecked,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {PostContent} from '../post-editor/post-editor.component';
 import {MatSnackBar} from '@angular/material';
+import {EditorComponent} from '../editor/editor.component';
 
 @Component({
   selector: 'app-single-answer-editor',
@@ -9,24 +16,10 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./single-answer-editor.component.scss']
 })
 export class SingleAnswerEditorComponent implements OnInit, AfterViewChecked {
+  @ViewChild('editor') editor: EditorComponent;
   @Output() answerSubmitted = new EventEmitter<PostContent>();
   @Output() answerCanceled = new EventEmitter();
   @Output() rendered = new EventEmitter();
-  content = '';
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    height: '15rem',
-    minHeight: '3rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    // uploadUrl: 'v1/images', // if needed
-    customClasses: [ // optional
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-    ]
-  };
 
   constructor(private snackBar: MatSnackBar) { }
 
@@ -34,12 +27,13 @@ export class SingleAnswerEditorComponent implements OnInit, AfterViewChecked {
   }
 
   submitAnswer() {
-    if (this.content === '') {
+    const content = this.editor.getContent();
+    if (content === '') {
       this.snackBar.open('Empty answer isn\'t allowed', '', {
         duration: 2000 // Prompt the toast 2 seconds.
       });
     } else {
-      this.answerSubmitted.emit(new PostContent('', '', this.content));
+      this.answerSubmitted.emit(new PostContent('', '', content));
     }
   }
 
@@ -50,5 +44,4 @@ export class SingleAnswerEditorComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     this.rendered.emit();
   }
-
 }

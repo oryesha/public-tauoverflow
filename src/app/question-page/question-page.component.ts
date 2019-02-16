@@ -9,6 +9,7 @@ import {AnswerService} from '../services/answer.service';
 import {UserProfile} from '../models/user-profile.model';
 import {UserService} from '../services/user.service';
 import {MessagingService} from '../services/messaging.service';
+import {AngularEditorComponent} from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-question-page',

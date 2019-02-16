@@ -3,8 +3,7 @@
     <mat-card-content>
       <div class="Question">
         <span class="mat-h2 PostTitleText">Answer:</span>
-        <angular-editor [config]="editorConfig" class="QuestionTextArea" [(ngModel)]="content">
-        </angular-editor>
+        <app-editor [isAnswer]="true" #editor></app-editor>
       </div>
       <div class="DoneButtonContainer">
         <button mat-raised-button class="Button CancelButton" (click)="cancel()">cancel</button>
