@@ -7,6 +7,7 @@ import {Notification} from '../models/notification.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {HttpRequestsService} from './http-requests.service';
 import {UserProfile} from '../models/user-profile.model';
+import {Question} from '../models/question.model';
 
 @Injectable()
 export class MessagingService {
@@ -114,7 +115,6 @@ export class MessagingService {
                 value.data['gcm.notification.questionId'],
                 value.data['gcm.notification.id'],
                 new Date(value.data['gcm.notification.timestamp']));
-
         this.newNotifications.push(receivedNotification);
       });
   }
@@ -152,10 +152,12 @@ export class MessagingService {
         // add notification to db
         const path = ('/notifications/' + receiverFbToken);
         this.httpRequest.post(path, notification).subscribe((response: any) => {
-          notification.id = response.data._id;
-          // send notification to user
-          const data = notification.getNotificationWrapper(questionOwnerToken);
-          this.http.post(url, data, {headers: headers}).subscribe();
+          if (response.data) { // if data is null then user don't want to get this notification
+            notification.id = response.data._id;
+            // send notification to user
+            const data = notification.getNotificationWrapper(questionOwnerToken);
+            this.http.post(url, data, {headers: headers}).subscribe();
+          }
         });
       });
   }
