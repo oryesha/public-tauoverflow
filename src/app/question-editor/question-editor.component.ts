@@ -61,11 +61,14 @@ export class QuestionEditorComponent implements OnInit {
   }
 
   _sendNotificationToCourseRelatedSkilledUsers(question: Question) {
+    const courseIds = this.courses.map((course) => {
+      return course.id;
+    });
    this.courses.forEach((course) => {
      this.courseService.getSkilledUsers(course.id).subscribe((users) => {
        users.forEach((user) => {
          this.messagingService.sendMessage(user, question.owner.firebaseToken, question.subject,
-           question.owner.name.first + ' ' + question.owner.name.last, question.id, false);
+           question.owner.name.first + ' ' + question.owner.name.last, question.id, false, courseIds);
        });
      });
    });

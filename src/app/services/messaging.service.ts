@@ -115,7 +115,12 @@ export class MessagingService {
                 value.data['gcm.notification.questionId'],
                 value.data['gcm.notification.id'],
                 new Date(value.data['gcm.notification.timestamp']));
-        this.newNotifications.push(receivedNotification);
+        if (value.data['gcm.notification.relatedCourses']) {
+          receivedNotification.relatedCourses = value.data['gcm.notification.relatedCourses'];
+        }
+        if (this._checkIfNotificationAllowed(receivedNotification)) {
+          this.newNotifications.push(receivedNotification);
+        }
       });
   }
 
@@ -137,7 +142,7 @@ export class MessagingService {
   }
 
   sendMessage(receiverFbToken: string, senderFbToken: string, questionName: string, senderName: string, questionId: string,
-              isSenderAnswered: boolean) {
+              isSenderAnswered: boolean, relatedCourses?: string[]) {
     // avoid self notifications
     if (receiverFbToken === senderFbToken) {
       return;
@@ -149,6 +154,9 @@ export class MessagingService {
         const headers = new HttpHeaders().set('Authorization', 'key=AAAAc9A8WeQ:APA91bEs459-ePMYaPJjllo7HtqDguA2Og' +
           '-vTkrSZM8BvDTxYfBmZ3iBhs6G5MXLQfisQQzOckxyHQZv8-MQ_D5QURI9C_xo4-NMsAQkLQBn5P7FiWD2-BAQsznVrfZ-A20ewuvBIAHk');
         const notification = new Notification(questionName, senderName, false, isSenderAnswered, questionId);
+        if (relatedCourses) {
+          notification.relatedCourses = relatedCourses;
+        }
         // add notification to db
         const path = ('/notifications/' + receiverFbToken);
         this.httpRequest.post(path, notification).subscribe((response: any) => {
@@ -166,6 +174,38 @@ export class MessagingService {
     this.seenNotifications.splice(0, this.seenNotifications.length);
     this.newNotifications.splice(0, this.newNotifications.length);
     this.user = null;
+  }
+
+  _checkIfNotificationAllowed(notification: Notification): boolean {
+    let isAllowed = true;
+    if (notification.isAnswer) {
+      // check if user is the question owner but he doesnt want to receive notifications about his questions
+      if (!this.user.notificationSettings.notifyOnMyQuestions) {
+        if (this.user.myQuestions.find(question => question.id === notification.questionId)) {
+          isAllowed = false;
+        }
+      }
+      // check if user marked this question as favorite but he blocked favorites notifications
+      if (!this.user.notificationSettings.notifyOnMyFavorites) {
+        if (this.user.favorites.find(question => question.id === notification.questionId)) {
+          isAllowed = false;
+        }
+      }
+    } else { // notified because I am interested in this course
+      const isInMyCourses = this.user.myCourses.some(course => notification.relatedCourses.indexOf(course.id) >= 0);
+      const isInMySkills = this.user.skills.some(course => notification.relatedCourses.indexOf(course.id) >= 0);
+      if (!this.user.notificationSettings.notifyOnMyCourses && isInMyCourses) {
+        if (!this.user.notificationSettings.notifyOnMySkills || !isInMySkills) {
+          isAllowed = false;
+        }
+      }
+      if (!this.user.notificationSettings.notifyOnMySkills && isInMySkills) {
+        if (!this.user.notificationSettings.notifyOnMyCourses || !isInMyCourses) {
+          isAllowed = false;
+        }
+      }
+    }
+    return isAllowed;
   }
 }
 
