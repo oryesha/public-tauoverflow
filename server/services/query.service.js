@@ -8,7 +8,9 @@ _this = this;
 
 const redundantWords = ['so', 'what', 'who', 'why', 'where', 'was', 'were', 'how ', 'which',
   'to', 'it', 'the', 'from', 'in', 'on', 'is', 'she', 'he', 'her', 'his', 'them', 'they', 'this', 'that',
-'are', 'those', 'you', 'me', ' a ', 'ed ', 's', '\''];
+'are', 'those', 'you', 'me', ' a ', 'at', 'when'];
+
+const redundantSuffix = ['ied' ,'ed', 's', '\'s' , 'ing', 'ies', 'es'];
 
 getCourseId = async function (ids) {
   let coursesIds = [];
@@ -22,19 +24,45 @@ getCourseId = async function (ids) {
   return coursesIds;
 };
 
-getReducedQueryRegex = function (query) {
-  let req = query.toLowerCase();
-  redundantWords.forEach((word) => {
-    req = req.replace(word, '.*');
-  });
-  return req;
-}
+// getReducedQueryRegex = function (query) {
+//   let req = query.toLowerCase();
+//   let keywords = [];
+//   req.replace('-', ' ').split(/\s+/).forEach((word) => {
+//     req = req.replace(word, '.*');
+//   });
+//   redundantSuffix.forEach((suffix) => {
+//     req = req.replace(suffix+' ', '.*');
+//     if (req.endsWith(suffix)) {
+//       req = reduceRedundantEndingsIfNeeded(req, suffix);
+//     }
+//   });
+//   return getQueryRegex(req);
+// }
 
 getQueryRegex = function (query) {
-  const reg = query.replace(' ', '.*');
+  const reg = '.*' + query.replace(' ', '.*') + '.*';
   return reg;
 };
 
+reduceRedundantEndingsIfNeeded = function (word) {
+  for (let i = 0; i < redundantSuffix.length; i++) {
+    if (word.endsWith(redundantSuffix[i])) {
+      return word.substring(0, word.length - redundantSuffix[i].length);
+    }
+  }
+  return word;
+};
+
+breakQueryToKeywords = function (query) {
+  let keywords = [];
+  query.toLowerCase().replace('-', ' ').split(/\s+/)
+    .forEach( (rawKeyword) => {
+      if (redundantWords.indexOf(rawKeyword) === -1) {
+        keywords.push(reduceRedundantEndingsIfNeeded(rawKeyword));
+      }
+  });
+  return keywords;
+};
 
 getCourseNumbersFromList = function(list) {
   const res = [];
@@ -47,7 +75,6 @@ getCourseNumbersFromList = function(list) {
   });
   return res;
 };
-
 
 exports.getQuestionsFromQuery = async function(query) {
  if(!query.content){
@@ -64,21 +91,17 @@ exports.getQuestionsFromQuery = async function(query) {
   }
 
   let queryRegex = getQueryRegex(query.content);
-  let tmpQuestions = await Question.find({
-    $or: [
-      {subject: {$regex: queryRegex, $options: 'si'}},
-      {content: {$regex: queryRegex, $options: 'si'}}
-    ]
-  }).populate([{ path: 'relatedCourses owner answers' , populate: { path: 'owner' }}]);
+  let tmpQuestions = await tryGetSearchResults(queryRegex);
 
   if (tmpQuestions.length === 0) {
-    queryRegex = getReducedQueryRegex(query.content);
-    tmpQuestions = await Question.find({
-      $or: [
-        {subject: {$regex: queryRegex, $options: 'si'}},
-        {content: {$regex: queryRegex, $options: 'si'}}
-      ]
-    }).populate([{ path: 'relatedCourses owner answers' , populate: { path: 'owner' }}]);
+    const keywords = breakQueryToKeywords(query.content);
+    queryRegex = ('.*' + keywords.join('.*') + '.*');
+    tmpQuestions = await tryGetSearchResults(queryRegex);
+
+    if (tmpQuestions.length === 0) {
+      queryRegex = keywords.join('.*|.*');
+      tmpQuestions = await tryGetSearchResults('.*' + queryRegex + '.*');
+    }
   }
 
   if (query.filters) {
@@ -94,4 +117,12 @@ exports.getQuestionsFromQuery = async function(query) {
   return questions;
 };
 
-//where('likes').in(['vaporizing', 'talking']).
+tryGetSearchResults = async function(queryRegex) {
+  return await Question.find({
+    $or: [
+      {subject: {$regex: queryRegex, $options: 'si'}},
+      {content: {$regex: queryRegex, $options: 'si'}}
+    ]
+  }).populate([{ path: 'relatedCourses owner answers' ,
+    populate: { path: 'skills owner' , populate: {path: 'skills'}}}]);
+};
