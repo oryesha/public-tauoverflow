@@ -44,7 +44,7 @@ export class CoursesComponent implements OnInit {
   navigateToCoursePage(course: UiCourse|string) {
     let uiCourse;
     if (typeof course === 'string') {
-      const name = course.split(' - ')[0];
+      const name = course.split(' -- ')[0];
       uiCourse = this.coursesMap[name];
     } else {
       uiCourse = course;

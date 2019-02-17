@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -23,7 +23,7 @@ import {ImageUploadService} from '../services/image-upload.service';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit, OnDestroy {
+export class HomePageComponent implements OnInit, OnDestroy, AfterViewInit {
   static CourseList = class implements RoutingData<UiCourse[]> {
     constructor(private selectedCourses: UiCourse[]) {
     }
@@ -45,6 +45,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   isUserLoaded = false;
 
   message;
+  isSearchResultsShown = false;
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -187,6 +188,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   private _checkIfQueryView(params: Params) {
     this.queryResults = undefined;
     if (params.query) {
+      this.isSearchResultsShown = true;
       this.showQuerySpinner = true;
       this.query = params.query;
       this.selectedQueryFilters = params.filters ? params.filters.split(',') : [];
@@ -204,7 +206,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
       questions => {
         this.queryResults = this._parseQuestions(questions);
         this.showQuerySpinner = false;
-        this.searchBar.updateElementsWithSearchParams(this.query, this.selectedQueryFilters);
+        setTimeout(() => {
+          if (this.searchBar) {
+            this.searchBar.updateElementsWithSearchParams(this.query, this.selectedQueryFilters);
+          }
+        }, 500);
       });
   }
 
@@ -216,5 +222,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.queryParamsSubscribe.unsubscribe();
+  }
+
+  ngAfterViewInit(): void {
+    if (this.searchBar) {
+      this.searchBar.updateElementsWithSearchParams(this.query, this.selectedQueryFilters);
+    }
   }
 }

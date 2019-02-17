@@ -17,7 +17,7 @@ export class FilterDialogComponent implements OnInit {
   selected: string[] = [];
   disabled = true;
   courses: UiCourse[] = this.courseService.getCourses();
-  private isPostEditor: boolean;
+  isPostEditor: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<FilterDialogComponent>,
