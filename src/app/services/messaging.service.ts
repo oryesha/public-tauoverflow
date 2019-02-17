@@ -108,6 +108,7 @@ export class MessagingService {
         const value = payload.valueOf();
         const receivedNotification =
             new Notification(
+                value.data['gcm.notification.toNotify'],
                 value.data['gcm.notification.subject'],
                 value.data['gcm.notification.owner'],
                 JSON.parse(value.data['gcm.notification.isSeen']),
@@ -153,7 +154,7 @@ export class MessagingService {
         const questionOwnerToken = list[receiverFbToken];
         const headers = new HttpHeaders().set('Authorization', 'key=AAAAc9A8WeQ:APA91bEs459-ePMYaPJjllo7HtqDguA2Og' +
           '-vTkrSZM8BvDTxYfBmZ3iBhs6G5MXLQfisQQzOckxyHQZv8-MQ_D5QURI9C_xo4-NMsAQkLQBn5P7FiWD2-BAQsznVrfZ-A20ewuvBIAHk');
-        const notification = new Notification(questionName, senderName, false, isSenderAnswered, questionId);
+        const notification = new Notification(receiverFbToken, questionName, senderName, false, isSenderAnswered, questionId);
         if (relatedCourses) {
           notification.relatedCourses = relatedCourses;
         }
@@ -178,6 +179,10 @@ export class MessagingService {
 
   _checkIfNotificationAllowed(notification: Notification): boolean {
     let isAllowed = true;
+    if (notification.toNotify !== this.user.firebaseToken) {
+      isAllowed = false;
+      return isAllowed;
+    }
     if (notification.isAnswer) {
       // check if user is the question owner but he doesnt want to receive notifications about his questions
       if (!this.user.notificationSettings.notifyOnMyQuestions) {

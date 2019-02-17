@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="Feature">
-            <button mat-fab class="FeatureIcon" routerLink="/find-a-partner-editor">
+            <button mat-fab class="FeatureIcon" (click)="openCoursePostDialog('partner')">
               <mat-icon>people</mat-icon>
             </button>
             <span class="FeatureDescription">
@@ -42,7 +42,7 @@
           </span>
           </div>
           <div class="Feature">
-            <button mat-fab class="FeatureIcon" routerLink="/course-review-editor">
+            <button mat-fab class="FeatureIcon" (click)="openCoursePostDialog('review')">
               <mat-icon>rate_review</mat-icon>
             </button>
             <div class="FeatureDescription">

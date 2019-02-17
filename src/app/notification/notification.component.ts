@@ -43,15 +43,17 @@ export class NotificationComponent implements OnInit {
     if (value >= 1) {
       return this._timeUnit(value, TimeUnit.DAYS);
     }
-    value = elapsed.getHours();
+    const oneHour = 60 * 60 * 1000;
+    value = Math.floor(elapsed.getTime() / oneHour);
     if (value >= 1) {
       return this._timeUnit(value, TimeUnit.HOURS);
     }
-    value = elapsed.getMinutes();
+    const oneMin = 60 * 1000;
+    value = Math.floor(elapsed.getTime() / oneMin);
     if (value >= 1) {
       return this._timeUnit(value, TimeUnit.MINUTES);
     }
-    return this._timeUnit(elapsed.getSeconds(), TimeUnit.SECONDS);
+    return this._timeUnit(Math.ceil(elapsed.getTime() / 1000), TimeUnit.SECONDS);
   }
 
   private _timeUnit(value: number, timeUnit: TimeUnit) {

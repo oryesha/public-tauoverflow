@@ -42,10 +42,11 @@
 
 .AddCourseIcon {
   color: mat-color($mat-gray, 700);
-  font-size: 20px;
+  font-size: 14px;
   vertical-align: center;
-  //margin-left: 2px;
-  //margin-right: 2px;
+  height: 14px;
+  width: 14px;
+  margin-left: 1px;
 }
 
 .RemoveCourseIcon {
@@ -138,6 +139,16 @@
   margin-top: 10px;
 }
 
+.AddToMyCoursesButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: mat-color($mat-gray, 600);
+  //max-height: 32px;
+  background: transparent;
+  font-size: 12px;
+}
+
 .CoursePageExpansionPanel {
   background: mat-color($mat-gray, 300);
 }
@@ -175,6 +186,12 @@
 
 .ContactDivider {
   margin-top: 16px;
+}
+
+.DividerContainer {
+  width: 100%;
+  position: relative;
+  margin-top: 4px;
 }
 
 .ContactDetailsContainer {

@@ -116,6 +116,10 @@ export class CoursePageComponent implements OnInit {
         this.router.navigate(['/find-a-partner-editor']);
         break;
       }
+      case 'hours': {
+        this.router.navigate(['/change-hours-editor']);
+        break;
+      }
     }
   }
 

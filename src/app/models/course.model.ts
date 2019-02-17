@@ -4,6 +4,7 @@ import {PartnerPost} from './partner-post.model';
 import {Post} from './post.model';
 import {UiCourse} from './ui-course.model';
 import {CourseRelatedPost} from './course-related-post.model';
+import {ChangeHoursPost} from './change-hours-post.model';
 
 export class Course {
   uiCourse: UiCourse;
@@ -35,7 +36,10 @@ export class Course {
       const partnerPost: PartnerPost = PartnerPost.deserialize(dbPartnerPost);
       course.partnerPosts.push(partnerPost);
     });
-    // TODO: add deserialize to changeHours when it is implemented
+    dbCourse.changeHours.forEach((dbChangeHoursPost) => {
+      const changeHoursPost: ChangeHoursPost = ChangeHoursPost.deserialize(dbChangeHoursPost);
+      course.changeHours.push(changeHoursPost);
+    });
     return course;
   }
 }

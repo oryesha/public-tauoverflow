@@ -10,6 +10,9 @@ import {UserProfile} from '../models/user-profile.model';
 import {QuestionService} from '../services/question.service';
 import {Router} from '@angular/router';
 import {MessagingService} from '../services/messaging.service';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
+import {HomePageComponent} from '../home-page/home-page.component';
 
 @Component({
   selector: 'app-question-editor',
@@ -28,20 +31,27 @@ export class QuestionEditorComponent implements OnInit {
               private questionService: QuestionService,
               private messagingService: MessagingService,
               private router: Router,
+              private dialog: MatDialog,
               private routingDataService: AppRoutingDataService) {}
 
 
   ngOnInit() {
-    this.courses = this.routingDataService.getRoutingData('selectedCourses').getData();
-    this.userService.getUser().then((user: UserProfile) => {
-      this.user = user;
-    });
-    this.coursesMap = this.courseService.getCoursesMap();
+    const routingData = this.routingDataService.getRoutingData('selectedCourses');
+    if (routingData) {
+      this.courses = routingData.getData();
+      this.userService.getUser().then((user: UserProfile) => {
+        this.user = user;
+      });
+      this.coursesMap = this.courseService.getCoursesMap();
+    } else {
+      this.router.navigate(['home-page']);
+      return;
+    }
   }
 
   remove(course: UiCourse) {
     const index = this.courses.indexOf(course);
-    if (index > 0) {
+    if (this.courses.length > 1) {
       this.courses.splice(index, 1);
     }
   }
@@ -58,6 +68,38 @@ export class QuestionEditorComponent implements OnInit {
       this.routingDataService.setRoutingData('question', new QuestionNavigationData(question));
       this.router.navigate(['question-page'], {queryParams: {id: question.id}});
     });
+  }
+
+  async addRelatedCourses() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.data = {title: 'Add related courses', selected: this.courses.map(course => course.name)};
+    await this.courseService.waitForCourses();
+    this._initCourses();
+    this.dialog.open(FilterDialogComponent, dialogConfig).afterClosed().subscribe(
+      (result: string[]) => {
+        this.courses = [];
+        result.forEach(courseName => {
+          this.courses.push(this.coursesMap[courseName]);
+        });
+      }
+    );
+  }
+
+  private _initCourses(): void {
+    if (!this.coursesMap) {
+      this.coursesMap = this.courseService.getCoursesMap();
+    }
+  }
+
+  private async _navigateToQuestionEditor(result: string[]) {
+    const uiCourses: UiCourse[] = [];
+    result.forEach(courseName => {
+      uiCourses.push(this.coursesMap[courseName]);
+    });
+    const courseList = new HomePageComponent.CourseList(uiCourses);
+    this.routingDataService.setRoutingData('selectedCourses', courseList);
+    this.router.navigate(['/question-editor']);
   }
 
   _sendNotificationToCourseRelatedSkilledUsers(question: Question) {

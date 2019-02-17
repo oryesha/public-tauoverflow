@@ -34,13 +34,14 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
   @Input() private isCourseSearch: boolean;
   @Input() public selectedOptions: string[] = [];
   @Input() public isRequired = true;
+  @Input() limit = 5;
   @Output() private inputChanged = new EventEmitter();
   public filteredOptions: Observable<string[]>;
   readonly separatorKeys: number[] = [ENTER, COMMA];
   private allOptions: OptionMap = {};
   private selectedMap: SelectedMap = {};
   private selectableOptions: string[];
-  public optionsControl = new FormControl({value: '', disabled: this.selectedOptions.length >= 5});
+  public optionsControl = new FormControl({value: '', disabled: this.selectedOptions.length >= this.limit});
 
   @ViewChild('optionsInput') optionsInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -62,7 +63,7 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
   }
 
   ngAfterViewChecked() {
-    if (this.selectedOptions.length >= 5) {
+    if (this.selectedOptions.length >= this.limit) {
       this.optionsInput.nativeElement.disabled = true;
       this.optionsInput.nativeElement.placeholder = '';
     }
@@ -114,7 +115,7 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
 
   private _resetInput() {
     this.optionsInput.nativeElement.value = '';
-    const disableInputEl = this.selectedOptions.length >= 5;
+    const disableInputEl = this.selectedOptions.length >= this.limit;
     this.optionsInput.nativeElement.disabled = disableInputEl;
     this.optionsControl.setValue('');
     this.optionsInput.nativeElement.placeholder = disableInputEl ? '' : this.placeholder;

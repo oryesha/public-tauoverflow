@@ -2,12 +2,16 @@
   <app-spinner *ngIf="!isLoaded"></app-spinner>
   <ng-container *ngIf="isLoaded">
     <h2 class="mat-h2 UserName" *ngIf="!isProfilePage && !isDetailsDialog">Hello {{userDetails.name.first}}!</h2>
-    <h2 class="mat-h2 UserName" *ngIf="isProfilePage || isDetailsDialog">{{userDetails.name.first}} {{userDetails.name.last}}</h2>
+    <h2 class="mat-h2 UserName" *ngIf="isProfilePage || isDetailsDialog"
+        [ngClass]="{'DetailsDialogName': isDetailsDialog}">{{userDetails.name.first}} {{userDetails.name.last}}</h2>
     <div class="mat-body-2 Program" *ngIf="userDetails.program">{{userDetails.program}}</div>
     <img *ngIf="!userDetails.image" src="{{defaultImage}}"
          class="CardProfileImage {{isDetailsDialog ? 'DetailsDialogImage' : ''}}">
     <img *ngIf="userDetails.image" src="{{userDetails.image}}"
          class="CardProfileImage {{isDetailsDialog ? 'DetailsDialogImage' : ''}}">
+    <div class="mat-body DetailsDialogEmail" *ngIf="isDetailsDialog">
+      <app-copy-to-clipboard [email]="userDetails.email"></app-copy-to-clipboard>
+    </div>
     <div class="DividerContainer">
       <mat-divider></mat-divider>
     </div>
@@ -20,15 +24,11 @@
         <div class="DescriptionTitle" *ngIf="userDetails.description">Description:</div>
         <div>{{userDetails.description}}</div>
       </div>
-      <div class="mat-body About" *ngIf="isDetailsDialog">
-        <app-copy-to-clipboard [email]="userDetails.email"></app-copy-to-clipboard>
-      </div>
       <div *ngIf="userDetails.skills && userDetails.skills.length > 0" class="mat-body Skills">
         Skills:
         <mat-chip-list>
-          <mat-chip class="Chip" *ngFor="let skill of userDetails.skills" (click)="navigateToCoursePage(skill)">
-            {{skill.name}}
-          </mat-chip>
+          <mat-chip class="Chip" *ngFor="let skill of userDetails.skills" matTooltip="{{skill.name}}"
+                    (click)="navigateToCoursePage(skill)">{{skill.name}}</mat-chip>
         </mat-chip-list>
       </div>
       <button *ngIf="!isDetailsDialog" mat-raised-button class="EditProfileButton" (click)="editProfile()">

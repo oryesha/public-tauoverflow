@@ -1,4 +1,4 @@
-let PartnerPostService = require('../services/partner-post.service')
+let PartnerPostService = require('../services/partner-post.service');
 
 exports.getAllPartnerPosts = async function(req,res){
   try{
