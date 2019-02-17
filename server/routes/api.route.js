@@ -9,6 +9,7 @@ let partnerPost = require('./api/partner-post.route');
 let courseReview = require('./api/course-review.route');
 let query = require('./api/query.route');
 let notification = require('./api/notification.route');
+let fileUpload = require('./api/file-upload.route');
 
 router.use('/questions', questions);
 router.use('/courses', courses);
@@ -19,6 +20,7 @@ router.use('/partner-posts', partnerPost);
 router.use('/course-reviews', courseReview);
 router.use('/query-results',query);
 router.use('/notifications', notification);
+router.use('/image-upload', fileUpload);
 module.exports = router;
 
 // // declare axios for making http requests
