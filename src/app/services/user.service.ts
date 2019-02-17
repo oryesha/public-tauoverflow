@@ -50,7 +50,6 @@ export class UserService {
   }
 
   updateUserDetails(user: UserProfile): Observable<any> {
-    console.log('update user');
     return this.httpRequest.put('/user', user);
   }
 
