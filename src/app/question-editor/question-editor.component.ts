@@ -36,11 +36,17 @@ export class QuestionEditorComponent implements OnInit {
 
 
   ngOnInit() {
-    this.courses = this.routingDataService.getRoutingData('selectedCourses').getData();
-    this.userService.getUser().then((user: UserProfile) => {
-      this.user = user;
-    });
-    this.coursesMap = this.courseService.getCoursesMap();
+    const routingData = this.routingDataService.getRoutingData('selectedCourses');
+    if (routingData) {
+      this.courses = routingData.getData();
+      this.userService.getUser().then((user: UserProfile) => {
+        this.user = user;
+      });
+      this.coursesMap = this.courseService.getCoursesMap();
+    } else {
+      this.router.navigate(['home-page']);
+      return;
+    }
   }
 
   remove(course: UiCourse) {

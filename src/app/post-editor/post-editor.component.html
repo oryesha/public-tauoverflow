@@ -16,13 +16,13 @@
           </mat-chip>
         </mat-chip-list>
       </div>
-      <div class="CourseNameSelector" *ngIf="!isAskQuestion && !isCourseChosen">
-        <h5 class="PostTitleText">Course Name:</h5>
-        <div class="AutocompletePostContainer">
-          <app-autocomplete [placeholder]="'Select course...'" class="AutocompletePost" #programAutocomplete
-                            [editorCss]="'AutocompleteInEditor'"></app-autocomplete>
-        </div>
-      </div>
+      <!--<div class="CourseNameSelector" *ngIf="!isAskQuestion && !isCourseChosen">-->
+        <!--<h5 class="PostTitleText">Course Name:</h5>-->
+        <!--<div class="AutocompletePostContainer">-->
+          <!--<app-autocomplete [placeholder]="'Select course...'" class="AutocompletePost" #programAutocomplete-->
+                            <!--[editorCss]="'AutocompleteInEditor'"></app-autocomplete>-->
+        <!--</div>-->
+      <!--</div>-->
       <div class="PostTitle">
         <h5 class="PostTitleText">Title:</h5>
         <app-form-field [label]="titleLabel" #titleField>

@@ -40,12 +40,10 @@ export class FindAPartnerEditorComponent implements OnInit {
         this.isCourseChosen = true;
         this.course = courses[0];
       }
+    } else {
+      this.router.navigate(['home-page']);
+      return;
     }
-    // const courses = this.routingDataService.getRoutingData('selectedCourses').getData();
-  /*  if (courses) {
-      this.isCourseChosen = true;
-      this.course = courses[0];
-    }*/
     this.userService.getUser().then((user: UserProfile) => {
       this.user = user;
     });
