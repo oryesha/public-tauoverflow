@@ -45,7 +45,7 @@ export class QuestionEditorComponent implements OnInit {
 
   remove(course: UiCourse) {
     const index = this.courses.indexOf(course);
-    if (index > 0) {
+    if (this.courses.length > 1) {
       this.courses.splice(index, 1);
     }
   }
