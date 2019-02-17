@@ -1,10 +1,11 @@
 <app-nav-bar></app-nav-bar>
 <app-post-editor (postSubmitted)="postReview($event)"
-                 [postTitle]="(isCourseChosen? (course.name) : 'Add a Course') + ' Review'"
+                 [postTitle]="'Write a Review'"
                  [titleLabel]="'Add review title'"
                  [descriptionTitle]="'Review'"
                  [isCourseChosen]="isCourseChosen"
-                 [isCourseReview]="true">
+                 [isCourseReview]="true"
+                 [courseName]="course.name">
   <div class="StarsContainer">
     <div class="StarContainer" *ngFor="let i of [1,2,3,4,5]">
       <mat-icon class="Star" *ngIf="numOfStars >= i" (click)="updateStars(i)">star</mat-icon>

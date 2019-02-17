@@ -9,6 +9,13 @@
       <div *ngIf="isAskQuestion">
         <ng-container *ngTemplateOutlet="customContent"></ng-container>
       </div>
+      <div *ngIf="!isAskQuestion" class="SelectedCourse">
+        <mat-chip-list class="ChipList" *ngIf="isCourseChosen">
+          <mat-chip [removable]="false" class="CourseTag">
+            {{courseName}}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
       <div class="CourseNameSelector" *ngIf="!isAskQuestion && !isCourseChosen">
         <h5 class="PostTitleText">Course Name:</h5>
         <div class="AutocompletePostContainer">
@@ -36,4 +43,6 @@
     </mat-card-content>
   </mat-card>
 </div>
-<ng-template #customContent><ng-content class="Post"></ng-content></ng-template>
+<ng-template #customContent>
+  <ng-content class="Post"></ng-content>
+</ng-template>

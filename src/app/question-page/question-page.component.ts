@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AppRoutingDataService} from '../app-routing-data.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {QuestionService} from '../services/question.service';
 import {Question} from '../models/question.model';
 import {PostContent} from '../post-editor/post-editor.component';
@@ -9,6 +9,8 @@ import {AnswerService} from '../services/answer.service';
 import {UserProfile} from '../models/user-profile.model';
 import {UserService} from '../services/user.service';
 import {MessagingService} from '../services/messaging.service';
+import {UiCourse} from '../models/ui-course.model';
+import {CoursesComponent} from '../courses/courses.component';
 
 @Component({
   selector: 'app-question-page',
@@ -31,6 +33,7 @@ export class QuestionPageComponent implements OnInit {
               private questionService: QuestionService,
               private userService: UserService,
               private route: ActivatedRoute,
+              private router: Router,
               private answerService: AnswerService,
               private messagingService: MessagingService) {
     this.userService.getUser().then((user: UserProfile) => {
@@ -95,6 +98,12 @@ export class QuestionPageComponent implements OnInit {
         this.question.subject, this.user.name.first + ' ' + this.user.name.last,
         this.question.id, true);
     });
+  }
+
+  navigateToCoursePage(course: UiCourse) {
+    const courseData = new CoursesComponent.CourseNavigationData(course);
+    this.routingDataService.setRoutingData(course.courseNumber, courseData);
+    this.router.navigate(['/course-page'], { queryParams: { courseId: course.courseNumber } });
   }
 
   isEven() {

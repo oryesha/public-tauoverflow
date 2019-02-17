@@ -83,6 +83,9 @@ export class HomePageComponent implements OnInit, OnDestroy {
       (result: string[]) => this._navigateToQuestionEditor(result)
     );
   }
+  async goToPartnerEditor() {
+    this.router.navigate(['/find-a-partner-editor']);
+  }
 
   private async _navigateToQuestionEditor(result: string[]) {
     const uiCourses: UiCourse[] = [];

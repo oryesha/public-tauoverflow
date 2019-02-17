@@ -79,6 +79,8 @@ import { ClickableProfilePictureComponent } from './clickable-profile-picture/cl
 import { NotificationsCardComponent } from './notifications-card/notifications-card.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationHostDirective } from './notifications-card/notification-host.directive';
+import { ChangeHoursEditorComponent } from './change-hours-editor/change-hours-editor.component';
+import {ChangeHoursPostService} from './services/change-hours-post.service';
 
 
 @NgModule({
@@ -117,6 +119,7 @@ import { NotificationHostDirective } from './notifications-card/notification-hos
     NotificationsCardComponent,
     NotificationComponent,
     NotificationHostDirective,
+    ChangeHoursEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -165,6 +168,7 @@ import { NotificationHostDirective } from './notifications-card/notification-hos
     HttpRequestsService,
     CourseService,
     MessagingService,
+    ChangeHoursPostService,
     AsyncPipe
   ],
   bootstrap: [AppComponent],

@@ -81,6 +81,7 @@ export class UserProfile {
   }
 
   getUiUser(): UiUser {
-    return new UiUser(this.name.first, this.name.last, this.firebaseToken, this.email, this.id, this.image);
+    return new UiUser(this.name.first, this.name.last, this.firebaseToken, this.email, this.id, this.image,
+      this.program, this.rank, this.description, this.skills);
   }
 }

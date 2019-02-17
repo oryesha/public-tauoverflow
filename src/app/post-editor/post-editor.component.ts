@@ -32,6 +32,7 @@ export class PostEditorComponent implements OnInit {
   @Input() isCourseChosen: boolean;
   @Input() titleLabel: string;
   @Input() descriptionTitle: string;
+  @Input() courseName?: string;
   @Output() postSubmitted = new EventEmitter<PostContent>();
 
   postContent = '';
