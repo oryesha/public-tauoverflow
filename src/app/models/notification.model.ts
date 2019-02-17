@@ -2,14 +2,16 @@ export class Notification {
   id: string;
   subject: string;
   owner: string;
+  toNotify: string;
   timestamp = new Date(Date.now());
   isAnswer: boolean;
   isSeen = false;
   questionId: string;
   relatedCourses: string[] = [];
 
-  constructor(subject: string, owner: string, isSeen: boolean, isAnswer: boolean,
+  constructor(toNotify: string, subject: string, owner: string, isSeen: boolean, isAnswer: boolean,
               questionId: string, id?: string, timestamp?: Date) {
+    this.toNotify = toNotify;
     this.subject = subject;
     this.owner = owner;
     this.isAnswer = isAnswer;
@@ -23,7 +25,7 @@ export class Notification {
 
   static deserialize(notification: any): Notification {
     const timestamp = new Date(notification.timestamp);
-    return new Notification(notification.subject, notification.owner, notification.isSeen,
+    return new Notification(notification.toNotify, notification.subject, notification.owner, notification.isSeen,
       notification.isAnswer, notification.questionId, notification._id, timestamp);
   }
   getNotificationWrapper(to: string): NotificationWrapper {
