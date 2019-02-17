@@ -7,6 +7,8 @@ import {UserProfile} from '../models/user-profile.model';
 import {CourseService} from '../services/course.service';
 import {Program} from '../models/program.model';
 import {UiCourse} from '../models/ui-course.model';
+import {ImageUploadService} from '../services/image-upload.service';
+import {FileSnippet} from '../file-uploader/file-uploader.component';
 
 @Component({
   selector: 'app-initial-details-dialog',
@@ -27,10 +29,12 @@ export class InitialDetailsDialogComponent implements OnInit {
   programs: Program[];
   courses: UiCourse[] = [];
   private base64Image: string;
+  private image: File;
 
   constructor(
     private dialogRef: MatDialogRef<InitialDetailsDialogComponent>,
     private courseService: CourseService,
+    private imageUploadService: ImageUploadService,
     @Inject(MAT_DIALOG_DATA) data,
     private snackBar: MatSnackBar) {
     this.title = data.title;
@@ -57,12 +61,14 @@ export class InitialDetailsDialogComponent implements OnInit {
         program: program,
         description: this.descriptionField.getContent(),
         skills: this.skillsMultiselect.getSelectedOptions(),
-        image: this.base64Image
+        image: this.image,
+        imageSrc: this.base64Image
       });
     }
   }
 
-  saveImage(image: any) {
-    this.base64Image = image;
+  saveImage(fileSnippet: FileSnippet) {
+    this.image = fileSnippet.image;
+    this.base64Image = fileSnippet.base64Image;
   }
 }

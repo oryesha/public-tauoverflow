@@ -1,8 +1,8 @@
-<button mat-raised-button class="FileUploaderRaisedButton" (click)="clickInput()" color="primary" *ngIf="!image">
+<button mat-raised-button class="FileUploaderRaisedButton" (click)="clickInput()" color="primary" *ngIf="!base64Image">
   Choose a photo...
 </button>
-<div *ngIf="image" class="AfterImageSelected">
-  <img class="UploadedImage" src="data:image/png;base64,{{image}}">
+<div *ngIf="base64Image" class="AfterImageSelected">
+  <img class="UploadedImage" src="{{base64Image}}">
   <div class="IconButtonsContainer">
     <button mat-icon-button matTooltip="Select new image" (click)="clickInput()" class="ImageSelectorIconButton">
       <mat-icon class="ImageSelectorIcon">edit</mat-icon>

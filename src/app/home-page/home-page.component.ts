@@ -15,6 +15,7 @@ import {QueryService} from '../services/query.service';
 import {SearchBarComponent} from '../search-bar/search-bar.component';
 import {Subscription} from 'rxjs';
 import {ProgramService} from '../services/program.service';
+import {ImageUploadService} from '../services/image-upload.service';
 
 
 @Component({
@@ -52,6 +53,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private snackBar: MatSnackBar,
     private programService: ProgramService,
+    private imageUploadService: ImageUploadService,
     private messagingService: MessagingService,
     private queryService: QueryService,
     private routingDataService: AppRoutingDataService) {
@@ -124,13 +126,16 @@ export class HomePageComponent implements OnInit, OnDestroy {
           this._openDetailsDialog();
           return;
         }
+        this.user.image = result.imageSrc;
         this.user.program = result.program;
         this.user.description = result.description;
         this._addUserSkills(result.skills);
-        this.user.image = result.image;
         this.user.isNewUser = false;
-        this.userService.updateUserDetails(this.user).subscribe(() => {
-          this._toast('User details updated');
+        this.imageUploadService.uploadImage(result.image).subscribe((imageUrl: string) => {
+          this.user.image = imageUrl;
+          this.userService.updateUserDetails(this.user).subscribe(() => {
+            this._toast('User details updated');
+          });
         });
       }
     );
