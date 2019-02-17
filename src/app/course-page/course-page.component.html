@@ -23,13 +23,13 @@
           <div class="DividerContainer">
             <mat-divider></mat-divider>
           </div>
-          <div class="CoursePageButtonContainer">
-            <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('question')">Ask a question</button>
-            <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('review')">Write a review</button>
-            <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('post')">Find a partner</button>
-            <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('hours')">Change class hours</button>
-          </div>
         </ng-container>
+        <div class="CoursePageButtonContainer">
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('question')">Ask a question</button>
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('review')">Write a review</button>
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('post')">Find a partner</button>
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('hours')">Change class hours</button>
+        </div>
       </ng-container>
       <app-spinner *ngIf="!initialDataLoaded"></app-spinner>
     </mat-card>
