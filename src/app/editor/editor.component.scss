@@ -10,6 +10,7 @@
 
 .PostTextArea /deep/ .angular-editor-button[title="Clear Formatting"],
 .PostTextArea /deep/ .angular-editor-button[title="Custom Style"],
+.PostTextArea /deep/ .angular-editor-button[title="Insert Image"],
 .PostTextArea /deep/ .select-custom-style[title="Custom Style"],
 .PostTextArea /deep/ .angular-editor-button[title="HTML Code"] {
   display: none;
@@ -31,8 +32,8 @@
   max-height: 126px;
 }
 
-.InsertLatexButton {
-  background: mat-color($mat-gray, 200);
+.Button {
+  background: mat-color($mat-gray, 100);
   color: mat-color($mat-gray, 800);
   text-transform: uppercase;
   line-height: 27px;
@@ -40,8 +41,21 @@
   margin: 4px 0;
 }
 
+.Button /deep/ .mat-button-wrapper {
+  align-items: center;
+  display: inline-flex;
+}
+
 .LatexLogo {
   height: 20px;
   margin-left: 6px;
   width: 20px;
+}
+
+.InsertImageButton {
+  margin-left: 8px;
+}
+
+.PhotoIcon {
+  margin-left: 6px;
 }

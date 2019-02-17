@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {UiCourse} from '../models/ui-course.model';
-import {query} from '@angular/animations';
 
 export class QueryParams {
   paramName: string;
@@ -53,5 +51,9 @@ export class HttpRequestsService {
 
   put(path: string, model: any) {
     return this.http.put(this._baseUrl + path, model);
+  }
+
+  public getBaseUrl(): string {
+    return this._baseUrl;
   }
 }
