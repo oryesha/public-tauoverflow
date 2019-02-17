@@ -1,32 +1,37 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+
+export class FileSnippet {
+  constructor(public base64Image: string, public image: File) {}
+}
 
 @Component({
   selector: 'app-file-uploader',
   templateUrl: './file-uploader.component.html',
   styleUrls: ['./file-uploader.component.scss']
 })
-export class FileUploaderComponent implements OnInit {
+export class FileUploaderComponent implements OnInit, OnDestroy {
   @ViewChild('inputFilePicker') input: ElementRef;
-  @Output() imageSelected = new EventEmitter<string>();
-  image: string;
+  @Output() imageSelected = new EventEmitter<FileSnippet>();
+  base64Image: string;
+  reader: FileReader = new FileReader();
+  image: File;
 
   constructor() { }
 
   ngOnInit() {
+    this.reader.onload = this._handleReaderLoaded.bind(this);
   }
 
-  convertImage(file: any) {
+  convertImage(file: File) {
     if (file) {
-      const reader = new FileReader();
-      reader.onload = this._handleReaderLoaded.bind(this);
-      reader.readAsBinaryString(file);
+      this.image = file;
+      this.reader.readAsDataURL(file);
     }
   }
 
   private _handleReaderLoaded(readerEvt) {
-    const binaryString = readerEvt.target.result;
-    this.image = btoa(binaryString);
-    this.imageSelected.emit(this.image);
+    this.base64Image = readerEvt.target.result;
+    this.imageSelected.emit(new FileSnippet(this.base64Image, this.image));
   }
 
   addSelectedPhoto(event: any) {
@@ -38,7 +43,12 @@ export class FileUploaderComponent implements OnInit {
   }
 
   removeImage() {
-    this.image = '';
-    this.imageSelected.emit(this.image);
+    this.base64Image = '';
+    this.image = null;
+    this.imageSelected.emit(new FileSnippet(this.base64Image, this.image));
+  }
+
+  ngOnDestroy(): void {
+    this.reader.onload = null;
   }
 }
