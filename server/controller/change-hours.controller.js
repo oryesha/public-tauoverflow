@@ -1,4 +1,4 @@
-let ChangeHoursService = require('../services/change-hours.service')
+let ChangeHoursService = require('../services/change-hours-post.service');
 
 exports.getAllChangeHours = async function(req,res){
   try{
@@ -9,22 +9,22 @@ exports.getAllChangeHours = async function(req,res){
   }
 };
 
-exports.createPost = async function(req,res){
+exports.createChangeHoursPost = async function(req,res){
 
   let post = {
     subject: req.body.subject,
     content: req.body.content,
     owner: req.body.owner,
-    course: req.body.course,
+    course: req.body.uiCourse,
     timestamp: req.body.date,
     isLocked: req.body.isLocked
   };
 
   try{
-    let createdPost = await ChangeHoursService.createChangeHoursPost(post);
-    return res.status(200).json({status: 200, data: createdPost, message: "Succesfully Created Change Hours Post"})
+    let createdChangeHoursPost = await ChangeHoursService.createChangeHoursPost(post);
+    return res.status(200).json({status: 200, data: createdChangeHoursPost, message: "Succesfully Created Change Hours Post"})
   }catch(e){
-    return res.status(400).json({status: 400, message: "Change Hours Post Creation was Unsuccesfull"})
+    return res.status(400).json({status: 400, message: "Change Hours Post Creation was Unsuccessful: " + e})
   }
 };
 
@@ -36,4 +36,4 @@ exports.deleteChangeHoursPost = async function(req,res) {
   } catch (e) {
     return res.status(400).json({status: 400, message: e.message})
   }
-}
+};

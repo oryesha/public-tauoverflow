@@ -34,10 +34,16 @@ export class CourseReviewEditorComponent implements OnInit {
               private routingDataService: AppRoutingDataService) {}
 
   ngOnInit() {
-    const courses = this.routingDataService.getRoutingData('selectedCourses').getData();
-    if (courses) {
-      this.isCourseChosen = true;
-      this.course = courses[0];
+    const routingData = this.routingDataService.getRoutingData('selectedCourses');
+    if (routingData) {
+      const courses = routingData.getData();
+      if (courses) {
+        this.isCourseChosen = true;
+        this.course = courses[0];
+      }
+    } else {
+      this.router.navigate(['home-page']);
+      return;
     }
     this.userService.getUser().then((user: UserProfile) => {
       this.user = user;

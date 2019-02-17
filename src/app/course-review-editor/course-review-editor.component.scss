@@ -11,3 +11,18 @@
 .Star {
   color: mat-color($mat-teal, 400);
 }
+
+.SelectedCourse {
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.ChipList {
+  margin-right: 8px;
+}
+
+.CourseTag {
+  color: mat-color($mat-gray, 700);
+  background-color: mat-color($mat-gray, 300);
+}

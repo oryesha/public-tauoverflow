@@ -1,33 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import {AngularEditorConfig} from '@kolkov/angular-editor';
 import {UiCourse} from '../models/ui-course.model';
 import {UserProfile} from '../models/user-profile.model';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
+import {AngularEditorConfig} from '@kolkov/angular-editor';
 import {UserService} from '../services/user.service';
 import {CourseService} from '../services/course.service';
 import {Router} from '@angular/router';
-import {PartnerPostService} from '../services/partner-post.service';
 import {MatSnackBar} from '@angular/material';
 import {AppRoutingDataService} from '../app-routing-data.service';
 import {PostContent} from '../post-editor/post-editor.component';
-import {PartnerPost} from '../models/partner-post.model';
 import {PostType} from '../models/post.model';
+import {ChangeHoursPost} from '../models/change-hours-post.model';
+import {ChangeHoursPostService} from '../services/change-hours-post.service';
 
 @Component({
-  selector: 'app-find-a-partner-editor',
-  templateUrl: './find-a-partner-editor.component.html',
-  styleUrls: ['./find-a-partner-editor.component.scss']
+  selector: 'app-change-hours-editor',
+  templateUrl: './change-hours-editor.component.html',
+  styleUrls: ['./change-hours-editor.component.scss']
 })
-export class FindAPartnerEditorComponent implements OnInit {
+export class ChangeHoursEditorComponent implements OnInit {
 
   course: UiCourse;
   user: UserProfile;
   coursesMap: UiCoursesMap;
   isCourseChosen = false;
 
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    height: '15rem',
+    minHeight: '3rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    customClasses: [ // optional
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+    ]
+  };
+
   constructor(private userService: UserService,
               private courseService: CourseService,
-              private partnerPostService: PartnerPostService,
+              private changeHoursPostService: ChangeHoursPostService,
               private router: Router,
               private snackBar: MatSnackBar,
               private routingDataService: AppRoutingDataService) {}
@@ -52,20 +66,21 @@ export class FindAPartnerEditorComponent implements OnInit {
     );
   }
 
-  postPartnerFind(event: PostContent) {
+  postChangeHours(event: PostContent) {
     const subject = event.subject;
     const content = event.content;
-    const partnerPost = new PartnerPost(subject, content, this.user.getUiUser(), this.course);
-    this.user.myPartnerPosts.push(partnerPost);
-    this.partnerPostService.createPartnerPost(partnerPost).subscribe((response: any) => {
-      partnerPost.id = response.data._id;
-      this.snackBar.open(this.course.name + ' Partner Post Added!', '', {
+    const changeHoursPost = new ChangeHoursPost(subject, content, this.user.getUiUser(), this.course);
+    this.user.myChangeHoursPosts.push(changeHoursPost);
+    this.changeHoursPostService.createChangeHoursPost(changeHoursPost).subscribe((response: any) => {
+      changeHoursPost.id = response.data._id;
+      this.snackBar.open(this.course.name + ' Change Hours Post Added!', '', {
         duration: 2000 // Prompt the toast 2 seconds.
       });
       this.router.navigate(
         ['course-page'],
-        {queryParams: {courseId: this.course.courseNumber, tab: PostType.PARTNER}});
+        {queryParams: {courseId: this.course.courseNumber, tab: PostType.CHANGE_HOURS}});
     });
   }
 
 }
+

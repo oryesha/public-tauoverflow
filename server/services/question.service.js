@@ -16,10 +16,11 @@ exports.getAllQuestions = async function(query) {
 
 exports.getQuestion = async function(id) {
   try {
-    const question = await Question.findById(id).populate('owner relatedCourses answers').populate({
-      path: 'answers',
-      populate: { path: 'owner' }
-    }).exec();
+    const question = await Question.findById(id)
+      .populate({
+        path: 'owner relatedCourses answers',
+        populate: {path: 'owner skills',
+          populate: {path: 'skills'}}}).exec();
     return question;
   }
   catch (e) {

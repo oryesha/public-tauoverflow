@@ -17,6 +17,7 @@ export class FilterDialogComponent implements OnInit {
   selected: string[] = [];
   disabled = true;
   courses: UiCourse[] = this.courseService.getCourses();
+  private isPostEditor: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<FilterDialogComponent>,
@@ -25,6 +26,7 @@ export class FilterDialogComponent implements OnInit {
     this.title = data.title;
     this.isSearch = data.isSearch;
     this.selected = data.selected;
+    this.isPostEditor = data.postEditor || false;
   }
 
   ngOnInit() {

@@ -6,12 +6,6 @@
         <h4 class="CourseTitle">{{initialDataLoaded ? uiCourse.name : course.uiCourse.name}}</h4>
         <div class="CourseNumber">
           {{initialDataLoaded ? uiCourse.courseNumber : course.uiCourse.courseNumber}}
-          <button mat-icon-button *ngIf="!isInMyCourses" matTooltip="Add to My Courses" class="Button" (click)="addToMyCourses(uiCourse.id)">
-            <mat-icon class="AddCourseIcon">add_to_queue</mat-icon>
-          </button>
-          <button mat-icon-button *ngIf="isInMyCourses" matTooltip="Remove from My Courses" class="Button" (click)="removeFromMyCourses(uiCourse.id)">
-            <mat-icon class="RemoveCourseIcon">remove_from_queue</mat-icon>
-          </button>
         </div>
         <ng-container *ngIf="courseDataLoaded">
           <div *ngIf="course.rank != undefined" class="Stars">
@@ -20,11 +14,20 @@
             <mat-icon class="Star" *ngFor="let i of range(starsCounter.emptyStars)">star_border</mat-icon>
           </div>
           <div class="mat-body-2 Reviews"> Reviews: {{course.reviews.length}} </div>
+          <button mat-flat-button *ngIf="!isInMyCourses" class="AddToMyCoursesButton" (click)="addToMyCourses(uiCourse.id)">
+            Add To My Courses <mat-icon class="AddCourseIcon">add_circle_outline</mat-icon>
+          </button>
+          <button mat-flat-button *ngIf="isInMyCourses" class="AddToMyCoursesButton" (click)="removeFromMyCourses(uiCourse.id)">
+            Remove From My Courses <mat-icon class="AddCourseIcon">remove_circle_outline</mat-icon>
+          </button>
+          <div class="DividerContainer">
+            <mat-divider></mat-divider>
+          </div>
           <div class="CoursePageButtonContainer">
             <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('question')">Ask a question</button>
             <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('review')">Write a review</button>
             <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('post')">Find a partner</button>
-            <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('post')">Change class hours</button>
+            <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('hours')">Change class hours</button>
           </div>
         </ng-container>
       </ng-container>
