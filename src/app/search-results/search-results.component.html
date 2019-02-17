@@ -5,14 +5,14 @@
   </div>
   <mat-divider></mat-divider>
   <mat-list>
-    <mat-list-item class="ListItem" *ngFor="let result of results">
+    <mat-list-item class="ListItem" *ngFor="let result of results; let i = index">
       <mat-divider></mat-divider>
       <div class="ResultHeaderContent">
         <div class="QuestionHeaderAndContent">
           <button mat-button matLine class="ResTitleButton"
                   (click)="navigateToQuestionPage(result)">{{result.subject}}
           </button>
-          <div class="ResContent" [innerHtml]="result.content"></div>
+          <div class="ResContent" [innerHtml]="parsedContent[i]" #contentContainer></div>
         </div>
         <div class="QuestionDetailsContainer">
           <div class="QuestionStatsContainer">
