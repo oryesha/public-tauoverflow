@@ -54,18 +54,28 @@ exports.getCourse = async function(courseNum) {
   }
 };
 
-exports.getSkilledUsers = async function(courseId) {
+exports.getSkilledUsers = async function(courseIds) {
   try {
+    let courses = courseIds;
+    if(!Array.isArray(courseIds)) {
+      courses = courseIds.split(',');
+    }
+
     const skilledUsers = [];
 
-    const course = await Course.findOne({_id: courseId})
-      .populate('interestedIn').exec();
+    await Promise.all(courses.map( async (courseId) => {
+      const course = await Course.findOne({_id: courseId})
+        .populate('interestedIn').exec();
 
-    if(course.interestedIn) {
-      course.interestedIn.forEach((user) => {
-        skilledUsers.push(user.firebaseToken);
-      });
-    }
+      if(course.interestedIn) {
+        course.interestedIn.forEach((user) => {
+          if (skilledUsers.indexOf(user.firebaseToken) === -1) {
+            skilledUsers.push(user.firebaseToken);
+          }
+        });
+      }
+
+    }));
 
     return skilledUsers;
   }

@@ -1,3 +1,7 @@
 <mat-menu #notificationsMenu="matMenu" class="NotificationsMenu">
   <ng-template appNotificationHost></ng-template>
+  <button mat-flat-button class="NotificationSettingsContainer" (click)="openNotificationSettingsDialog()">
+    <mat-icon class="SettingsIcon">settings_outline</mat-icon>
+    <span class="NotificationSettings">Notification settings</span>
+  </button>
 </mat-menu>

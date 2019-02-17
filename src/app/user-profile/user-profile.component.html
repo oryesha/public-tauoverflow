@@ -1,8 +1,9 @@
 <app-nav-bar></app-nav-bar>
-<div class="CardsWrapper">
-  <app-profile-details [isProfilePage]="true"></app-profile-details>
-  <app-spinner *ngIf="!isLoaded"></app-spinner>
-  <div class="Page" *ngIf="isLoaded">
+<app-spinner *ngIf="!isLoaded"></app-spinner>
+<div class="CardsWrapper" *ngIf="isLoaded">
+  <app-profile-details [isProfilePage]="true"
+                       [userToDisplay]="userDetails"></app-profile-details>
+  <div class="Page">
     <mat-tab-group class="Tabs">
       <mat-tab label="My Questions">
         <app-empty-state
@@ -33,7 +34,7 @@
                     <span>{{partner.subject}}</span>
                   </span>
                   <span>
-                    <mat-icon [inline]="true" (click)="tryDeletePost(partner, true)" class="DeleteIcon">delete</mat-icon>
+                    <mat-icon [inline]="true" (click)="tryDeletePost(partner, true, false)" class="DeleteIcon">delete</mat-icon>
                   </span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
@@ -52,7 +53,7 @@
                     <span>{{hour.subject}}</span>
                   </span>
                   <span>
-                    <mat-icon [inline]="true" (click)="tryDeletePost(hour, false)" class="DeleteIcon">delete</mat-icon>
+                    <mat-icon [inline]="true" (click)="tryDeletePost(hour, false, false)" class="DeleteIcon">delete</mat-icon>
                   </span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
@@ -74,6 +75,9 @@
                         star
                       </mat-icon>
                     </span>
+                  </span>
+                  <span>
+                    <mat-icon [inline]="true" (click)="tryDeletePost(review, false, true)" class="DeleteIcon">delete</mat-icon>
                   </span>
                 </mat-panel-title>
               </mat-expansion-panel-header>

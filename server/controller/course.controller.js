@@ -36,10 +36,10 @@ exports.getCourse = async function(req, res) {
 };
 
 exports.getSkilledUsers = async function(req, res) {
-  const courseId = req.params.id;
+  const courseIds = req.query.courseIds;
 
   try{
-    const skilledUsers = await CourseService.getSkilledUsers(courseId);
+    const skilledUsers = await CourseService.getSkilledUsers(courseIds);
     return res.status(200).json({status: 200, data: skilledUsers, message: "received all users skilled in this course"});
   }catch(e){
     return res.status(400).json({status: 400, message: e.message});

@@ -18,9 +18,9 @@ export class SearchBarComponent implements OnInit {
               private router: Router) { }
 
   @Input() isSearchQuestion: boolean;
-  private searchContent: string;
+  public searchContent: string;
   private selectedFilters: string[] = [];
-  private hasFilters: boolean;
+  public hasFilters: boolean;
   private isSearchResultsShown = false;
 
   async openDialog() {

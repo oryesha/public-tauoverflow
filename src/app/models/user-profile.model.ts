@@ -1,4 +1,3 @@
-import {Course} from './course.model';
 import {Name} from './name.model';
 import {UiCourse} from './ui-course.model';
 import {Question} from './question.model';
@@ -7,6 +6,7 @@ import {CourseReview} from './course-review.model';
 import {ChangeHoursPost} from './change-hours-post.model';
 import {UiUser} from './ui-user.model';
 import {Answer} from './answer.model';
+import {NotificationSettings} from './notification-settings.model';
 
 export class UserProfile {
   id: string;
@@ -28,10 +28,18 @@ export class UserProfile {
   myCourseReviews: CourseReview[] = [];
   myCourses: UiCourse[] = [];
   isNewUser = true;
+  notificationSettings: NotificationSettings = new NotificationSettings();
 
   static deserialize(user: any): UserProfile {
+    const notificationSettings = new NotificationSettings(
+      user.notifyOnMyQuestions,
+      user.notifyOnMyFavorites,
+      user.notifyOnMyCourses,
+      user.notifyOnMySkills,
+    );
     const userProfile = new UserProfile(user.firebaseToken, user.firstName, user.lastName, user.email,
-      false, user._id, user.program, user.rank, user.image, user.myQuestions.length, user.myAnswers.length, user.description);
+      false, user._id, user.program, user.rank, user.image,
+      user.myQuestions.length, user.myAnswers.length, user.description, notificationSettings);
     user.skills.forEach((dbSkill) => {
       userProfile.skills.push(new UiCourse(dbSkill._id, dbSkill.name, dbSkill.courseNumber));
     });
@@ -64,7 +72,7 @@ export class UserProfile {
   constructor(token: string, firstName: string, lastName: string,
               email: string, isNewUser?: boolean, id?: string, program?: string,
               rank?: number, image?: string, asked?: number, answered?: number,
-              description?: string) {
+              description?: string, notificationSettings?: NotificationSettings) {
     this.firebaseToken = token;
     this.name = new Name(firstName, lastName);
     this.email = email;
@@ -77,6 +85,7 @@ export class UserProfile {
       this.description = description;
       this.asked = asked;
       this.answered = answered;
+      this.notificationSettings = notificationSettings;
     }
   }
 

@@ -34,8 +34,7 @@
       </div>
       <div class="Post">
         <h5 class="PostTitleText">{{descriptionTitle}}:</h5>
-        <angular-editor [config]="editorConfig" class="PostTextArea" [(ngModel)]="postContent">
-        </angular-editor>
+        <app-editor [isAnswer]="false" #editor></app-editor>
       </div>
       <div class="DoneButtonContainer">
         <button mat-raised-button class="RaisedDoneButton" (click)="submitPost()">submit</button>

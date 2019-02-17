@@ -2,8 +2,11 @@
   <div class="NavBarContainer">
     <app-nav-bar></app-nav-bar>
   </div>
-  <div class="AllContent">
-    <app-profile-details [classes]="'ProfileDetails'" class="HomeProfileCard"></app-profile-details>
+  <app-spinner *ngIf="!isUserLoaded"></app-spinner>
+  <div class="AllContent" *ngIf="isUserLoaded">
+    <app-profile-details [classes]="'ProfileDetails'"
+                         [userToDisplay]="user"
+                         class="HomeProfileCard"></app-profile-details>
     <div class="MainContent">
       <div class="SearchAndButtonContainer">
         <div class="LogoAndSearch">

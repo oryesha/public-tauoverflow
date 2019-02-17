@@ -21,6 +21,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ClipboardModule } from 'ngx-clipboard';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {KatexComponent, KatexModule} from 'ng-katex';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -40,7 +42,6 @@ import {ProfileDetailsComponent} from './profile-details/profile-details.compone
 import {HomePageComponent} from './home-page/home-page.component';
 import { CoursesComponent } from './courses/courses.component';
 import {CoursePageComponent} from './course-page/course-page.component';
-import {AnswerEditorComponent} from './answer-editor/answer-editor.component';
 import {SearchBarComponent} from './search-bar/search-bar.component';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
@@ -79,6 +80,9 @@ import { ClickableProfilePictureComponent } from './clickable-profile-picture/cl
 import { NotificationsCardComponent } from './notifications-card/notifications-card.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationHostDirective } from './notifications-card/notification-host.directive';
+import { NotificationSettingsDialogComponent } from './notification-settings-dialog/notification-settings-dialog.component';
+import { EditorComponent } from './editor/editor.component';
+import {KatexService} from 'ng-katex/src/ng-katex.service';
 import { ChangeHoursEditorComponent } from './change-hours-editor/change-hours-editor.component';
 import {ChangeHoursPostService} from './services/change-hours-post.service';
 
@@ -92,7 +96,6 @@ import {ChangeHoursPostService} from './services/change-hours-post.service';
     ProfileDetailsComponent,
     HomePageComponent,
     CoursePageComponent,
-    AnswerEditorComponent,
     SearchBarComponent,
     FilterDialogComponent,
     QuestionEditorComponent,
@@ -119,6 +122,8 @@ import {ChangeHoursPostService} from './services/change-hours-post.service';
     NotificationsCardComponent,
     NotificationComponent,
     NotificationHostDirective,
+    NotificationSettingsDialogComponent,
+    EditorComponent,
     ChangeHoursEditorComponent,
   ],
   imports: [
@@ -154,6 +159,8 @@ import {ChangeHoursPostService} from './services/change-hours-post.service';
     MatBadgeModule,
     ClipboardModule,
     MatMenuModule,
+    MatSlideToggleModule,
+    KatexModule,
   ],
   providers: [
     QuestionService,
@@ -168,6 +175,7 @@ import {ChangeHoursPostService} from './services/change-hours-post.service';
     HttpRequestsService,
     CourseService,
     MessagingService,
+    KatexService,
     ChangeHoursPostService,
     AsyncPipe
   ],
@@ -178,6 +186,7 @@ import {ChangeHoursPostService} from './services/change-hours-post.service';
     InitialDetailsDialogComponent,
     ProfileDetailsDialogComponent,
     NotificationComponent,
+    NotificationSettingsDialogComponent,
   ]
 })
 export class AppModule {

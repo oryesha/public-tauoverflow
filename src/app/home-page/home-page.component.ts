@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
@@ -14,6 +14,8 @@ import {MessagingService} from '../services/messaging.service';
 import {QueryService} from '../services/query.service';
 import {SearchBarComponent} from '../search-bar/search-bar.component';
 import {Subscription} from 'rxjs';
+import {ProgramService} from '../services/program.service';
+import {ImageUploadService} from '../services/image-upload.service';
 
 
 @Component({
@@ -40,6 +42,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   query: string;
   showQuerySpinner = false;
   queryParamsSubscribe: Subscription;
+  isUserLoaded = false;
 
   message;
   constructor(
@@ -48,6 +51,9 @@ export class HomePageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private courseService: CourseService,
     private userService: UserService,
+    private snackBar: MatSnackBar,
+    private programService: ProgramService,
+    private imageUploadService: ImageUploadService,
     private messagingService: MessagingService,
     private queryService: QueryService,
     private routingDataService: AppRoutingDataService) {
@@ -57,7 +63,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     const routingData = this.routingDataService.getRoutingData('user');
     if (routingData) {
       this.user = routingData.getData();
-      // this._getNotificationFromService(this.user);
+      this.isUserLoaded = true;
       if (this.user.isNewUser) {
         this._openDetailsDialog();
       }
@@ -65,7 +71,10 @@ export class HomePageComponent implements OnInit, OnDestroy {
     } else {
       this.userService.getUser(true).then((user: UserProfile) => {
         this.user = user;
-        // this._getNotificationFromService(user);
+        this.isUserLoaded = true;
+        if (user.isNewUser) {
+          this._openDetailsDialog();
+        }
       });
     }
   }
@@ -80,8 +89,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
     await this.courseService.waitForCourses();
     this._initCourses();
     this.dialog.open(FilterDialogComponent, dialogConfig).afterClosed().subscribe(
-      (result: string[]) => this._navigateToQuestionEditor(result)
-    );
+      (result: string[]) => {
+        if (result) {
+          this._navigateToQuestionEditor(result);
+        }
+      });
   }
   async goToPartnerEditor() {
     this.router.navigate(['/find-a-partner-editor']);
@@ -97,20 +109,36 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/question-editor']);
   }
 
+  private _toast(msg: string) {
+    this.snackBar.open(msg, '', {
+      duration: 2000 // Prompt the toast 2 seconds.
+    });
+  }
+
   private async _openDetailsDialog() {
+    await this.courseService.waitForCourses();
+    const programs = await this.programService.getPrograms();
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
-    dialogConfig.data = {title: 'Please add additional information', user: this.user, firstInit: true};
-    await this.courseService.waitForCourses();
+    dialogConfig.data = {title: 'Please add additional information', user: this.user, firstInit: true, programs: programs};
     this._initCourses();
     this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
       result => {
+        if (!result) {
+          this._toast('Please click DONE when finished');
+          this._openDetailsDialog();
+          return;
+        }
+        this.user.image = result.imageSrc;
         this.user.program = result.program;
         this.user.description = result.description;
         this._addUserSkills(result.skills);
-        this.user.image = result.image;
         this.user.isNewUser = false;
-        this.userService.updateUserDetails(this.user).subscribe(() => {
+        this.imageUploadService.uploadImage(result.image).subscribe((imageUrl: string) => {
+          this.user.image = imageUrl;
+          this.userService.updateUserDetails(this.user).subscribe(() => {
+            this._toast('User details updated');
+          });
         });
       }
     );

@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700");
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~@angular/material/theming";
+@import '~katex/dist/katex.css';
 
 .Root {
   background: mat-color($mat-deep-orange, 50);
@@ -24,6 +25,11 @@
   .mat-menu-content:not(:empty) {
     padding: 0;
   }
+}
+
+.mat-snack-bar-container {
+  min-width: 250px !important;
+  width: auto !important;
 }
 
 button:focus {

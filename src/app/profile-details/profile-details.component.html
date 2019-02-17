@@ -7,7 +7,7 @@
     <div class="mat-body-2 Program" *ngIf="userDetails.program">{{userDetails.program}}</div>
     <img *ngIf="!userDetails.image" src="{{defaultImage}}"
          class="CardProfileImage {{isDetailsDialog ? 'DetailsDialogImage' : ''}}">
-    <img *ngIf="userDetails.image" src="data:image/png;base64,{{userDetails.image}}"
+    <img *ngIf="userDetails.image" src="{{userDetails.image}}"
          class="CardProfileImage {{isDetailsDialog ? 'DetailsDialogImage' : ''}}">
     <div class="mat-body DetailsDialogEmail" *ngIf="isDetailsDialog">
       <app-copy-to-clipboard [email]="userDetails.email"></app-copy-to-clipboard>

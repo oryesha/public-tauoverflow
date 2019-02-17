@@ -25,20 +25,6 @@ export class FindAPartnerEditorComponent implements OnInit {
   coursesMap: UiCoursesMap;
   isCourseChosen = false;
 
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    height: '15rem',
-    minHeight: '3rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    customClasses: [ // optional
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-    ]
-  };
-
   constructor(private userService: UserService,
               private courseService: CourseService,
               private partnerPostService: PartnerPostService,

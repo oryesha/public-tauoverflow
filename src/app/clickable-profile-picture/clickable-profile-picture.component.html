@@ -1,6 +1,6 @@
 <button mat-fab class="ImageButton" (click)="seeUser()" *ngIf="owner">
   <img *ngIf="!owner.image" src="{{defaultImage}}"
        class="CardProfileImage">
-  <img *ngIf="owner.image" src="data:image/png;base64,{{owner.image}}"
+  <img *ngIf="owner.image" src="{{owner.image}}"
        class="CardProfileImage">
 </button>

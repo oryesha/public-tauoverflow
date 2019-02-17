@@ -1,0 +1,40 @@
+<div class="NotificationSettingsDialog">
+  <h1 mat-dialog-title class="NotificationSettingsDialogTitle">{{title}}</h1>
+  <mat-dialog-content class="NotificationSettingsDialogContent">
+    <h4 class="NotifyMeClass">Notify me when:</h4>
+    <mat-slide-toggle [checked]="notificationSettings.notifyOnMyQuestions"
+                      [disableRipple]="true"
+                      [id]="MY_QUESTIONS"
+                      [(ngModel)]="newSettings.notifyOnMyQuestions"
+                      class="SlideToggle">
+      Someone answers my question
+    </mat-slide-toggle>
+    <mat-slide-toggle [checked]="notificationSettings.notifyOnMyFavorites"
+                      [disableRipple]="true"
+                      [id]="MY_FAVORITES"
+                      [(ngModel)]="newSettings.notifyOnMyFavorites"
+                      class="SlideToggle">
+      Someone answers a question I marked as favorite
+    </mat-slide-toggle>
+    <mat-slide-toggle [checked]="notificationSettings.notifyOnMyCourses"
+                      [disableRipple]="true"
+                      [id]="MY_COURSES"
+                      [(ngModel)]="newSettings.notifyOnMyCourses"
+                      class="SlideToggle">
+      Someone asks a question in one of my courses
+    </mat-slide-toggle>
+    <mat-slide-toggle [checked]="notificationSettings.notifyOnMySkills"
+                      [disableRipple]="true"
+                      [id]="MY_SKILLS"
+                      [(ngModel)]="newSettings.notifyOnMySkills"
+                      class="SlideToggle">
+      Someone asks a question in a course I'm skilled at
+    </mat-slide-toggle>
+  </mat-dialog-content>
+  <mat-dialog-actions class="NotificationSettingsDoneButtonContainer">
+    <button mat-raised-button
+            class="NotificationSettingsDoneButton"
+            (click)="checkSlidersAndSubmit()"
+            #doneButton>Done</button>
+  </mat-dialog-actions>
+</div>

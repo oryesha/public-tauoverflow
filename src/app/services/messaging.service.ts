@@ -3,42 +3,23 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireMessaging } from 'angularfire2/messaging';
 import { take } from 'rxjs/operators';
-import {Observable, Subject} from 'rxjs';
-import {UserService} from './user.service';
 import {Notification} from '../models/notification.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {HttpRequestsService} from './http-requests.service';
+import {UserProfile} from '../models/user-profile.model';
+import {Question} from '../models/question.model';
 
 @Injectable()
 export class MessagingService {
-  userId;
-  // messages = [];
+  user: UserProfile;
   seenNotifications: Notification[] = [];
   newNotifications: Notification[] = [];
-  currentMessage: Subject<Notification> = new Subject<Notification>();
   constructor(
-    private userService: UserService,
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
     private http: HttpClient,
     private httpRequest: HttpRequestsService,
     private angularFireMessaging: AngularFireMessaging) {
-    this.userService.getFirebaseUser().then(value => {
-      this.userId = value.uid;
-      this.requestPermission();
-      // get offline notifications
-      this.httpRequest.get('/notifications', [], [this.userId]).subscribe((res) => {
-        if (res) {
-          res.forEach((notification) => {
-            if (notification.isSeen) {
-              this.seenNotifications.push(Notification.deserialize(notification));
-            } else {
-              this.newNotifications.push(Notification.deserialize(notification));
-            }
-          });
-        }
-      });
-    });
     this.angularFireMessaging.messaging.subscribe(
       (_messaging) => {
         _messaging.onMessage = _messaging.onMessage.bind(_messaging);
@@ -50,23 +31,43 @@ export class MessagingService {
   }
 
   /**
+   * Register user to notification service.
+   * @param user
+   */
+  registerUser(user: UserProfile) {
+    this.user = user;
+    this.requestPermission();
+  }
+
+  getOfflineNotifications(user: UserProfile) {
+    this.user = user;
+    this.requestPermission();
+    this.httpRequest.get('/notifications', [], [this.user.firebaseToken]).subscribe((res) => {
+      if (res) {
+        res.forEach((notification) => {
+          if (notification.isSeen) {
+            this.seenNotifications.push(Notification.deserialize(notification));
+          } else {
+            this.newNotifications.push(Notification.deserialize(notification));
+          }
+        });
+      }
+    });
+  }
+
+  /**
    * update token in firebase database
    *
-   * @param userId userId as a key
    * @param token token as a value
    */
-  updateToken(userId, token) {
+  updateToken(token) {
     // we can change this function to request our backend service
     this.angularFireAuth.authState.pipe(take(1)).subscribe(
       () => {
         const data = {};
-        data[this.userId] = token;
+        data[this.user.firebaseToken] = token;
         this.angularFireDB.object('fcmTokens/').update(data);
       });
-  }
-
-  public getTheMessage(): Observable<Notification> {
-    return this.currentMessage.asObservable();
   }
 
   /**
@@ -76,7 +77,7 @@ export class MessagingService {
     this.angularFireMessaging.requestToken.subscribe(
       (token) => {
         // console.log(token);
-        this.updateToken(this.userId, token);
+        this.updateToken(token);
       },
       (err) => {
         console.error('Unable to get permission to notify.', err);
@@ -105,21 +106,21 @@ export class MessagingService {
     this.angularFireMessaging.messages.subscribe(
       (payload: any) => {
         const value = payload.valueOf();
-        const receivedNotification = new Notification(value.data['gcm.notification.subject'],
-          value.data['gcm.notification.owner'], JSON.parse(value.data['gcm.notification.isSeen']),
-          JSON.parse(value.data['gcm.notification.isAnswer']), value.data['gcm.notification.link'],
-          value.data['gcm.notification.id'], new Date(value.data['gcm.notification.timestamp']));
-        this.newNotifications.push(receivedNotification);
-        this.currentMessage.next(receivedNotification);
-        // console.log('new message received. ', payload);
-        // this.currentMessage.next(payload.valueOf());
-        // const value = payload.valueOf();
-        // this.messages.push(new Message(value.notification.title, value.data['gcm.notification.user'],
-        //   JSON.parse(value.data['gcm.notification.relatedCourses']), value.data['gcm.notification.link']));
-        // this.newNotifications.push(new Notification(value.data['gcm.notification.subject'],
-        //   value.data['gcm.notification.owner'], JSON.parse(value.data['gcm.notification.isSeen']),
-        //   JSON.parse(value.data['gcm.notification.isAnswer']), value.data['gcm.notification.link'],
-        //   value.data['gcm.notification.id'], new Date(value.data['gcm.notification.timestamp'])));
+        const receivedNotification =
+            new Notification(
+                value.data['gcm.notification.subject'],
+                value.data['gcm.notification.owner'],
+                JSON.parse(value.data['gcm.notification.isSeen']),
+                JSON.parse(value.data['gcm.notification.isAnswer']),
+                value.data['gcm.notification.questionId'],
+                value.data['gcm.notification.id'],
+                new Date(value.data['gcm.notification.timestamp']));
+        if (value.data['gcm.notification.relatedCourses']) {
+          receivedNotification.relatedCourses = value.data['gcm.notification.relatedCourses'];
+        }
+        if (this._checkIfNotificationAllowed(receivedNotification)) {
+          this.newNotifications.push(receivedNotification);
+        }
       });
   }
 
@@ -134,14 +135,18 @@ export class MessagingService {
       this.httpRequest.put('/notifications', notification).subscribe(res => {
         console.log('Update Succesful');
       }, err => {
-        console.error('Update Unsuccesful');
+        console.error('Update Unsuccessful: ' + err);
       });
       this.seenNotifications.push(notification);
     });
   }
 
-  sendMessage(receiverFbToken: string, questionName: string, senderName: string, questionId: string,
-              isSenderAnswered: boolean) {
+  sendMessage(receiverFbToken: string, senderFbToken: string, questionName: string, senderName: string, questionId: string,
+              isSenderAnswered: boolean, relatedCourses?: string[]) {
+    // avoid self notifications
+    if (receiverFbToken === senderFbToken) {
+      return;
+    }
     const url = 'https://fcm.googleapis.com/fcm/send';
     this.angularFireDB.object('/fcmTokens/').valueChanges()
       .subscribe((list) => {
@@ -149,15 +154,58 @@ export class MessagingService {
         const headers = new HttpHeaders().set('Authorization', 'key=AAAAc9A8WeQ:APA91bEs459-ePMYaPJjllo7HtqDguA2Og' +
           '-vTkrSZM8BvDTxYfBmZ3iBhs6G5MXLQfisQQzOckxyHQZv8-MQ_D5QURI9C_xo4-NMsAQkLQBn5P7FiWD2-BAQsznVrfZ-A20ewuvBIAHk');
         const notification = new Notification(questionName, senderName, false, isSenderAnswered, questionId);
+        if (relatedCourses) {
+          notification.relatedCourses = relatedCourses;
+        }
         // add notification to db
         const path = ('/notifications/' + receiverFbToken);
         this.httpRequest.post(path, notification).subscribe((response: any) => {
-          notification.id = response.data._id;
+          if (response.data) { // if data is null then user don't want to get this notification
+            notification.id = response.data._id;
+            // send notification to user
+            const data = notification.getNotificationWrapper(questionOwnerToken);
+            this.http.post(url, data, {headers: headers}).subscribe();
+          }
         });
-        // send notification to user
-        const data = notification.getNotificationWrapper(questionOwnerToken);
-        this.http.post(url, data, {headers: headers}).subscribe();
       });
+  }
+
+  unregisterUser() {
+    this.seenNotifications.splice(0, this.seenNotifications.length);
+    this.newNotifications.splice(0, this.newNotifications.length);
+    this.user = null;
+  }
+
+  _checkIfNotificationAllowed(notification: Notification): boolean {
+    let isAllowed = true;
+    if (notification.isAnswer) {
+      // check if user is the question owner but he doesnt want to receive notifications about his questions
+      if (!this.user.notificationSettings.notifyOnMyQuestions) {
+        if (this.user.myQuestions.find(question => question.id === notification.questionId)) {
+          isAllowed = false;
+        }
+      }
+      // check if user marked this question as favorite but he blocked favorites notifications
+      if (!this.user.notificationSettings.notifyOnMyFavorites) {
+        if (this.user.favorites.find(question => question.id === notification.questionId)) {
+          isAllowed = false;
+        }
+      }
+    } else { // notified because I am interested in this course
+      const isInMyCourses = this.user.myCourses.some(course => notification.relatedCourses.indexOf(course.id) >= 0);
+      const isInMySkills = this.user.skills.some(course => notification.relatedCourses.indexOf(course.id) >= 0);
+      if (!this.user.notificationSettings.notifyOnMyCourses && isInMyCourses) {
+        if (!this.user.notificationSettings.notifyOnMySkills || !isInMySkills) {
+          isAllowed = false;
+        }
+      }
+      if (!this.user.notificationSettings.notifyOnMySkills && isInMySkills) {
+        if (!this.user.notificationSettings.notifyOnMyCourses || !isInMyCourses) {
+          isAllowed = false;
+        }
+      }
+    }
+    return isAllowed;
   }
 }
 

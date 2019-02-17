@@ -5,6 +5,10 @@ import {MultiSelectAutocompleteComponent} from '../multi-select-autocomplete/mul
 import {FormFieldComponent} from '../form-field/form-field.component';
 import {UserProfile} from '../models/user-profile.model';
 import {CourseService} from '../services/course.service';
+import {Program} from '../models/program.model';
+import {UiCourse} from '../models/ui-course.model';
+import {ImageUploadService} from '../services/image-upload.service';
+import {FileSnippet} from '../file-uploader/file-uploader.component';
 
 @Component({
   selector: 'app-initial-details-dialog',
@@ -15,20 +19,22 @@ export class InitialDetailsDialogComponent implements OnInit {
   @ViewChild('programAutocomplete') programAutocomplete: AutocompleteComponent;
   @ViewChild('skillsMultiselect') skillsMultiselect: MultiSelectAutocompleteComponent;
   @ViewChild('descriptionField') descriptionField: FormFieldComponent;
+  disabled;
   title: string;
   selectedProgram: string;
   description: string;
   selectedSkills: string[];
   user: UserProfile;
   firstInit: boolean;
-  programs: string[] = ['Computer Science', 'Electrical Engineering', 'Law', 'Computer Science and Electrical Engineering', 'Economics',
-    'Management', 'Physics', 'Chemistry'];
-  courses: string[] = this.courseService.getCourseNames();
+  programs: Program[];
+  courses: UiCourse[] = [];
   private base64Image: string;
+  private image: File;
 
   constructor(
     private dialogRef: MatDialogRef<InitialDetailsDialogComponent>,
     private courseService: CourseService,
+    private imageUploadService: ImageUploadService,
     @Inject(MAT_DIALOG_DATA) data,
     private snackBar: MatSnackBar) {
     this.title = data.title;
@@ -37,6 +43,8 @@ export class InitialDetailsDialogComponent implements OnInit {
     this.description = data.description;
     this.selectedSkills = data.selectedSkills ? data.selectedSkills : [];
     this.firstInit = data.firstInit;
+    this.programs = data.programs;
+    this.courses = this.courseService.getCourses();
   }
 
   ngOnInit() {
@@ -53,12 +61,14 @@ export class InitialDetailsDialogComponent implements OnInit {
         program: program,
         description: this.descriptionField.getContent(),
         skills: this.skillsMultiselect.getSelectedOptions(),
-        image: this.base64Image
+        image: this.image,
+        imageSrc: this.base64Image
       });
     }
   }
 
-  saveImage(image: any) {
-    this.base64Image = image;
+  saveImage(fileSnippet: FileSnippet) {
+    this.image = fileSnippet.image;
+    this.base64Image = fileSnippet.base64Image;
   }
 }

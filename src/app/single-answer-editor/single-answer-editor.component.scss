@@ -36,9 +36,11 @@ $icon-size: 32px;
   background-color: white;
 }
 
-.PostTextArea /deep/ .angular-editor-wrapper,
-.PostTextArea /deep/ .angular-editor-toolbar  {
-  background: white;
+.QuestionTextArea /deep/ .angular-editor-button[title="Clear Formatting"],
+.QuestionTextArea /deep/ .angular-editor-button[title="Custom Style"],
+.QuestionTextArea /deep/ .select-custom-style[title="Custom Style"],
+.QuestionTextArea /deep/ .angular-editor-button[title="HTML Code"] {
+  display: none;
 }
 
 .QuestionEditorHeaderText {
@@ -92,7 +94,6 @@ $icon-size: 32px;
 .Button {
   background: mat-color($mat-gray, 500);
   color: mat-color($mat-gray, 800);
-  //font-size: 15px;
   text-transform: uppercase;
   line-height: 27px;
   font-size: 12px;
