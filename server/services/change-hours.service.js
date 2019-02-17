@@ -1,3 +1,4 @@
+/*
 let Post = require('../models/change-hours-post.model');
 let UserProfile = require('../models/user-profile.model');
 let Course = require('../models/course.model');
@@ -48,3 +49,4 @@ exports.deleteChangeHoursPost = async function(id){
     throw Error("Error Occured while Deleting the post")
   }
 };
+*/

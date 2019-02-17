@@ -1,7 +1,7 @@
 <app-nav-bar></app-nav-bar>
 <app-post-editor (postSubmitted)="postPartnerFind($event)"
-  [postTitle]="'Find A Partner' + (isCourseChosen? (' - ' + (course.name)) : '')"
+  [postTitle]="'Find A Partner'"
   [titleLabel]="'Add post title'"
   [isCourseChosen]="isCourseChosen"
-  [descriptionTitle]="'Post'">
+  [descriptionTitle]="'Post'" [courseName]="course.name">
 </app-post-editor>

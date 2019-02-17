@@ -9,6 +9,7 @@ import {SearchResultsComponent} from './search-results/search-results.component'
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import {QuestionPageComponent} from './question-page/question-page.component';
 import {FindAPartnerEditorComponent} from './find-a-partner-editor/find-a-partner-editor.component';
+import {ChangeHoursEditorComponent} from './change-hours-editor/change-hours-editor.component';
 import {CourseReviewEditorComponent} from './course-review-editor/course-review-editor.component';
 import {AuthGuard} from './services/auth/auth.guard';
 
@@ -66,6 +67,11 @@ const routes: Routes = [
     component: CourseReviewEditorComponent,
     canActivate: [AuthGuard],
     data: {pageTitle: 'Course Review Editor'}
+  },
+  {
+    path: 'change-hours-editor',
+    component: ChangeHoursEditorComponent,
+    data: {pageTitle: 'Change Hours Editor'}
   },
   {
     path: 'question-page',

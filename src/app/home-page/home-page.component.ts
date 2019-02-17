@@ -95,6 +95,37 @@ export class HomePageComponent implements OnInit, OnDestroy {
         }
       });
   }
+  async openCoursePostDialog(type: string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.data = {title: 'Select related course', selected: [], postEditor: true};
+    await this.courseService.waitForCourses();
+    this._initCourses();
+    this.dialog.open(FilterDialogComponent, dialogConfig).afterClosed().subscribe(
+      (result: string[]) => {
+        if (result) {
+          this._navigateToPostEditor(result, type);
+        }
+      });
+  }
+  private async _navigateToPostEditor(result: string[], type: string) {
+    const uiCourses: UiCourse[] = [];
+    result.forEach(courseName => {
+      uiCourses.push(this.uiCoursesMap[courseName]);
+    });
+    const courseList = new HomePageComponent.CourseList(uiCourses);
+    this.routingDataService.setRoutingData('selectedCourses', courseList);
+    switch (type) {
+      case 'partner': {
+        this.router.navigate(['/find-a-partner-editor']);
+        break;
+      }
+      case 'review': {
+        this.router.navigate(['/course-review-editor']);
+        break;
+      }
+    }
+  }
 
   private async _navigateToQuestionEditor(result: string[]) {
     const uiCourses: UiCourse[] = [];

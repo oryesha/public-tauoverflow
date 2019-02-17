@@ -83,6 +83,8 @@ import { NotificationHostDirective } from './notifications-card/notification-hos
 import { NotificationSettingsDialogComponent } from './notification-settings-dialog/notification-settings-dialog.component';
 import { EditorComponent } from './editor/editor.component';
 import {KatexService} from 'ng-katex/src/ng-katex.service';
+import { ChangeHoursEditorComponent } from './change-hours-editor/change-hours-editor.component';
+import {ChangeHoursPostService} from './services/change-hours-post.service';
 
 
 @NgModule({
@@ -122,6 +124,7 @@ import {KatexService} from 'ng-katex/src/ng-katex.service';
     NotificationHostDirective,
     NotificationSettingsDialogComponent,
     EditorComponent,
+    ChangeHoursEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -173,6 +176,7 @@ import {KatexService} from 'ng-katex/src/ng-katex.service';
     CourseService,
     MessagingService,
     KatexService,
+    ChangeHoursPostService,
     AsyncPipe
   ],
   bootstrap: [AppComponent],
