@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let questions = require('./api/question.route');
 let courses = require('./api/course.route');
+let programs = require('./api/program.route');
 let answers = require('./api/answer.route');
 let changeHours = require('./api/change-hours.route');
 let user = require('./api/user.route');
@@ -13,6 +14,7 @@ let fileUpload = require('./api/file-upload.route');
 
 router.use('/questions', questions);
 router.use('/courses', courses);
+router.use('/programs', programs);
 router.use('/answers',answers);
 router.use('/change-hours', changeHours);
 router.use('/user', user);

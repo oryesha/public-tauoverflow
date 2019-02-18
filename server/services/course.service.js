@@ -13,7 +13,7 @@ exports.getAllCourses = async function() {
     const courses = await Course.find({});
 
     courses.forEach((course) => {
-      coursesToSend.push({id: course.id, courseName: course.name,
+      coursesToSend.push({id: course._id, courseName: course.name,
       courseNumber: course.courseNumber});
     });
     return coursesToSend;
