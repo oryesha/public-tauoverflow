@@ -18,7 +18,7 @@ export class QueryParams {
 @Injectable()
 export class HttpRequestsService {
 
-  private _baseUrl = 'http://localhost:3000/api';
+  private _baseUrl = 'https://d1dl8vvg5ldc6n.cloudfront.net/api';
 
   constructor(private http: HttpClient) {
     // this.http.post(this._baseUrl + '/courses', new UiCourse('blah', '0011'));
