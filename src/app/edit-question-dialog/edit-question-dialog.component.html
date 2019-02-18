@@ -1,0 +1,14 @@
+<h1 mat-dialog-title class="DetailsDialogTitle">Edit Your Question</h1>
+<mat-dialog-content class="DetailsDialogContent">
+  <h5 class="SmallDialogHeader">Question subject:</h5>
+  <app-form-field class="DetailsInput SubjectInput" [isTextarea]="true" [label]="''" [appearance]="'outline'"
+                  [description]="subject"
+                  #subjectField>
+  </app-form-field>
+  <h5 class="SmallDialogHeader">Question:</h5>
+  <app-editor class="DetailsInput SubjectInput" [isQuestion]="true" [isAnswer]="false" [content]="content" #contentField></app-editor>
+</mat-dialog-content>
+<mat-dialog-actions class="DetailsDialogDoneButtonContainer">
+  <button mat-raised-button class="DetailsDialogDoneButton" (click)="checkFormAndSubmit()" [disabled]="disabled"
+          #doneButton>Done</button>
+</mat-dialog-actions>
