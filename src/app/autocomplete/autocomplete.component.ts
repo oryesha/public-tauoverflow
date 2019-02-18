@@ -86,6 +86,6 @@ export class AutocompleteComponent implements OnInit {
     if (isProgramSelection) {
       return (<Program[]>(this.options)).map((option: Program) => option.name);
     }
-    return (<UiCourse[]>(this.options)).map((option: UiCourse) => option.name + ' - ' + option.courseNumber);
+    return (<UiCourse[]>(this.options)).map((option: UiCourse) => option.name + ' -- ' + option.courseNumber);
   }
 }

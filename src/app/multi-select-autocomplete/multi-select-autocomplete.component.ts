@@ -49,7 +49,7 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
   constructor() {}
 
   ngOnInit() {
-    this.selectableOptions = this.options.map(option => option.name + ' - ' + option.courseNumber);
+    this.selectableOptions = this.options.map(option => option.name + ' -- ' + option.courseNumber);
     // Initialize allOptions map.
     this.selectableOptions.forEach(opt => this.allOptions[opt] = false);
     // If on init options were already selected (e.g., when clicking the filter button after
@@ -83,7 +83,7 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
   private _concatRemoved(removed: string) {
     const number = this.selectedMap[removed];
     delete this.selectedMap[removed];
-    return removed + ' - ' + number;
+    return removed + ' -- ' + number;
   }
 
   displaySelected(event: MatAutocompleteSelectedEvent) {
@@ -96,7 +96,7 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
   }
 
   private _parseSelected(selected: string) {
-    const split = selected.split(' - ');
+    const split = selected.split(' -- ');
     const name = split[0];
     this.selectedMap[name] = split[1];
     return name;

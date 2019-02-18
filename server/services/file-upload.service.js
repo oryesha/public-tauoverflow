@@ -21,15 +21,16 @@ const upload = multer({
   })
 });
 
-const singleUpload = upload.single('image');
+const singleUpload = upload.single('file');
 
 _this = this;
 
 exports.uploadImage = function(req, res) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     singleUpload(req, res, (err, some) => {
       if (err) {
-        return Error('Error while uploading image: ' + err.message);
+        console.error(err.message);
+        reject(err);
       }
       resolve(req.file.location);
     });
