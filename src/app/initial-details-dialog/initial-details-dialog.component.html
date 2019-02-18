@@ -15,10 +15,8 @@
                                    [options]="courses" [selectedOptions]="selectedSkills"
                                    #skillsMultiselect>
     </app-multi-select-autocomplete>
-    <ng-container *ngIf="firstInit">
-      <h5 class="SmallDialogHeader">Upload a photo:</h5>
-      <app-file-uploader (imageSelected)="saveImage($event)"></app-file-uploader>
-    </ng-container>
+    <h5 class="SmallDialogHeader">Upload a photo:</h5>
+    <app-file-uploader (imageSelected)="saveImage($event)" [imageSrc]="imageSrc"></app-file-uploader>
   </mat-dialog-content>
   <mat-dialog-actions class="DetailsDialogDoneButtonContainer">
     <button mat-raised-button class="DetailsDialogDoneButton" (click)="checkFormAndSubmit()" [disabled]="disabled"
