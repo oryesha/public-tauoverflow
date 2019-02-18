@@ -11,7 +11,7 @@
       {{question.subject}}
     </div>
     <span *ngIf="isUserQuestionOwner">
-      <button mat-icon-button matTooltip="Edit question" class="Button">
+      <button mat-icon-button matTooltip="Edit question" class="Button" (click)="EditQuestion()">
         <mat-icon class="Icon">edit</mat-icon>
       </button>
       <button *ngIf="!isQuestionLocked" mat-icon-button matTooltip="Lock this post" class="Button" (click)="LockQuestion()">
