@@ -28,7 +28,7 @@ export class InitialDetailsDialogComponent implements OnInit {
   firstInit: boolean;
   programs: Program[];
   courses: UiCourse[] = [];
-  private base64Image: string;
+  imageSrc: string;
   private image: File;
 
   constructor(
@@ -45,6 +45,9 @@ export class InitialDetailsDialogComponent implements OnInit {
     this.firstInit = data.firstInit;
     this.programs = data.programs;
     this.courses = this.courseService.getCourses();
+    if (!this.firstInit) {
+      this.imageSrc = data.image;
+    }
   }
 
   ngOnInit() {
@@ -62,13 +65,13 @@ export class InitialDetailsDialogComponent implements OnInit {
         description: this.descriptionField.getContent(),
         skills: this.skillsMultiselect.getSelectedOptions(),
         image: this.image,
-        imageSrc: this.base64Image
+        imageSrc: this.imageSrc
       });
     }
   }
 
   saveImage(fileSnippet: FileSnippet) {
     this.image = fileSnippet.image;
-    this.base64Image = fileSnippet.base64Image;
+    this.imageSrc = fileSnippet.imageSrc;
   }
 }

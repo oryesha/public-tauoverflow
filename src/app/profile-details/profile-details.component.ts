@@ -11,6 +11,7 @@ import {InitialDetailsDialogComponent} from '../initial-details-dialog/initial-d
 import {CourseService} from '../services/course.service';
 import {UiCoursesMap} from '../models/ui-courses-map.model';
 import {ProgramService} from '../services/program.service';
+import {ImageUploadService} from '../services/image-upload.service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class ProfileDetailsComponent implements OnInit {
               private courseService: CourseService,
               private programService: ProgramService,
               private dialog: MatDialog,
+              private imageUploadService: ImageUploadService,
               private routingDataService: AppRoutingDataService) {}
 
   ngOnInit() {
@@ -57,7 +59,7 @@ export class ProfileDetailsComponent implements OnInit {
     dialogConfig.data = {title: 'Customize Your Information', user: this.userDetails,
       selectedProgram: this.userDetails.program, description: this.userDetails.description,
       selectedSkills: this.userDetails.skills.map(skill => skill.name),
-      firstInit: false, programs: programs};
+      firstInit: false, programs: programs, image: this.userDetails.image};
     await this.courseService.waitForCourses();
     this._initCourses();
     this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
@@ -65,12 +67,18 @@ export class ProfileDetailsComponent implements OnInit {
         if (!result) {
           return;
         }
+        this.userDetails.image = result.imageSrc;
         this.userDetails.program = result.program;
         this.userDetails.description = result.description;
         this._addUserSkills(result.skills);
         this.userDetails.isNewUser = false;
-        this.userService.updateUserDetails(this.userDetails).subscribe(() => {
-          this._toast('User details updated');
+        this.imageUploadService.uploadImage(result.image).subscribe((imageUrl: string) => {
+          if (imageUrl) {
+            this.userDetails.image = imageUrl;
+          }
+          this.userService.updateUserDetails(this.userDetails).subscribe(() => {
+            this._toast('User details updated');
+          });
         });
       }
     );
