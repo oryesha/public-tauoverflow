@@ -21,7 +21,7 @@ export class SearchBarComponent implements OnInit {
   public searchContent: string;
   private selectedFilters: string[] = [];
   public hasFilters: boolean;
-  private isSearchResultsShown = false;
+  @Input() isSearchResultsShown = false;
 
   async openDialog() {
     const dialogConfig = new MatDialogConfig();

@@ -26,8 +26,10 @@ exports.getUser = async function(userToken) {
         populate: {path: 'questions reviews partnerPosts changeHours'}
       }).populate({
         path: 'favorites myQuestions myAnswers',
-        populate: {path: 'owner relatedCourses answers upvote.upvoters',
-        populate: { path: 'owner upvote.upvoters' }}
+        populate: {
+          path: 'owner relatedCourses answers upvote.upvoters',
+          populate: { path: 'owner upvote.upvoters skills', populate: { path: 'skills' }}
+        }
       }).exec();
     const rank = Math.round(ProfileRank.calcUserRank(user));
     user.rank = rank;

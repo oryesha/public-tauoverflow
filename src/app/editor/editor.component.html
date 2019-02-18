@@ -1,12 +1,19 @@
 <div class="InsertButtons">
-  <button mat-flat-button
-          class="InsertLatexButton"
+  <button *ngIf="isQuestion || isAnswer"
+          mat-flat-button
+          class="Button"
           matTooltip="Write the equation inside the 'latex' tag"
           (click)="addLatexEquation()">
     Insert LaTeX equation
     <img src="../../assets/textlogo.png" class="LatexLogo">
   </button>
+  <button mat-flat-button
+          class="Button"
+          (click)="addImage()">
+    Upload image
+    <mat-icon class="PhotoIcon">add_photo_alternate</mat-icon>
+  </button>
 </div>
-<angular-editor [config]="editorConfig"
+<angular-editor [config]="editorConfig" #angularEditor
                 class="PostTextArea{{isAnswer ? ' AnswerTextArea' : ''}}" [(ngModel)]="content">
 </angular-editor>

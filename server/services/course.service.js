@@ -45,7 +45,8 @@ exports.getCourse = async function(courseNum) {
         populate: { path: 'owner course' }
       }).populate({
         path: 'questions',
-        populate: { path: 'owner relatedCourses answers upvote.upvoters', populate: { path: 'owner upvote.upvoters' } }
+        populate: { path: 'owner relatedCourses answers upvote.upvoters', populate: { path: 'owner upvote.upvoters skills',
+          populate: {path: 'skills'}} }
       }).exec();
     return course;
   }

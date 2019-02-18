@@ -59,10 +59,17 @@ export class SignUpComponent implements OnInit {
         this.successMessage = 'Your account has been created';
         this._enterApp(response, value);
       }, err => {
+        console.error(err);
         let message;
         const errCode: string = err.code;
         if (errCode.includes('email-already-in-use')) {
           message = 'Email already in use!';
+        }
+        if (errCode.includes('invalid-email')) {
+          message = 'Invalid Email!';
+        }
+        if (errCode.includes('weak-password')) {
+          message = 'Password should be at least 6 characters!';
         }
         this._promptToast(message);
       });

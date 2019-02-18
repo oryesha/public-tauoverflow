@@ -1,0 +1,33 @@
+@import "~@angular/material/theming";
+
+.DetailsDialogTitle {
+  color: mat-color($mat-gray, 700);
+  margin-bottom: 0px;
+}
+
+.SmallDialogHeader {
+  color: mat-color($mat-gray, 500);
+  font-size: 14px;
+  margin: 16px 0 0;
+}
+
+.DetailsInput {
+  font-size: 14px;
+}
+
+.SubjectInput /deep/ .mat-form-field-infix{
+  padding-top: 4px;
+  border-top: 0px;
+}
+
+.DetailsDialogDoneButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.DetailsDialogDoneButton {
+  background: mat-color($mat-gray, 500);
+  color: mat-color($mat-gray, 800);
+  text-transform: uppercase;
+  line-height: 28px;
+}

@@ -10,8 +10,11 @@ import {UserProfile} from '../models/user-profile.model';
 import {UserService} from '../services/user.service';
 import {MessagingService} from '../services/messaging.service';
 import {AngularEditorComponent} from '@kolkov/angular-editor';
-import {UiCourse} from '../models/ui-course.model';
+import {UiCourse, UiCourseNavigationData} from '../models/ui-course.model';
 import {CoursesComponent} from '../courses/courses.component';
+import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
+import {InitialDetailsDialogComponent} from '../initial-details-dialog/initial-details-dialog.component';
+import {EditQuestionDialogComponent} from '../edit-question-dialog/edit-question-dialog.component';
 
 @Component({
   selector: 'app-question-page',
@@ -35,8 +38,10 @@ export class QuestionPageComponent implements OnInit {
               private userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
+              private dialog: MatDialog,
               private answerService: AnswerService,
-              private messagingService: MessagingService) {
+              private messagingService: MessagingService,
+              private snackBar: MatSnackBar) {
     this.userService.getUser().then((user: UserProfile) => {
       this.user = user;
       const routingData = routingDataService.getRoutingData('question');
@@ -157,5 +162,38 @@ export class QuestionPageComponent implements OnInit {
 
   private checkIfUserAnswerOwner(id: string): boolean {
     return this.user.id === id;
+  }
+
+  async EditQuestion() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '700px';
+    dialogConfig.data = {subject: this.question.subject, content: this.question.content};
+    this.dialog.open(EditQuestionDialogComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        if (!result) {
+          return;
+        }
+        this.question.subject = result.subject;
+        this.question.content = result.content;
+        const origUrl = this.router.url;
+        const id = this.question.id;
+        this.questionService.updateQuestion(this.question).subscribe(() => {
+          this._toast('Question updated').afterDismissed().subscribe(() => {
+            this.router.navigate(['question-page'], {queryParams: {id: id}})
+              .then(() => {
+                if (origUrl.includes('question-page?id=' + id)) {
+                  location.reload(); // get new answers
+                }
+              });
+          });
+        });
+      }
+    );
+  }
+
+  private _toast(msg: string) {
+    return this.snackBar.open(msg, '', {
+      duration: 2000 // Prompt the toast 2 seconds.
+    });
   }
 }
