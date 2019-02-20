@@ -128,11 +128,24 @@ h3.mat-subheader{
   right: 16px;
   min-width: 300px;
   z-index: 10;
+} @media (max-width: 800px) {
+  .SearchContainer {
+    position: relative;
+    right: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 .MainWrapper {
   padding: 10px 0;
   position: relative;
+  //mobile: colomn
+} @media (max-width: 800px) {
+  .MainWrapper {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .AllCoursesCourseName {

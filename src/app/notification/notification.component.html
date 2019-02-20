@@ -1,3 +1,4 @@
+<mat-divider></mat-divider>
 <button mat-flat-button (click)="goToQuestion()"
         [ngClass]="{'Notification': true, 'NewNotification': isNew}">
   <span class="NotificationIconAndDescription">
@@ -11,4 +12,4 @@
   <span class="NotificationSubject"><b>{{notification.subject}}</b></span>
   <span class="NotificationTimeElapsed">{{getElapsedTime()}} ago</span>
 </button>
-<mat-divider></mat-divider>
+<!--<mat-divider></mat-divider>-->

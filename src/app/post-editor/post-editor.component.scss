@@ -91,3 +91,16 @@ $text-box-width: 33%;
   align-items: center;
   display: flex;
 }
+
+@media (max-width:800px) {
+  .Label /deep/ .mat-form-field-flex{
+    max-height: 40px;
+    min-width: 160px;
+  }
+}
+@media (max-width:800px) {
+  .Label /deep/ .mat-form-field-wrapper {
+    min-width: 160px;
+    padding-bottom: 20px;
+  }
+}

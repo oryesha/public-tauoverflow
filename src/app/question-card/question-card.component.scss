@@ -4,6 +4,10 @@
   display: flex;
   justify-content: flex-start;
   padding: 10px;
+} @media (max-width: 800px) {
+  .QuestionCard {
+    padding: 10px 0px;
+  }
 }
 
 .UserPicture {
@@ -31,6 +35,10 @@
   flex: 1 1 auto;
   width: 0;
   padding-bottom: 10px;
+} @media (max-width: 800px) {
+  .PostCard {
+    margin-left: 10px;
+  }
 }
 
 .ButtonsContainer {

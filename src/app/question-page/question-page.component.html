@@ -37,7 +37,7 @@
                      (showAnswerEditor)="showAnswerEditor()"></app-question-card>
   <div class="AnswersContainer">
     <app-answer-card *ngFor="let answer of question.answers" [answer]="answer" [isUserOwner]="checkIfUserAnswerOwner(answer.owner.id)"
-                     [isEvenAnswer]="1 - isEvenAnswer">
+                     [isEvenAnswer]="isEven()">
     </app-answer-card>
     <app-single-answer-editor (answerSubmitted)="postAnswer($event)" (rendered)="scrollToBottom()"
                               (answerCanceled)="cancelAnswer()"
