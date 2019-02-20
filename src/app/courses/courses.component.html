@@ -1,5 +1,14 @@
 <app-nav-bar></app-nav-bar>
 <div class="MainWrapper">
+  <div class="SearchContainer" *ngIf="isLoaded">
+    <app-autocomplete [isRequired]="false"
+                      [isCourseSearch]="true"
+                      class="AutocompleteCourses"
+                      [options]="allCourses"
+                      (optionSelected)="navigateToCoursePage($event)"
+                      [placeholder]="'Search a course...'">
+    </app-autocomplete>
+  </div>
   <mat-tab-group class="CoursesViewTabs">
     <mat-tab label="All Courses">
       <app-spinner *ngIf="!isLoaded"></app-spinner>
@@ -51,13 +60,4 @@
       </ng-container>
     </mat-tab>
   </mat-tab-group>
-  <div class="SearchContainer" *ngIf="isLoaded">
-    <app-autocomplete [isRequired]="false"
-                      [isCourseSearch]="true"
-                      class="AutocompleteCourses"
-                      [options]="allCourses"
-                      (optionSelected)="navigateToCoursePage($event)"
-                      [placeholder]="'Search a course...'">
-    </app-autocomplete>
-  </div>
 </div>

@@ -7,7 +7,7 @@
   border-radius: 0;
   color: mat-color($mat-gray, 600);
   text-align: left;
-  width: 100%;
+  font-size: 12px;
 }
 
 .SettingsIcon {
@@ -20,4 +20,18 @@
 
 .NotificationSettings {
   font-weight: 500;
+}
+
+.NotificationsHeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  background: mat-color($mat-gray, 100);
+}
+
+.NotificationsHeader {
+  font-size: 12px;
+  font-weight: 500;
+  align-self: center;
+  padding-left: 16px;
+  padding-right: 16px;
 }
