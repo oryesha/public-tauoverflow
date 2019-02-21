@@ -21,7 +21,7 @@
     </div>
     <ng-container *ngIf="isProfilePage || isDetailsDialog">
       <div class="mat-body About">
-        <div class="DescriptionTitle" *ngIf="userDetails.description">Description:</div>
+        <div class="DescriptionTitle" *ngIf="userDetails.description">About me:</div>
         <div>{{userDetails.description}}</div>
       </div>
       <div *ngIf="userDetails.skills && userDetails.skills.length > 0" class="mat-body Skills">

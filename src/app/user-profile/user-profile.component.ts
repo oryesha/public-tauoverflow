@@ -10,6 +10,11 @@ import {PartnerPostService} from '../services/partner-post.service';
 import {ReviewService} from '../services/review.service';
 import {UiCourse} from '../models/ui-course.model';
 import {CoursesComponent} from '../courses/courses.component';
+import {InitialDetailsDialogComponent} from '../initial-details-dialog/initial-details-dialog.component';
+import {ProgramService} from '../services/program.service';
+import {ImageUploadService} from '../services/image-upload.service';
+import {CourseService} from '../services/course.service';
+import {UiCoursesMap} from '../models/ui-courses-map.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,12 +25,16 @@ export class UserProfileComponent implements OnInit {
   userDetails: UserProfile;
   isLoaded = false;
   cumulativeLength = 0;
+  uiCoursesMap: UiCoursesMap;
 
   constructor(private userService: UserService,
               private partnerPostService: PartnerPostService,
               private routingDataService: AppRoutingDataService,
               private reviewService: ReviewService,
               private router: Router,
+              private courseService: CourseService,
+              private programService: ProgramService,
+              private imageUploadService: ImageUploadService,
               private snackBar: MatSnackBar,
               private dialog: MatDialog) {
     this.userService.getUser(true).then((user: UserProfile) => {
@@ -91,5 +100,54 @@ export class UserProfileComponent implements OnInit {
     const courseData = new CoursesComponent.CourseNavigationData(course);
     this.routingDataService.setRoutingData(course.courseNumber, courseData);
     this.router.navigate(['/course-page'], { queryParams: { courseId: course.courseNumber } });
+  }
+
+  async editProfile() {
+    const programs = await this.programService.getPrograms();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.data = {title: 'Customize Your Information', user: this.userDetails,
+      selectedProgram: this.userDetails.program, description: this.userDetails.description,
+      selectedSkills: this.userDetails.skills.map(skill => skill.name),
+      firstInit: false, programs: programs, image: this.userDetails.image};
+    await this.courseService.waitForCourses();
+    this._initCourses();
+    this.dialog.open(InitialDetailsDialogComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        if (!result) {
+          return;
+        }
+        this.userDetails.image = result.imageSrc;
+        this.userDetails.program = result.program;
+        this.userDetails.description = result.description;
+        this._addUserSkills(result.skills);
+        this.userDetails.isNewUser = false;
+        this.imageUploadService.uploadImage(result.image).subscribe((imageUrl: string) => {
+          if (imageUrl) {
+            this.userDetails.image = imageUrl;
+          }
+          this.userService.updateUserDetails(this.userDetails).subscribe(() => {
+            this._toast('User details updated');
+          });
+        });
+      }
+    );
+  }
+  private _toast(msg: string) {
+    this.snackBar.open(msg, '', {
+      duration: 2000 // Prompt the toast 2 seconds.
+    });
+  }
+  private _addUserSkills(skills: string[]) {
+    this.userDetails.skills = [];
+    skills.forEach(skillName => {
+      this.userDetails.skills.push(this.uiCoursesMap[skillName]);
+    });
+  }
+
+  private _initCourses(): void {
+    if (!this.uiCoursesMap) {
+      this.uiCoursesMap = this.courseService.getCoursesMap();
+    }
   }
 }

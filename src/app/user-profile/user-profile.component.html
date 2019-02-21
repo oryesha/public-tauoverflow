@@ -14,9 +14,9 @@
             <button mat-flat-button mat-line class="mat-h4 QuestionTitle"
                     (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
             <span mat-line class="VotesAndAnswers">
-            <span>votes: {{question.upvote.count}}</span>
-            <span>answers: {{question.answers.length}}</span>
-          </span>
+              <span>votes: {{question.upvote.count}}</span>
+              <span>answers: {{question.answers.length}}</span>
+            </span>
           </mat-list-item>
         </ng-container>
       </mat-tab>
@@ -47,7 +47,8 @@
               </mat-chip-list>
             </mat-expansion-panel>
           </mat-accordion>
-          <mat-divider class="Divider" *ngIf="userDetails.myPartnerPosts.length != 0 && userDetails.myChangeHoursPosts.length != 0">
+          <mat-divider class="Divider" *ngIf="userDetails.myPartnerPosts.length != 0 &&
+          (userDetails.myChangeHoursPosts.length != 0 || userDetails.myCourseReviews.length != 0)">
           </mat-divider>
           <div mat-subheader class="Subheader" *ngIf="userDetails.myChangeHoursPosts.length != 0">Change Hours</div>
           <mat-accordion class="CoursePageAccordion">
@@ -89,7 +90,11 @@
                   </span>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <div [innerHtml]="review.content"></div>
+              <div class="PostContent" [innerHtml]="review.content"></div>
+              <mat-divider class="ContactDivider"></mat-divider>
+              <mat-chip-list class="ChipList">
+                <mat-chip (click)="navigateToCoursePage(review.uiCourse)">{{review.uiCourse.name}}</mat-chip>
+              </mat-chip-list>
             </mat-expansion-panel>
           </mat-accordion>
         </ng-container>
@@ -109,5 +114,142 @@
         </ng-container>
       </mat-tab>
     </mat-tab-group>
+  </div>
+</div>
+<div class="MobileCardsWrapper" *ngIf="isLoaded">
+  <div class="UserCard">
+    <div class="UserPicture">
+      <img *ngIf="!userDetails.image" src="{{defaultImage}}"
+           class="MobileCardProfileImage">
+      <img *ngIf="userDetails.image" src="{{userDetails.image}}"
+           class="MobileCardProfileImage">
+    </div>
+    <div class="UserBasicDetails">
+      <div class="Name">{{userDetails.name.first}} {{userDetails.name.last}}</div>
+      <div class="MobileProgram">{{userDetails.program}}</div>
+      <!--<button mat-stroked-button class="EditProfileButton" (click)="editProfile()">
+        Edit Profile
+      </button>-->
+    </div>
+  </div>
+  <mat-divider class="UserContactDivider"></mat-divider>
+  <div class="UserFullDetails">
+    <div class="Rank">
+      <div class="Title">Score: </div><div class="Space"></div> {{userDetails.rank}}
+      <img class="RankIcon" src="https://img.icons8.com/wired/36/424242/{{rankTitle}}.png">
+    </div>
+    <div class="Description" *ngIf="userDetails.description">
+      <div class="Title">About Me: </div><div class="Space"></div>{{userDetails.description}}
+    </div>
+    <div *ngIf="userDetails.skills && userDetails.skills.length > 0" class="SkillsList">
+      <div class="Title">Skills:</div>
+      <mat-chip-list class="mat-body Skills">
+        <mat-chip class="Chip" *ngFor="let skill of userDetails.skills" matTooltip="{{skill.name}}"
+                  (click)="navigateToCoursePage(skill)">{{skill.name}}</mat-chip>
+      </mat-chip-list>
+    </div>
+    <button mat-stroked-button class="EditProfileButton EditProfileMobile" (click)="editProfile()">
+      Edit Profile
+    </button>
+  </div>
+  <div class="AllUserPosts">
+    <div class="UserQuestions">
+      <h6 *ngIf="userDetails.myQuestions.length > 0" class="MobilePostHeader">My Questions</h6>
+      <ng-container *ngIf="userDetails.myQuestions.length > 0">
+        <mat-list-item class="ListItem" *ngFor="let question of userDetails.myQuestions">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle"
+                  (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
+          <div mat-line class="VotesAndAnswers">
+            <div>votes: {{question.upvote.count}}</div>
+            <div>answers: {{question.answers.length}}</div>
+          </div>
+        </mat-list-item>
+      </ng-container>
+    </div>
+    <div class="UserPosts">
+      <h6 *ngIf="userDetails.myPartnerPosts.length != 0 || userDetails.myChangeHoursPosts.length != 0 ||
+        userDetails.myCourseReviews.length != 0" class="MobilePostHeader">My Posts</h6>
+      <ng-container *ngIf="cumulativeLength > 0">
+        <div mat-subheader class="Subheader" *ngIf="userDetails.myPartnerPosts.length != 0">Find a Partner</div>
+        <mat-accordion class="CoursePageAccordion">
+          <mat-expansion-panel class="CoursePageExpansionPanel" *ngFor="let partner of userDetails.myPartnerPosts" [hideToggle]="true">
+            <mat-expansion-panel-header class="Header">
+              <mat-panel-title>
+                  <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
+                    <span>
+                      {{partner.subject}}
+                    </span>
+                  </span>
+                <span>
+                    <mat-icon [inline]="true" (click)="tryDeletePost(partner, true, false)" class="DeleteIcon">delete</mat-icon>
+                  </span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="PostContent" [innerHtml]="partner.content"></div>
+            <mat-divider class="ContactDivider"></mat-divider>
+            <mat-chip-list class="ChipList">
+              <mat-chip (click)="navigateToCoursePage(partner.uiCourse)">{{partner.uiCourse.name}}</mat-chip>
+            </mat-chip-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <div mat-subheader class="Subheader" *ngIf="userDetails.myChangeHoursPosts.length != 0">Change Hours</div>
+        <mat-accordion class="CoursePageAccordion">
+          <mat-expansion-panel *ngFor="let hour of userDetails.myChangeHoursPosts" class="CoursePageExpansionPanel" [hideToggle]="true">
+            <mat-expansion-panel-header class="Header">
+              <mat-panel-title>
+                  <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
+                    <span>{{hour.subject}}</span>
+                  </span>
+                <span>
+                    <mat-icon [inline]="true" (click)="tryDeletePost(hour, false, false)" class="DeleteIcon">delete</mat-icon>
+                  </span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="PostContent" [innerHtml]="hour.content"></div>
+            <mat-divider class="ContactDivider"></mat-divider>
+            <mat-chip-list class="ChipList">
+              <mat-chip (click)="navigateToCoursePage(hour.uiCourse)">{{hour.uiCourse.name}}</mat-chip>
+            </mat-chip-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <div mat-subheader class="Subheader" *ngIf="userDetails.myCourseReviews.length != 0">Reviews</div>
+        <mat-accordion class="CoursePageAccordion">
+          <mat-expansion-panel *ngFor="let review of userDetails.myCourseReviews" class="CoursePageExpansionPanel" [hideToggle]="true">
+            <mat-expansion-panel-header class="Header">
+              <mat-panel-title>
+                  <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
+                    <span>{{review.subject}}</span>
+                    <span class="SmallStarsContainer">
+                      <mat-icon [inline]="true" class="SmallStar" *ngFor="let i of range(review.rank)">
+                        star
+                      </mat-icon>
+                    </span>
+                  </span>
+                <span>
+                    <mat-icon [inline]="true" (click)="tryDeletePost(review, false, true)" class="DeleteIcon">delete</mat-icon>
+                  </span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="PostContent" [innerHtml]="review.content"></div>
+            <mat-divider class="ContactDivider"></mat-divider>
+            <mat-chip-list class="ChipList">
+              <mat-chip (click)="navigateToCoursePage(review.uiCourse)">{{review.uiCourse.name}}</mat-chip>
+            </mat-chip-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </ng-container>
+    </div>
+    <div class="UserFavorites">
+      <h6 *ngIf="userDetails.favorites.length > 0" class="MobilePostHeader">Favorites</h6>
+      <ng-container *ngIf="userDetails.favorites.length > 0">
+        <mat-list-item class="ListItem" *ngFor="let question of userDetails.favorites">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
+          <div mat-line class="VotesAndAnswers">
+            <div>votes: {{question.upvote.count}}</div>
+            <div>answers: {{question.answers.length}}</div>
+          </div>
+        </mat-list-item>
+      </ng-container>
+    </div>
   </div>
 </div>
