@@ -1,5 +1,11 @@
 @import "~@angular/material/theming";
 
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .userTitle {
   margin: 10px;
   justify-content: center;
@@ -13,6 +19,9 @@
 
 .CardsWrapper {
   display: flex;
+  flex: 1 1 auto;
+  height: 0;
+  overflow: auto;
 } @media (max-width: 800px) {
   .CardsWrapper {
     flex-direction: column;
@@ -198,7 +207,6 @@
 .SmallStar {
   color: mat-color($mat-teal, 400);
   justify-content: center;
-  font-size: 1px;
 }
 
 .DeleteIcon{

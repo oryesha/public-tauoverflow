@@ -15,7 +15,11 @@
       <ng-container *ngIf="isLoaded">
         <mat-list>
           <mat-list-item class="ListItem" *ngFor="let course of coursesToDisplay">
-            <button mat-flat-button mat-line class="mat-h4 CourseName" (click)="navigateToCoursePage(course)">
+            <button mat-flat-button
+                    mat-line
+                    matTooltip="{{course.name}}"
+                    class="mat-h4 CourseName"
+                    (click)="navigateToCoursePage(course)">
               <span class="AllCoursesCourseName">{{course.name}}</span>
               <mat-icon class="CourseIcon AllCoursesIcon">school</mat-icon>
             </button>
@@ -33,18 +37,19 @@
         <mat-list>
           <mat-list-item class="ListItem" *ngFor="let course of myCourses">
             <div mat-line class="CourseHeader">
-              <button mat-flat-button class="mat-h4 MyCoursesCourseName"
+              <button mat-flat-button class="mat-h4 MyCoursesCourseName" matTooltip="{{course.name}}"
                       (click)="navigateToCoursePage(course)">
                 {{course.name}}
-                <mat-icon class="CourseIcon">school</mat-icon>
               </button>
-              <button mat-icon-button class="RemoveFromMyCourses" (click)="removeFromMyCourses(course)">
-                <mat-icon class="CourseIcon RemoveIcon">remove_circle_outline</mat-icon>
-              </button>
+              <div class="IconsContainer">
+                <button mat-icon-button class="RemoveFromMyCourses"
+                        (click)="removeFromMyCourses(course)"
+                        matTooltip="Remove from my courses">
+                  <mat-icon class="CourseIcon RemoveIcon">remove_circle_outline</mat-icon>
+                </button>
+              </div>
             </div>
-            <span mat-line class="CourseNum">
-            <span>{{course.courseNumber}}</span>
-          </span>
+            <span mat-line class="CourseNum">{{course.courseNumber}}</span>
           </mat-list-item>
         </mat-list>
         <button *ngIf="myCourses.length > 0" mat-flat-button class="AddToMyCoursesContainer" (click)="addCourses()">
