@@ -103,18 +103,18 @@ h3.mat-subheader{
 
 .CourseName /deep/ .mat-button-wrapper {
   padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.CourseNum /deep/ span{
+.CourseNum /deep/ span {
   padding-left: 10px;
 }
 
 .CourseIcon {
   flex: 0 0 auto;
-  color: mat-color($mat-gray, 500);
-}
-
-.CourseIcon{
   margin-left: auto;
   color: mat-color($mat-deep-orange, 100);
   font-size: 20px;
@@ -125,7 +125,9 @@ h3.mat-subheader{
 }
 
 .AllCoursesIcon {
-  padding-left: 4px;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
 }
 
 .SearchContainer {
