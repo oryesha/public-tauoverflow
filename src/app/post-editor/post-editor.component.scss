@@ -3,6 +3,12 @@
 $icon-size: 32px;
 $text-box-width: 33%;
 
+:host {
+  flex: 1 1 auto;
+  height: 0;
+  overflow: auto;
+}
+
 .Review {
   margin-bottom: 8px;
 }
