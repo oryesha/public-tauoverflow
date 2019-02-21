@@ -204,8 +204,6 @@ h3.mat-subheader{
   background-color: transparent;
   border: 2px solid mat-color($mat-gray, 600);
   color: mat-color($mat-gray, 600);
-  margin-left: 16px;
-  margin-top: 8px;
   max-width: 400px;
   width: 100%;
   transition-property: background-color;
@@ -216,4 +214,8 @@ h3.mat-subheader{
   background-color: mat-color($mat-deep-orange, 100);
   transition-property: background-color;
   transition-duration: 0.5s;
+}
+
+.ShowMoreButtonContainer {
+  padding: 8px 16px 0;
 }
