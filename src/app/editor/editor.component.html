@@ -7,7 +7,8 @@
     Insert LaTeX equation
     <img src="../../assets/textlogo.png" class="LatexLogo">
   </button>
-  <button mat-flat-button
+  <button *ngIf="isQuestion || isAnswer"
+          mat-flat-button
           class="Button"
           (click)="addImage()">
     Upload image

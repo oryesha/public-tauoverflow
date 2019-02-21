@@ -129,6 +129,8 @@
 
 .Header {
   max-height: 40px;
+  padding-right: 18px;
+  padding-left: 18px;
 }
 
 .QuestionTitle {
@@ -156,6 +158,13 @@
   font-size: 13px;
   margin-top: 8px;
   margin-bottom: 2px;
+  padding-left: 16px;
+  padding-bottom: 8px;
+  padding-top: 6px;
+} @media (max-width: 800px) {
+  .Subheader {
+    //font-size: 20px;
+  }
 }
 
 .ListItem /deep/ .mat-list-text {
@@ -169,7 +178,8 @@
 
 .CoursePageAccordion /deep/ .mat-expansion-panel-body {
   background: mat-color($mat-gray, 200);
-  padding-top: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .CoursePageAccordion .mat-expansion-panel {
@@ -203,3 +213,12 @@
   margin-left: auto;
   color: mat-color($mat-gray, 700);
 }
+
+.PostContent {
+  padding-bottom: 6px;
+}
+
+.ChipList /deep/ .mat-chip-list-wrapper{
+  padding-top: 6px;
+}
+

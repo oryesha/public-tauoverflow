@@ -10,7 +10,7 @@ exports.getAllCourses = async function() {
 
     let coursesToSend = [];
 
-    const courses = await Course.find({});
+    const courses = await Course.find({}).sort({name: 1});
 
     courses.forEach((course) => {
       coursesToSend.push({id: course._id, courseName: course.name,
@@ -24,6 +24,11 @@ exports.getAllCourses = async function() {
 
 
 exports.createCourse = async function(course){
+
+    let isCourseExists = await Course.findOne({courseNumber: course.courseNumber})
+    if (isCourseExists) {
+      return null;
+    }
     let newCourse = new Course({
       name: course.name,
       courseNumber: course.courseNumber,
