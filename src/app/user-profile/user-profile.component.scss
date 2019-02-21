@@ -138,7 +138,8 @@
   font-size: 14px;
   background-color: mat-color($mat-gray, 300);
   color: mat-color($mat-gray, 600);
-  padding: 0px 10px;
+  padding: 0 10px;
+  text-align: left;
 }
 
 .QuestionTitle /deep/ .mat-button-wrapper {
