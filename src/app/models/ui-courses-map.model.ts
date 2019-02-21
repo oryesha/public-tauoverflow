@@ -5,6 +5,15 @@ export interface UiCoursesMap {
   [name: string]: UiCourse;
 }
 
+export interface FacultyToUiCourses {
+  [faculty: string]: UiCourse[];
+}
+
+export interface FacultyToIsSeen {
+  [faculty: string]: boolean;
+}
+
+
 export interface UiCoursesMapNumbers {
   // Maps course number to name.
   [number: string]: string;
