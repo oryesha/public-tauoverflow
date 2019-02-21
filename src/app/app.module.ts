@@ -86,6 +86,7 @@ import {KatexService} from 'ng-katex/src/ng-katex.service';
 import { ChangeHoursEditorComponent } from './change-hours-editor/change-hours-editor.component';
 import {ChangeHoursPostService} from './services/change-hours-post.service';
 import { EditQuestionDialogComponent } from './edit-question-dialog/edit-question-dialog.component';
+import { ResetPasswordDialogComponentComponent } from './reset-password-dialog-component/reset-password-dialog-component.component';
 
 @NgModule({
   declarations: [
@@ -126,6 +127,7 @@ import { EditQuestionDialogComponent } from './edit-question-dialog/edit-questio
     EditorComponent,
     ChangeHoursEditorComponent,
     EditQuestionDialogComponent,
+    ResetPasswordDialogComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -190,6 +192,7 @@ import { EditQuestionDialogComponent } from './edit-question-dialog/edit-questio
     NotificationComponent,
     NotificationSettingsDialogComponent,
     EditQuestionDialogComponent,
+    ResetPasswordDialogComponentComponent,
   ]
 })
 export class AppModule {
