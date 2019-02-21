@@ -8,6 +8,8 @@ import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {DeleteConfirmDialogComponent} from '../delete-confirm-dialog/delete-confirm-dialog.component';
 import {PartnerPostService} from '../services/partner-post.service';
 import {ReviewService} from '../services/review.service';
+import {UiCourse} from '../models/ui-course.model';
+import {CoursesComponent} from '../courses/courses.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -83,5 +85,11 @@ export class UserProfileComponent implements OnInit {
 
   range(rank: number) {
     return Array(rank - (rank % 1));
+  }
+
+  navigateToCoursePage(course: UiCourse) {
+    const courseData = new CoursesComponent.CourseNavigationData(course);
+    this.routingDataService.setRoutingData(course.courseNumber, courseData);
+    this.router.navigate(['/course-page'], { queryParams: { courseId: course.courseNumber } });
   }
 }

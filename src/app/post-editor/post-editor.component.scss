@@ -59,6 +59,10 @@ $text-box-width: 33%;
   font-weight: 500;
   margin-bottom: 4px;
   margin-top: 0px;
+} @media (max-width: 800px) {
+  .PostTitleText {
+    font-size: 18px;
+  }
 }
 
 .PostTitle {
@@ -102,5 +106,11 @@ $text-box-width: 33%;
   .Label /deep/ .mat-form-field-wrapper {
     min-width: 160px;
     padding-bottom: 20px;
+  }
+}
+
+@media (max-width:800px) {
+  .Label /deep/ .mat-form-field-infix{
+    padding-bottom: 0px;
   }
 }
