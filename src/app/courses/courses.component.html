@@ -1,21 +1,19 @@
 <app-nav-bar></app-nav-bar>
-<div class="MainWrapper">
+<div class="MainWrapper" #coursesPageWrapper>
   <mat-tab-group class="CoursesViewTabs">
     <mat-tab label="All Courses">
       <app-spinner *ngIf="!isLoaded"></app-spinner>
       <ng-container *ngIf="isLoaded">
         <mat-list>
-          <mat-list-item class="ListItem" *ngFor="let course of allCourses">
+          <mat-list-item class="ListItem" *ngFor="let course of coursesToDisplay">
             <button mat-flat-button mat-line class="mat-h4 CourseName" (click)="navigateToCoursePage(course)">
               <span class="AllCoursesCourseName">{{course.name}}</span>
               <mat-icon class="CourseIcon AllCoursesIcon">school</mat-icon>
             </button>
-            <span mat-line class="CourseNum">
-            {{course.courseNumber}}
-          </span>
+            <span mat-line class="CourseNum">{{course.courseNumber}}</span>
           </mat-list-item>
-          <mat-divider></mat-divider>
         </mat-list>
+        <button mat-flat-button (click)="showMore()" class="ShowMoreButton">Show more courses...</button>
       </ng-container>
     </mat-tab>
     <mat-tab label="My Courses">
@@ -43,7 +41,8 @@
           <mat-icon class="AddCoursesIcon">playlist_add</mat-icon>
         </button>
         <ng-container *ngIf="isUserCoursesLoaded && myCourses.length == 0">
-          <button mat-flat-button class="AddToMyCoursesContainer" (click)="addCourses()">
+          <button mat-flat-button class="AddToMyCoursesContainer" (click)="addCourses()"
+                  matTooltip="Click to add courses">
             You didn't choose your courses yet...
             <mat-icon class="AddCoursesIcon">playlist_add</mat-icon>
           </button>
@@ -61,3 +60,9 @@
     </app-autocomplete>
   </div>
 </div>
+<button (click)="scrollToTop()"
+        mat-mini-fab
+        class="BackToTopButton"
+        matTooltip="Scroll back to top">
+  <mat-icon>arrow_upward</mat-icon>
+</button>

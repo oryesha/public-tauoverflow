@@ -108,9 +108,20 @@ export class MultiSelectAutocompleteComponent implements OnInit, AfterViewChecke
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.selectableOptions.filter(option => {
-      return option.toLowerCase().includes(filterValue) && !this.allOptions[option];
-    });
+    return this._filterOptions(filterValue);
+  }
+
+  private _filterOptions(filterValue: string) {
+    const ret: string[] = [];
+    for (const option of this.selectableOptions) {
+      if (ret.length >= 20) {
+        return ret;
+      }
+      if (option.toLowerCase().includes(filterValue) && !this.allOptions[option]) {
+        ret.push(option);
+      }
+    }
+    return ret;
   }
 
   private _resetInput() {

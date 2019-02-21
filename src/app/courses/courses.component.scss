@@ -1,5 +1,11 @@
 @import "~@angular/material/theming";
 
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .CourseSearch {
   max-width: 25%;
   padding: 10px;
@@ -133,6 +139,9 @@ h3.mat-subheader{
 .MainWrapper {
   padding: 10px 0;
   position: relative;
+  flex: 1 1 auto;
+  height: 0;
+  overflow: auto;
 }
 
 .AllCoursesCourseName {
@@ -168,4 +177,31 @@ h3.mat-subheader{
 
 .RemoveFromMyCourses {
   flex: 0 0 auto;
+}
+
+.BackToTopButton {
+  background: mat-color($mat-gray, 500);
+  color: mat-color($mat-deep-orange, 100);
+  position: fixed;
+  right: 26px;
+  bottom: 8px;
+  z-index: 1;
+}
+
+.ShowMoreButton {
+  background-color: transparent;
+  border: 2px solid mat-color($mat-gray, 600);
+  color: mat-color($mat-gray, 600);
+  margin-left: 16px;
+  margin-top: 8px;
+  max-width: 400px;
+  width: 100%;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+.ShowMoreButton:hover {
+  background-color: mat-color($mat-deep-orange, 100);
+  transition-property: background-color;
+  transition-duration: 0.5s;
 }
