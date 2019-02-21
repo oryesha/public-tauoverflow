@@ -20,6 +20,10 @@
 
 .AnswersContainer {
   padding: 10px 100px;
+} @media (max-width: 800px) {
+  .AnswersContainer {
+    padding: 10px 0px;
+  }
 }
 
 .AnswersTitle {
@@ -35,6 +39,10 @@
   justify-content: flex-start;
   margin-bottom: 10px;
   margin-left: 20px;
+} @media (max-width: 800px) {
+  .QuestionHeader {
+    margin-bottom: 4px;
+  }
 }
 
 .Button {

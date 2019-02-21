@@ -28,7 +28,6 @@
 
 .EvenPostCard, .OddPostCard {
   color: mat-color($mat-gray, 600);
-  margin-left: 20px;
   align-self: flex-end;
   flex: 1 1 auto;
   width: 0;
@@ -37,11 +36,23 @@
 
 .EvenPostCard {
   background: mat-color($mat-gray, 100);
+  margin-left: 20px;
+} @media (max-width: 800px) {
+  .EvenPostCard {
+    margin-left: 10px;
+  }
 }
+
 
 .OddPostCard {
   background: mat-color($mat-gray, 200);
+  margin-left: 20px;
+} @media (max-width: 800px) {
+  .OddPostCard {
+    margin-left: 10px;
+  }
 }
+
 
 .ButtonsContainer {
   align-items: center;

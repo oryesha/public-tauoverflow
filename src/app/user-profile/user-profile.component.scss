@@ -13,6 +13,10 @@
 
 .CardsWrapper {
   display: flex;
+} @media (max-width: 800px) {
+  .CardsWrapper {
+    flex-direction: column;
+  }
 }
 
 .userCard {
@@ -51,6 +55,13 @@
   background-color: mat-color($mat-gray, 300);
 }
 
+@media (max-width: 800px) {
+  .ProfileDetails {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
 
 .Skills {
   margin-top: 10px;
@@ -69,6 +80,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+} @media (max-width: 800px) {
+  .Page {
+    flex-direction: row;
+  }
 }
 
 .Tabs {

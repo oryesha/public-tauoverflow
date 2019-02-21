@@ -5,11 +5,22 @@
   width: 100%;
 }
 
+.Title {
+} @media (max-width: 800px) {
+  .Title {
+    display: none;
+  }
+}
+
 .NavBar {
   background: mat-color($mat-deep-orange, 200);
   display: flex;
   justify-content: space-between;
   padding: 16px;
+} @media (max-width: 800px) {
+  .NavBar {
+    padding: 8px;
+  }
 }
 
 h1 {
@@ -20,18 +31,31 @@ h1 {
 
 .Icon {
   color: mat-color($mat-deep-orange, 100);
+} @media (max-width: 800px) {
+  .Icon {
+    font-size: 20px;
+  }
 }
 
 .Button {
   color: white;
   letter-spacing: 0.8px;
   margin-left: 8px;
+} @media (max-width: 800px) {
+  .Button {
+    padding: 4px;
+  }
 }
 
 .RaisedButton {
   background: mat-color($mat-gray, 500);
   color: mat-color($mat-gray, 800);
   text-transform: uppercase;
+} @media  (max-width: 800px) {
+  .RaisedButton {
+    padding: 0px 5px;
+    font-size: 12px;
+  }
 }
 
 .Content {
@@ -43,6 +67,10 @@ h1 {
 .LoginField {
   font-size: 11px;
   margin-left: 8px;
+} @media  (max-width: 800px) {
+  .LoginField {
+    max-width: 95px;
+  }
 }
 
 .LoginField /deep/ .mat-form-field-flex {
@@ -70,3 +98,4 @@ h1 {
 .mat-form-field.LoginField /deep/ .mat-form-field-appearance-fill.mat-form-field-infix {
   padding: .1em 0 .6em 0;
 }
+
