@@ -36,8 +36,12 @@ export class AutocompleteComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   appearance = 'fill';
   outlineCss: string;
+  private _isProgramSelection: boolean;
 
   private _isSelectionValid(): boolean {
+    if (this._isProgramSelection) {
+      return this.inputEl.nativeElement.value;
+    }
     return this.displayOptions.indexOf(this.inputEl.nativeElement.value) > -1;
   }
 
@@ -79,8 +83,8 @@ export class AutocompleteComponent implements OnInit {
     if (!this.options || this.options.length === 0) {
       return [];
     }
-    const isProgramSelection = this.options[0] instanceof Program;
-    if (isProgramSelection) {
+    this._isProgramSelection = this.options[0] instanceof Program;
+    if (this._isProgramSelection) {
       return (<Program[]>(this.options)).map((option: Program) => option.name);
     }
     return (<UiCourse[]>(this.options)).map((option: UiCourse) => option.name + ' -- ' + option.courseNumber);

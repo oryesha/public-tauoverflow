@@ -2,6 +2,12 @@
 
 $icon-small-size: 50px;
 
+@media (min-width: 801px) {
+  :host {
+    flex: 0 0 230px;
+  }
+}
+
 .HomeCard {
   align-items: center;
   background-color: mat-color($mat-deep-orange, 100);
@@ -133,4 +139,3 @@ $icon-small-size: 50px;
   margin-bottom: 8px;
   position: relative;
 }
-
