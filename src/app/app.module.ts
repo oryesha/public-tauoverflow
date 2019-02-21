@@ -23,7 +23,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { ClipboardModule } from 'ngx-clipboard';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {KatexComponent, KatexModule} from 'ng-katex';
-
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -152,6 +152,7 @@ import { EditQuestionDialogComponent } from './edit-question-dialog/edit-questio
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatExpansionModule,
+    MatButtonToggleModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
