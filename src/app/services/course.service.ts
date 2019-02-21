@@ -59,4 +59,8 @@ export class CourseService {
   addCourse(uiCourse: UiCourse): Observable<any> {
     return this.httpRequest.post('/courses', new Course(uiCourse));
   }
+
+  public doNothing() {
+    console.log('Courses started loading');
+  }
 }

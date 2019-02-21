@@ -36,8 +36,6 @@ export class AutocompleteComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   appearance = 'fill';
   outlineCss: string;
-  // defaultOptions: string[] = ['Calculus 1b', 'Intro to CS', 'Linear Algebra', 'Discrete Mathematics', 'Complexity',
-  //   'Micro-Economics', 'Funding', 'Statistics'];
 
   private _isSelectionValid(): boolean {
     return this.displayOptions.indexOf(this.inputEl.nativeElement.value) > -1;
@@ -62,8 +60,7 @@ export class AutocompleteComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     const optionsToFilter = this.displayOptions;
-    return optionsToFilter.filter(option => option.toLowerCase().includes(filterValue)
-      && option !== this.selectedOption);
+    return this._filterOptions(optionsToFilter, filterValue);
   }
 
   getSelection(): string {
@@ -87,5 +84,18 @@ export class AutocompleteComponent implements OnInit {
       return (<Program[]>(this.options)).map((option: Program) => option.name);
     }
     return (<UiCourse[]>(this.options)).map((option: UiCourse) => option.name + ' -- ' + option.courseNumber);
+  }
+
+  private _filterOptions(optionsToFilter: string[], filterValue: string) {
+    const ret: string[] = [];
+    for (const option of optionsToFilter) {
+      if (ret.length >= 20) {
+        return ret;
+      }
+      if (option.toLowerCase().includes(filterValue) && option !== this.selectedOption) {
+        ret.push(option);
+      }
+    }
+    return ret;
   }
 }
