@@ -3,7 +3,11 @@
 <div class="questionPage" *ngIf="isLoaded" #questionPageContainer>
   <div class="coursesChips">
     <mat-chip-list>
-      <mat-chip *ngFor="let course of question.relatedCourses" (click)="navigateToCoursePage(course)">{{course.name}}</mat-chip>
+      <mat-chip *ngFor="let course of question.relatedCourses"
+                (click)="navigateToCoursePage(course)"
+                class="SelectedCourseChips">
+        {{course.name}}
+      </mat-chip>
     </mat-chip-list>
   </div>
   <mat-card-content class="QuestionHeader">

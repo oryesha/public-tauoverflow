@@ -82,6 +82,10 @@
   white-space: nowrap;
 }
 
+.ResContent /deep/ font {
+  font-size: 12px !important;
+}
+
 .ResContent /deep/ img {
   display: none;
 }

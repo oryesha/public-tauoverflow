@@ -6,6 +6,7 @@
 }
 
 .Title {
+  flex: 0 0 auto;
 } @media (max-width: 800px) {
   .Title {
     display: none;
@@ -63,9 +64,11 @@ h1 {
   align-items: center;
   display: flex;
   justify-content: flex-end;
+  flex: 1 1 auto;
+  width: 0;
 } @media (max-width: 800px) {
   .Content {
-    //justify-content: space-between;
+    justify-content: space-between;
     width: 100%;
   }
 }
@@ -109,6 +112,10 @@ h1 {
   display: flex;
   flex: 1 1 auto;
   width: 0;
+} @media (min-width: 801px) {
+  .LoginFieldsContainer {
+    justify-content: flex-end;
+  }
 }
 
 .LoginForm {
@@ -119,4 +126,8 @@ h1 {
 
 .LoginButtonContainer {
   flex: 0 0 auto;
+}
+
+.NavBarButtonsContainer {
+  display: flex;
 }
