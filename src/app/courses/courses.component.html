@@ -26,6 +26,19 @@
   </div>
   <mat-tab-group class="CoursesViewTabs">
     <mat-tab label="All Courses">
+      <mat-button-toggle-group [multiple]="true" (change)="filterByFaculties($event)" name="FilterByFaculty" aria-label="Filter Faculty">
+        <mat-button-toggle value="00">All</mat-button-toggle>
+        <mat-button-toggle value="08">Art</mat-button-toggle>
+        <mat-button-toggle value="05">Engineering</mat-button-toggle>
+        <mat-button-toggle value="10">Social Science</mat-button-toggle>
+        <mat-button-toggle value="06">Humanities</mat-button-toggle>
+        <mat-button-toggle value="03">Exact Science</mat-button-toggle>
+        <mat-button-toggle value="04">Life Science</mat-button-toggle>
+        <mat-button-toggle value="14">Law</mat-button-toggle>
+        <mat-button-toggle value="12">Management</mat-button-toggle>
+        <mat-button-toggle value="01">Medicine</mat-button-toggle>
+        <mat-button-toggle value="18">Core</mat-button-toggle>
+      </mat-button-toggle-group>
       <app-spinner *ngIf="!isLoaded"></app-spinner>
       <ng-container *ngIf="isLoaded">
         <mat-list>

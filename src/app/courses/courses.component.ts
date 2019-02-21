@@ -4,10 +4,10 @@ import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
 import {Router} from '@angular/router';
 import {UiCourse} from '../models/ui-course.model';
 import {CourseService} from '../services/course.service';
-import {UiCoursesMap} from '../models/ui-courses-map.model';
+import {FacultyToIsSeen, FacultyToUiCourses, UiCoursesMap} from '../models/ui-courses-map.model';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
-import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
+import {MatButtonToggleChange, MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 
 
@@ -29,7 +29,10 @@ export class CoursesComponent implements OnInit {
 
   isLoaded = false;
   isUserCoursesLoaded = false;
-  allCourses: UiCourse[] = [];
+  shouldPresentAllCourses = true;
+  allFacultiesToCourses: FacultyToUiCourses;
+  facultyToIsSeen: FacultyToIsSeen = {};
+  filteredCourses: UiCourse[] = [];
   coursesToDisplay: UiCourse[] = [];
   myCourses: UiCourse[] = [];
   coursesMap: UiCoursesMap;
@@ -61,11 +64,13 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._initFaculties();
     this.courseService.waitForCourses().then(() => {
       this.coursesMap = this.courseService.getCoursesMap();
-      this.allCourses = this.courseService.getCourses().slice();
+      this.allFacultiesToCourses = this.courseService.getFacultyToCourses();
+      this.filteredCourses = this.courseService.getCourses().slice();
       this.dummyRange.forEach(
-        index => this.coursesToDisplay.push(this.allCourses[index])
+        index => this.coursesToDisplay.push(this.filteredCourses[index])
       );
       this.isLoaded = true;
     });
@@ -132,6 +137,48 @@ export class CoursesComponent implements OnInit {
     });
   }
 
+  private _initFaculties() {
+    this.facultyToIsSeen['00'] = false;
+    this.facultyToIsSeen['08'] = false;
+    this.facultyToIsSeen['05'] = false;
+    this.facultyToIsSeen['04'] = false;
+    this.facultyToIsSeen['06'] = false;
+    this.facultyToIsSeen['03'] = false;
+    this.facultyToIsSeen['01'] = false;
+    this.facultyToIsSeen['14'] = false;
+    this.facultyToIsSeen['18'] = false;
+    this.facultyToIsSeen['10'] = false;
+    this.facultyToIsSeen['12'] = false;
+  }
+
+  private _checkNoFilter(): boolean {
+    for (const key in this.facultyToIsSeen) {
+      if (this.facultyToIsSeen[key]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private filterByFaculties(event: MatButtonToggleChange) {
+    this.filteredCourses = [];
+    this.coursesToDisplay.splice(0, this.coursesToDisplay.length);
+    if (event.value.length === 0 || event.value.indexOf('00') !== -1) {
+      this.filteredCourses = this.courseService.getCourses().slice();
+      // this.coursesToDisplay.push(...this.courseService.getCourses());
+    } else {
+      event.value.forEach((key) => {
+        this.filteredCourses = this.filteredCourses.concat(this.allFacultiesToCourses[key]);
+      });
+    }
+    this.filteredCourses.sort((a, b) => {
+      return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0;
+    });
+    this.dummyRange.forEach((index) => {
+      this.coursesToDisplay.push(this.filteredCourses[index]);
+    });
+  }
+
   private _removeCourseFromMyCourses(courseId: string) {
     this.userService.removeFromMyCourses(this.user, courseId).subscribe(() => {
       this._toast('Course removed successfully');
@@ -142,8 +189,8 @@ export class CoursesComponent implements OnInit {
     const offset = this.coursesToDisplay.length;
     this.dummyRange.forEach(
       index => {
-        if (index + offset < this.allCourses.length) {
-          this.coursesToDisplay.push(this.allCourses[index + offset]);
+        if (index + offset < this.filteredCourses.length) {
+          this.coursesToDisplay.push(this.filteredCourses[index + offset]);
         }
       });
     const len = this.loaded.length;
