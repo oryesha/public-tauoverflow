@@ -75,7 +75,6 @@ exports.removeFromMyCourses = async function(req, res) {
 };
 
 exports.updateUser = async function (req, res) {
-
   if (!req.body.firebaseToken) {
     return res.status(400).json({status: 400., message: "Id must be present"})
   }
@@ -90,6 +89,7 @@ exports.updateUser = async function (req, res) {
     email: req.body.email ? req.body.email : null,
     rank: req.body.rank ? req.body.rank : null,
     image: req.body.image ? req.body.image : null,
+    isNewUser: req.body.isNewUser,
     // asked: req.body.asked ? req.body.asked : null,
     // answered: req.body.answered ? req.body.answered : null,
     description: req.body.description ? req.body.description : null,
@@ -121,6 +121,7 @@ exports.createNewUser = async function (req, res) {
     description: req.body.description,
     skills: req.body.skills,
     notificationSettings: req.body.notificationSettings,
+    isNewUser: req.body.isNewUser,
   };
 
   try {

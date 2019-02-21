@@ -38,7 +38,7 @@ export class UserProfile {
       user.notifyOnMySkills,
     );
     const userProfile = new UserProfile(user.firebaseToken, user.firstName, user.lastName, user.email,
-      false, user._id, user.program, user.rank, user.image,
+      user.isNewUser, user._id, user.program, user.rank, user.image,
       user.myQuestions.length, user.myAnswers.length, user.description, notificationSettings);
     user.skills.forEach((dbSkill) => {
       userProfile.skills.push(new UiCourse(dbSkill._id, dbSkill.name, dbSkill.courseNumber));

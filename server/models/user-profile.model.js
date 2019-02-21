@@ -11,6 +11,7 @@ const UserProfileSchema = new mongoose.Schema({
   image: String,
   // asked: Number,
   // answered: Number,
+  isNewUser: Boolean,
   description: String,
   skills: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
   favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],
