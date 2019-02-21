@@ -1,15 +1,17 @@
 <mat-toolbar class="NavBar">
   <h1 class="Title">TauOverflow</h1>
   <div class="Content" *ngIf="isSignUp">
-    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
-      <mat-form-field appearance="fill" class="LoginField">
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="" required [type]="'email'" formControlName="email">
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="LoginField">
-        <mat-label>Password</mat-label>
-        <input matInput placeholder="" required [type]="'password'" formControlName="password">
-      </mat-form-field>
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" class="LoginForm">
+      <div class="LoginFieldsContainer">
+        <mat-form-field appearance="fill" class="LoginField">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="" required [type]="'email'" formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="LoginField">
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="" required [type]="'password'" formControlName="password">
+        </mat-form-field>
+      </div>
       <button mat-raised-button class="Button RaisedButton" color="primary" type="submit">Log in</button>
     </form>
   </div>

@@ -42,15 +42,14 @@
                 {{course.name}}
               </button>
               <div class="IconsContainer">
-                <button mat-icon-button class="RemoveFromMyCourses" (click)="removeFromMyCourses(course)">
+                <button mat-icon-button class="RemoveFromMyCourses"
+                        (click)="removeFromMyCourses(course)"
+                        matTooltip="Remove from my courses">
                   <mat-icon class="CourseIcon RemoveIcon">remove_circle_outline</mat-icon>
                 </button>
-                <mat-icon class="CourseIcon">school</mat-icon>
               </div>
             </div>
-            <span mat-line class="CourseNum">
-            <span>{{course.courseNumber}}</span>
-          </span>
+            <span mat-line class="CourseNum">{{course.courseNumber}}</span>
           </mat-list-item>
         </mat-list>
         <button *ngIf="myCourses.length > 0" mat-flat-button class="AddToMyCoursesContainer" (click)="addCourses()">

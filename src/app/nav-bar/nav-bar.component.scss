@@ -50,10 +50,11 @@ h1 {
 .RaisedButton {
   background: mat-color($mat-gray, 500);
   color: mat-color($mat-gray, 800);
+  flex: 0 0 auto;
   text-transform: uppercase;
 } @media  (max-width: 800px) {
   .RaisedButton {
-    padding: 0px 5px;
+    padding: 0 5px;
     font-size: 12px;
   }
 }
@@ -62,6 +63,11 @@ h1 {
   align-items: center;
   display: flex;
   justify-content: flex-end;
+} @media (max-width: 800px) {
+  .Content {
+    //justify-content: space-between;
+    width: 100%;
+  }
 }
 
 .LoginField {
@@ -69,7 +75,7 @@ h1 {
   margin-left: 8px;
 } @media  (max-width: 800px) {
   .LoginField {
-    max-width: 95px;
+    max-width: 46%;
   }
 }
 
@@ -99,3 +105,18 @@ h1 {
   padding: .1em 0 .6em 0;
 }
 
+.LoginFieldsContainer {
+  display: flex;
+  flex: 1 1 auto;
+  width: 0;
+}
+
+.LoginForm {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.LoginButtonContainer {
+  flex: 0 0 auto;
+}
