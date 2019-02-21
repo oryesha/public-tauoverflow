@@ -2,6 +2,12 @@
 
 $icon-size: 32px;
 
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .CourseTag {
   color: mat-color($mat-gray, 700);
   background-color: mat-color($mat-gray, 300);

@@ -1,5 +1,11 @@
 @import "~@angular/material/theming";
 
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .StarsContainer {
   display: flex;
 }

@@ -5,7 +5,6 @@ import {SignUpComponent} from './sign-up/sign-up.component';
 import {CoursesComponent} from './courses/courses.component';
 import {QuestionEditorComponent} from './question-editor/question-editor.component';
 import {CoursePageComponent} from './course-page/course-page.component';
-import {SearchResultsComponent} from './search-results/search-results.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
 import {QuestionPageComponent} from './question-page/question-page.component';
 import {FindAPartnerEditorComponent} from './find-a-partner-editor/find-a-partner-editor.component';
@@ -49,12 +48,6 @@ const routes: Routes = [
     component: UserProfileComponent,
     canActivate: [AuthGuard],
     data: {pageTitle: 'User Profile'}
-  },
-  {
-    path: 'search-results',
-    component: SearchResultsComponent,
-    canActivate: [AuthGuard],
-    data: {pageTitle: 'Search Results'}
   },
   {
     path: 'find-a-partner-editor',

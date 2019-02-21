@@ -39,6 +39,7 @@ export class CoursesComponent implements OnInit {
   user: UserProfile;
   loaded: number[] = [1];
   dummyRange = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  tabsContent: Element[] = [];
 
   constructor(private appService: AppService,
               private router: Router,
@@ -197,6 +198,14 @@ export class CoursesComponent implements OnInit {
   }
 
   scrollToTop() {
+    if (window.innerWidth <= 800) {
+      const bodyContent = document.getElementsByClassName('mat-tab-body-content');
+      if (bodyContent) {
+        this.tabsContent.push(bodyContent[0], bodyContent[1]);
+        this.tabsContent.forEach((elem) => elem.scrollTop = 0);
+      }
+      return;
+    }
     if (this.pageWrapper) {
       this.pageWrapper.nativeElement.scrollTop = 0;
     }
