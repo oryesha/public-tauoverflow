@@ -112,6 +112,10 @@ h1 {
   display: flex;
   flex: 1 1 auto;
   width: 0;
+} @media (min-width: 801px) {
+  .LoginFieldsContainer {
+    justify-content: flex-end;
+  }
 }
 
 .LoginForm {

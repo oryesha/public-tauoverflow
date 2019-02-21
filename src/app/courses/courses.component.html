@@ -1,13 +1,28 @@
 <app-nav-bar></app-nav-bar>
 <div class="MainWrapper" #coursesPageWrapper>
   <div class="SearchContainer" *ngIf="isLoaded">
-    <app-autocomplete [isRequired]="false"
-                      [isCourseSearch]="true"
-                      class="AutocompleteCourses"
-                      [options]="allCourses"
-                      (optionSelected)="navigateToCoursePage($event)"
-                      [placeholder]="'Search a course...'">
-    </app-autocomplete>
+    <button mat-icon-button
+            class="ContactUsButton"
+            [matMenuTriggerFor]="contactUsMenu"
+            matTooltip="Can't find a course? Contact us!">
+      <mat-icon class="ContactUsIcon">contact_support</mat-icon>
+    </button>
+    <mat-menu #contactUsMenu="matMenu">
+      <div class="SendUsEmailContainer">
+        <p class="SendUsEmailDescription">Please send us an email with the missing course name and number.</p>
+        <mat-divider></mat-divider>
+        <app-copy-to-clipboard [email]="'tauoverflow@gmail.com'"></app-copy-to-clipboard>
+      </div>
+    </mat-menu>
+    <div class="AutocompleteCoursesContainer">
+      <app-autocomplete [isRequired]="false"
+                        [isCourseSearch]="true"
+                        class="AutocompleteCourses"
+                        [options]="allCourses"
+                        (optionSelected)="navigateToCoursePage($event)"
+                        [placeholder]="'Search a course...'">
+      </app-autocomplete>
+    </div>
   </div>
   <mat-tab-group class="CoursesViewTabs">
     <mat-tab label="All Courses">

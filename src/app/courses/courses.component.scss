@@ -154,10 +154,11 @@ h3.mat-subheader{
 }
 
 .SearchContainer {
+  display: flex;
   position: absolute;
   top: 4px;
   right: 16px;
-  min-width: 300px;
+  min-width: 320px;
   z-index: 10;
 } @media (max-width: 800px) {
   .SearchContainer {
@@ -273,4 +274,29 @@ h3.mat-subheader{
 
 .CourseNum {
   padding-left: 12px !important;
+}
+
+.ContactUsIcon {
+  color: mat-color($mat-gray, 500);
+}
+
+.ContactUsButton {
+  padding-top: 6px;
+} @media (max-width: 800px) {
+  .ContactUsButton {
+    display: none;
+  }
+}
+
+.AutocompleteCoursesContainer {
+  flex: 1 1 auto;
+}
+
+.SendUsEmailDescription {
+  font-size: 14px;
+}
+
+.SendUsEmailContainer {
+  padding: 0 6px;
+  font-size: 14px;
 }
