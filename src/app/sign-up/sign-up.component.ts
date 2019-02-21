@@ -7,6 +7,8 @@ import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
 import * as firebase from 'firebase';
 import {MatSnackBar} from '@angular/material';
+import {CourseService} from '../services/course.service';
+import {ProgramService} from '../services/program.service';
 
 
 @Component({
@@ -40,8 +42,13 @@ export class SignUpComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private snackBar: MatSnackBar,
+    private courseService: CourseService,
+    private programService: ProgramService,
     private routingDataService: AppRoutingDataService
-  ) { }
+  ) {
+    this.courseService.doNothing();
+    this.programService.doNothing();
+  }
 
   tryGoogleLogin() {
     this.authService.doGoogleLogin().then(
@@ -69,7 +76,7 @@ export class SignUpComponent implements OnInit {
           message = 'Invalid Email!';
         }
         if (errCode.includes('weak-password')) {
-          message = 'Password should be at least 6 characters!';
+          message = 'Password must be at least 6 characters!';
         }
         this._promptToast(message);
       });

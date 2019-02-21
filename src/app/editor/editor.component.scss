@@ -39,6 +39,12 @@
   line-height: 27px;
   font-size: 12px;
   margin: 4px 8px 4px 0;
+} @media (max-width: 800px) {
+  .Button {
+    padding-right: 7px;
+    padding-left: 7px;
+    font-size: 11px;
+  }
 }
 
 .Button /deep/ .mat-button-wrapper {
@@ -54,4 +60,8 @@
 
 .PhotoIcon {
   margin-left: 6px;
+} @media (max-width:800px) {
+  .PhotoIcon {
+    margin-left: 3px;
+  }
 }

@@ -4,6 +4,10 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+} @media (max-width: 800px) {
+  .SignUpPage {
+
+  }
 }
 
 .SignUpCard {
@@ -11,6 +15,10 @@
   margin: 24px;
   max-width: 500px;
   width: 100%;
+} @media  (max-width: 800px) {
+  .SignUpCard {
+    max-width: 340px;
+  }
 }
 
 .SignUpHeader {

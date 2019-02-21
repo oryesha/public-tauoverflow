@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AppService} from '../app.service';
 import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
 import {Router} from '@angular/router';
@@ -25,12 +25,17 @@ export class CoursesComponent implements OnInit {
     }
   };
 
+  @ViewChild('coursesPageWrapper') pageWrapper: ElementRef;
+
   isLoaded = false;
   isUserCoursesLoaded = false;
   allCourses: UiCourse[] = [];
+  coursesToDisplay: UiCourse[] = [];
   myCourses: UiCourse[] = [];
   coursesMap: UiCoursesMap;
   user: UserProfile;
+  loaded: number[] = [1];
+  dummyRange = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   constructor(private appService: AppService,
               private router: Router,
@@ -58,7 +63,9 @@ export class CoursesComponent implements OnInit {
     this.courseService.waitForCourses().then(() => {
       this.coursesMap = this.courseService.getCoursesMap();
       this.allCourses = this.courseService.getCourses().slice();
-      this._sortCourses();
+      this.dummyRange.forEach(
+        index => this.coursesToDisplay.push(this.allCourses[index])
+      );
       this.isLoaded = true;
     });
     this.userService.getUser().then((user: UserProfile) => {
@@ -66,14 +73,6 @@ export class CoursesComponent implements OnInit {
       this.myCourses = this.user.myCourses;
       this._sortMyCourses();
       this.isUserCoursesLoaded = true;
-    });
-  }
-
-  private _sortCourses() {
-    this.allCourses.sort((c1, c2) => {
-      if (c1.name > c2.name) { return 1; }
-      if (c1.name < c2.name) { return -1; }
-      return 0;
     });
   }
 
@@ -136,5 +135,23 @@ export class CoursesComponent implements OnInit {
     this.userService.removeFromMyCourses(this.user, courseId).subscribe(() => {
       this._toast('Course removed successfully');
     });
+  }
+
+  showMore() {
+    const offset = this.coursesToDisplay.length;
+    this.dummyRange.forEach(
+      index => {
+        if (index + offset < this.allCourses.length) {
+          this.coursesToDisplay.push(this.allCourses[index + offset]);
+        }
+      });
+    const len = this.loaded.length;
+    this.loaded.push(len + 1);
+  }
+
+  scrollToTop() {
+    if (this.pageWrapper) {
+      this.pageWrapper.nativeElement.scrollTop = 0;
+    }
   }
 }

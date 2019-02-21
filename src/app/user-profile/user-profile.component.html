@@ -1,7 +1,7 @@
 <app-nav-bar></app-nav-bar>
 <app-spinner *ngIf="!isLoaded"></app-spinner>
 <div class="CardsWrapper" *ngIf="isLoaded">
-  <app-profile-details [isProfilePage]="true"
+  <app-profile-details [isProfilePage]="true" class="ProfileDetails"
                        [userToDisplay]="userDetails"></app-profile-details>
   <div class="Page">
     <mat-tab-group class="Tabs">
@@ -43,7 +43,8 @@
               <app-copy-to-clipboard [email]="partner.owner.email"></app-copy-to-clipboard>
             </mat-expansion-panel>
           </mat-accordion>
-          <mat-divider class="CoursePageAccordion" *ngIf="userDetails.myPartnerPosts.length != 0"></mat-divider>
+          <mat-divider class="Divider" *ngIf="userDetails.myPartnerPosts.length != 0 && userDetails.myChangeHoursPosts.length != 0">
+          </mat-divider>
           <div mat-subheader class="Subheader" *ngIf="userDetails.myChangeHoursPosts.length != 0">Change Hours</div>
           <mat-accordion class="CoursePageAccordion">
             <mat-expansion-panel *ngFor="let hour of userDetails.myChangeHoursPosts" class="CoursePageExpansionPanel" [hideToggle]="true">
@@ -62,7 +63,8 @@
               <app-copy-to-clipboard [email]="hour.owner.email"></app-copy-to-clipboard>
             </mat-expansion-panel>
           </mat-accordion>
-          <mat-divider class="Divider" *ngIf="userDetails.myChangeHoursPosts.length != 0"></mat-divider>
+          <mat-divider class="Divider" *ngIf="userDetails.myChangeHoursPosts.length != 0 && userDetails.myCourseReviews.length != 0">
+          </mat-divider>
           <div mat-subheader class="Subheader" *ngIf="userDetails.myCourseReviews.length != 0">Reviews</div>
           <mat-accordion class="CoursePageAccordion">
             <mat-expansion-panel *ngFor="let review of userDetails.myCourseReviews" class="CoursePageExpansionPanel" [hideToggle]="true">

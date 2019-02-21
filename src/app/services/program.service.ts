@@ -27,4 +27,8 @@ export class ProgramService {
       resolve(this._programs);
     });
   }
+
+  public doNothing() {
+    console.log('Loading programs');
+  }
 }
