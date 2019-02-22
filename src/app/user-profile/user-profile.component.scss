@@ -364,6 +364,7 @@
   line-height: 30px;
   max-height: 30px;
   margin-top: 6px;
+  background-color: mat-color($mat-gray, 100);
 }
 
 .UserFavorites {
@@ -379,9 +380,3 @@
   border-top-width: 2px;
 }
 
-.EditProfileMobile {
-  min-width: 340px;
-  background-color: mat-color($mat-gray, 100);
-  margin-top: 10px;
-  margin-bottom: 4px;
-}
