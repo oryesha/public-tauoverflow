@@ -160,10 +160,12 @@ export class SignUpComponent implements OnInit {
     dialogConfig.width = '500px';
     this.dialog.open(ResetPasswordDialogComponentComponent, dialogConfig).afterClosed().subscribe(
       (result: boolean) => {
-        const message = result ? 'Email Successfully Sent!' : 'Problem Occurred - Try Again';
-        this.snackBar.open(message, '', {
-          duration: 2000 // Prompt the toast 2 seconds.
-        });
+        if (result === true || result === false) {
+          const message = result ? 'Email Successfully Sent!' : 'Problem Occurred - Try Again';
+          this.snackBar.open(message, '', {
+            duration: 2000 // Prompt the toast 2 seconds.
+          });
+        }
       });
   }
 }

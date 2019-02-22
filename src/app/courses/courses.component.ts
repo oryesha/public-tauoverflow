@@ -33,6 +33,7 @@ export class CoursesComponent implements OnInit {
   allFacultiesToCourses: FacultyToUiCourses;
   facultyToIsSeen: FacultyToIsSeen = {};
   filteredCourses: UiCourse[] = [];
+  allCourses: UiCourse[] = [];
   coursesToDisplay: UiCourse[] = [];
   myCourses: UiCourse[] = [];
   coursesMap: UiCoursesMap;
@@ -68,6 +69,7 @@ export class CoursesComponent implements OnInit {
     this.courseService.waitForCourses().then(() => {
       this.coursesMap = this.courseService.getCoursesMap();
       this.allFacultiesToCourses = this.courseService.getFacultyToCourses();
+      this.allCourses = this.courseService.getCourses().slice();
       this.filteredCourses = this.courseService.getCourses().slice();
       this.dummyRange.forEach(
         index => this.coursesToDisplay.push(this.filteredCourses[index])
