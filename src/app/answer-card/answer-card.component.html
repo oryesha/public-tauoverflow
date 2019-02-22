@@ -3,7 +3,7 @@
     <app-clickable-profile-picture [isUserOwner]="isUserOwner" [owner]="answer.owner"></app-clickable-profile-picture>
     <div>{{answer.owner.name.first}} {{answer.owner.name.last}}</div>
   </div>
-  <mat-card class="{{isEvenAnswer ? 'EvenPostCard' : 'OddPostCard'}} mat-card">
+  <mat-card class="EvenPostCard mat-card">
     <mat-card-content class="ContentAndDetails">
       <div class="AnswerContent" [innerHtml]="initialContent" #contentContainer>
       </div>
