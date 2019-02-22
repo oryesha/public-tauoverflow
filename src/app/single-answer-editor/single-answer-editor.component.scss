@@ -52,6 +52,10 @@ $icon-size: 32px;
   justify-content: center;
   padding: 10px 0;
   margin-left: 90px;
+} @media (max-width: 800px) {
+  .AnswerEditor {
+    margin-left: 0px;
+  }
 }
 
 .PostTitle {

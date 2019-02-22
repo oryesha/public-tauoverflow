@@ -19,6 +19,12 @@
 .Reviews {
   font-weight: 500;
   text-align: center;
+} @media (max-width: 800px) {
+  .Reviews {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 .page {
@@ -33,14 +39,21 @@
   display: flex;
 } @media (max-width: 800px) {
   .CardsWrapper {
-    flex-direction: column;
+    display: none;
   }
 }
+
 
 .Star {
   color: mat-color($mat-teal, 400);
   justify-content: center;
   margin-bottom: 5px;
+} @media (max-width: 800px) {
+  .Star {
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
+  }
 }
 
 .Button {
@@ -82,6 +95,10 @@
   font-size: 15px;
   font-weight: 500;
   letter-spacing: 0.5px;
+} @media (max-width: 800px) {
+  .CourseNumber {
+    font-size: 18px;
+  }
 }
 
 .CoursePageButton {
@@ -118,6 +135,11 @@
   background-color: mat-color($mat-gray, 300);
   margin-bottom: 5px;
   padding: 10px;
+} @media (max-width: 800px) {
+  .ListItem /deep/ .mat-list-text {
+    margin-right: 14px;
+    margin-left: 14px;
+  }
 }
 
 .CourseReviewNameAndDate {
@@ -166,6 +188,11 @@
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+} @media (max-width: 800px) {
+  .CoursePageAccordion .mat-expansion-panel {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 }
 
 .CourseReviewPanelTitle {
@@ -205,4 +232,111 @@
 
 .ContactDetailsContainer {
   padding-top: 6px;
+}
+
+.MobileCardsWrapper {
+  display: flex;
+  flex-direction: column;
+} @media (min-width: 801px) {
+  .MobileCardsWrapper {
+    display: none;
+  }
+}
+
+.CourseCard {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  flex: 0 0 auto;
+}
+
+.CourseBasicDetails {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+  margin-top: 5px;
+  align-items: center;
+}
+
+.MobileCourseTitle {
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.CourseContactDivider {
+  border-top-width: 2px;
+}
+
+.CourseFullDetails {
+  padding: 10px;
+}
+
+.MobileAddToMyCoursesButton {
+  line-height: 30px;
+  max-height: 30px;
+  margin-top: 6px;
+  background-color: mat-color($mat-gray, 100);
+  width: 100%;
+}
+
+.Title {
+  font-weight: 500;
+}
+
+.Space {
+  width: 4px;
+  height: auto;
+  display: inline-block;
+}
+
+.MobileCoursePageButtonContainer {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.MobileCourseButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.MobileIcon {
+  font-size: 22px;
+  height: 22px;
+  width: 22px;
+  line-height: 22px;
+}
+
+.FeatureIcon {
+  //background: mat-color($mat-deep-orange, 200);
+  background: mat-color($mat-gray, 600);
+  //color: mat-color($mat-gray, 200);
+  margin-bottom: 2px;
+}
+
+.ButtonDescription {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  align-items: center;
+}
+
+.AllCoursePosts {
+  margin-top: 20px;
+  flex: 1 1 auto;
+  height: 0;
+}
+
+.MobilePostHeader{
+  margin-left: 20px;
+}
+
+@media (max-width: 800px){
+ .NameAndDate {
+   max-width: 20%;
+   margin-right: 2px;
+   font-size: 12px;
+ }
 }
