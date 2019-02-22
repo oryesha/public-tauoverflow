@@ -9,6 +9,7 @@ import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {MatButtonToggleChange, MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
+import {DeleteConfirmDialogComponent} from '../delete-confirm-dialog/delete-confirm-dialog.component';
 
 
 @Component({
