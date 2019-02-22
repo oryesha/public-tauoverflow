@@ -12,6 +12,7 @@ const UserProfileSchema = new mongoose.Schema({
   // asked: Number,
   // answered: Number,
   isNewUser: Boolean,
+  isLoggedIn: Boolean,
   description: String,
   skills: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course'}],
   favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],

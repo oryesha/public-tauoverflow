@@ -107,7 +107,10 @@ export class UserService {
   }
 
   unregisterFromNotifications() {
-    this._getOfflineNotifications = true;
-    this.messagingService.unregisterUser();
+    this._currentUser.isLoggedIn = false;
+    this.updateUserDetails(this._currentUser).subscribe(() => {
+      this._getOfflineNotifications = true;
+      this.messagingService.unregisterUser();
+    });
   }
 }

@@ -90,6 +90,7 @@ exports.updateUser = async function (req, res) {
     rank: req.body.rank ? req.body.rank : null,
     image: req.body.image ? req.body.image : null,
     isNewUser: req.body.isNewUser,
+    isLoggedIn: req.body.isLoggedIn,
     // asked: req.body.asked ? req.body.asked : null,
     // answered: req.body.answered ? req.body.answered : null,
     description: req.body.description ? req.body.description : null,
@@ -122,6 +123,7 @@ exports.createNewUser = async function (req, res) {
     skills: req.body.skills,
     notificationSettings: req.body.notificationSettings,
     isNewUser: req.body.isNewUser,
+    isLoggedIn: req.body.isLoggedIn,
   };
 
   try {

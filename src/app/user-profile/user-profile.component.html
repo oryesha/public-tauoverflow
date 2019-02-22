@@ -35,9 +35,12 @@
                       {{partner.subject}}
                     </span>
                   </span>
-                  <span>
-                    <mat-icon [inline]="true" (click)="tryDeletePost(partner, true, false)" class="DeleteIcon">delete</mat-icon>
-                  </span>
+                  <div class="DeleteAndDateContainer">
+                    <button mat-icon-button class="DeleteIconButton" (click)="tryDeletePost(partner, true, false)">
+                      <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                    </button>
+                    <span class="PostTimestamp">{{partner.timestamp | date}}</span>
+                  </div>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="PostContent" [innerHtml]="partner.content"></div>
@@ -58,9 +61,12 @@
                   <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
                     <span class="PostSubject">{{hour.subject}}</span>
                   </span>
-                  <span>
-                    <mat-icon [inline]="true" (click)="tryDeletePost(hour, false, false)" class="DeleteIcon">delete</mat-icon>
-                  </span>
+                  <div class="DeleteAndDateContainer">
+                    <button mat-icon-button class="DeleteIconButton" (click)="tryDeletePost(hour, false, false)">
+                      <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                    </button>
+                    <span class="PostTimestamp">{{hour.timestamp | date}}</span>
+                  </div>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="PostContent" [innerHtml]="hour.content"></div>
@@ -85,9 +91,12 @@
                       </mat-icon>
                     </span>
                   </span>
-                  <span>
-                    <mat-icon [inline]="true" (click)="tryDeletePost(review, false, true)" class="DeleteIcon">delete</mat-icon>
-                  </span>
+                  <div class="DeleteAndDateContainer">
+                    <button mat-icon-button class="DeleteIconButton" (click)="tryDeletePost(review, false, true)">
+                      <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                    </button>
+                    <span class="PostTimestamp">{{review.timestamp | date}}</span>
+                  </div>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="PostContent" [innerHtml]="review.content"></div>
@@ -177,9 +186,12 @@
                       {{partner.subject}}
                     </span>
                   </span>
-                <span>
-                    <mat-icon [inline]="true" (click)="tryDeletePost(partner, true, false)" class="DeleteIcon">delete</mat-icon>
-                  </span>
+                <div class="DeleteAndDateContainer">
+                  <button mat-icon-button class="DeleteIconButton" (click)="tryDeletePost(partner, true, false)">
+                    <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                  </button>
+                  <span class="PostTimestamp">{{partner.timestamp | date}}</span>
+                </div>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="PostContent" [innerHtml]="partner.content"></div>
@@ -197,9 +209,12 @@
                   <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
                     <span>{{hour.subject}}</span>
                   </span>
-                <span>
-                    <mat-icon [inline]="true" (click)="tryDeletePost(hour, false, false)" class="DeleteIcon">delete</mat-icon>
-                  </span>
+                <div class="DeleteAndDateContainer">
+                  <button mat-icon-button class="DeleteIconButton" (click)="tryDeletePost(hour, false, false)">
+                    <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                  </button>
+                  <span class="PostTimestamp">{{hour.timestamp | date}}</span>
+                </div>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="PostContent" [innerHtml]="hour.content"></div>
@@ -222,9 +237,12 @@
                       </mat-icon>
                     </span>
                   </span>
-                <span>
-                    <mat-icon [inline]="true" (click)="tryDeletePost(review, false, true)" class="DeleteIcon">delete</mat-icon>
-                  </span>
+                <div class="DeleteAndDateContainer">
+                  <button mat-icon-button class="DeleteIconButton" (click)="tryDeletePost(review, false, true)">
+                    <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                  </button>
+                  <span class="PostTimestamp">{{review.timestamp | date}}</span>
+                </div>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="PostContent" [innerHtml]="review.content"></div>
