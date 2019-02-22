@@ -132,6 +132,8 @@
   color: mat-color($mat-gray, 600);
   padding: 0 10px;
   text-align: left;
+  flex: 1 1 auto;
+  width: 0;
 }
 
 .QuestionTitle /deep/ .mat-button-wrapper {
@@ -212,6 +214,7 @@
 
 .SmallStarsContainer {
   margin-left: 5px;
+  flex: 0 0 auto;
 }
 
 .SmallStar {
@@ -222,6 +225,7 @@
 .DeleteIcon{
   margin-left: auto;
   color: mat-color($mat-gray, 700);
+  z-index: 1;
 }
 
 .PostContent {
@@ -382,3 +386,16 @@
   border-top-width: 2px;
 }
 
+.PostSubject {
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.QuestionTitle /deep/ .mat-button-wrapper {
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
