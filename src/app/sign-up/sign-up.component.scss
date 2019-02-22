@@ -105,3 +105,19 @@
   display: flex;
   justify-content: center;
 }
+
+.ImgContainer {
+  display: none;
+} @media (max-width: 800px) {
+  .ImgContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0px 10px;
+  }
+}
+
+img.resize {
+  max-width:50%;
+  width: 100%;
+}

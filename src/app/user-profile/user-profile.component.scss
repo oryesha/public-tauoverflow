@@ -24,7 +24,7 @@
   overflow: auto;
 } @media (max-width: 800px) {
   .CardsWrapper {
-    flex-direction: column;
+    display: none;
   }
 }
 
@@ -69,18 +69,6 @@
     padding-left: 14px;
     padding-right: 14px;
   }
-}
-
-
-.Skills {
-  margin-top: 10px;
-  font-weight: 500;
-  font-size: 14px;
-  text-align: left;
-  text-align-all: left;
-  justify-content: left;
-  display: flex;
-  flex-direction: column;
 }
 
 .Page {
@@ -131,6 +119,10 @@
   max-height: 40px;
   padding-right: 18px;
   padding-left: 18px;
+} @media (max-width: 800px) {
+  .Header {
+    padding-right: 4px; ///deep/ .mat-expansion-panel
+  }
 }
 
 .QuestionTitle {
@@ -153,6 +145,11 @@
   font-size: 12px;
   max-width: 16%;
   width: 100%;
+} @media (max-width: 800px) {
+  .VotesAndAnswers {
+    max-width: 20%;
+    margin-right: 2px;
+  }
 }
 
 .Subheader {
@@ -164,13 +161,18 @@
   padding-top: 6px;
 } @media (max-width: 800px) {
   .Subheader {
-    //font-size: 20px;
+    padding-left: 20px;
+    padding-top: 2px;
   }
 }
 
 .ListItem /deep/ .mat-list-text {
   margin-left: 14px;
   border-radius: 6px;
+} @media (max-width: 800px) {
+  .ListItem /deep/ .mat-list-text {
+    margin-right: 14px;
+  }
 }
 
 .Divider {
@@ -187,6 +189,11 @@
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+} @media (max-width: 800px) {
+  .CoursePageAccordion .mat-expansion-panel {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 }
 
 .CoursePageExpansionPanel {
@@ -221,5 +228,155 @@
 
 .ChipList /deep/ .mat-chip-list-wrapper{
   padding-top: 6px;
+}
+
+.MobileCardsWrapper {
+  display: flex;
+  flex-direction: column;
+} @media (min-width: 801px) {
+  .MobileCardsWrapper {
+    display: none;
+  }
+}
+
+
+.UserCard {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+  //background-color: mat-color($mat-deep-orange, 100);
+  //border-bottom-style: groove;
+  flex: 0 0 auto;
+}
+
+.UserBasicDetails {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+.MobileCardProfileImage {
+  height: 105px;
+  width: 105px;
+  padding: 5px;
+  border-radius: 50%;
+  align-self: center;
+}
+
+.Name {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.MobileProgram {
+  font-size: 16px;
+}
+
+.UserFullDetails {
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  flex: 0 0 auto;
+}
+
+.UserRank {
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+}
+
+.Skills {
+  margin-top: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  text-align-all: left;
+  justify-content: left;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.Chip {
+  font-size: 12px;
+  background-color: mat-color($mat-gray, 300);
+  cursor: pointer;
+  min-height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  float: left;
+  display: block;
+  padding: 4px 10px 7px;
+} @media (min-width: 800px) {
+  .Chip {
+    max-width: 160px;
+  }
+}
+
+.RankIcon {
+  font-size: 28px;
+  height: 20px;
+  margin-left: 8px;
+}
+
+.Rank {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 4px;
+}
+
+.Description {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 4px;
+}
+
+.Title {
+  font-weight: 500;
+}
+
+.SkillsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.Space {
+  width: 4px;
+  height: auto;
+  display: inline-block;
+}
+
+.AllUserPosts {
+  margin-top: 20px;
+  flex: 1 1 auto;
+  height: 0;
+}
+
+.MobilePostHeader{
+  margin-left: 20px;
+}
+
+.EditProfileButton {
+  line-height: 30px;
+  max-height: 30px;
+  margin-top: 6px;
+  background-color: mat-color($mat-gray, 100);
+}
+
+.UserFavorites {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.UserPosts {
+  padding-top: 18px;
+}
+
+.UserContactDivider {
+  border-top-width: 2px;
 }
 

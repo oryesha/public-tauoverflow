@@ -186,15 +186,15 @@
 
 .CoursePageAccordion /deep/ .mat-expansion-panel-body {
   background: mat-color($mat-gray, 200);
-  padding-top: 16px;
-}
+  padding-top: 12px;
+  padding-bottom: 12px;}
 
 .EmailIconButton {
   color: mat-color($mat-deep-orange, 200);
 }
 
 .ContactDivider {
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 .DividerContainer {
@@ -204,5 +204,5 @@
 }
 
 .ContactDetailsContainer {
-  padding-top: 2px;
+  padding-top: 6px;
 }
