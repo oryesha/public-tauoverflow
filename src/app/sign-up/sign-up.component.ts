@@ -119,7 +119,10 @@ export class SignUpComponent implements OnInit {
       this._navigateToHomePage(user);
     } else {
       this.userService.getUser(true).then((user: UserProfile) => {
-        this._navigateToHomePage(user);
+        user.isLoggedIn = true;
+        this.userService.updateUserDetails(user).subscribe(() => {
+          this._navigateToHomePage(user);
+        });
       });
     }
   }

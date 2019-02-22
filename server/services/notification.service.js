@@ -59,6 +59,10 @@ function filterUserNotification(notifiedUser, notification) {
 
   let shouldSkipNotification = false;
 
+  if (!notifiedUser.isLoggedIn) {
+    return true;
+  }
+
   if (notification.isAnswer) {
     const isUsersQuestion = notifiedUser.myQuestions.indexOf(notification.questionId) !== -1;
     if (notifiedUser.notifyOnMyQuestions === false && isUsersQuestion) { //question must be in my questions

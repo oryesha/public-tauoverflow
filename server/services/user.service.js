@@ -51,6 +51,7 @@ exports.createNewUser = async function(user){
     rank: 0,
     image: user.image,
     isNewUser: user.isNewUser,
+    isLoggedIn: user.isLoggedIn,
     // asked: 0,
     // answered: 0,
     description: user.description,
@@ -332,6 +333,7 @@ exports.updateUser = async function(user){
   oldUser.image = user.image;
   oldUser.description = user.description;
   oldUser.isNewUser = user.isNewUser;
+  oldUser.isLoggedIn = user.isLoggedIn;
   ServiceHelper.updateList(oldUser.skills, user.skills);
   ServiceHelper.updateList(oldUser.favorites, user.favorites);
   ServiceHelper.updateList(oldUser.myQuestions, user.myQuestions);

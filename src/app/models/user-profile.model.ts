@@ -28,6 +28,7 @@ export class UserProfile {
   myCourseReviews: CourseReview[] = [];
   myCourses: UiCourse[] = [];
   isNewUser = true;
+  isLoggedIn = true;
   notificationSettings: NotificationSettings = new NotificationSettings();
 
   static deserialize(user: any): UserProfile {
@@ -39,7 +40,7 @@ export class UserProfile {
     );
     const userProfile = new UserProfile(user.firebaseToken, user.firstName, user.lastName, user.email,
       user.isNewUser, user._id, user.program, user.rank, user.image,
-      user.myQuestions.length, user.myAnswers.length, user.description, notificationSettings);
+      user.myQuestions.length, user.myAnswers.length, user.description, notificationSettings, user.isLoggedIn);
     user.skills.forEach((dbSkill) => {
       userProfile.skills.push(new UiCourse(dbSkill._id, dbSkill.name, dbSkill.courseNumber));
     });
@@ -72,7 +73,7 @@ export class UserProfile {
   constructor(token: string, firstName: string, lastName: string,
               email: string, isNewUser?: boolean, id?: string, program?: string,
               rank?: number, image?: string, asked?: number, answered?: number,
-              description?: string, notificationSettings?: NotificationSettings) {
+              description?: string, notificationSettings?: NotificationSettings, isLoggedIn?: boolean) {
     this.firebaseToken = token;
     this.name = new Name(firstName, lastName);
     this.email = email;
@@ -86,6 +87,7 @@ export class UserProfile {
       this.asked = asked;
       this.answered = answered;
       this.notificationSettings = notificationSettings;
+      this.isLoggedIn = isLoggedIn;
     }
   }
 
