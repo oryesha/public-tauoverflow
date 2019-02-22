@@ -397,3 +397,40 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
+.DeleteIconButton {
+  z-index: 1;
+}
+
+.CourseDeleteIcon {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+  line-height: 16px !important;
+  color: mat-color($mat-gray, 700);
+}
+
+.DeleteAndDateContainer {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  max-width: 120px;
+  width: 100%;
+  color: mat-color($mat-gray, 600);
+} @media (max-width: 800px) {
+  .DeleteAndDateContainer {
+    max-width: 112px;
+  }
+}
+
+.PostTimestamp {
+  font-size: 12px;
+  max-width: 80px;
+  width: 100%;
+  vertical-align: middle;
+} @media (max-width: 800px) {
+  .PostTimestamp {
+    font-size: 10px;
+    max-width: 72px;
+  }
+}
