@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import {MatDialogRef} from '@angular/material';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-reset-password-dialog-component',
@@ -8,16 +9,19 @@ import {MatDialogRef} from '@angular/material';
   styleUrls: ['./reset-password-dialog-component.component.scss']
 })
 export class ResetPasswordDialogComponentComponent implements OnInit {
-  email: string;
 
   constructor(private dialogRef: MatDialogRef<ResetPasswordDialogComponentComponent>) { }
+
+  EmailForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+  });
 
   ngOnInit() {
   }
 
-  sendMail() {
-    if (this.email) {
-      firebase.auth().sendPasswordResetEmail(this.email).then(() => {
+  sendEmail(value) {
+    if (value.email) {
+      firebase.auth().sendPasswordResetEmail(value.email).then(() => {
         this.dialogRef.close(true);
       }).catch((error) => {
         this.dialogRef.close(false);

@@ -48,7 +48,7 @@
             </button>
             <span mat-line class="NameAndDate">
               <span>{{question.owner.name.first}} {{question.owner.name.last}}</span>
-              <!--<span>{{question.timestamp | date}}</span>-->
+              <span>{{question.timestamp | date}}</span>
             </span>
           </mat-list-item>
         </ng-container>
@@ -74,6 +74,9 @@
                   </span>
                 </mat-panel-title>
                 <mat-panel-description class="CourseReviewNameAndDate">
+                  <span>
+                <mat-icon *ngIf="review.owner.id === user.id" [inline]="true" (click)="tryDelete(review, false, true)" class="DeleteIcon">delete</mat-icon>
+              </span>
                   <span>{{review.owner.name.first}} {{review.owner.name.last}}</span>
                   <span>{{review.timestamp | date}}</span>
                 </mat-panel-description>
@@ -99,6 +102,9 @@
                   </span>
                 </mat-panel-title>
                 <mat-panel-description class="CourseReviewNameAndDate">
+                  <span>
+                <mat-icon *ngIf="partnerPost.owner.id === user.id" [inline]="true" (click)="tryDelete(partnerPost, true, false)" class="DeleteIcon">delete</mat-icon>
+              </span>
                   <span>{{partnerPost.owner.name.first}} {{partnerPost.owner.name.last}}</span>
                   <span>{{partnerPost.timestamp | date}}</span>
                 </mat-panel-description>
@@ -126,6 +132,9 @@
                   </span>
                 </mat-panel-title>
                 <mat-panel-description class="CourseReviewNameAndDate">
+                  <span>
+                <mat-icon *ngIf="changeHoursPost.owner.id === user.id" [inline]="true" (click)="tryDelete(changeHoursPost, false, false)" class="DeleteIcon">delete</mat-icon>
+              </span>
                   <span>{{changeHoursPost.owner.name.first}} {{changeHoursPost.owner.name.last}}</span>
                   <span>{{changeHoursPost.timestamp | date}}</span>
                 </mat-panel-description>
