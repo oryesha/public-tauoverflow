@@ -31,7 +31,7 @@
               <mat-expansion-panel-header class="Header">
                 <mat-panel-title>
                   <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
-                    <span>
+                    <span class="PostSubject">
                       {{partner.subject}}
                     </span>
                   </span>
@@ -56,7 +56,7 @@
               <mat-expansion-panel-header class="Header">
                 <mat-panel-title>
                   <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
-                    <span>{{hour.subject}}</span>
+                    <span class="PostSubject">{{hour.subject}}</span>
                   </span>
                   <span>
                     <mat-icon [inline]="true" (click)="tryDeletePost(hour, false, false)" class="DeleteIcon">delete</mat-icon>
@@ -78,7 +78,7 @@
               <mat-expansion-panel-header class="Header">
                 <mat-panel-title>
                   <span class="CourseReviewSubjectAndRank mat-h4 QuestionTitle">
-                    <span>{{review.subject}}</span>
+                    <span class="PostSubject">{{review.subject}}</span>
                     <span class="SmallStarsContainer">
                       <mat-icon [inline]="true" class="SmallStar" *ngFor="let i of range(review.rank)">
                         star
