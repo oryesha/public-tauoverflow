@@ -43,7 +43,6 @@
   }
 }
 
-
 .Star {
   color: mat-color($mat-teal, 400);
   justify-content: center;
@@ -232,6 +231,16 @@
 
 .ContactDetailsContainer {
   padding-top: 6px;
+}
+
+.NameAndDate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: mat-color($mat-gray, 600);
+  font-size: 12px;
+  flex: 1 1 auto;
+  width: 0;
 }
 
 .MobileCardsWrapper {

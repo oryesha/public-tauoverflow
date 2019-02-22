@@ -10,7 +10,7 @@ const redundantWords = ['so', 'what', 'who', 'why', 'where', 'was', 'were', 'how
   'to', 'it', 'the', 'from', 'in', 'on', 'is', 'she', 'he', 'her', 'his', 'them', 'they', 'this', 'that',
 'are', 'those', 'you', 'me', ' a ', 'at', 'when'];
 
-const redundantSuffix = ['ied' ,'ed', 's', '\'s' , 'ing', 'ies', 'es'];
+const redundantSuffix = ['ied' ,'ed', '\'s', 's' , 'ing', 'ies', 'es'];
 
 getCourseId = async function (ids) {
   let coursesIds = [];
