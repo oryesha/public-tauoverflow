@@ -122,9 +122,9 @@
 
 .CourseReviewNameAndDate {
   display: flex;
-  flex-direction: column;
   flex: 0 0 auto;
-  font-size: 12px;
+  max-width: 160px;
+  width: 100%;
 }
 
 .QuestionTitle {
@@ -135,6 +135,25 @@
   color: mat-color($mat-gray, 600);
   padding: 0 10px;
   text-align: left;
+  flex: 1 1 auto;
+  width: 0;
+}
+
+.PostSubject {
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 500;
+  color: mat-color($mat-gray, 600);
+}
+
+.QuestionTitle /deep/ .mat-button-wrapper {
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .QuestionTitle /deep/ .mat-button-wrapper {
@@ -182,6 +201,7 @@
 
 .SmallStarsContainer {
   margin-left: 5px;
+  flex: 0 0 auto;
 }
 
 .CoursePageAccordion /deep/ .mat-expansion-panel-body {
@@ -213,6 +233,40 @@
   justify-content: center;
   color: mat-color($mat-gray, 600);
   font-size: 12px;
-  flex: 1 1 auto;
-  width: 0;
+  flex: 0 0 auto;
+  max-width: 120px;
+  width: 100%;
+}
+
+.PostNameAndDate {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  justify-content: center;
+  max-width: 120px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.DeleteIconButton {
+  z-index: 1;
+}
+
+.DeleteIconButton+.DummyBox {
+  display: none;
+}
+
+.CourseDeleteIcon {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+  line-height: 16px !important;
+  color: mat-color($mat-gray, 700);
+}
+
+.DummyBox {
+  content: '';
+  height: 40px;
+  width: 40px;
+  flex: 0 0 auto;
 }
