@@ -21,7 +21,6 @@ import {LatexRenderingService} from '../services/latex-rendering.service';
 export class AnswerCardComponent implements OnInit, AfterViewChecked, AfterViewInit {
   @ViewChild('contentContainer') contentContainer: ElementRef;
   @Input() answer: Answer;
-  @Input() isEvenAnswer: boolean;
   @Input() isUserOwner: boolean;
   initialContent = '';
   equations: string[] = [];

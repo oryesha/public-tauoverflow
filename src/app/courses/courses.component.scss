@@ -156,7 +156,7 @@ h3.mat-subheader{
 .SearchContainer {
   display: flex;
   position: absolute;
-  top: 4px;
+  top: 2px;
   right: 16px;
   min-width: 320px;
   z-index: 10;
@@ -166,6 +166,7 @@ h3.mat-subheader{
     right: 0px;
     padding-left: 10px;
     padding-right: 10px;
+    flex: 0 0 auto;
   }
 }
 
@@ -302,14 +303,45 @@ h3.mat-subheader{
 }
 
 .FacultyFilter {
-  font-size: 14px;
-  max-height: 34px;
+  @include mat-elevation(2);
+  border: 1.5px solid mat-color($mat-gray, 300);
+  background: mat-color($mat-gray, 200);
+  font-size: 11px;
+  font-weight: 500;
   align-items: center;
-  margin-left: 4px;
+} @media (max-width: 800px) {
+  .FacultyFilter {
+    font-size: 10px;
+  }
 }
 
 .FacultyFilterTab {
-  padding-left: 4px;
-  padding-right: 4px;
-  //background-color: mat-color($mat-gray, 100);
+  background: transparent !important;
+  color: mat-color($mat-gray, 600) !important;
+  z-index: 100;
+  position: relative;
+}
+
+.FacultyFilterTab+.FacultyFilterTab {
+  border-left: 1.5px solid mat-color($mat-gray, 300) !important;
+}
+
+.FacultyFilterTab.mat-button-toggle-checked {
+  background: mat-color($mat-deep-orange, 100) !important;
+}
+
+.FacultyFilterTab /deep/ .mat-button-toggle-label-content {
+  line-height: 30px;
+  padding: 0 6px !important;
+}
+
+.FacultyFilterContainer {
+  z-index: 100000;
+  padding: 12px 4px 4px;
+  position: relative;
+} @media (max-width: 800px) {
+  .FacultyFilterContainer {
+    width: 100%;
+    overflow: auto;
+  }
 }

@@ -7,7 +7,7 @@ import {CourseService} from '../services/course.service';
 import {FacultyToIsSeen, FacultyToUiCourses, UiCoursesMap} from '../models/ui-courses-map.model';
 import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
-import {MatButtonToggleChange, MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
+import {MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup, MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {FilterDialogComponent} from '../filter-dialog/filter-dialog.component';
 import {DeleteConfirmDialogComponent} from '../delete-confirm-dialog/delete-confirm-dialog.component';
 
@@ -163,15 +163,21 @@ export class CoursesComponent implements OnInit {
     return true;
   }
 
-  private filterByFaculties(event: MatButtonToggleChange) {
+  filterByFaculties(event: MatButtonToggleChange) {
     this.filteredCourses = [];
     this.coursesToDisplay.splice(0, this.coursesToDisplay.length);
-    if (event.value.length === 0 || event.value.indexOf('00') !== -1) {
+    const source = event.source;
+    if (!source || source.value === '00') {
       this.filteredCourses = this.courseService.getCourses().slice();
-      // this.coursesToDisplay.push(...this.courseService.getCourses());
+      if (source) {
+        this._maybeChangeCheckedButtons(source.buttonToggleGroup.selected, true);
+      }
     } else {
+      this._maybeChangeCheckedButtons(source.buttonToggleGroup.selected, false);
       event.value.forEach((key) => {
-        this.filteredCourses = this.filteredCourses.concat(this.allFacultiesToCourses[key]);
+        if (key !== '00') {
+          this.filteredCourses = this.filteredCourses.concat(this.allFacultiesToCourses[key]);
+        }
       });
     }
     this.filteredCourses.sort((a, b) => {
@@ -179,6 +185,16 @@ export class CoursesComponent implements OnInit {
     });
     this.dummyRange.forEach((index) => {
       this.coursesToDisplay.push(this.filteredCourses[index]);
+    });
+  }
+
+  private _maybeChangeCheckedButtons(selected: MatButtonToggle|MatButtonToggle[],
+                                     isAllSelected: boolean) {
+    if (!Array.isArray(selected)) {
+      return;
+    }
+    selected.forEach((faculty: MatButtonToggle) => {
+      faculty.checked = isAllSelected ? faculty.value === '00' : faculty.value !== '00';
     });
   }
 
