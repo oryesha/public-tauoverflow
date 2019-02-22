@@ -40,7 +40,9 @@ export class NavBarComponent implements OnInit  {
   }
 
   logout() {
-    this.authService.doLogout().then( () => this.router.navigate(['']));
+    this.authService.doLogout().then( () => {
+      this.router.navigate(['']);
+    });
   }
 
   resetNotification() {
