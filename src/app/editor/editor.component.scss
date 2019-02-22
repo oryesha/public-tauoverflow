@@ -8,6 +8,11 @@
   background: white;
 }
 
+.PostTextArea /deep/ img {
+  max-width: 500px;
+  max-height: 500px;
+}
+
 .PostTextArea /deep/ .angular-editor-button[title="Clear Formatting"],
 .PostTextArea /deep/ .angular-editor-button[title="Custom Style"],
 .PostTextArea /deep/ .angular-editor-button[title="Insert Image"],
