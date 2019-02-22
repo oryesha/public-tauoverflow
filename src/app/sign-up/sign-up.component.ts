@@ -6,9 +6,11 @@ import {UserService} from '../services/user.service';
 import {UserProfile} from '../models/user-profile.model';
 import {AppRoutingDataService, RoutingData} from '../app-routing-data.service';
 import * as firebase from 'firebase';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {CourseService} from '../services/course.service';
 import {ProgramService} from '../services/program.service';
+import {DeleteConfirmDialogComponent} from '../delete-confirm-dialog/delete-confirm-dialog.component';
+import {ResetPasswordDialogComponentComponent} from '../reset-password-dialog-component/reset-password-dialog-component.component';
 
 
 @Component({
@@ -44,7 +46,8 @@ export class SignUpComponent implements OnInit {
     private snackBar: MatSnackBar,
     private courseService: CourseService,
     private programService: ProgramService,
-    private routingDataService: AppRoutingDataService
+    private routingDataService: AppRoutingDataService,
+    private dialog: MatDialog,
   ) {
     this.courseService.doNothing();
     this.programService.doNothing();
@@ -150,5 +153,17 @@ export class SignUpComponent implements OnInit {
       lastName,
       response.user.email,
       response.additionalUserInfo.isNewUser);
+  }
+
+  private resetPassword() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    this.dialog.open(ResetPasswordDialogComponentComponent, dialogConfig).afterClosed().subscribe(
+      (result: boolean) => {
+        const message = result ? 'Email Successfully Sent!' : 'Problem Occurred - Try Again';
+        this.snackBar.open(message, '', {
+          duration: 2000 // Prompt the toast 2 seconds.
+        });
+      });
   }
 }
