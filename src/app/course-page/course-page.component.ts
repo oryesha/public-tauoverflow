@@ -8,10 +8,13 @@ import {Question, QuestionNavigationData} from '../models/question.model';
 import {PostType} from '../models/post.model';
 import {CourseReview} from '../models/course-review.model';
 import {ClipboardService} from 'ngx-clipboard';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 import {CourseRelatedPost} from '../models/course-related-post.model';
 import {UserProfile} from '../models/user-profile.model';
 import {UserService} from '../services/user.service';
+import {DeleteConfirmDialogComponent} from '../delete-confirm-dialog/delete-confirm-dialog.component';
+import {ReviewService} from '../services/review.service';
+import {PartnerPostService} from '../services/partner-post.service';
 
 class StarsCounter {
   filledStars: number;
@@ -53,7 +56,10 @@ export class CoursePageComponent implements OnInit {
               private route: ActivatedRoute,
               private snackBar: MatSnackBar,
               private userService: UserService,
-              private clipboardService: ClipboardService) {
+              private clipboardService: ClipboardService,
+              private dialog: MatDialog,
+              private reviewService: ReviewService,
+              private partnerPostService: PartnerPostService) {
   }
 
   range(rank: number) {
@@ -148,5 +154,44 @@ export class CoursePageComponent implements OnInit {
 
   private _updateMyCourses() {
     this.userService.updateMyCourses(this.user, this.uiCourse.id).subscribe(() => {});
+  }
+
+  tryDelete(post: any, isPartnerPost: boolean, isReview: boolean) { // if isPartnerPost = false than this is change hour post
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.data = {title: ('Remove ' + (isReview ? 'Review' : 'Post')),
+      text: 'Are you sure you want to delete this ' + (isReview ? 'review' : 'post') +
+        '? It will be no longer exist'};
+    this.dialog.open(DeleteConfirmDialogComponent, dialogConfig).afterClosed().subscribe(
+      (result: boolean) => {
+        if (result) {
+          if (isReview) {
+            this.reviewService.deleteReview(post.id).subscribe();
+            const index = this.course.reviews.indexOf(post, 0);
+            if (index > -1) {
+              this.course.reviews.splice(index, 1);
+            }
+          } else {
+            // delete post
+            this.partnerPostService.deletePartnerPost(post.id, isPartnerPost).subscribe();
+            if (isPartnerPost) {
+              const index = this.course.partnerPosts.indexOf(post, 0);
+              if (index > -1) {
+                this.course.partnerPosts.splice(index, 1);
+              }
+            } else { // changeHourPost
+              const index = this.course.changeHours.indexOf(post, 0);
+              if (index > -1) {
+                this.course.changeHours.splice(index, 1);
+              }
+            }
+          }
+
+          this.snackBar.open('Post Successfully Deleted', '', {
+            duration: 2000 // Prompt the toast 2 seconds.
+          });
+        }
+      }
+    );
   }
 }
