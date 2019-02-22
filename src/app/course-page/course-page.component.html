@@ -105,7 +105,7 @@
               </mat-expansion-panel-header>
               <div [innerHtml]="partnerPost.content"></div>
               <mat-divider class="ContactDivider"></mat-divider>
-              <app-copy-to-clipboard [email]="partnerPost.owner.email"></app-copy-to-clipboard>
+              <app-copy-to-clipboard class="Email" [email]="partnerPost.owner.email"></app-copy-to-clipboard>
             </mat-expansion-panel>
           </mat-accordion>
         </ng-container>
