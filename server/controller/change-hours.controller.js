@@ -16,7 +16,7 @@ exports.createChangeHoursPost = async function(req,res){
     content: req.body.content,
     owner: req.body.owner,
     course: req.body.uiCourse,
-    timestamp: req.body.date,
+    timestamp: req.body.timestamp,
     isLocked: req.body.isLocked
   };
 
