@@ -17,13 +17,17 @@
 }
 
 .Reviews {
-  font-weight: 500;
   text-align: center;
 } @media (max-width: 800px) {
   .Reviews {
     text-align: left;
     display: flex;
     flex-direction: row;
+    font-size: 16px;
+  }
+} @media (min-width: 801px) {
+  .Reviews {
+    font-weight: 500;
   }
 }
 
@@ -136,8 +140,8 @@
   padding: 10px;
 } @media (max-width: 800px) {
   .ListItem /deep/ .mat-list-text {
-    margin-right: 14px;
-    margin-left: 14px;
+    margin-right: 20px;
+    margin-left: 20px;
   }
 }
 
@@ -146,6 +150,12 @@
   flex-direction: column;
   flex: 0 0 auto;
   font-size: 12px;
+} @media (max-width: 800px){
+  .NameAndDate {
+    max-width: 20%;
+    margin-right: 2px;
+    font-size: 12px;
+  }
 }
 
 .QuestionTitle {
@@ -262,14 +272,16 @@
 .CourseBasicDetails {
   display: flex;
   flex-direction: column;
-  margin-left: 15px;
   margin-top: 5px;
   align-items: center;
+  padding-bottom: 10px;
+  padding-top: 5px;
 }
 
 .MobileCourseTitle {
   font-weight: 500;
   font-size: 24px;
+  text-align: center;
 }
 
 .CourseContactDivider {
@@ -277,13 +289,14 @@
 }
 
 .CourseFullDetails {
-  padding: 10px;
+  padding: 10px 10px 0px;
 }
 
 .MobileAddToMyCoursesButton {
   line-height: 30px;
   max-height: 30px;
   margin-top: 6px;
+  margin-bottom: 6px;
   background-color: mat-color($mat-gray, 100);
   width: 100%;
 }
@@ -301,14 +314,16 @@
 .MobileCoursePageButtonContainer {
   display: flex;
   margin-top: 10px;
-  margin-left: 2px;
-  margin-right: 2px;
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 .MobileCourseButton {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1 1 auto;
+  width: 0;
 }
 
 .MobileIcon {
@@ -342,10 +357,8 @@
   margin-left: 20px;
 }
 
-@media (max-width: 800px){
- .NameAndDate {
-   max-width: 20%;
-   margin-right: 2px;
-   font-size: 12px;
- }
+.MobilePostsWrapper {
+  padding-bottom: 18px;
 }
+
+

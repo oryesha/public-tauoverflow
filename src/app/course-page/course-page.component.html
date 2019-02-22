@@ -174,15 +174,15 @@
           <mat-icon class="Star" *ngIf="starsCounter.halfStar">star_half</mat-icon>
           <mat-icon class="Star" *ngFor="let i of range(starsCounter.emptyStars)">star_border</mat-icon>
         </div>
+        <div class="mat-body-2 Reviews">
+          <div class="Title"> Reviews:</div>
+          <div class="Space"></div>
+          {{course.reviews.length}}
+        </div>
       </ng-container>
     </div>
     <mat-divider class="CourseContactDivider"></mat-divider>
-    <div class="CourseFullDetails">
-      <div class="mat-body-2 Reviews">
-        <div class="Title"> Reviews:</div>
-        <div class="Space"></div>
-        {{course.reviews.length}}
-      </div>
+    <div class="CourseFullDetails" *ngIf="courseDataLoaded">
       <button mat-stroked-button *ngIf="!isInMyCourses" class="MobileAddToMyCoursesButton"
               (click)="addToMyCourses(uiCourse.id)">
         Add To My Courses
@@ -218,7 +218,7 @@
           </button>
           <div class="ButtonDescription">
             <div>Add a</div>
-            <div>Course Review</div>
+            <div>Review</div>
           </div>
         </div>
         <div class="MobileCourseButton">
@@ -227,19 +227,16 @@
           </button>
           <div class="ButtonDescription">
             <div>Change</div>
-            <div>Class Hours</div>
+            <div>Hours</div>
           </div>
         </div>
-        <!--<button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('question')">Ask a question</button>
-        <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('review')">Write a review</button>
-        <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('post')">Find a partner</button>
-        <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('hours')">Change class hours</button>-->
       </div>
     </div>
   </div>
   <div class="AllCoursePosts">
     <div class="Questions">
       <ng-container *ngIf="courseDataLoaded && course.questions.length > 0">
+        <div class="MobilePostsWrapper">
         <h6 class="MobilePostHeader">Questions</h6>
         <mat-list-item class="ListItem" *ngFor="let question of course.questions">
           <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="goToQuestion(question)">
@@ -250,8 +247,10 @@
               <div>{{question.timestamp | date}}</div>
           </div>
         </mat-list-item>
+        </div>
       </ng-container>
       <ng-container *ngIf="courseDataLoaded && course.reviews.length > 0">
+        <div class="MobilePostsWrapper">
         <h6 class="MobilePostHeader">Reviews</h6>
         <mat-accordion class="CoursePageAccordion">
           <mat-expansion-panel *ngFor="let review of course.reviews" #expansionPanel
@@ -275,8 +274,10 @@
             <div [innerHtml]="review.content"></div>
           </mat-expansion-panel>
         </mat-accordion>
+        </div>
       </ng-container>
       <ng-container *ngIf="courseDataLoaded && course.partnerPosts.length > 0">
+        <div class="MobilePostsWrapper">
         <h6 class="MobilePostHeader">Partners</h6>
         <mat-accordion class="CoursePageAccordion">
           <mat-expansion-panel *ngFor="let partnerPost of course.partnerPosts"
@@ -297,8 +298,10 @@
             <app-copy-to-clipboard class="Email" [email]="partnerPost.owner.email"></app-copy-to-clipboard>
           </mat-expansion-panel>
         </mat-accordion>
+        </div>
       </ng-container>
       <ng-container *ngIf="courseDataLoaded && course.changeHours.length > 0">
+        <div class="MobilePostsWrapper">
         <h6 class="MobilePostHeader">Change Hours</h6>
         <mat-accordion class="CoursePageAccordion">
           <mat-expansion-panel *ngFor="let changeHoursPost of course.changeHours"
@@ -319,6 +322,7 @@
             <app-copy-to-clipboard [email]="changeHoursPost.owner.email"></app-copy-to-clipboard>
           </mat-expansion-panel>
         </mat-accordion>
+        </div>
       </ng-container>
     </div>
     <app-spinner *ngIf="!initialDataLoaded"></app-spinner>
