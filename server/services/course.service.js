@@ -47,9 +47,10 @@ exports.getCourse = async function(courseNum) {
     const course = await Course.findOne({courseNumber: courseNum})
       .populate({
         path: 'reviews partnerPosts changeHours',
+        options: { sort: {'timestamp': -1}},
         populate: { path: 'owner course' }
       }).populate({
-        path: 'questions',
+        path: 'questions', options: { sort: {'timestamp': -1}},
         populate: { path: 'owner relatedCourses interestedIn answers upvote.upvoters', populate: { path: 'owner upvote.upvoters skills',
           populate: {path: 'skills'}} }
       }).exec();

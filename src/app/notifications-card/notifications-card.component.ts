@@ -30,8 +30,11 @@ export class NotificationsCardComponent implements OnInit {
 
   updateNotifications() {
     this.notificationsHost.viewContainerRef.clear();
-    this.newNotifications = this.messagingService.newNotifications.slice();
-    this.seenNotifications = this.messagingService.seenNotifications.slice();
+    this.newNotifications = this.messagingService.newNotifications.slice().sort(
+      (n1, n2) => n2.timestamp.getTime() - n1.timestamp.getTime());
+    this.seenNotifications = this.messagingService.seenNotifications.slice().sort(
+      (n1, n2) => n2.timestamp.getTime() - n1.timestamp.getTime()
+    );
     this.newNotifications.forEach((notification) => this._addNotificationToCard(notification));
     this.seenNotifications.forEach((notification) => this._addNotificationToCard(notification));
   }
