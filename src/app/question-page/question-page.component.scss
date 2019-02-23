@@ -81,4 +81,9 @@
 .questionPage /deep/ img {
   max-width: 500px;
   max-height: 500px;
+} @media (max-width: 800px) {
+  .questionPage /deep/ img {
+    max-width: 150px;
+    max-height: 150px;
+  }
 }

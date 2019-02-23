@@ -134,11 +134,10 @@ export class MessagingService {
     justSeenNotification.forEach((notification) => {
       notification.isSeen = true;
       this.httpRequest.put('/notifications', notification).subscribe(res => {
-        console.log('Update Succesful');
+        this.seenNotifications.push(notification);
       }, err => {
         console.error('Update Unsuccessful: ' + err);
       });
-      this.seenNotifications.push(notification);
     });
   }
 
@@ -183,6 +182,13 @@ export class MessagingService {
       isAllowed = false;
       return isAllowed;
     }
+
+    if (this.newNotifications.map(notif => notif.id).indexOf(notification.id) !== -1 ||
+        this.seenNotifications.map(notif => notif.id).indexOf(notification.id) !== -1) {
+      isAllowed = false;
+      return isAllowed;
+    }
+
     if (notification.isAnswer) {
       // check if user is the question owner but he doesnt want to receive notifications about his questions
       if (!this.user.notificationSettings.notifyOnMyQuestions) {

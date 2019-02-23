@@ -158,7 +158,7 @@ export class SignUpComponent implements OnInit {
       response.additionalUserInfo.isNewUser);
   }
 
-  private resetPassword() {
+  resetPassword() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
     this.dialog.open(ResetPasswordDialogComponentComponent, dialogConfig).afterClosed().subscribe(
