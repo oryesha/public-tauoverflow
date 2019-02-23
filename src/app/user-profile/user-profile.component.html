@@ -46,7 +46,7 @@
               <div class="PostContent" [innerHtml]="partner.content"></div>
               <mat-divider class="ContactDivider"></mat-divider>
               <mat-chip-list class="ChipList">
-                <mat-chip (click)="navigateToCoursePage(partner.uiCourse)">{{partner.uiCourse.name}}</mat-chip>
+                <mat-chip class="Chip" (click)="navigateToCoursePage(partner.uiCourse)">{{partner.uiCourse.name}}</mat-chip>
               </mat-chip-list>
             </mat-expansion-panel>
           </mat-accordion>
@@ -72,7 +72,7 @@
               <div class="PostContent" [innerHtml]="hour.content"></div>
               <mat-divider class="ContactDivider"></mat-divider>
               <mat-chip-list class="ChipList">
-                <mat-chip (click)="navigateToCoursePage(hour.uiCourse)">{{hour.uiCourse.name}}</mat-chip>
+                <mat-chip class="Chip" (click)="navigateToCoursePage(hour.uiCourse)">{{hour.uiCourse.name}}</mat-chip>
               </mat-chip-list>
             </mat-expansion-panel>
           </mat-accordion>
@@ -102,7 +102,7 @@
               <div class="PostContent" [innerHtml]="review.content"></div>
               <mat-divider class="ContactDivider"></mat-divider>
               <mat-chip-list class="ChipList">
-                <mat-chip (click)="navigateToCoursePage(review.uiCourse)">{{review.uiCourse.name}}</mat-chip>
+                <mat-chip class="Chip" (click)="navigateToCoursePage(review.uiCourse)">{{review.uiCourse.name}}</mat-chip>
               </mat-chip-list>
             </mat-expansion-panel>
           </mat-accordion>
@@ -197,7 +197,7 @@
             <div class="PostContent" [innerHtml]="partner.content"></div>
             <mat-divider class="ContactDivider"></mat-divider>
             <mat-chip-list class="ChipList">
-              <mat-chip (click)="navigateToCoursePage(partner.uiCourse)">{{partner.uiCourse.name}}</mat-chip>
+              <mat-chip class="Chip" (click)="navigateToCoursePage(partner.uiCourse)">{{partner.uiCourse.name}}</mat-chip>
             </mat-chip-list>
           </mat-expansion-panel>
         </mat-accordion>
@@ -220,7 +220,7 @@
             <div class="PostContent" [innerHtml]="hour.content"></div>
             <mat-divider class="ContactDivider"></mat-divider>
             <mat-chip-list class="ChipList">
-              <mat-chip (click)="navigateToCoursePage(hour.uiCourse)">{{hour.uiCourse.name}}</mat-chip>
+              <mat-chip class="Chip" (click)="navigateToCoursePage(hour.uiCourse)">{{hour.uiCourse.name}}</mat-chip>
             </mat-chip-list>
           </mat-expansion-panel>
         </mat-accordion>
@@ -248,7 +248,7 @@
             <div class="PostContent" [innerHtml]="review.content"></div>
             <mat-divider class="ContactDivider"></mat-divider>
             <mat-chip-list class="ChipList">
-              <mat-chip (click)="navigateToCoursePage(review.uiCourse)">{{review.uiCourse.name}}</mat-chip>
+              <mat-chip class="Chip" (click)="navigateToCoursePage(review.uiCourse)">{{review.uiCourse.name}}</mat-chip>
             </mat-chip-list>
           </mat-expansion-panel>
         </mat-accordion>

@@ -12,6 +12,10 @@
   flex: 1 1 auto;
   overflow: auto;
   padding: 10px 20px;
+} @media (max-width: 800px) {
+  .questionPage {
+    padding: 10px 10px;
+  }
 }
 
 .coursesChips {
@@ -42,6 +46,7 @@
 } @media (max-width: 800px) {
   .QuestionHeader {
     margin-bottom: 4px;
+    margin-left: 10px;
   }
 }
 

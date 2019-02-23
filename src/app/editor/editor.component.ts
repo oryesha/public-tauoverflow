@@ -11,8 +11,8 @@ export class EditorComponent implements OnInit, AfterViewInit {
   @ViewChild('angularEditor') editor: AngularEditorComponent;
   @Input() isAnswer: boolean;
   @Input() isQuestion: boolean;
-  @Input() content: string;
-  // content = '';
+  @Input() content = '';
+
   editorConfig: AngularEditorConfig = {
     editable: true,
     height: '15rem',

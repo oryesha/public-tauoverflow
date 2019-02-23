@@ -26,6 +26,7 @@ export class UserProfileComponent implements OnInit {
   isLoaded = false;
   cumulativeLength = 0;
   uiCoursesMap: UiCoursesMap;
+  defaultImage = '../../assets/avatar.png';
 
   constructor(private userService: UserService,
               private partnerPostService: PartnerPostService,

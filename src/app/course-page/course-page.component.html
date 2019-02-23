@@ -13,22 +13,34 @@
             <mat-icon class="Star" *ngIf="starsCounter.halfStar">star_half</mat-icon>
             <mat-icon class="Star" *ngFor="let i of range(starsCounter.emptyStars)">star_border</mat-icon>
           </div>
-          <div class="mat-body-2 Reviews"> Reviews: {{course.reviews.length}} </div>
-          <button mat-flat-button *ngIf="!isInMyCourses" class="AddToMyCoursesButton" (click)="addToMyCourses(uiCourse.id)">
-            Add To My Courses <mat-icon class="AddCourseIcon">add_circle_outline</mat-icon>
+          <div class="mat-body-2 Reviews"> Reviews: {{course.reviews.length}}</div>
+          <button mat-flat-button *ngIf="!isInMyCourses" class="AddToMyCoursesButton"
+                  (click)="addToMyCourses(uiCourse.id)">
+            Add To My Courses
+            <mat-icon class="AddCourseIcon">add_circle_outline</mat-icon>
           </button>
-          <button mat-flat-button *ngIf="isInMyCourses" class="AddToMyCoursesButton" (click)="removeFromMyCourses(uiCourse.id)">
-            Remove From My Courses <mat-icon class="AddCourseIcon">remove_circle_outline</mat-icon>
+          <button mat-flat-button *ngIf="isInMyCourses" class="AddToMyCoursesButton"
+                  (click)="removeFromMyCourses(uiCourse.id)">
+            Remove From My Courses
+            <mat-icon class="AddCourseIcon">remove_circle_outline</mat-icon>
           </button>
           <div class="DividerContainer">
             <mat-divider></mat-divider>
           </div>
         </ng-container>
         <div class="CoursePageButtonContainer">
-          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('question')">Ask a question</button>
-          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('review')">Write a review</button>
-          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('post')">Find a partner</button>
-          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('hours')">Change class hours</button>
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('question')">Ask a
+            question
+          </button>
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('review')">Write a
+            review
+          </button>
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('post')">Find a
+            partner
+          </button>
+          <button mat-raised-button class="CoursePageButton" color="primary" (click)="goToEditor('hours')">Change class
+            hours
+          </button>
         </div>
       </ng-container>
       <app-spinner *ngIf="!initialDataLoaded"></app-spinner>
@@ -159,5 +171,193 @@
         </ng-container>
       </mat-tab>
     </mat-tab-group>
+  </div>
+</div>
+<div class="MobileCardsWrapper">
+  <div class="CourseCard" *ngIf="initialDataLoaded">
+    <div class="CourseBasicDetails">
+      <h4 class="MobileCourseTitle">{{initialDataLoaded ? uiCourse.name : course.uiCourse.name}}</h4>
+      <div class="CourseNumber">
+        {{initialDataLoaded ? uiCourse.courseNumber : course.uiCourse.courseNumber}}
+      </div>
+      <ng-container *ngIf="courseDataLoaded">
+        <div *ngIf="course.rank != undefined" class="Stars">
+          <mat-icon class="Star" *ngFor="let i of range(starsCounter.filledStars)">star</mat-icon>
+          <mat-icon class="Star" *ngIf="starsCounter.halfStar">star_half</mat-icon>
+          <mat-icon class="Star" *ngFor="let i of range(starsCounter.emptyStars)">star_border</mat-icon>
+        </div>
+        <div class="mat-body-2 Reviews">
+          <div class="Title"> Reviews:</div>
+          <div class="Space"></div>
+          {{course.reviews.length}}
+        </div>
+      </ng-container>
+    </div>
+    <mat-divider class="CourseContactDivider"></mat-divider>
+    <div class="CourseFullDetails" *ngIf="courseDataLoaded">
+      <button mat-stroked-button *ngIf="!isInMyCourses" class="MobileAddToMyCoursesButton"
+              (click)="addToMyCourses(uiCourse.id)">
+        Add To My Courses
+        <mat-icon class="AddCourseIcon">add_circle_outline</mat-icon>
+      </button>
+      <button mat-stroked-button *ngIf="isInMyCourses" class="MobileAddToMyCoursesButton"
+              (click)="removeFromMyCourses(uiCourse.id)">
+        Remove From My Courses
+        <mat-icon class="AddCourseIcon">remove_circle_outline</mat-icon>
+      </button>
+      <div class="MobileCoursePageButtonContainer">
+        <div class="MobileCourseButton">
+          <button mat-mini-fab class="FeatureIcon" (click)="goToEditor('question')">
+            <mat-icon class="MobileIcon">live_help</mat-icon>
+          </button>
+          <div class="ButtonDescription">
+            <div>Ask a</div>
+            <div>Question</div>
+          </div>
+        </div>
+        <div class="MobileCourseButton">
+          <button mat-mini-fab class="FeatureIcon" (click)="goToEditor('post')">
+            <mat-icon class="MobileIcon">people</mat-icon>
+          </button>
+          <div class="ButtonDescription">
+            <div>Find a</div>
+            <div>Partner</div>
+          </div>
+        </div>
+        <div class="MobileCourseButton">
+          <button mat-mini-fab class="FeatureIcon" (click)="goToEditor('review')">
+            <mat-icon class="MobileIcon">rate_review</mat-icon>
+          </button>
+          <div class="ButtonDescription">
+            <div>Add a</div>
+            <div>Review</div>
+          </div>
+        </div>
+        <div class="MobileCourseButton">
+          <button mat-mini-fab class="FeatureIcon" (click)="goToEditor('hours')">
+            <mat-icon class="MobileIcon">access_time</mat-icon>
+          </button>
+          <div class="ButtonDescription">
+            <div>Change</div>
+            <div>Hours</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="AllCoursePosts">
+    <div class="Questions">
+      <ng-container *ngIf="courseDataLoaded && course.questions.length > 0">
+        <div class="MobilePostsWrapper">
+        <h6 class="MobilePostHeader">Questions</h6>
+        <mat-list-item class="ListItem" *ngFor="let question of course.questions">
+          <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="goToQuestion(question)">
+            {{question.subject}}
+          </button>
+          <div mat-line class="NameAndDate">
+              <div>{{question.owner.name.first}} {{question.owner.name.last}}</div>
+              <div>{{question.timestamp | date}}</div>
+          </div>
+        </mat-list-item>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="courseDataLoaded && course.reviews.length > 0">
+        <div class="MobilePostsWrapper">
+        <h6 class="MobilePostHeader">Reviews</h6>
+        <mat-accordion class="CoursePageAccordion">
+          <mat-expansion-panel *ngFor="let review of course.reviews" #expansionPanel
+                               class="CoursePageExpansionPanel" [hideToggle]="true">
+            <mat-expansion-panel-header class="Header">
+              <mat-panel-title>
+                  <span class="CourseReviewSubjectAndRank">
+                    <span class="PostSubject">{{review.subject}}</span>
+                    <span class="SmallStarsContainer">
+                      <mat-icon [inline]="true" class="SmallStar" *ngFor="let i of range(review.rank)">
+                        star
+                      </mat-icon>
+                    </span>
+                  </span>
+              </mat-panel-title>
+              <mat-panel-description class="CourseReviewNameAndDate">
+                <button mat-icon-button class="DeleteIconButton" (click)="tryDelete(review, false, true)"
+                        *ngIf="review.owner.id === user.id">
+                  <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                </button>
+                <div class="DummyBox" *ngIf="review.owner.id !== user.id"></div>
+                <div class="PostNameAndDate">
+                  <span>{{review.owner.name.first}} {{review.owner.name.last}}</span>
+                  <span>{{review.timestamp | date}}</span>
+                </div>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div [innerHtml]="review.content"></div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="courseDataLoaded && course.partnerPosts.length > 0">
+        <div class="MobilePostsWrapper">
+        <h6 class="MobilePostHeader">Partners</h6>
+        <mat-accordion class="CoursePageAccordion">
+          <mat-expansion-panel *ngFor="let partnerPost of course.partnerPosts"
+                               class="CoursePageExpansionPanel" [hideToggle]="true">
+            <mat-expansion-panel-header class="Header">
+              <mat-panel-title>
+                  <span class="CourseReviewSubjectAndRank">
+                    <span class="PostSubject">{{partnerPost.subject}}</span>
+                  </span>
+              </mat-panel-title>
+              <mat-panel-description class="CourseReviewNameAndDate">
+                <button mat-icon-button class="DeleteIconButton" (click)="tryDelete(partnerPost, true, false)"
+                        *ngIf="partnerPost.owner.id === user.id">
+                  <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                </button>
+                <div class="DummyBox" *ngIf="partnerPost.owner.id !== user.id"></div>
+                <div class="PostNameAndDate">
+                  <span>{{partnerPost.owner.name.first}} {{partnerPost.owner.name.last}}</span>
+                  <span>{{partnerPost.timestamp | date}}</span>
+                </div>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div [innerHtml]="partnerPost.content"></div>
+            <mat-divider class="ContactDivider"></mat-divider>
+            <app-copy-to-clipboard class="Email" [email]="partnerPost.owner.email"></app-copy-to-clipboard>
+          </mat-expansion-panel>
+        </mat-accordion>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="courseDataLoaded && course.changeHours.length > 0">
+        <div class="MobilePostsWrapper">
+        <h6 class="MobilePostHeader">Change Hours</h6>
+        <mat-accordion class="CoursePageAccordion">
+          <mat-expansion-panel *ngFor="let changeHoursPost of course.changeHours"
+                               class="CoursePageExpansionPanel" [hideToggle]="true">
+            <mat-expansion-panel-header class="Header">
+              <mat-panel-title>
+                  <span class="CourseReviewSubjectAndRank">
+                    <span class="PostSubject">{{changeHoursPost.subject}}</span>
+                  </span>
+              </mat-panel-title>
+              <mat-panel-description class="CourseReviewNameAndDate">
+                <button mat-icon-button class="DeleteIconButton" (click)="tryDelete(changeHoursPost, false, false)"
+                        *ngIf="changeHoursPost.owner.id === user.id">
+                  <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                </button>
+                <div class="DummyBox" *ngIf="changeHoursPost.owner.id !== user.id"></div>
+                <div class="PostNameAndDate">
+                  <span>{{changeHoursPost.owner.name.first}} {{changeHoursPost.owner.name.last}}</span>
+                  <span>{{changeHoursPost.timestamp | date}}</span>
+                </div>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div [innerHtml]="changeHoursPost.content"></div>
+            <mat-divider class="ContactDivider"></mat-divider>
+            <app-copy-to-clipboard [email]="changeHoursPost.owner.email"></app-copy-to-clipboard>
+          </mat-expansion-panel>
+        </mat-accordion>
+        </div>
+      </ng-container>
+    </div>
+    <app-spinner *ngIf="!initialDataLoaded"></app-spinner>
   </div>
 </div>
