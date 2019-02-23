@@ -14,8 +14,8 @@
             <button mat-flat-button mat-line class="mat-h4 QuestionTitle"
                     (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
             <span mat-line class="VotesAndAnswers">
-              <span>votes: {{question.upvote.count}}</span>
-              <span>answers: {{question.answers.length}}</span>
+              <span>Votes: {{question.upvote.count}}</span>
+              <span>Answers: {{question.answers.length}}</span>
             </span>
           </mat-list-item>
         </ng-container>
@@ -116,8 +116,8 @@
           <mat-list-item class="ListItem" *ngFor="let question of userDetails.favorites">
             <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
             <span mat-line class="VotesAndAnswers">
-            <span>votes: {{question.upvote.count}}</span>
-            <span>answers: {{question.answers.length}}</span>
+            <span>Votes: {{question.upvote.count}}</span>
+            <span>Answers: {{question.answers.length}}</span>
           </span>
           </mat-list-item>
         </ng-container>
@@ -166,8 +166,8 @@
           <button mat-flat-button mat-line class="mat-h4 QuestionTitle"
                   (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
           <div mat-line class="VotesAndAnswers">
-            <div>votes: {{question.upvote.count}}</div>
-            <div>answers: {{question.answers.length}}</div>
+            <div>Votes: {{question.upvote.count}}</div>
+            <div>Answers: {{question.answers.length}}</div>
           </div>
         </mat-list-item>
       </ng-container>
@@ -260,8 +260,8 @@
         <mat-list-item class="ListItem" *ngFor="let question of userDetails.favorites">
           <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
           <div mat-line class="VotesAndAnswers">
-            <div>votes: {{question.upvote.count}}</div>
-            <div>answers: {{question.answers.length}}</div>
+            <div>Votes: {{question.upvote.count}}</div>
+            <div>Answers: {{question.answers.length}}</div>
           </div>
         </mat-list-item>
       </ng-container>
