@@ -78,3 +78,15 @@ exports.removeQuestion = async function (req, res) {
   }
 };
 
+exports.getInterestedUsers = async function(req, res) {
+  const questionId = req.query.id;
+
+  try{
+    const users = await QuestionService.getInterestedUsers(questionId);
+    return res.status(200).json({status: 200, data: users, message: "received all users marked question as favorite"});
+  }catch(e){
+    return res.status(400).json({status: 400, message: e.message});
+  }
+}
+
+
