@@ -267,10 +267,10 @@
         <mat-accordion class="CoursePageAccordion">
           <mat-expansion-panel *ngFor="let review of course.reviews" #expansionPanel
                                class="CoursePageExpansionPanel" [hideToggle]="true">
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="Header">
               <mat-panel-title>
                   <span class="CourseReviewSubjectAndRank">
-                    <span>{{review.subject}}</span>
+                    <span class="PostSubject">{{review.subject}}</span>
                     <span class="SmallStarsContainer">
                       <mat-icon [inline]="true" class="SmallStar" *ngFor="let i of range(review.rank)">
                         star
@@ -279,8 +279,15 @@
                   </span>
               </mat-panel-title>
               <mat-panel-description class="CourseReviewNameAndDate">
-                <span>{{review.owner.name.first}} {{review.owner.name.last}}</span>
-                <span>{{review.timestamp | date}}</span>
+                <button mat-icon-button class="DeleteIconButton" (click)="tryDelete(review, false, true)"
+                        *ngIf="review.owner.id === user.id">
+                  <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                </button>
+                <div class="DummyBox" *ngIf="review.owner.id !== user.id"></div>
+                <div class="PostNameAndDate">
+                  <span>{{review.owner.name.first}} {{review.owner.name.last}}</span>
+                  <span>{{review.timestamp | date}}</span>
+                </div>
               </mat-panel-description>
             </mat-expansion-panel-header>
             <div [innerHtml]="review.content"></div>
@@ -294,15 +301,22 @@
         <mat-accordion class="CoursePageAccordion">
           <mat-expansion-panel *ngFor="let partnerPost of course.partnerPosts"
                                class="CoursePageExpansionPanel" [hideToggle]="true">
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="Header">
               <mat-panel-title>
                   <span class="CourseReviewSubjectAndRank">
-                    <span>{{partnerPost.subject}}</span>
+                    <span class="PostSubject">{{partnerPost.subject}}</span>
                   </span>
               </mat-panel-title>
               <mat-panel-description class="CourseReviewNameAndDate">
-                <span>{{partnerPost.owner.name.first}} {{partnerPost.owner.name.last}}</span>
-                <span>{{partnerPost.timestamp | date}}</span>
+                <button mat-icon-button class="DeleteIconButton" (click)="tryDelete(partnerPost, true, false)"
+                        *ngIf="partnerPost.owner.id === user.id">
+                  <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                </button>
+                <div class="DummyBox" *ngIf="partnerPost.owner.id !== user.id"></div>
+                <div class="PostNameAndDate">
+                  <span>{{partnerPost.owner.name.first}} {{partnerPost.owner.name.last}}</span>
+                  <span>{{partnerPost.timestamp | date}}</span>
+                </div>
               </mat-panel-description>
             </mat-expansion-panel-header>
             <div [innerHtml]="partnerPost.content"></div>
@@ -318,15 +332,22 @@
         <mat-accordion class="CoursePageAccordion">
           <mat-expansion-panel *ngFor="let changeHoursPost of course.changeHours"
                                class="CoursePageExpansionPanel" [hideToggle]="true">
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="Header">
               <mat-panel-title>
                   <span class="CourseReviewSubjectAndRank">
-                    <span>{{changeHoursPost.subject}}</span>
+                    <span class="PostSubject">{{changeHoursPost.subject}}</span>
                   </span>
               </mat-panel-title>
               <mat-panel-description class="CourseReviewNameAndDate">
-                <span>{{changeHoursPost.owner.name.first}} {{changeHoursPost.owner.name.last}}</span>
-                <span>{{changeHoursPost.timestamp | date}}</span>
+                <button mat-icon-button class="DeleteIconButton" (click)="tryDelete(changeHoursPost, false, false)"
+                        *ngIf="changeHoursPost.owner.id === user.id">
+                  <mat-icon class="CourseDeleteIcon">delete</mat-icon>
+                </button>
+                <div class="DummyBox" *ngIf="changeHoursPost.owner.id !== user.id"></div>
+                <div class="PostNameAndDate">
+                  <span>{{changeHoursPost.owner.name.first}} {{changeHoursPost.owner.name.last}}</span>
+                  <span>{{changeHoursPost.timestamp | date}}</span>
+                </div>
               </mat-panel-description>
             </mat-expansion-panel-header>
             <div [innerHtml]="changeHoursPost.content"></div>
