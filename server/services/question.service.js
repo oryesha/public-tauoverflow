@@ -18,8 +18,8 @@ exports.getQuestion = async function(id) {
   try {
     const question = await Question.findById(id)
       .populate({
-        path: 'owner relatedCourses answers',
-        populate: {path: 'owner skills',
+        path: 'owner relatedCourses answers interestedIn',
+        populate: {path: 'owner skills upvote.upvoters',
           populate: {path: 'skills'}}}).exec();
     return question;
   }

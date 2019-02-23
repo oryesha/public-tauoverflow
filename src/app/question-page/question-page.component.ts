@@ -108,9 +108,11 @@ export class QuestionPageComponent implements OnInit {
       // send notification to whoever marked the question as favorite
       if (this.question.interestedIn) {
         this.question.interestedIn.forEach((userToken) => {
-          this.messagingService.sendMessage(userToken, this.user.firebaseToken,
-            this.question.subject, this.user.name.first + ' ' + this.user.name.last,
-            this.question.id, true);
+          if (userToken) {
+            this.messagingService.sendMessage(userToken, this.user.firebaseToken,
+              this.question.subject, this.user.name.first + ' ' + this.user.name.last,
+              this.question.id, true);
+          }
         });
       }
     });
