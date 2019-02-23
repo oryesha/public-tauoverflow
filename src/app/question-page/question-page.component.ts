@@ -106,15 +106,19 @@ export class QuestionPageComponent implements OnInit {
         this.question.id, true);
 
       // send notification to whoever marked the question as favorite
-      if (this.question.interestedIn) {
-        this.question.interestedIn.forEach((userToken) => {
-          if (userToken) {
-            this.messagingService.sendMessage(userToken, this.user.firebaseToken,
-              this.question.subject, this.user.name.first + ' ' + this.user.name.last,
-              this.question.id, true);
+      this.questionService.getInterestedUsers(this.question.id)
+        .subscribe((users) => {
+          const interestedIn = users;
+          if (interestedIn) {
+            interestedIn.forEach((userToken) => {
+              if (userToken) {
+                this.messagingService.sendMessage(userToken, this.user.firebaseToken,
+                  this.question.subject, this.user.name.first + ' ' + this.user.name.last,
+                  this.question.id, true);
+              }
+            });
           }
         });
-      }
     });
   }
 

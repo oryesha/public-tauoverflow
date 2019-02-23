@@ -113,4 +113,26 @@ exports.deleteQuestion = async function(id){
     }
 };
 
+exports.getInterestedUsers = async function(questionId) {
+  try {
+
+    const res = [];
+
+    const question = await Question.findById(questionId).populate('interestedIn').exec();
+
+      if(question.interestedIn) {
+        question.interestedIn.forEach((user) => {
+          if (res.indexOf(user.firebaseToken) === -1) {
+            res.push(user.firebaseToken);
+          }
+        });
+      }
+
+    return res;
+  }
+  catch (e) {
+    throw Error('Error while fetching skilled users from question: ' + questionId);
+  }
+};
+
 

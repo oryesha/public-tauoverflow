@@ -1,7 +1,7 @@
 import {Question} from '../models/question.model';
 import { Observable } from 'rxjs';
 import {Injectable} from '@angular/core';
-import {HttpRequestsService} from './http-requests.service';
+import {HttpRequestsService, QueryParams} from './http-requests.service';
 import {UserProfile} from '../models/user-profile.model';
 
 @Injectable()
@@ -53,5 +53,10 @@ export class QuestionService {
 
   getQuestion(id: string): Observable<any> {
     return this.httpRequest.get('/questions', [], [id]);
+  }
+
+  getInterestedUsers(questionId: string) {
+    const queryParams = new QueryParams('id', questionId);
+    return this.httpRequest.get('/questions/interested-users', [queryParams]);
   }
 }
