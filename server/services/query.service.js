@@ -123,6 +123,6 @@ tryGetSearchResults = async function(queryRegex) {
       {subject: {$regex: queryRegex, $options: 'si'}},
       {content: {$regex: queryRegex, $options: 'si'}}
     ]
-  }).populate([{ path: 'relatedCourses owner answers' ,
-    populate: { path: 'skills owner' , populate: {path: 'skills'}}}]);
+  }).populate([{ path: 'relatedCourses owner answers interestedIn' ,
+    populate: { path: 'skills owner upvote.upvoters' , populate: {path: 'skills'}}}]);
 };

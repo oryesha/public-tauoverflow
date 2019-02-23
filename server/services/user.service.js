@@ -22,12 +22,11 @@ exports.getUser = async function(userToken) {
         path: 'myPartnerPosts myCourseReviews myChangeHoursPosts',
         populate: { path: 'owner course' }
       }).populate({
-        path: 'skills myCourses',
-        populate: {path: 'questions reviews partnerPosts changeHours'}
+        path: 'skills myCourses'
       }).populate({
         path: 'favorites myQuestions myAnswers',
         populate: {
-          path: 'owner relatedCourses answers upvote.upvoters',
+          path: 'owner relatedCourses interestedIn answers upvote.upvoters',
           populate: { path: 'owner upvote.upvoters skills', populate: { path: 'skills' }}
         }
       }).exec();
