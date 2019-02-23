@@ -17,6 +17,12 @@ exports.addNotification = async function(notification){
     return null;
   }
 
+  let isLoggedOff = false;
+
+  if (!notifiedUser.isLoggedIn) {
+    isLoggedOff = true;
+  }
+
   let newNotification = new Notification({
     toNotify: notification.toNotify,
     subject: notification.subject,
@@ -29,7 +35,7 @@ exports.addNotification = async function(notification){
 
   try{
     let savedNotification = await newNotification.save();
-    return savedNotification;
+    return isLoggedOff ? null : savedNotification;
   }catch(e){
     throw Error("Error while adding notification")
   }
@@ -58,10 +64,6 @@ exports.updateNotification = async function(id, isSeen){
 function filterUserNotification(notifiedUser, notification) {
 
   let shouldSkipNotification = false;
-
-  if (!notifiedUser.isLoggedIn) {
-    return true;
-  }
 
   if (notification.isAnswer) {
     const isUsersQuestion = notifiedUser.myQuestions.indexOf(notification.questionId) !== -1;
