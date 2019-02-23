@@ -96,7 +96,7 @@ exports.updateFavorites = async function(userId, questionId) {
     if (index === -1) {
       question.interestedIn.push(user._id);
     } else {
-      question.splice(index, 1);
+      question.interestedIn.splice(index, 1);
     }
     question.save();
   }
