@@ -149,7 +149,7 @@ export class MessagingService {
       return;
     }
     const url = 'https://fcm.googleapis.com/fcm/send';
-    this.angularFireDB.object('/fcmTokens/').valueChanges()
+    this.angularFireDB.object('/fcmTokens/').valueChanges().pipe(take(1))
       .subscribe((list) => {
         const questionOwnerToken = list[receiverFbToken];
         const headers = new HttpHeaders().set('Authorization', 'key=AAAAc9A8WeQ:APA91bEs459-ePMYaPJjllo7HtqDguA2Og' +
