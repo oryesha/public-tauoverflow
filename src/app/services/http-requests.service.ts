@@ -16,6 +16,7 @@ export class QueryParams {
 @Injectable()
 export class HttpRequestsService {
 
+  // private _baseUrl = 'https://d120xvpgqcrvir.cloudfront.net/api';
   private _baseUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) {

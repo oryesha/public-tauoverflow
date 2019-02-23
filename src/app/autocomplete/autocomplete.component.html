@@ -2,7 +2,9 @@
   <input type="text" placeholder="{{placeholder}}" aria-label="Number" matInput [formControl]="myControl"
          [matAutocomplete]="auto" [required]="isRequired" #input>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="emitOption($event)">
-    <mat-option class="Option" *ngFor="let option of filteredOptions | async" [value]="option">
+    <mat-option class="Option"
+                *ngFor="let option of filteredOptions | async"
+                [value]="option" matTooltip="{{option}}">
       {{option}}
     </mat-option>
   </mat-autocomplete>

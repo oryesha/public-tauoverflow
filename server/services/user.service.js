@@ -20,11 +20,13 @@ exports.getUser = async function(userToken) {
     const user =  await User.findOne({firebaseToken: userToken})
       .populate({
         path: 'myPartnerPosts myCourseReviews myChangeHoursPosts',
+        options: { sort: {'timestamp': -1}},
         populate: { path: 'owner course' }
       }).populate({
         path: 'skills myCourses'
       }).populate({
         path: 'favorites myQuestions myAnswers',
+        options: { sort: {'timestamp': -1}},
         populate: {
           path: 'owner relatedCourses interestedIn answers upvote.upvoters',
           populate: { path: 'owner upvote.upvoters skills', populate: { path: 'skills' }}

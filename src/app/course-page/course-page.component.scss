@@ -17,8 +17,18 @@
 }
 
 .Reviews {
-  font-weight: 500;
   text-align: center;
+} @media (max-width: 800px) {
+  .Reviews {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+  }
+} @media (min-width: 801px) {
+  .Reviews {
+    font-weight: 500;
+  }
 }
 
 .page {
@@ -33,7 +43,7 @@
   display: flex;
 } @media (max-width: 800px) {
   .CardsWrapper {
-    flex-direction: column;
+    display: none;
   }
 }
 
@@ -41,6 +51,12 @@
   color: mat-color($mat-teal, 400);
   justify-content: center;
   margin-bottom: 5px;
+} @media (max-width: 800px) {
+  .Star {
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
+  }
 }
 
 .Button {
@@ -82,6 +98,10 @@
   font-size: 15px;
   font-weight: 500;
   letter-spacing: 0.5px;
+} @media (max-width: 800px) {
+  .CourseNumber {
+    font-size: 18px;
+  }
 }
 
 .CoursePageButton {
@@ -116,8 +136,21 @@
   display: flex;
   justify-content: space-between;
   background-color: mat-color($mat-gray, 300);
-  margin-bottom: 5px;
   padding: 10px;
+  margin-left: 14px;
+  border-radius: 6px;
+  max-height: 40px;
+  margin-top: 4px;
+} @media (max-width: 800px) {
+  .ListItem /deep/ .mat-list-text {
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+}
+@media (max-width: 800px) {
+  .CourseReviewNameAndDate /deep/ .mat-expansion-panel-header-description {
+    margin-right: 0px;
+  }
 }
 
 .CourseReviewNameAndDate {
@@ -125,6 +158,12 @@
   flex: 0 0 auto;
   max-width: 160px;
   width: 100%;
+} @media (max-width: 800px) {
+  .CourseReviewNameAndDate {
+    max-width: 145px;
+    font-size: 12px;
+    margin-right: 10px;
+  }
 }
 
 .QuestionTitle {
@@ -185,6 +224,11 @@
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+} @media (max-width: 800px) {
+  .CoursePageAccordion .mat-expansion-panel {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 }
 
 .CourseReviewPanelTitle {
@@ -236,6 +280,10 @@
   flex: 0 0 auto;
   max-width: 120px;
   width: 100%;
+} @media (max-width: 800px){
+  .NameAndDate {
+    max-width: 105px;
+  }
 }
 
 .PostNameAndDate {
@@ -246,6 +294,10 @@
   max-width: 120px;
   width: 100%;
   overflow: hidden;
+} @media (max-width: 800px) {
+  .PostNameAndDate {
+    max-width: 105px;
+  }
 }
 
 .DeleteIconButton {
@@ -269,4 +321,117 @@
   height: 40px;
   width: 40px;
   flex: 0 0 auto;
+}
+
+.MobileCardsWrapper {
+  display: flex;
+  flex-direction: column;
+} @media (min-width: 801px) {
+  .MobileCardsWrapper {
+    display: none;
+  }
+}
+
+.CourseCard {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  flex: 0 0 auto;
+}
+
+.CourseBasicDetails {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  align-items: center;
+  padding-bottom: 10px;
+  padding-top: 5px;
+}
+
+.MobileCourseTitle {
+  font-weight: 500;
+  font-size: 24px;
+  text-align: center;
+}
+
+.CourseContactDivider {
+  border-top-width: 2px;
+}
+
+.CourseFullDetails {
+  padding: 10px 10px 0px;
+}
+
+.MobileAddToMyCoursesButton {
+  line-height: 30px;
+  max-height: 30px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  background-color: mat-color($mat-gray, 100);
+  width: 100%;
+}
+
+.Title {
+  font-weight: 500;
+}
+
+.Space {
+  width: 4px;
+  height: auto;
+  display: inline-block;
+}
+
+.MobileCoursePageButtonContainer {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.MobileCourseButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 auto;
+  width: 0;
+}
+
+.MobileIcon {
+  font-size: 22px;
+  height: 22px;
+  width: 22px;
+  line-height: 22px;
+}
+
+.FeatureIcon {
+  //background: mat-color($mat-deep-orange, 200);
+  background: mat-color($mat-gray, 600);
+  //color: mat-color($mat-gray, 200);
+  margin-bottom: 2px;
+}
+
+.ButtonDescription {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  align-items: center;
+}
+
+.AllCoursePosts {
+  margin-top: 20px;
+  flex: 1 1 auto;
+  height: 0;
+}
+
+.MobilePostHeader{
+  margin-left: 20px;
+}
+
+.MobilePostsWrapper {
+  padding-bottom: 18px;
+}
+
+.Header {
+  max-height: 40px;
+  padding-right: 0px;
 }

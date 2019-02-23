@@ -11,6 +11,11 @@
 .PostTextArea /deep/ img {
   max-width: 500px;
   max-height: 500px;
+} @media (max-width: 800px) {
+  .PostTextArea /deep/ img {
+    max-width: 150px;
+    max-height: 150px;
+  }
 }
 
 .PostTextArea /deep/ .angular-editor-button[title="Clear Formatting"],

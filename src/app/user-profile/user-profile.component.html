@@ -14,8 +14,8 @@
             <button mat-flat-button mat-line class="mat-h4 QuestionTitle"
                     (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
             <span mat-line class="VotesAndAnswers">
-              <span>votes: {{question.upvote.count}}</span>
-              <span>answers: {{question.answers.length}}</span>
+              <span>Votes: {{question.upvote.count}}</span>
+              <span>Answers: {{question.answers.length}}</span>
             </span>
           </mat-list-item>
         </ng-container>
@@ -46,7 +46,7 @@
               <div class="PostContent" [innerHtml]="partner.content"></div>
               <mat-divider class="ContactDivider"></mat-divider>
               <mat-chip-list class="ChipList">
-                <mat-chip (click)="navigateToCoursePage(partner.uiCourse)">{{partner.uiCourse.name}}</mat-chip>
+                <mat-chip class="Chip" (click)="navigateToCoursePage(partner.uiCourse)">{{partner.uiCourse.name}}</mat-chip>
               </mat-chip-list>
             </mat-expansion-panel>
           </mat-accordion>
@@ -72,7 +72,7 @@
               <div class="PostContent" [innerHtml]="hour.content"></div>
               <mat-divider class="ContactDivider"></mat-divider>
               <mat-chip-list class="ChipList">
-                <mat-chip (click)="navigateToCoursePage(hour.uiCourse)">{{hour.uiCourse.name}}</mat-chip>
+                <mat-chip class="Chip" (click)="navigateToCoursePage(hour.uiCourse)">{{hour.uiCourse.name}}</mat-chip>
               </mat-chip-list>
             </mat-expansion-panel>
           </mat-accordion>
@@ -102,7 +102,7 @@
               <div class="PostContent" [innerHtml]="review.content"></div>
               <mat-divider class="ContactDivider"></mat-divider>
               <mat-chip-list class="ChipList">
-                <mat-chip (click)="navigateToCoursePage(review.uiCourse)">{{review.uiCourse.name}}</mat-chip>
+                <mat-chip class="Chip" (click)="navigateToCoursePage(review.uiCourse)">{{review.uiCourse.name}}</mat-chip>
               </mat-chip-list>
             </mat-expansion-panel>
           </mat-accordion>
@@ -116,8 +116,8 @@
           <mat-list-item class="ListItem" *ngFor="let question of userDetails.favorites">
             <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
             <span mat-line class="VotesAndAnswers">
-            <span>votes: {{question.upvote.count}}</span>
-            <span>answers: {{question.answers.length}}</span>
+            <span>Votes: {{question.upvote.count}}</span>
+            <span>Answers: {{question.answers.length}}</span>
           </span>
           </mat-list-item>
         </ng-container>
@@ -166,8 +166,8 @@
           <button mat-flat-button mat-line class="mat-h4 QuestionTitle"
                   (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
           <div mat-line class="VotesAndAnswers">
-            <div>votes: {{question.upvote.count}}</div>
-            <div>answers: {{question.answers.length}}</div>
+            <div>Votes: {{question.upvote.count}}</div>
+            <div>Answers: {{question.answers.length}}</div>
           </div>
         </mat-list-item>
       </ng-container>
@@ -197,7 +197,7 @@
             <div class="PostContent" [innerHtml]="partner.content"></div>
             <mat-divider class="ContactDivider"></mat-divider>
             <mat-chip-list class="ChipList">
-              <mat-chip (click)="navigateToCoursePage(partner.uiCourse)">{{partner.uiCourse.name}}</mat-chip>
+              <mat-chip class="Chip" (click)="navigateToCoursePage(partner.uiCourse)">{{partner.uiCourse.name}}</mat-chip>
             </mat-chip-list>
           </mat-expansion-panel>
         </mat-accordion>
@@ -220,7 +220,7 @@
             <div class="PostContent" [innerHtml]="hour.content"></div>
             <mat-divider class="ContactDivider"></mat-divider>
             <mat-chip-list class="ChipList">
-              <mat-chip (click)="navigateToCoursePage(hour.uiCourse)">{{hour.uiCourse.name}}</mat-chip>
+              <mat-chip class="Chip" (click)="navigateToCoursePage(hour.uiCourse)">{{hour.uiCourse.name}}</mat-chip>
             </mat-chip-list>
           </mat-expansion-panel>
         </mat-accordion>
@@ -248,7 +248,7 @@
             <div class="PostContent" [innerHtml]="review.content"></div>
             <mat-divider class="ContactDivider"></mat-divider>
             <mat-chip-list class="ChipList">
-              <mat-chip (click)="navigateToCoursePage(review.uiCourse)">{{review.uiCourse.name}}</mat-chip>
+              <mat-chip class="Chip" (click)="navigateToCoursePage(review.uiCourse)">{{review.uiCourse.name}}</mat-chip>
             </mat-chip-list>
           </mat-expansion-panel>
         </mat-accordion>
@@ -260,8 +260,8 @@
         <mat-list-item class="ListItem" *ngFor="let question of userDetails.favorites">
           <button mat-flat-button mat-line class="mat-h4 QuestionTitle" (click)="navigateToQuestionPage(question)">{{question.subject}}</button>
           <div mat-line class="VotesAndAnswers">
-            <div>votes: {{question.upvote.count}}</div>
-            <div>answers: {{question.answers.length}}</div>
+            <div>Votes: {{question.upvote.count}}</div>
+            <div>Answers: {{question.answers.length}}</div>
           </div>
         </mat-list-item>
       </ng-container>
