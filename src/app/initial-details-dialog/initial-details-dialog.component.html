@@ -1,7 +1,12 @@
   <div class="DetailsDialog">
   <h1 mat-dialog-title class="DetailsDialogTitle">{{title}}</h1>
   <mat-dialog-content class="DetailsDialogContent">
-    <h5 class="SmallDialogHeader FirstHeader">Choose your program:</h5>
+    <h5 class="SmallDialogHeader FirstHeader">
+      Choose your program:
+      <mat-icon class="ProgramsHelp" matTooltip="Write your program in free-text, if you can't find it">
+        help_outline
+      </mat-icon>
+    </h5>
     <app-autocomplete class="DetailsInput ProgramInput" [options]="programs" #programAutocomplete [isRequired]="true"
                       [placeholder]="'Choose your program'" [selectedOption]="selectedProgram">
     </app-autocomplete>
