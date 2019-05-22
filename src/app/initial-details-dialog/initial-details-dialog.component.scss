@@ -82,3 +82,15 @@
 .SkillChips /deep/ .mat-form-field-infix{
   border-top: 0;
 }
+
+.ProgramsHelp {
+  height: 14px;
+  font-size: 14px;
+  width: 14px;
+  line-height: 14px;
+  margin-left: 4px;
+} @media (max-width: 800px) {
+  .ProgramsHelp {
+    display: none;
+  }
+}

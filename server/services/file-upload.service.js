@@ -3,9 +3,9 @@ const multerS3 = require('multer-s3');
 const aws = require('aws-sdk');
 
 aws.config.update({
-  secretAccessKey: 'hI/AKJgvrXMOMlso8OTejEhAtunOXlXwNyg/+F2K',
-  accessKeyId: 'AKIAJTIWRJUCCJZBTRYQ',
-  region: 'us-east-1' // region of your bucket
+  secretAccessKey: 'DppDAJqf03JQZdvXhyX+1uYJJey6S8Onu6AeM/xI',
+  accessKeyId: 'AKIAI2EBJYMDNXK5CFTQ',
+  region: 'us-east-2' // region of your bucket
 });
 
 const s3 = new aws.S3();
@@ -13,7 +13,7 @@ const s3 = new aws.S3();
 const upload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: 'tauoverflow-images',
+    bucket: 'tau-overflow-img-bucket',
     acl: 'public-read',
     key: function (req, file, cb) {
       cb(null, Date.now().toString())
