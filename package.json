@@ -47,7 +47,7 @@
     "nodemon": "^1.18.8",
     "react-rte-material": "^0.12.5",
     "rxjs": "^6.3.3",
-    "tinymce": "^4.9.2",
+    "tinymce": "^4.9.11",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
