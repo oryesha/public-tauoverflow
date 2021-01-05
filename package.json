@@ -28,7 +28,7 @@
     "angular2-tinymce": "^3.3.0",
     "angularfire2": "^5.1.1",
     "aws-sdk": "^2.404.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "core-js": "^2.5.4",
